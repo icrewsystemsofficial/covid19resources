@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('/', 'layouts.atlantis');
+
 Route::get('/', function () {
     return view('welcome');
 });
