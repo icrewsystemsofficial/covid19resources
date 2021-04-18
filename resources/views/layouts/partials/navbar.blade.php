@@ -12,8 +12,8 @@
                     <input type="text" placeholder="Search ..." class="form-control">
                 </div>
             </form> --}}
-            <span class="text-white">
-                -- JS SYSTEM TIME --
+            <span class="text-white" id="clock-box">
+                { TIME }
             </span>
         </div>
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">

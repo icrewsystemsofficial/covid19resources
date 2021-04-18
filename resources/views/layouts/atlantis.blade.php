@@ -21,19 +21,20 @@
 
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
+	{{-- <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}">
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
 </head>
 <body>
-	<div class="wrapper">
+	<div class="wrapper sidebar_minimize">
 		<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
 
 				<a href="index.html" class="logo text-white">
-					<img style="margin-top: -5px; width: 20px; height: auto;" src="https://cdn.discordapp.com/attachments/530789778912837640/686668588500779122/PicsArt_03-10-01.45.43.png" alt="navbar brand" class="navbar-brand">
+					{{-- <img style="margin-top: -5px; width: 20px; height: auto;" src="https://cdn.discordapp.com/attachments/530789778912837640/686668588500779122/PicsArt_03-10-01.45.43.png" alt="navbar brand" class="navbar-brand"> --}}
                     {{ config('app.name') }}
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -203,6 +204,25 @@
 			lineColor: '#ffa534',
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('clock-box').innerHTML =
+            h + ":" + m + ":" + s + ' IST';
+            var t = setTimeout(startTime, 500);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+
+        startTime();
 	</script>
 </body>
 </html>
