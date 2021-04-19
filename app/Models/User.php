@@ -20,6 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'state',
+        'district',
+        'accepted',
     ];
 
     /**
@@ -40,4 +43,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function states() {
+        // return States::where('code', auth()->user()->state)->first();
+        return $this->hasOne(States::class, 'code', 'state');
+    }
 }

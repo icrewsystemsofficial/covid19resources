@@ -1,4 +1,5 @@
 @extends('layouts.authentication')
+@section('title', 'Register as a volunteer')
 @section('js')
 <script>
     @if ($errors->any())
@@ -49,6 +50,19 @@
                     <label for="email" class="placeholder"><b>Email</b></label>
                     <input id="email" name="email" type="text" class="form-control" required="">
                 </div>
+
+                <div class="form-group">
+                    <label for="state" class="placeholder"><b>State</b></label>
+                    <select name="state" onchange="getDistricts(this.value);" id="state" class="form-control">
+                        @foreach ($states as $state)
+                            <option value="{{ $state->code }}">
+                                {{ $state->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+
                 <div class="form-group">
                     <label for="password" class="placeholder"><b>Password</b></label>
                     <div class="position-relative">
@@ -73,13 +87,13 @@
                         <input type="checkbox" class="custom-control-input" name="remember" id="remember_me">
                         <label class="custom-control-label m-0" for="remember_me">Remember Me</label>
                     </div> --}}
-                    <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Login</button>
+                    <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Register</button>
                 </div>
                 <div class="login-account">
                     <span class="msg">
                         Already a volunteer?
                     </span>
-                    <a href="{{ route('login') }}" class="link">Register</a>
+                    <a href="{{ route('login') }}" class="link">Login</a>
                 </div>
             </div>
         </div>

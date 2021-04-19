@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Districts;
+use App\Models\States;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -19,7 +21,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'states' => States::all(),
+            'districts' => Districts::all(),
+        ]);
     }
 
     /**
@@ -35,12 +40,15 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'state' => 'required|string|max:30',
             'password' => 'required|string|confirmed|min:8',
         ]);
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'state' => $request->state,
             'password' => Hash::make($request->password),
         ]);
 

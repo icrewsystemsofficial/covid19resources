@@ -22,7 +22,7 @@
                     <i class="fa fa-search"></i>
                 </a>
             </li>
-            <li class="nav-item dropdown hidden-caret">
+            {{-- <li class="nav-item dropdown hidden-caret">
                 <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-envelope"></i>
                 </a>
@@ -91,8 +91,8 @@
                         <a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
                     </li>
                 </ul>
-            </li>
-            <li class="nav-item dropdown hidden-caret">
+            </li> --}}
+            {{-- <li class="nav-item dropdown hidden-caret">
                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell"></i>
                     <span class="notification">4</span>
@@ -149,53 +149,30 @@
                         <a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown hidden-caret">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <i class="fas fa-layer-group"></i>
+                    <i class="fas fa-share-alt"></i>
                 </a>
-                <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+                <div class="dropdown-menu quick-actions quick-actions-primary animated fadeIn">
                     <div class="quick-actions-header">
-                        <span class="title mb-1">Quick Actions</span>
-                        <span class="subtitle op-8">Shortcuts</span>
+                        <span class="title mb-1">Share this tool</span>
+                        <span class="subtitle op-8">Awareness is the first step in fighting this battle</span>
                     </div>
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
                             <div class="row m-0">
                                 <a class="col-6 col-md-4 p-0" href="#">
                                     <div class="quick-actions-item">
-                                        <i class="flaticon-file-1"></i>
-                                        <span class="text">Generated Report</span>
+                                        <i class="fab fa-facebook"></i>
+                                        <span class="text">Facebook</span>
                                     </div>
                                 </a>
+
                                 <a class="col-6 col-md-4 p-0" href="#">
                                     <div class="quick-actions-item">
-                                        <i class="flaticon-database"></i>
-                                        <span class="text">Create New Database</span>
-                                    </div>
-                                </a>
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="flaticon-pen"></i>
-                                        <span class="text">Create New Post</span>
-                                    </div>
-                                </a>
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="flaticon-interface-1"></i>
-                                        <span class="text">Create New Task</span>
-                                    </div>
-                                </a>
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="flaticon-list"></i>
-                                        <span class="text">Completed Tasks</span>
-                                    </div>
-                                </a>
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="flaticon-file"></i>
-                                        <span class="text">Create New Invoice</span>
+                                        <i class="fas fa-clipboard"></i>
+                                        <span class="text">Copy Link</span>
                                     </div>
                                 </a>
                             </div>
@@ -203,6 +180,7 @@
                     </div>
                 </div>
             </li>
+            @auth
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
@@ -215,24 +193,33 @@
                             <div class="user-box">
                                 <div class="avatar-lg"><img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="image profile" class="avatar-img rounded"></div>
                                 <div class="u-text">
-                                    <h4>Auth User</h4>
-                                    <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                    <h4>{{ auth()->user()->name }}</h4>
+                                    <p class="text-muted">{{ auth()->user()->email }}</p>
+                                    <p class="h5 text-muted">{{ auth()->user()->states->name }}</p>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">My Profile</a>
-                            <a class="dropdown-item" href="#">My Balance</a>
-                            <a class="dropdown-item" href="#">Inbox</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Account Setting</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <form id="logout_form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
+                            <a class="dropdown-item" onclick="document.getElementById('logout_form').submit()">Logout</a>
                         </li>
                     </div>
                 </ul>
             </li>
+            @endauth
+
+            @guest
+            <li class="nav-item dropdown hidden-caret">
+                <a class="nav-link" href="{{ route('login') }}" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+            </li>
+            @endguest
         </ul>
     </div>
 </nav>

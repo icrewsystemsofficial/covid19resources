@@ -43,6 +43,7 @@ class StatesSeeder extends Seeder
                         if(!$district_find > 0) {
                             $db_district = new Districts;
                             $db_district->name = $district->name;
+                            $db_district->code = $state->code;
                             $db_district->state = $state->name;
                             $db_district->save();
                             $this->command->info($district->name.' [DISTRICT] was added');
