@@ -31,13 +31,34 @@
                     <h4 class="text-section">Administration</h4>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.categories.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Categories</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.faq.index') }}">
+                        <i class="fas fa-question-circle"></i>
+                        <p>FAQ</p>
+                    </a>
+                </li>
+
+
+
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-layer-group"></i>
                         <p>Content</p>
-                        <span class="caret"></span>
                     </a>
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.categories.index') }}">
+                                    <span class="sub-item">Categories</span>
+                                </a>
+                            </li>
+
                             <li>
                                 <a href="{{ route('admin.faq.index') }}">
                                     <span class="sub-item">FAQ</span>

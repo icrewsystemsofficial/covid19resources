@@ -8,79 +8,50 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+    public function admin_index() {
+        return view('dashboard.admin.categories.index', [
+            'categories' => Category::all(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function admin_create() {
+        return view('dashboard.admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function admin_manage($id) {
+        return view('dashboard.admin.categories.manage', [
+            'category' => Category::find($id),
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
+    public function admin_save() {
+        $category = new Category;
+        $category->name = request('name');
+        $category->description = request('description');
+        $category->status = request('status');
+        $category->save();
+
+        notify()->success('Category was added', 'Yayy!');
+        return redirect(route('admin.categories.index'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+    public function admin_update($id) {
+        $category = Category::find($id);
+        $category->name = request('name');
+        $category->description = request('description');
+        $category->status = request('status');
+        $category->update();
+
+        notify()->success('Category was updated', 'Yayy!');
+        return redirect(route('admin.categories.index'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
+    public function admin_delete($id) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
+        Category::find($id)->delete();
+        notify()->success('Category was deleted', 'Hmmm, okay');
+        return redirect(route('admin.categories.index'));
+
     }
 }

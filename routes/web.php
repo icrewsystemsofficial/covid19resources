@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/faq/{id}/manage', [FAQ::class, 'admin_manage'])->name('admin.faq.manage');
     Route::post('/faq/{id}/update', [FAQ::class, 'admin_update'])->name('admin.faq.update');
     Route::get('/faq/{id}/delete', [FAQ::class, 'admin_delete'])->name('admin.faq.delete');
+
+
+    Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
+    Route::get('/categories/create', [CategoryController::class, 'admin_create'])->name('admin.categories.create');
+    Route::post('/categories/create/new', [CategoryController::class, 'admin_save'])->name('admin.categories.save');
+    Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
+    Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
+    Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
+
 });
 
 
