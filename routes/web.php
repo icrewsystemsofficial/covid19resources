@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Admin\CategoryController;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\Admin\CategoryController;
+use App\Http\Controllers\Dashboard\Admin\ResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/location', function() {
+    Cache::put('location', 'TN', now()->addHours(1));
+});
+
+Route::get('/location/get', function() {
+    dd(Cache::get('location'));
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
@@ -25,6 +35,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/faq/{id}/manage', [FAQ::class, 'admin_manage'])->name('admin.faq.manage');
     Route::post('/faq/{id}/update', [FAQ::class, 'admin_update'])->name('admin.faq.update');
     Route::get('/faq/{id}/delete', [FAQ::class, 'admin_delete'])->name('admin.faq.delete');
+
+
+    Route::get('/resources', [ResourceController::class, 'admin_index'])->name('admin.resources.index');
+    Route::get('/resources/create', [ResourceController::class, 'admin_create'])->name('admin.resources.create');
+    Route::post('/resources/create/new', [ResourceController::class, 'admin_save'])->name('admin.resources.save');
+    Route::get('/resources/{id}/manage', [ResourceController::class, 'admin_manage'])->name('admin.resources.manage');
+    Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
+    Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
 
 
     Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
@@ -38,26 +56,21 @@ Route::prefix('admin')->group(function () {
 
 
 Route::get('/json', function() {
-    $json = file_get_contents('https://gist.githubusercontent.com/Dhaneshmonds/1b0ca257b1c34e4842528dcb826ee880/raw/bf0632f3b2a613ac5cb80b9f1dfcf7ff16b7c373/IndianStatesDistricts.json');
-    $data = json_decode($json);
-    foreach($data as $obj) {
-        foreach($obj as $state) {
-            echo $state->name;
-            echo " ".$state->code;
-            echo count($state->districts);
-            echo strtolower(str_replace(' ', '-', $state->type));
-            echo "<br>";
-
-            if(count($state->districts) > 0) {
-                foreach($state->districts as $district) {
-                    echo $district->name;
-                    echo "<br>";
-                }
-            }
-
-            echo "<hr>";
-        }
+    $coords = Http::get('https://www.gps-coordinates.net/api/chennai');
+    $data = $coords->json();
+    $data = (object) $data;
+    if($data->responseCode == 200) {
+        $coordinates = $data->latitude.','.$data->longitude;
+    } else {
+        // $coordinates = $this->faker->latitude().','.$this->faker->longitude();
+        $coordinates = $data;
     }
+
+    echo $coordinates;
+
+    // if($coords->response->responseCode == 200) {
+    //     echo "success";
+    // }
 });
 
 Route::get('/dashboard', function () {

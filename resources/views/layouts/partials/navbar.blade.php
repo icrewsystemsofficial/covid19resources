@@ -15,6 +15,9 @@
             <span class="text-white" id="clock-box">
                 { TIME }
             </span>
+            <span class="text-white">
+                | <span id="location">{{ App\Http\Controllers\API\Location::locationDisplay()->name }}</span>
+            </span>
         </div>
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
             <li class="nav-item toggle-nav-search hidden-caret">
@@ -164,7 +167,7 @@
                             <div class="row m-0">
                                 <a class="col-6 col-md-4 p-0" href="#">
                                     <div class="quick-actions-item">
-                                        <i class="fab fa-facebook"></i>
+                                        <i class="fa fa-facebook"></i>
                                         <span class="text">Facebook</span>
                                     </div>
                                 </a>

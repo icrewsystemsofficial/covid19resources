@@ -4,7 +4,7 @@
             <ul class="nav nav-primary">
                 <li class="nav-item active">
                     <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-heartbeat"></i>
                         <p>Dashboard</p>
                         <span class="caret"></span>
                     </a>
@@ -38,6 +38,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.resources.index') }}">
+                        <i class="fas fa-database"></i>
+                        <p>Resources</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.faq.index') }}">
                         <i class="fas fa-question-circle"></i>
                         <p>FAQ</p>
@@ -48,20 +55,21 @@
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
-                        <i class="fas fa-layer-group"></i>
-                        <p>Content</p>
+                        <i class="fas fa-globe-americas"></i>
+                        <p>Geography</p>
+                        <span class="caret"></span>
                     </a>
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="{{ route('admin.categories.index') }}">
-                                    <span class="sub-item">Categories</span>
+                                    <span class="sub-item">Districts</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="{{ route('admin.faq.index') }}">
-                                    <span class="sub-item">FAQ</span>
+                                    <span class="sub-item">States & UT</span>
                                 </a>
                             </li>
                         </ul>

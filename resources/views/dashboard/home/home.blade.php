@@ -3,7 +3,14 @@
 {{-- @section('css')
 @endsection --}}
 @section('js')
+<script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
 <script>
+
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
+
 		Circles.create({
 			id:'circles-1',
 			radius:45,
@@ -99,6 +106,37 @@
 
 
 	</script>
+
+    <script>
+        function changeLocation(state) {
+            var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
+            axios.get(api_url + state)
+            .then(function (response) {
+            // handle success
+                $.notify({
+                    icon: 'flaticon-alarm-1',
+                    title: '{{ config("app.name") }}',
+                    message: 'Location has been updated to ' + response.data.name,
+                },{
+                    type: 'primary',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
+
+                document.getElementById('location').innerHTML = response.data.name;
+            })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+            })
+            .then(function () {
+            // always executed
+            });
+        }
+    </script>
 @endsection
 
 
@@ -113,10 +151,10 @@
             </div>
             <div class="ml-md-auto py-2 py-md-0">
                 <form action="">
-                    <select name="state" class="form-control" id="">
+                    <select name="state" onchange="changeLocation(this.value);" class="form-control select2" id="">
+                        <option value="all" selected disabled>Select a state</option>
                         @foreach ($states as $state)
-
-                        <option value="{{ $state->code }}" <?php if($state->code == 'TN') { echo "selected"; } ?>>
+                        <option value="{{ $state->code }}" <?php if($currentlocation->code == $state->code) { echo "selected"; } ?>>
                             {{ $state->name }}
                         </option>
                         @endforeach
@@ -128,23 +166,124 @@
 </div>
 <div class="page-inner mt--5">
     <div class="row mt--2">
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        What would you like to know about?
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                        <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="false">
+                                <i class="flaticon-home"></i>
+                                Statistics
+                            </a>
+                        </li>
+                        <li class="nav-item submenu">
+                            <a class="nav-link active show" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="true">
+                                <i class="flaticon-user-4"></i>
+                                Hospitals
+                            </a>
+                        </li>
+                        <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="flaticon-mailbox"></i>
+                                Ambulance
+                            </a>
+                        </li>
+                        <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="flaticon-mailbox"></i>
+                                Oxygen
+                            </a>
+                        </li>
+                        <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="flaticon-mailbox"></i>
+                                Vaccines
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
+                        <div class="tab-pane fade" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                        </div>
+                        <div class="tab-pane fade active show" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                            <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didnâ€™t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
+                            <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
+
+                            <p> But nothing the copy said could convince her and so it didnâ€™t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Do you have <strong>verified</strong> information?
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-danger btn-block">
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="h1 fw-bold float-right text-danger">
+                        1284
+                    </div>
+                    <h4 class="">{{ $currentlocation->name }}</h4>
+                    <p class="text-muted">Update rate</p>
+                    <div class="pull-in sparkline-fix">
+                        <div id="lineChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>
+                        Not COVID-19 Positive? There are <strong>12 ways</strong> you can help
+                    </h2>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="card full-height">
                 <div class="card-body">
-                    <div class="card-title">Overall statistics</div>
-                    <div class="card-category">Daily information about statistics in system</div>
+                    <div class="card-title">Overall Status</div>
+                    <div class="card-category">
+                        Latest information according to COVID API data for {{ $currentlocation->name }}
+                    </div>
                     <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-1"></div>
-                            <h6 class="fw-bold mt-3 mb-0">New Users</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Active</h6>
                         </div>
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-2"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Sales</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Recovered</h6>
                         </div>
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-3"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Subscribers</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Vaccinated</h6>
                         </div>
                     </div>
                 </div>
@@ -176,6 +315,82 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="h1 fw-bold float-right text-warning">+7%</div>
+                    <h2 class="mb-2">213</h2>
+                    <p class="text-muted">Transactions</p>
+                    <div class="pull-in sparkline-fix">
+                        <div id="lineChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card full-height">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">Frequently Asked Questions</div>
+                        <div class="card-tools">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" id="faq_query" name="query" class="form-control" placeholder="Search">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-primary" onclick="search();" type="button"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function search() {
+                                        var query = document.getElementById('faq_query').value;
+                                        alert(query);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @forelse ($faqs as $faq)
+                        <div class="d-flex">
+                            <div class="flex-1 ml-3 pt-1">
+                                <h6 class="text-uppercase fw-bold mb-1">
+                                    {{ $faq->title }}
+                                </h6>
+                                <span class="text-muted">
+                                    By: {{ $faq->author->name }}
+                                </span>
+                                <br><br>
+                                    @foreach (json_decode($faq->categories) as $cat)
+                                        @php
+                                            $category = \App\Models\Category::find($cat);
+                                        @endphp
+                                        @if ($category)
+                                        <span class="badge badge-primary">
+                                            {{ $category->name }}
+                                        </span>
+                                        @endif
+                                    @endforeach
+                            </div>
+                            <div class="float-right pt-1">
+                                <small class="text-muted">{{ $faq->updated_at->diffForHumans() }}</small>
+                            </div>
+                        </div>
+                        <div class="separator-dashed"></div>
+                    @empty
+                        <div class="alert alert-danger">
+                            Whoops! No FAQs added for {{ $currentlocation->name }} yet.
+                        </div>
+                    @endforelse
+                </div>
+                <div class="card-footer">
+                    {{ $faqs->appends(['search' => Request::get('search')])->links() }}
+                </div>
+            </div>
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">

@@ -22,11 +22,12 @@
 	<!-- CSS Files -->
     @notifyCss
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-	{{-- <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}"> --}}
     <link rel="stylesheet" href="https://demo.themekita.com/atlantis/livepreview/examples/assets/css/atlantis.css">
-
+    {{-- <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}"> --}}
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
 </head>
 <body>
 	<div class="wrapper sidebar_minimize">
@@ -80,7 +81,7 @@
 	<script src="{{ asset('atlantis/assets/js/core/jquery.3.2.1.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/core/popper.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/core/bootstrap.min.js') }}"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="{{ asset('atlantis/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>

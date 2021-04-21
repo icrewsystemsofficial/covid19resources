@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Location;
 use App\Http\Controllers\API\States;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
+    Route::get('/currentlocation', [Location::class, 'currentLocation']);
+    Route::get('/currentlocation/update/{code}', [Location::class, 'currentLocation_update']);
 });
