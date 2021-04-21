@@ -12,7 +12,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "mckenziearts/laravel-notify": "^2.1",
-        "spatie/laravel-permission": "^4.0"
+        "spatie/laravel-permission": "^4.0",
+        "spatie/laravel-twitter-streaming-api": "^1.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

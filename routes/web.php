@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
+use App\Http\Controllers\Dashboard\Admin\TwitterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
 
+    Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
 });
 
 

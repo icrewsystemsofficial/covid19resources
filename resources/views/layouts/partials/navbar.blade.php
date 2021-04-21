@@ -198,7 +198,7 @@
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>
-                                    <p class="h5 text-muted">{{ auth()->user()->states->name }}</p>
+                                    {{-- <p class="h5 text-muted">{{ auth()->user()->states->name }}</p> --}}
                                 </div>
                             </div>
                         </li>

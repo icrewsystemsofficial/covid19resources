@@ -408,23 +408,14 @@
                                                     <span class="badge badge-success">
                                                         Verified <i class="fas fa-check"></i>
                                                     </span>
-                                                    <script>
-                                                        verified = verified + 1;
-                                                    </script>
                                                 @elseif($resource->verified == 2)
                                                     <span class="badge badge-danger">
                                                         Refuted <i class="fas fa-times"></i>
                                                     </span>
-                                                    <script>
-                                                        refuted = refuted + 1;
-                                                    </script>
                                                 @else
                                                     <span class="badge badge-warning">
                                                         Pending <i class="fas fa-exclamation-triangle"></i>
                                                     </span>
-                                                    <script>
-                                                        pending = pending + 1;
-                                                    </script>
                                                 @endif
                                             </td>
                                             {{-- <td class="text-center">

@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\API\Location;
-use App\Http\Controllers\API\States;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\States;
+use App\Http\Controllers\API\Twitter;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\Location;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/cities/{state?}', [States::class, 'getCities']);
     Route::get('/currentlocation', [Location::class, 'currentLocation']);
     Route::get('/currentlocation/update/{code}', [Location::class, 'currentLocation_update']);
+    Route::get('/twitter', [Twitter::class, 'index']);
 });
