@@ -24,7 +24,7 @@ class DeveloperAccess extends Seeder
         $user->email = 'kashrayks@gmail.com';
         $user->email_verified_at = now();
         $user->password = "$2y$10$8CfoYn2vturcIeuGRQfzfuUb1XOT2G3aSvZZBiISMbz80hxfAHM7."; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
-        $user->approved = '1';
+        $user->accepted = '1';
         $user->save();
         $this->command->info("User: Leonard Selvaraja created.");
       }
@@ -36,7 +36,7 @@ class DeveloperAccess extends Seeder
         $user->email = 'm.thirurahul@gmail.com';
         $user->email_verified_at = now();
         $user->password = '$2y$10$gp5aizeQoP2mLDCPj.utb.xXS1rQaM3PkXd.Z1XliBWTxQcdXqqUC'; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
-        $user->approved = '1';
+        $user->accepted = '1';
         $user->save();
         $this->command->info("User: Thirumalai created.");
       }
@@ -48,7 +48,7 @@ class DeveloperAccess extends Seeder
         $user->email = 'randaccforme2000@gmail.com';
         $user->email_verified_at = now();
         $user->password ='$2y$10$Bza8A1MjVfBq2HI53xna1.D8wfS9QLn9TpXoYN/IYjaoOYrlBY1aK'; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
-        $user->approved = '1';
+        $user->accepted = '1';
         $user->save();
         $this->command->info("User: Dinesh Kumar created.");
       }
@@ -60,7 +60,7 @@ class DeveloperAccess extends Seeder
         $user->email = 'lyrakerman@gmail.com';
         $user->email_verified_at = now();
         $user->password = '$2y$10$.UuTdJSIjY.ztfspGgaJ8.FyA7VjsC8TKZ3jxoWaoeQi7rIZYY6xO';
-        $user->approved = '1';
+        $user->accepted = '1';
         $user->save();
         $this->command->info("User: Samay created.");
       }
@@ -72,7 +72,7 @@ class DeveloperAccess extends Seeder
         $user->email = 'ayshwaria.grace@icrewsystems.com';
         $user->email_verified_at = now();
         $user->password = '$2y$10$.UuTdJSIjY.ztfspGgaJ8.FyA7VjsC8TKZ3jxoWaoeQi7rIZYY6xO';
-        $user->approved = '1';
+        $user->accepted = '1';
         $user->save();
         $this->command->info("User: Ayshwaria Grace created.");
       }

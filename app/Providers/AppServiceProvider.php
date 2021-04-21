@@ -28,11 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
 
         if(Schema::hasTable('states')) {
-            $states = States::all();
-            if(!$states->isEmpty()) {
-                $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-                View::share('currentlocation', $currentlocation);
-            }
+            $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
+            View::share('currentlocation', $currentlocation);
         }
 
         Paginator::useBootstrap();

@@ -15,15 +15,28 @@ class Location extends Controller
             // TODO: Make this dynamic by Geolocation.
             $location = 'TN';
             self::currentLocation_update($location);
+            $state = array(
+                'name' => 'Tamil Nadu',
+                'code' => 'TN',
+            );
+
+            return false;
+        } else {
+            // $states = States::all();
+            // if(!$states->isEmpty())
+            $state = States::where('code', $location)->first();
+            return $state;
         }
-        $state = States::where('code', $location)->first();
-        return $state;
     }
 
     public static function locationDisplay() {
         $location = self::currentLocation();
-        $state = States::where('code', $location->code)->first();
-        return $state;
+        if(is_object($location)) {
+            $state = States::where('code', $location->code)->first();
+            return $state;
+        } else {
+            return false;
+        }
     }
 
     public static function currentLocation_update($code) {

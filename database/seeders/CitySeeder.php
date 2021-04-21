@@ -29,6 +29,8 @@ class CitySeeder extends Seeder
                     $db_district->name = $city->District;
                     $db_district->code = 'null';
                     $db_district->state = $city->State;
+                    $db_district->created_at = now()->toDateTimeString();
+                    $db_district->updated_at = now()->toDateTimeString();
                     $db_district->save();
                     $this->command->info($city->District.' [DISTRICT] was added');
                 }
@@ -39,6 +41,8 @@ class CitySeeder extends Seeder
                     $db_city->name = $city->City;
                     $db_city->district = $city->District;
                     $db_city->state = $city->State;
+                    $db_city->created_at = now()->toDateTimeString();
+                    $db_city->updated_at = now()->toDateTimeString();
                     $db_city->save();
                     $this->command->info($city->City.', ['.$city->District.', '.$city->State.'] was added');
                 } else {

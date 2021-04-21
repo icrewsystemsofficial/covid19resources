@@ -30,6 +30,8 @@ class StatesSeeder extends Seeder
                     $db_state->capital = $state->capital;
                     $db_state->districts = count($state->districts);
                     $db_state->type = strtolower(str_replace(' ', '-', $state->type));
+                    $db_state->created_at = now()->toDateTimeString();
+                    $db_state->updated_at = now()->toDateTimeString();
                     $db_state->save();
                     $this->command->info($state->name.' ['.$state->type.'] was added');
                 } else {
@@ -45,6 +47,8 @@ class StatesSeeder extends Seeder
                             $db_district->name = $district->name;
                             $db_district->code = $state->code;
                             $db_district->state = $state->name;
+                            $db_district->created_at = now()->toDateTimeString();
+                            $db_district->updated_at = now()->toDateTimeString();
                             $db_district->save();
                             $this->command->info($district->name.' [DISTRICT] was added');
                         } else {
