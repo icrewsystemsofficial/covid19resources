@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
+use App\Models\City;
+use App\Models\States;
 use App\Models\Category;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Resource;
+use App\Models\User;
 
 class ResourceController extends Controller
 {
@@ -16,41 +19,79 @@ class ResourceController extends Controller
     }
 
     public function admin_create() {
-        return view('dashboard.admin.resources.create');
+        return view('dashboard.admin.resources.create', [
+            'categories' => Category::where('status', 1)->get(),
+            'states' => States::all(),
+        ]);
     }
 
     public function admin_manage($id) {
         return view('dashboard.admin.resources.manage', [
             'resource' => Resource::find($id),
+            'categories' => Category::where('status', 1)->get(),
+            'states' => States::all(),
+            'users' => User::where('accepted', 1)->get(),
         ]);
     }
 
     public function admin_save() {
-        $category = new Category;
-        $category->name = request('name');
-        $category->description = request('description');
-        $category->status = request('status');
-        $category->save();
+        $resource = new Resource;
+        $resource->category = request('category');
+        $resource->title = request('name');
+        $resource->body = request('body');
+        $resource->phone = request('phone');
+        $resource->url = request('url');
+        $resource->author_id = request('author_id');
+        $resource->verified = request('status');
 
-        notify()->success('Category was added', 'Yayy!');
+        if(request('status') == 1) {
+            $resource->verified_by = request('author_id');
+        }
+
+        $city = City::where('name', request('city'))->first();
+        $resource->city = $city->name;
+        $resource->district = $city->district;
+        $resource->state = $city->state;
+        $resource->hasAddress = 1;
+        $resource->landmark = request('landmark');
+        $resource->save();
+
+        notify()->success('Resource was added', 'Yayy!');
         return redirect(route('admin.resources.index'));
     }
 
     public function admin_update($id) {
-        $category = Category::find($id);
-        $category->name = request('name');
-        $category->description = request('description');
-        $category->status = request('status');
-        $category->update();
 
-        notify()->success('Category was updated', 'Yayy!');
+        // dd(request()->input());
+        $resource = Resource::find($id);
+        $resource->category = request('category');
+        $resource->title = request('name');
+        $resource->body = request('body');
+        $resource->phone = request('phone');
+        $resource->url = request('url');
+        $resource->author_id = request('author_id');
+        $resource->verified = request('status');
+
+        if(request('status') == 1) {
+            $resource->verified_by = request('author_id');
+        }
+
+        $city = City::where('name', request('city'))->first();
+        $resource->city = $city->name;
+        $resource->district = $city->district;
+        $resource->state = $city->state;
+
+        $resource->landmark = request('landmark');
+        $resource->update();
+
+        notify()->success('Resource was updated', 'Yayy!');
         return redirect(route('admin.resources.index'));
     }
 
     public function admin_delete($id) {
 
-        Category::find($id)->delete();
-        notify()->success('Category was deleted', 'Hmmm, okay');
+        Resource::find($id)->delete();
+        notify()->success('Resource was deleted', 'Hmmm, okay');
         return redirect(route('admin.resources.index'));
 
     }

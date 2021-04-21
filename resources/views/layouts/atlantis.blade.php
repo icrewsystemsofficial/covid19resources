@@ -35,13 +35,13 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
 
-				<a href="index.html" class="logo text-white">
+				<a href="{{ route('home') }}" class="logo text-white">
 					{{-- <img style="margin-top: -5px; width: 20px; height: auto;" src="https://cdn.discordapp.com/attachments/530789778912837640/686668588500779122/PicsArt_03-10-01.45.43.png" alt="navbar brand" class="navbar-brand"> --}}
                     {{ config('app.name') }}
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
-						<i class="icon-menu"></i>
+						<i class="fa fa-bars"></i>
 					</span>
 				</button>
 				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
@@ -117,7 +117,7 @@
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{ asset('atlantis/assets/js/setting-demo.js') }}"></script>
-	<script src="{{ asset('atlantis/assets/js/demo.js') }}"></script>
+	{{-- <script src="{{ asset('atlantis/assets/js/demo.js') }}"></script> --}}
     <script>
         function startTime() {
             var today = new Date();

@@ -113,20 +113,21 @@
             axios.get(api_url + state)
             .then(function (response) {
             // handle success
-                $.notify({
-                    icon: 'flaticon-alarm-1',
-                    title: '{{ config("app.name") }}',
-                    message: 'Location has been updated to ' + response.data.name,
-                },{
-                    type: 'primary',
-                    placement: {
-                        from: "top",
-                        align: "right"
-                    },
-                    time: 1000,
-                });
+                // $.notify({
+                //     icon: 'flaticon-alarm-1',
+                //     title: '{{ config("app.name") }}',
+                //     message: 'Location has been updated to ' + response.data.name,
+                // },{
+                //     type: 'primary',
+                //     placement: {
+                //         from: "top",
+                //         align: "right"
+                //     },
+                //     time: 4000,
+                // });
 
                 document.getElementById('location').innerHTML = response.data.name;
+                window.location.reload();
             })
             .catch(function (error) {
             // handle error
@@ -145,11 +146,11 @@
 <div class="panel-header bg-primary-gradient">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-            <div>
+            <div class="col-md-8 col-md-6">
                 <h2 class="text-white pb-2 fw-bold">{{ config('app.name') }}</h2>
                 <h5 class="text-white op-7 mb-2">State Wise COVID19 Resources. Awareness is the first step in this battle.</h5>
             </div>
-            <div class="ml-md-auto py-2 py-md-0">
+            <div class="col-md-4 col-md-4 py-2 py-md-0">
                 <form action="">
                     <select name="state" onchange="changeLocation(this.value);" class="form-control select2" id="">
                         <option value="all" selected disabled>Select a state</option>

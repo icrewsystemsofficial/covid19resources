@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Categories Admin')
+@section('title', 'Resources Admin')
 @section('js')
     <script>
         $(document).ready( function () {
@@ -13,8 +13,7 @@
         <h4 class="page-title">Resources Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the resources.
-
+        This is a collection of the latest information regarding the resources. There are a total of <span id="total"></span> resources available.
     </p>
     <div class="row">
         <div class="col-md-12">
@@ -84,7 +83,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Categories <span class="badge badge-primary">{{ count($resources) }}</span></h4>
+                    <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($resources) }}</span></h4>
                     <div class="text-right">
                         <a href="{{ route('admin.resources.create') }}" class="btn btn-md btn-primary">
                             Add a new resource <i class="fas fa-plus"></i>
@@ -112,12 +111,13 @@
                                 <tr>
                                     <td>
                                         {{ $resource->title }}
-                                        <br>
+                                        <br><br>
                                         <small>
                                             <span class="badge badge-primary">
                                                 {{ $resource->category_data->name }}
                                             </span>
                                         </small>
+                                        <br><br>
                                     </td>
                                     <td>
                                         @if($resource->hasAddress == 1)
@@ -169,7 +169,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    Whoops! No Categoriess added
+                                    Whoops! No resources found.
                                 </tr>
                             @endforelse
                         </tbody>
@@ -179,6 +179,8 @@
                         document.getElementById('verified').innerHTML = verified;
                         document.getElementById('pending').innerHTML = pending;
                         document.getElementById('refuted').innerHTML = refuted;
+
+                        document.getElementById('total').innerHTML = verified + pending + refuted;
                     </script>
                 </div>
             </div>
