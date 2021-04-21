@@ -20,6 +20,10 @@ use App\Http\Controllers\Dashboard\Admin\ResourceController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
+Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+
+
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
 });

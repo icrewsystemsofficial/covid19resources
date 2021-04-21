@@ -1,13 +1,30 @@
 @extends('layouts.atlantis')
 @section('title', 'Dashboard')
-{{-- @section('css')
-@endsection --}}
+@section('css')
+<style>
+    .table-bg-success {
+        border-radius: 25px;
+        background: #00aa5b !important;
+        background: -webkit-linear-gradient(to right, #00b646, #00aa5b) !important;  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #00b646, #00aa5b) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .table-bg-danger {
+        background: #ED213A !important;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #93291E, #ED213A) !important;  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #93291E, #ED213A) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+
+</style>
+@endsection
 @section('js')
 <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
 <script>
 
         $(document).ready(function() {
             $('.select2').select2();
+            $('#hospitals_table').DataTable();
         });
 
 
@@ -104,6 +121,42 @@
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
 
+        $('#lineChart_1').sparkline([0, 50, 55, 56, 57, 60, 70, 80, 90, 95, 250, 251, 245, 260, 230, 900, 950, 1000, 1200], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#fafafa',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+
+        $('#lineChart_2').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+
+        $('#lineChart_3').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+
+        $('#lineChart_4').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+
 
 	</script>
 
@@ -168,7 +221,7 @@
 <div class="page-inner mt--5">
     <div class="row mt--2">
 
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -176,52 +229,227 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                    <ul class="nav nav-pills nav-primary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="false">
-                                <i class="flaticon-home"></i>
+                            <a class="nav-link active show" id="pills-stats-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" artelected="true">
+                                <i class="fa fa-chart-line"></i>
                                 Statistics
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link active show" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="true">
-                                <i class="flaticon-user-4"></i>
+                            <a class="nav-link" id="pills-hospitals-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                                <i class="fas fa-hospital-symbol"></i>
                                 Hospitals
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
-                                <i class="flaticon-mailbox"></i>
+                            <a class="nav-link" id="pills-ambulance-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="fa fa-ambulance"></i>
                                 Ambulance
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
-                                <i class="flaticon-mailbox"></i>
+                            <a class="nav-link" id="pills-ambulance-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="fas fa-lungs"></i>
                                 Oxygen
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
-                                <i class="flaticon-mailbox"></i>
-                                Vaccines
+                            <a class="nav-link" id="pills-ambulance-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                <i class="fa fa-syringe"></i>
+                                Medicines
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                        <div class="tab-pane fade" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                        <div class="tab-pane fade active show" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-stats-tab-icon">
+                            <div class="row">
 
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                <div class="col-md-12">
+                                    <div class="card card-dark bg-danger-gradient">
+                                        <div class="card-body pb-0">
+                                            <div class="h1 fw-bold float-right text-white">+85%</div>
+                                            <h2 class="mb-0">1237864</h2>
+                                            <p class="text-white">Confirmed Cases</p>
+                                            <div class="pull-in sparkline-fix">
+                                                <div id="lineChart_1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-dark bg-primary-gradient">
+                                        <div class="card-body pb-0">
+                                            <div class="h1 fw-bold float-right text-white">+85%</div>
+                                            <h2 class="mb-0">1237864</h2>
+                                            <p class="text-white">Active Cases</p>
+                                            <div class="pull-in sparkline-fix">
+                                                <div id="lineChart_2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-dark bg-success-gradient">
+                                        <div class="card-body pb-0">
+                                            <div class="h1 fw-bold float-right text-white">+85%</div>
+                                            <h2 class="mb-0">1237864</h2>
+                                            <p class="text-white">Recovered Cases</p>
+                                            <div class="pull-in sparkline-fix">
+                                                <div id="lineChart_3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card card-black">
+                                        <div class="card-body pb-0">
+                                            <div class="h1 fw-bold float-right text-white">+85%</div>
+                                            <h2 class="mb-0">1237864</h2>
+                                            <p class="text-white">Deceased Cases</p>
+                                            <div class="pull-in sparkline-fix">
+                                                <div id="lineChart_4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-body p-3 text-center">
+                                            <div class="text-right text-success">
+                                                6%
+                                                <i class="fa fa-chevron-up"></i>
+                                            </div>
+                                            <div class="h1 m-0">4278</div>
+                                            <div class="text-muted mb-3">Total Resources</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-body p-3 text-center">
+                                            <div class="text-right text-success">
+                                                6%
+                                                <i class="fa fa-chevron-up"></i>
+                                            </div>
+                                            <div class="h1 m-0">94</div>
+                                            <div class="text-muted mb-3">Users / Moderators</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-body p-3 text-center">
+                                            <div class="text-right text-success">
+                                                6%
+                                                <i class="fa fa-chevron-up"></i>
+                                            </div>
+                                            <div class="h1 m-0">43</div>
+                                            <div class="text-muted mb-3">Data providers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane fade active show" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                            <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didnâ€™t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
-                            </p>
+                        <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-hospitals-tab-icon">
+                            <table id="hospitals_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @forelse ($resources as $resource)
+                                        @if($resource->category_data->name == 'Hospitals')
+
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-muted">
+                                                        Not applicable
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                    <script>
+                                                        verified = verified + 1;
+                                                    </script>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                    <script>
+                                                        refuted = refuted + 1;
+                                                    </script>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                    <script>
+                                                        pending = pending + 1;
+                                                    </script>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @empty
+                                        <tr>
+                                            Whoops! No resources found.
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
+                        <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-ambulance-tab-icon">
                             <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
-
                             <p> But nothing the copy said could convince her and so it didnâ€™t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
                         </div>
                     </div>

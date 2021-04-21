@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\Districts;
 use App\Models\FAQ;
 use App\Models\States;
+use App\Models\Resource;
+use App\Models\Districts;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,43 @@ class HomeController extends Controller
             'faqs' => $faq,
             'states' => States::all(),
             'districts' => Districts::all(),
+            'resources' => Resource::where('state', $this->currentlocation->name)->get(),
         ]);
+    }
+
+    public function view($id = '') {
+
+        $resource = Resource::find($id);
+        if($id == '') {
+            notify()->error('Resource ID not passed', 'Whoops');
+            return redirect(route('home'));
+        } else if(!$resource) {
+            notify()->error('The resource you are trying to view is not available', 'Whoops');
+            return redirect(route('home'));
+        } else {
+
+
+
+            return view('dashboard.home.view', [
+                'resource' => $resource,
+            ]);
+        }
+
+
+    }
+
+    public function report($id = '') {
+        $resource = Resource::find($id);
+        if($id == '') {
+            notify()->error('Resource ID not passed', 'Whoops');
+            return redirect(route('home'));
+        } else if(!$resource) {
+            notify()->error('The resource you are trying to view is not available', 'Whoops');
+            return redirect(route('home'));
+        } else {
+            return view('dashboard.home.view', [
+                'resource' => $resource,
+            ]);
+        }
     }
 }

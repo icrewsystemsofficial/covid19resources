@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\States;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,8 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-        View::share('currentlocation', $currentlocation);
+
+        if(Schema::hasTable('states')) {
+            $states = States::all();
+            if(!$states->isEmpty()) {
+                $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
+                View::share('currentlocation', $currentlocation);
+            }
+        }
+
         Paginator::useBootstrap();
     }
 }

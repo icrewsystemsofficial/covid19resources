@@ -1,62 +1,41 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
+<p align="center">    
+    <strong>
+      COVID19 Resource Directory
+    </strong>
+</p>
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="https://cdn.discordapp.com/attachments/530789778912837640/807544305526898698/icrewsystems-bot.png" width="300">   
+</p>
+<p align="center">    
+    <small>
+	Built with compassion, by humans at icrewsystems
+   </small>
 </p>
 
-## About Laravel
+## About
+This project is aimed to be used as a directory listing for resources about COVID19 in India. The application is capable of retrieving and indexing data from API sources.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## How to setup
+1. ```git clone https://github.com/icrewsystemsofficial/covid19resources.git```
+2. cd into the directory
+3. Run composer install, ```composer install```
+4. Create a seperate branch for yourself in git. ```git branch BRANCHNAME``` & ```git checkout BRANCHNAME``` -- Interns are requested not to use Master branch at all.
+5. Copy .env file, ```cp .env.example .env```
+6. Generate Key ```php artisan key:generate```
+7. Create a database named ```laravel_airlime```
+8. Go to /database/seed/DeveloperAccess.php and update the second entry to your name & email ID. By default, it will have Leonard's account setup. You can edit it or add a new entry for yourself. Enter your password by using the Hash facade, ```Hash::make("MyPassword")```
+9. Setup symlink by running ```php artisan storage:link``` (This is only required the first time).
+10. Migrate DB & Seed it (only required on the first time, unless directed by Project Manager)  ```php artisan migrate --seed```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ALWAYS REMEMBER
+1. Whenever you pull from the repository, please run ```composer install``` and ```npm run dev``` to compile all assets.
+2. Run ```php artisan migrate:fresh --seed```. All required data MUST be put into the DB as seeders.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Done! Your project is now setup. You can now directly run it by going to your [http://localhost/covid19resources](http://localhost/covid19resources), you HAVE to run ```php artisan serve``` command. Since we'll be using ngrok to show previews to the client, it's mandatory to leave the server.php intact. If you're using Laragon, you don't have to worry about this, else you have to add an ```ASSET_URL="${APP_URL}/public"``` in your .env file. You can have a spearate tab open to run the php artisan serve command. 
 
-## Learning Laravel
+## How to report?
+Mark your assigned tasks from "Planned" to "In Progress" while working on it, Once you've committed & pushed it, change the task status to "Done". You must report your work on the commits.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Copyrights
+icrewsystems Software Engineering LLP, India <br>
+<img src="https://icrewsystems.com/logo.png" width="150">   
