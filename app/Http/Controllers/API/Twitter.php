@@ -49,14 +49,21 @@ class Twitter extends Controller
     }
 
    public function index() {
-        $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')
-                        ->get('https://api.twitter.com/2/tweets', [
-                            // 'q' => '#Verified #COVID19India',
-                            // 'include_entities' => false,
-                            // 'count' => 100,
-                            // 'result_type' => 'recent',
-                            'ids' => '1385165724914651138',
-                        ]);
+
+        $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')->get('https://api.twitter.com/1.1/search/tweets.json', [
+            'q' => '#Verified #COVID19India',
+            'include_entities' => false,
+            'count' => 100,
+            'result_type' => 'recent',
+        ]);
+
+        // $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')
+        //                 ->get('https://api.twitter.com/1.1/search/tweets.json', [
+        //                     'q' => '#Verified #COVID19India',
+        //                     'include_entities' => false,
+        //                     'count' => 100,
+        //                     'result_type' => 'recent',
+        //                 ]);
 
         dd($tweets->json());
 
