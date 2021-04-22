@@ -1,50 +1,7 @@
 @extends('layouts.atlantis') @section('title','Access Control Admin')
 @section('js')
-<script>
-    $("#role_add").click(function (e) {
-        swal({
-            title: "Create New Role",
-            html:
-                '<br><input class="form-control" placeholder="Input Something" id="input-field">',
-            content: {
-                element: "input",
-                attributes: {
-                    placeholder: "Role name",
-                    type: "text",
-                    id: "input-field",
-                    name: 'name',
-                    className: "form-control",
-                },
-            },
-            type: "warning",
-            buttons: {
-                cancel: {
-                    visible: true,
-                    text: "Cancel",
-                    className: "btn btn-danger",
-                },
-                confirm: {
-                    text: "Create Role",
-                    className: "btn btn-success",
-                },
-            },
-        }).then((willDelete) => {
-            if (willDelete) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
-                    buttons: {
-                        confirm: {
-                            className: "btn btn-success",
-                        },
-                    },
-                });
-                window.location = "#";
-            } else {
-                swal.close();
-            }
-        });
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
 @endsection @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
@@ -58,6 +15,8 @@
                     <div class="mt-3">
                         <button
                             id="role_add"
+                            type="button"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal"
                             class="w-100 btn btn-dark mb-4 text-uppercase"
                         >
                             create new role
@@ -173,4 +132,31 @@
         </div>
     </div>
 </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create new role</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route('accesscontrol.store') }}" method="POST">
+            @csrf   
+              <small class="form-text text-muted">You will be creating a new role in the system. After creating, you can assign permissions to that role.</small>
+            <div class="form-group">
+                <label for="role">Role Name</label>
+                <input type="text" class="form-control" name="role" id="role" placeholder="Visitor">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Create Role</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
 @endsection
