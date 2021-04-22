@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('currentlocation', $currentlocation);
         }
 
+        View::share('keywords', config('app.tweet_keywords'));
+
         Paginator::useBootstrap();
     }
 }
