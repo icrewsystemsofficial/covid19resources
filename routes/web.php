@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
+use App\Http\Controllers\Dashboard\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
+
+    Route::prefix('users')->group(function () {
+        Route::get('/',[UserController::class,'admin_user_index'])->name('admin.user.index');
+        Route::get('/create',[UserController::class,'admin_user_create'])->name('admin.user.create');
+        Route::post('/store',[UserController::class,'admin_user_store'])->name('admin.user.store');
+        Route::get('{id}/edit',[UserController::class,'admin_user_edit'])->name('admin.user.edit');
+        Route::post('/{id}/update',[UserController::class,'admin_user_update'])->name('admin.user.update');
+        Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
+    });
+
 });
 
 
