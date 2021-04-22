@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+	Schema::defaultStringLength(191);
         if(Schema::hasTable('states')) {
             $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
             View::share('currentlocation', $currentlocation);
