@@ -1,13 +1,14 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
-use App\Http\Controllers\Dashboard\Admin\TwitterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,6 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
-
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
@@ -58,6 +58,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
+    Route::get('/tweets/{id}/manage', [TwitterController::class, 'manage'])->name('admin.twitter.manage');
+    Route::post('/tweets/{id}/update', [TwitterController::class, 'update'])->name('admin.twitter.update');
 });
 
 

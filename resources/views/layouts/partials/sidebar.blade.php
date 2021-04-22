@@ -38,6 +38,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.twitter.index') }}">
+                        <i class="fab fa-twitter"></i>
+                        <p>Tweets</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.resources.index') }}">
                         <i class="fas fa-database"></i>
                         <p>Resources</p>
