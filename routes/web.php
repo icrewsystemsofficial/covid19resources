@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Admin\AccessController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
     });
 
+    Route::prefix('access-control')->group(function () {
+        Route::get('/',[AccessController::class,'admin_roles_perms_index'])->name('accesscontrol.index');
+        Route::post('/add-role',[AccessController::class,'admin_roles_perms_store'])->name('accesscontrol.store');
+        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_edit'])->name('accesscontrol.edit');
+        Route::get('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
+        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.update');
+    });
 });
 
 
