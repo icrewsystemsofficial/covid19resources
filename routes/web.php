@@ -8,6 +8,8 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
+use App\Http\Controllers\Dashboard\Admin\GeographyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
+
+    
+    Route::get('/geography', [GeographyController::class, 'admin_index'])->name('admin.geography.index');
+    Route::get('/geography/create', [GeographyController::class, 'admin_create'])->name('admin.geography.create');
+    Route::post('/geography/create/new', [GeographyController::class, 'admin_save'])->name('admin.geography.save');
+    Route::get('/geography/{id}/manage', [GeographyController::class, 'admin_manage'])->name('admin.geography.manage');
+    Route::post('/geography/{id}/update', [GeographyController::class, 'admin_update'])->name('admin.geography.update');
+    Route::get('/geography/{id}/delete', [GeographyController::class, 'admin_delete'])->name('admin.geography.delete');
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
 });
