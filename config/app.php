@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'tweet_keywords' => array('#Verified', '#COVID19India'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

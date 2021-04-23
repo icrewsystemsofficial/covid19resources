@@ -2,42 +2,37 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-// use Spatie\LaravelTwitterStreamingApi\TwitterStreamingApi;
 use TwitterStreamingApi;
+use Illuminate\Http\Request;
+// use Spatie\LaravelTwitterStreamingApi\TwitterStreamingApi;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
+
 class Twitter extends Controller
 {
 
 
    public function index() {
-    TwitterStreamingApi::publicStream()
-    ->whenHears('#covid19india', function(array $tweet) {
-        $tweet_data = [
-            'text' => $tweet['text'],
-            'user_name' => $tweet['user']['screen_name'],
-            'name' => $tweet['user']['name'],
-            'profile_image_url_https' => $tweet['user']['profile_image_url_https'],
-            'retweet_count' => $tweet['retweet_count'],
-            'reply_count' => $tweet['reply_count'],
-            'favorite_count' => $tweet['favorite_count'],
-        ];
-        if (isset($tweet['extended_tweet'])) {
-            $tweet_data['text'] = $tweet['extended_tweet']['full_text'];
-        }
+        $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')
+                        ->get('https://api.twitter.com/2/tweets', [
+                            // 'q' => '#Verified #COVID19India',
+                            // 'include_entities' => false,
+                            // 'count' => 100,
+                            // 'result_type' => 'recent',
+                            'ids' => '1385165724914651138',
+                        ]);
 
-        if (isset($tweet['created_at'])) {
-            $tweet_data['date'] = date("M d, Y H:i A", strtotime($tweet['created_at']));
-        }
+        dd($tweets->json());
 
-        if (isset($tweet['extended_entities']['media'][0]['media_url'])) {
-            $tweet_data['image'] = $tweet['extended_entities']['media'][0]['media_url'];
+        $data = $tweets->json()['statuses'];
+        foreach($data as $tweet) {
+            echo $tweet['text'];
+            echo "<br>";
+            echo "Tweet ID: ".$tweet['id'];
+            echo "<br>";
+            echo "User: ".$tweet['user']['name'].' ('.$tweet['user']['screen_name'].' | Location'. $tweet['user']['location'];
+            echo "<br>";
+            echo "<hr>";
         }
-
-        echo $tweet_data['user_name'].' '.$tweet['text'].' '.$tweet_data['date'];
-        echo "<br>";
-        // echo $tweet['id'];
-    })
-    ->startListening();
    }
 }

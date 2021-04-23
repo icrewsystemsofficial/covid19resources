@@ -16,12 +16,14 @@ class CreateTwittersTable extends Migration
         Schema::create('twitters', function (Blueprint $table) {
             $table->id();
             $table->string('tweet_id');
-            $table->string('tweet');
+            $table->string('tweet')->length('500');
             $table->string('tweet_timestamp');
-            $table->string('extended_tweet')->nullable();
+            // $table->string('extended_tweet')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('username');
             $table->string('fullname')->nullable();
             $table->string('status')->default('0');
+            $table->string('retweeted')->default('0');
             $table->string('json')->nullable();
             $table->timestamps();
         });
