@@ -8,6 +8,7 @@ use App\Models\Resource;
 use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 
 class HomeController extends Controller
 {
@@ -27,9 +28,10 @@ class HomeController extends Controller
             ->paginate(5)
             ->appends(['search' => request('search')]);
         }
-
+        $activity = Activity::with(array('user'))->orderBy('updated_at', 'desc')->take(5)->get();
 
         return view('dashboard.home.home', [
+            'activity' => $activity,
             'faqs' => $faq,
             'states' => States::all(),
             'districts' => Districts::all(),
