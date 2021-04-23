@@ -300,28 +300,37 @@
                                         </small>
                                     </td>
                                     <td>
-                                        @if ($tweet->status == 1)
+                                    	@if($tweet->status == 0)
+                                            <span class="badge badge-warning">
+                                                Pending <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                        @elseif($tweet->status == 1)
                                             <span class="badge badge-success">
-                                                Verified <i class="fas fa-check"></i>
+                                                Verified <i class="fas fa-check-circle"></i>
                                             </span>
                                             <script>
                                                 verified = verified + 1;
                                             </script>
                                         @elseif($tweet->status == 2)
                                             <span class="badge badge-danger">
-                                                Refuted <i class="fas fa-times"></i>
+                                                Refuted <i class="fas fa-times-circle"></i>
                                             </span>
                                             <script>
                                                 refuted = refuted + 1;
                                             </script>
-                                        @else
-                                            <span class="badge badge-warning">
-                                                Pending <i class="fas fa-exclamation-triangle"></i>
+                                        @elseif($tweet->status == 3)
+                                            <span class="badge badge-danger">
+                                                Spam <i class="fas fa-exclamation-triangle"></i>
                                             </span>
-                                            <script>
+                                        @elseif($tweet->status == 4)
+                                            <span class="badge badge-danger">
+                                                Inadequate Information <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                        @endif
+                                        
+                                        <script>
                                                 pending = pending + 1;
                                             </script>
-                                        @endif
                                     </td>
                                     <td class="text-center">
                                         {{ $tweet->created_at->format('d/m/Y H:i A') }}

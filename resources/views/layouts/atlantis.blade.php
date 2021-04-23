@@ -5,7 +5,7 @@
 	<title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
-
+	<meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygenm, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script>
