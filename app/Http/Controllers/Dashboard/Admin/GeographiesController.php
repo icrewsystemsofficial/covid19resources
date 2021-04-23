@@ -9,20 +9,20 @@ use App\Http\Controllers\Controller;
 class GeographiesController extends Controller
 {
 
-    public function admin_index() {
-        return view('dashboard.admin.geographies.index', [
+    public function admin_districts_index() {
+        return view('dashboard.admin.geographies.districts.index', [
             'geographies' => Districts::all(),
         ]);
     }
 
-    public function admin_create() {
-        return view('dashboard.admin.geographies.create',[
+    public function admin_districts_create() {
+        return view('dashboard.admin.districts.create',[
             'geographies' =>Districts::all(),
         ]);
     }
 
-    public function admin_manage($id) {
-        return view('dashboard.admin.geographies.manage', [
+    public function admin_district_manage($id) {
+        return view('dashboard.admin.districts.manage', [
             'geographies' => geographies::find($id),
         ]);
     }

@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Geographies Admin')
+@section('title', 'Districts Admin')
 @section('js')
     <script>
         $(document).ready( function () {
@@ -10,10 +10,10 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Geographies Admin</h4>
+        <h4 class="page-title">Districts Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the geographys. There are a total of <span id="total"></span> geographys available.
+        This is a collection of the latest information regarding the districts. There are a total of <span id="total"></span> geographys available.
     </p>
     <div class="row">
         <div class="col-md-12">
@@ -85,7 +85,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Manage Geographies <span class="badge badge-primary">{{ count($geographies) }}</span></h4>
                     <div class="text-right">
-                        <a href="{{ route('admin.geographies.create') }}" class="btn btn-md btn-primary">
+                        <a href="{{ route('admin.geographies.districts.create') }}" class="btn btn-md btn-primary">
                             Add a new geography <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -150,7 +150,7 @@
                                         {{ $geography->updated_at->diffForHumans() }}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.geographies.manage', $geography->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.geographies.districts.manage', $geography->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
                                     </td>
