@@ -8,7 +8,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
-use App\Http\Controllers\Dashboard\Admin\GeographyController;
+use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 
 
 /*
@@ -60,12 +60,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
 
     
-    Route::get('/geography', [GeographyController::class, 'admin_index'])->name('admin.geography.index');
-    Route::get('/geography/create', [GeographyController::class, 'admin_create'])->name('admin.geography.create');
-    Route::post('/geography/create/new', [GeographyController::class, 'admin_save'])->name('admin.geography.save');
-    Route::get('/geography/{id}/manage', [GeographyController::class, 'admin_manage'])->name('admin.geography.manage');
-    Route::post('/geography/{id}/update', [GeographyController::class, 'admin_update'])->name('admin.geography.update');
-    Route::get('/geography/{id}/delete', [GeographyController::class, 'admin_delete'])->name('admin.geography.delete');
+    Route::get('/geographies', [GeographiesController::class, 'admin_index'])->name('admin.geographies.index');
+    Route::get('/geographies/create', [GeographiesController::class, 'admin_create'])->name('admin.geographies.create');
+    Route::post('/geographies/create/new', [GeographiesController::class, 'admin_save'])->name('admin.geographies.save');
+    Route::get('/geographies/{id}/manage', [GeographiesController::class, 'admin_manage'])->name('admin.geographies.manage');
+    Route::post('/geographies/{id}/update', [GeographiesController::class, 'admin_update'])->name('admin.geographies.update');
+    Route::get('/geographies/{id}/delete', [GeographiesController::class, 'admin_delete'])->name('admin.geographies.delete');
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
 });

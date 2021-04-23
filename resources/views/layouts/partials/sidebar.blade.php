@@ -62,13 +62,13 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ route('admin.geography.index') }}">
+                                <a href="{{ route('admin.geographies.index') }}">
                                     <span class="sub-item">Districts</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ route('admin.geography.index') }}">
+                                <a href="{{ route('admin.geographies.index') }}">
                                     <span class="sub-item">States & UT</span>
                                 </a>
                             </li>

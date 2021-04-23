@@ -1,19 +1,19 @@
 @extends('layouts.atlantis')
-@section('title', 'Resources Admin')
+@section('title', 'geographys Admin')
 @section('js')
     <script>
         $(document).ready( function () {
-            $('#resource_table').DataTable();
+            $('#geographies_table').DataTable();
         });
     </script>
 @endsection
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Resources Admin</h4>
+        <h4 class="page-title">Geographies Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the resources. There are a total of <span id="total"></span> resources available.
+        This is a collection of the latest information regarding the geographys. There are a total of <span id="total"></span> geographys available.
     </p>
     <div class="row">
         <div class="col-md-12">
@@ -83,20 +83,20 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($resources) }}</span></h4>
+                    <h4 class="card-title">Manage geographiees <span class="badge badge-primary">{{ count($geographies) }}</span></h4>
                     <div class="text-right">
-                        <a href="{{ route('admin.resources.create') }}" class="btn btn-md btn-primary">
-                            Add a new resource <i class="fas fa-plus"></i>
+                        <a href="{{ route('admin.geographies.create') }}" class="btn btn-md btn-primary">
+                            Add a new geography <i class="fas fa-plus"></i>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="resource_table" class="table table-hover">
+                    <table id="geography_table" class="table table-hover">
                         <thead>
-                            <th>Title</th>
-                            <th>Location</th>
-                            <th>Added by</th>
-                            <th>Status</th>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Code</th>
+                            {{-- <th>Status</th> --}}
                             {{-- <th>Created</th> --}}
                             <th>Last Updated</th>
                             <th>Options</th>
@@ -107,39 +107,33 @@
                                 var refuted = 0;
                                 var pending = 0;
                             </script>
-                            @forelse ($resources as $resource)
+                            @forelse ($geographies as $geography)
                                 <tr>
                                     <td>
-                                        {{ $resource->title }}
+                                        {{ $geography->name }}
                                         <br><br>
                                         <small>
                                             <span class="badge badge-primary">
-                                                {{ $resource->category_data->name }}
+                                                {{ $geography->name }}
                                             </span>
                                         </small>
                                         <br><br>
                                     </td>
                                     <td>
-                                        @if($resource->hasAddress == 1)
-                                            {{ $resource->city.', '.$resource->district.', '.$resource->state }}
-                                            @else
-                                            <span class="text-muted">
-                                                Not applicable
-                                            </span>
-                                        @endif
+                                        {{ $geography->state }}
                                     </td>
                                     <td>
-                                        {{ $resource->author_data->name }}
+                                        {{ $geography->code }}
                                     </td>
                                     <td>
-                                        @if ($resource->verified == 1)
+                                        @if ($geography->verified == 1)
                                             <span class="badge badge-success">
                                                 Verified <i class="fas fa-check"></i>
                                             </span>
                                             <script>
                                                 verified = verified + 1;
                                             </script>
-                                        @elseif($resource->verified == 2)
+                                        @elseif($geography->verified == 2)
                                             <span class="badge badge-danger">
                                                 Refuted <i class="fas fa-times"></i>
                                             </span>
@@ -156,20 +150,20 @@
                                         @endif
                                     </td>
                                     {{-- <td class="text-center">
-                                        {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                        {{ $geography->created_at->format('d/m/Y H:i A') }}
                                     </td> --}}
                                     <td class="text-center">
-                                        {{ $resource->updated_at->diffForHumans() }}
+                                        {{ $geography->updated_at->diffForHumans() }}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.resources.manage', $resource->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.geographies.manage', $geography->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    Whoops! No resources found.
+                                    Whoops! No geographys found.
                                 </tr>
                             @endforelse
                         </tbody>
