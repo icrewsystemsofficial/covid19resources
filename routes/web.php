@@ -74,6 +74,7 @@ Route::prefix('admin')->group(function () {
         Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_manage'])->name('accesscontrol.edit');
         Route::post('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
         Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.delete');
+        Route::get('cache-clear/',[AccessController::class,'clearCache'])->name('accesscontrol.cacheclear');
     });
   
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');

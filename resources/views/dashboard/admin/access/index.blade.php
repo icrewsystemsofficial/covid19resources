@@ -21,9 +21,9 @@
                         >
                             create new role
                         </button>
-                        <button class="w-100 btn btn-danger text-uppercase">
-                            clear role cache
-                        </button>
+                        <a href={{ route('accesscontrol.cacheclear') }} class="w-100 btn btn-danger text-uppercase">
+                            clear app cache
+                        </a>
                     </div>
                 </div>
             </div>
