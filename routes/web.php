@@ -25,6 +25,8 @@ use App\Http\Controllers\Dashboard\Admin\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
+
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
