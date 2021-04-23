@@ -65,6 +65,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Access Control</p>
+                    </a>
+                </li>
+
 
 
                 <li class="nav-item">

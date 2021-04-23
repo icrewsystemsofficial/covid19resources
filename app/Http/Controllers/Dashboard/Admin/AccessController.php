@@ -18,7 +18,8 @@ class AccessController extends Controller
     public function admin_roles_perms_index()
     {
         $roles = Role::all();
-        return view('dashboard.admin.access.index')->with('roles',$roles);
+        $permissions = Permission::all();
+        return view('dashboard.admin.access.index')->with('roles',$roles)->with('permissions',$permissions);
     }
 
     /**
@@ -78,16 +79,16 @@ class AccessController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_roles_perms_manage($id)
-    {
-        $role = Role::where($id)->get();
+    {  
+        $role = Role::where('id','=',$id)->first();
         if($role) {
             $permissions = Permission::all();
-            return view('admin.accessControl.manage')
+            return view('dashboard.admin.access.manage')
             ->with('permissions', $permissions)
             ->with('role', $role);
           } else {
             notify()->error('Role with the given ID was not found', 'Whoops!');
-            return redirect(route('accessControl.index'));
+            return redirect(route('accesscontrol.index'));
           }
     }
 
@@ -99,7 +100,8 @@ class AccessController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_roles_perms_update(Request $request, $id)
-    {
+    { 
+      // dd($request->all());
         $slugged_name = str_replace(' ', '-', trim($request->input('role')));
 
         $role = Role::find($id);
@@ -121,7 +123,7 @@ class AccessController extends Controller
         $role->syncPermissions($permissions);
   
         notify()->success('Role '. $role->name. ' has been modified', 'Yay!');
-        return redirect(route('accessControl.index'));
+        return redirect(route('accesscontrol.index'));
     }
 
     /**
@@ -137,12 +139,12 @@ class AccessController extends Controller
           $role->delete();
           notify()->success('Role has been successfully deleted', 'Alrighty!');
         }
-        return redirect(route('accessControl.index'));
+        return redirect(route('accesscontrol.index'));
     }
 
     public function clearCache() {
         Artisan::call('cache:clear');
         notify()->success('Application cache has been cleared', 'Alrighty!');
-        return redirect(route('accessControl.index'));
+        return redirect(route('accesscontrol.index'));
       }
 }
