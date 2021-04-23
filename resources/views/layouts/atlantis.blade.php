@@ -3,10 +3,9 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
-
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
-
+	<meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygenm, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script>
@@ -28,6 +27,12 @@
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     @yield('css')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // var global_api_url = "{{ config('app.url') }}/api/v1/";
+        axios.defaults.baseURL = "{{ config('app.url') }}/api/v1";
+        // axios.defaults.headers.common['Authorization'] = '1234';
+    </script>
 </head>
 <body>
 	<div class="wrapper sidebar_minimize">
@@ -81,7 +86,6 @@
 	<script src="{{ asset('atlantis/assets/js/core/jquery.3.2.1.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/core/popper.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/core/bootstrap.min.js') }}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="{{ asset('atlantis/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
@@ -113,7 +117,7 @@
 	<script src="{{ asset('atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
 	<!-- Atlantis JS -->
-	<script src="{{ asset('atlantis/assets/js/atlantis.min.js') }}"></script>
+	<script src="{{ asset('atlantis/assets/js/atlantis.js') }}"></script>
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{ asset('atlantis/assets/js/setting-demo.js') }}"></script>

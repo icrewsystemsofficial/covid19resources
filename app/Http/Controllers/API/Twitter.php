@@ -1,43 +1,81 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// use Spatie\LaravelTwitterStreamingApi\TwitterStreamingApi;
-use TwitterStreamingApi;
+use Illuminate\Support\Facades\Http;
+use App\Models\Twitter as ModelsTwitter;
+
 class Twitter extends Controller
 {
+    public function delete_tweet($id) {
+        $respone = array();
 
+        ModelsTwitter::find($id)->delete();
+        $respone['message'] = 'Tweet was deleted';
+        return response($respone);
+    }
+
+    public function change_status($id = '', $status = '') {
+        $respone = array();
+        if($id == '' || $status == '') {
+            $respone['message'] = 'ID or STATUS was not passed with the request';
+            $respone['type'] = 'error';
+            return response($respone);
+        }
+
+        //TO:DO This needs to be made into some sort of STD class.
+        $allowed_statuses = array('0', '1', '2', '3', '4');
+
+        if(!in_array($status, $allowed_statuses)) {
+            $respone['message'] = 'Unknown status type';
+            $respone['type'] = 'error';
+            return response($respone);
+        }
+
+        $tweet = ModelsTwitter::find($id);
+        if(!$tweet) {
+            $respone['message'] = 'Tweet with ID not found';
+            $respone['type'] = 'error';
+            return response($respone);
+        } else {
+            $tweet->status = $status;
+            $tweet->update();
+            $respone['message'] = 'Tweet was updated';
+            $respone['type'] = 'success';
+            return response($respone);
+        }
+
+    }
 
    public function index() {
-    TwitterStreamingApi::publicStream()
-    ->whenHears('#covid19india', function(array $tweet) {
-        $tweet_data = [
-            'text' => $tweet['text'],
-            'user_name' => $tweet['user']['screen_name'],
-            'name' => $tweet['user']['name'],
-            'profile_image_url_https' => $tweet['user']['profile_image_url_https'],
-            'retweet_count' => $tweet['retweet_count'],
-            'reply_count' => $tweet['reply_count'],
-            'favorite_count' => $tweet['favorite_count'],
-        ];
-        if (isset($tweet['extended_tweet'])) {
-            $tweet_data['text'] = $tweet['extended_tweet']['full_text'];
-        }
 
-        if (isset($tweet['created_at'])) {
-            $tweet_data['date'] = date("M d, Y H:i A", strtotime($tweet['created_at']));
-        }
+        $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')->get('https://api.twitter.com/1.1/search/tweets.json', [
+            'q' => '#Verified #COVID19India',
+            'include_entities' => false,
+            'count' => 100,
+            'result_type' => 'recent',
+        ]);
 
-        if (isset($tweet['extended_entities']['media'][0]['media_url'])) {
-            $tweet_data['image'] = $tweet['extended_entities']['media'][0]['media_url'];
-        }
+        // $tweets = Http::withToken('AAAAAAAAAAAAAAAAAAAAANYqOwEAAAAAAcChMHxkRy4VCUkVfHWNDAhpjEs%3Dt1g7L7z2CQaDalZVV41ZVJNHzvKfdzVGXf3KQqBr9dnrDMTRY9')
+        //                 ->get('https://api.twitter.com/1.1/search/tweets.json', [
+        //                     'q' => '#Verified #COVID19India',
+        //                     'include_entities' => false,
+        //                     'count' => 100,
+        //                     'result_type' => 'recent',
+        //                 ]);
 
-        echo $tweet_data['user_name'].' '.$tweet['text'].' '.$tweet_data['date'];
-        echo "<br>";
-        // echo $tweet['id'];
-    })
-    ->startListening();
+        dd($tweets->json());
+
+        $data = $tweets->json()['statuses'];
+        foreach($data as $tweet) {
+            echo $tweet['text'];
+            echo "<br>";
+            echo "Tweet ID: ".$tweet['id'];
+            echo "<br>";
+            echo "User: ".$tweet['user']['name'].' ('.$tweet['user']['screen_name'].' | Location'. $tweet['user']['location'];
+            echo "<br>";
+            echo "<hr>";
+        }
    }
 }

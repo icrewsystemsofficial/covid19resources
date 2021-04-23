@@ -27,4 +27,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/currentlocation', [Location::class, 'currentLocation']);
     Route::get('/currentlocation/update/{code}', [Location::class, 'currentLocation_update']);
     Route::get('/twitter', [Twitter::class, 'index']);
+
+    Route::get('/tweet/{id}/{status}', [Twitter::class, 'change_status']);
+    Route::get('/tweets/{id}/delete', [Twitter::class, 'delete_tweet']);
 });

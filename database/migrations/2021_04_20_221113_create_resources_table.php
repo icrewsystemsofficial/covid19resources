@@ -23,6 +23,7 @@ class CreateResourcesTable extends Migration
             $table->string('author_id')->nullable();
             $table->string('verified')->default('0');
             $table->string('verified_by')->nullable();
+            $table->string('tweet_id')->nullable();
             $table->string('hasAddress')->default('0');
             $table->string('city')->nullable();
             $table->string('district')->nullable();

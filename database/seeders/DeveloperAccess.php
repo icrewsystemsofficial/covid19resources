@@ -76,17 +76,30 @@ class DeveloperAccess extends Seeder
         $user->save();
         $this->command->info("User: Ayshwaria Grace created.");
       }
-
-      $user = User::where('name', 'Aara Amuthan')->first();
+      
+      $user = User::where('name', 'Ayshwaria Grace')->first();
+      if(!$user) {
+        $user = new User;
+        $user->name = 'Dhruv Bhatt';
+        $user->email = 'dhruvpbhatt2902@gmail.com';
+        $user->email_verified_at = now();
+        $user->password = '$2y$10$.UuTdJSIjY.ztfspGgaJ8.FyA7VjsC8TKZ3jxoWaoeQi7rIZYY6xO';
+        $user->accepted = '1';
+        $user->save();
+        $this->command->info("User: Dhruv Bhatt created.");
+      }
+      
+       $user = User::where('name', 'Aara Amuthan')->first();
       if(!$user) {
         $user = new User;
         $user->name = 'Aara Amuthan';
         $user->email = 'aaraamuthanb@gmail.com';
         $user->email_verified_at = now();
-        $user->password = bcrypt('Amuthan@2001');
+        $user->password = '$2y$10$sk3M5Z8MKDsouFdG9UnYhea.W5tONqLLDGDFe2MNlj3RoRqi0/wpu';
         $user->accepted = '1';
         $user->save();
         $this->command->info("User: Aara Amuthan created.");
       }
+
     }
 }
