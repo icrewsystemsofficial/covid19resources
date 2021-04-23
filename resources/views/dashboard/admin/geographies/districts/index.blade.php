@@ -13,7 +13,7 @@
         <h4 class="page-title">Districts Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the districts. There are a total of <span id="total"></span> geographys available.
+        This is a collection of the latest information regarding the districts. There are a total of <span id="total"></span> districts available.
     </p>
     <div class="row">
         <div class="col-md-12">
@@ -83,10 +83,10 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Geographies <span class="badge badge-primary">{{ count($geographies) }}</span></h4>
+                    <h4 class="card-title">Manage Districts <span class="badge badge-primary">{{ count($districts) }}</span></h4>
                     <div class="text-right">
                         <a href="{{ route('admin.geographies.districts.create') }}" class="btn btn-md btn-primary">
-                            Add a new geography <i class="fas fa-plus"></i>
+                            Add a new district <i class="fas fa-plus"></i>
                         </a>
                     </div>
                 </div>
@@ -107,27 +107,27 @@
                                 var refuted = 0;
                                 var pending = 0;
                             </script>
-                            @forelse ($geographies as $geography)
+                            @forelse ($districts as $district)
                                 <tr>
                                     <td>
-                                        {{ $geography->name }}
+                                        {{ $district->name }}
                                     
                                     </td>
                                     <td>
-                                        {{ $geography->state }}
+                                        {{ $district->state }}
                                     </td>
                                     <td>
-                                        {{ $geography->code }}
+                                        {{ $district->code }}
                                     </td>
                                     <td>
-                                        @if ($geography->verified == 1)
+                                        @if ($district->verified == 1)
                                             <span class="badge badge-success">
                                                 Verified <i class="fas fa-check"></i>
                                             </span>
                                             <script>
                                                 verified = verified + 1;
                                             </script>
-                                        @elseif($geography->verified == 2)
+                                        @elseif($district->verified == 2)
                                             <span class="badge badge-danger">
                                                 Refuted <i class="fas fa-times"></i>
                                             </span>
@@ -147,17 +147,17 @@
                                         {{ $geography->created_at->format('d/m/Y H:i A') }}
                                     </td> --}}
                                     <td class="text-center">
-                                        {{ $geography->updated_at->diffForHumans() }}
+                                        {{ $district->updated_at->diffForHumans() }}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.geographies.districts.manage', $geography->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.geographies.districts.manage', $district->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    Whoops! No geographys found.
+                                    Whoops! No districts found.
                                 </tr>
                             @endforelse
                         </tbody>

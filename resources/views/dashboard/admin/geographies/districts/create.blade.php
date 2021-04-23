@@ -62,14 +62,14 @@
                     <h4 class="card-title">Add New District</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.geographies.save') }}" method="post">
+                    <form action="{{ route('admin.geographies.districts.save') }}" method="post">
                         @csrf
 
                         <div class="form-group">
-                            <label for="title"><strong>Name</strong></label>
-                            <input type="text" name="name" class="form-control" required placeholder="Title (Max: 50 words)"  required="required"/>
+                            <label for="districtname"><strong>District Name</strong></label>
+                            <input type="text" name="districtname" class="form-control" required placeholder="Enter District Name"  required="required"/>
                         </div>
-
+                        <!--
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -79,14 +79,14 @@
 
                                     <select name="district" class="form-control select2" required="required">
                                         <option value="null" disabled selected>No district selected</option>
-                                        @foreach ($geographies as $geography)
-                                            <option value="{{ $geography->id }}">
-                                                {{ $geography->name. ',' .$geography->state  }}
+                                       {{--@foreach ($geographies as $geography)  --}} 
+                                            <option value="{{-- $geography->id --}}">
+                                                {{-- $geography->name.','.$geography->state --}}
                                             </option>
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                     </select>
                                 </div>
-
+                            
                                 <div class="form-group">
                                     <label for="category">
                                         <strong>Phone Number</strong>
@@ -103,8 +103,7 @@
                                     <input type="text" class="form-control" name="url" placeholder="URL (website, social media link)">
                                 </div>
                             </div>
-
-                            
+                        -->
                             <div class="col-md-8">
                                 <span id="geography" style="display: block;">
                                     <div class="form-group">
@@ -112,38 +111,34 @@
                                             <strong>State / Union Territory</strong>
                                         </label>
 
-                                        <select name="state" onchange="getCities(this.value);" class="form-control" required="required">
-                                            <option value="null" selected disabled>Select State / UT</option>
-                                            
+                                        <select name="statedropdown" class="form-control select2" required="required">
+                                            <option value="null" disabled selected>No state selected</option>
+                                            @foreach ($states as $state)
+                                                <option value="{{ $state->id }}">
+                                                    {{ $state->name. ',' .$state->code }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
-
+                                    <!--
                                     <div class="form-group">
                                         <label for="city">
                                             <strong>City</strong>
                                         </label>
-
-                                        <select id="city" name="city" class="form-control" required="required">
-                                            <option value="null" selected>Select State / UT first</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="landmark"></label>
-                                        <input type="text" class="form-control" name="landmark" placeholder="Landmark / Full Address">
-                                    </div>
+                                    </div>    
+                                     --> 
                                 </span>
                             </div>
 
 
                         </div>
 
-
+                        <!--
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>
                             <textarea class="form-control" name="body" id="desc" cols="30" rows="10"></textarea>
                         </div>
-
+                    -->
                         <div class="form-group">
                             <label for="author_id">Author</label>
 
@@ -193,7 +188,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <button class="btn btn-info btn-md" type="submit">
+                            <button class="btn btn-info btn-md ml-2 mb-2" type="submit">
                                 Create
                             </button>
                             <!-- Button to Open the Modal -->
