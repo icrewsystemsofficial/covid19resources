@@ -45,7 +45,6 @@
         }
 
 
-        // getCities('{{ $resource->state }}', '{{ $resource->city }}');
         CKEDITOR.replace('desc');
     </script>
 @endsection
@@ -55,152 +54,41 @@
         <a href="{{ route('admin.resources.index') }}" class="btn btn-warning btn-sm mr-3">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h4 class="page-title">Manage resource # {{ $resource->id }}</h4>
+        <h4 class="page-title">Manage District</h4>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage resource Content</h4>
+                    <h4 class="card-title">Manage District Content</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.resources.update', $resource->id) }}" method="post">
+                    <form action="{{ route('admin.geographies.districts.update', $districts->id) }}" method="post">
                         @csrf
-
-                        <div class="form-group">
-                            <label for="title"><strong>Name</strong></label>
-                            <input type="text" name="name" class="form-control" required value="{{ $resource->title }}" />
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div class="col-md-8">
+                            <span id="geography" style="display: block;">
                                 <div class="form-group">
-                                    <label for="category">
-                                        <strong>Category</strong>
+                                    <label for="state">
+                                        <strong>Change State / Union Territory</strong>
                                     </label>
-
-                                    <select name="category" class="form-control select2">
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @php if($resource->category == $category->id) { echo "selected"; } @endphp>
-                                                {{ $category->name }}
+                                    <select name="statedropdown" class="form-control select2" required="required">
+                                        <option value="null" disabled selected>No state selected</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state->id }}">
+                                                {{ $state->name. ',' .$state->code }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="category">
-                                        <strong>Phone Number</strong>
-                                    </label>
-
-                                    <input type="text" class="form-control" name="phone" value="{{ $resource->phone }}" placeholder="Phone Number (with area code)">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="category">
-                                        <strong>URL</strong>
-                                    </label>
-
-                                    <input type="text" class="form-control" name="url" value="{{ $resource->url }}" placeholder="URL (website, social media link)">
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-8">
-                                <span id="geography_options" style="display: block;">
-                                    <div class="form-group">
-                                        <label>
-                                            <strong>Indexed Location</strong>
-                                        </label>
-
-                                        <input type="text" disabled value="{{ $resource->city.', '.$resource->district.', '.$resource->state }}" class="form-control">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="category">
-                                            <strong>User input location (landmark)</strong>
-                                        </label>
-
-                                        <input type="text" disabled value="{{ $resource->landmark }}" class="form-control">
-                                        <input type="hidden" name="city" value="{{ $resource->city }}">
-                                        <input type="hidden" name="landmark" value="{{ $resource->landmark }}">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="button" onclick="toggleVisibilityforGeolocation();" class="btn btn-primary">
-                                            Change Geography of this resource
-                                        </button>
-                                    </div>
-                                </span>
-
-                                <script>
-                                    function toggleVisibilityforGeolocation() {
-                                        var geography = document.getElementById("geography");
-                                        var geography_options = document.getElementById("geography_options");
-
-                                        if (geography.style.display === "none") {
-                                            geography.style.display = "block";
-                                            geography_options.style.display = "none";
-                                            getCities('{{ $resource->state }}', '{{ $resource->city }}');
-                                        } else {
-                                            geography.style.display = "none";
-                                            geography_options.style.display = "block";
-                                        }
-                                    }
-                                </script>
-
-
-                                <span id="geography" style="display: none;">
-                                    <div class="form-group">
-                                        <label for="state">
-                                            <strong>State / Union Territory</strong>
-                                        </label>
-
-                                        <select name="state" onchange="getCities(this.value, '{{ $resource->city }}');" class="form-control">
-                                            @foreach ($states as $state)
-                                                <option value="{{ $state->name }}" @php if($resource->state == $state->name) { echo "selected"; } @endphp>
-                                                    {{ $state->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="city">
-                                            <strong>City</strong>
-                                        </label>
-
-                                        <select id="city" name="city" class="form-control">
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="landmark"></label>
-                                        <input type="text" class="form-control" name="landmark" value="{{ $resource->landmark }}" placeholder="Landmark / Full Address">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="button" onclick="toggleVisibilityforGeolocation();" class="btn btn-warning">
-                                            Don't change
-                                        </button>
-                                    </div>
-                                </span>
-                            </div>
-
-
+                            </span>
                         </div>
 
-
-                        <div class="form-group">
-                            <label for="description"><strong>Body</strong></label>
-                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">{{ $resource->body }}</textarea>
-                        </div>
-
+                        
                         <div class="form-group">
                             <label for="author_id">Author</label>
 
-                            <input type="text" class="form-control" value=" {{ $resource->author_data->name }}" disabled>
-                            <input type="hidden" class="form-control" name="author_id" value=" {{ $resource->author_id }}">
+                            <input type="text" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                            <input type="hidden" class="form-control" name="author_id" value=" {{ auth()->user()->id }}">
 
                             {{-- <select name="authour_id" id="" class="form-select select2">
                                 @foreach ($users as $user)
@@ -210,32 +98,25 @@
                                 @endforeach
                             </select> --}}
                         </div>
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
                                     @php
-                                        if($resource->verified == '0') {
-                                            $color = 'warning';
-                                        } else if($resource->verified == '1') {
-                                            $color = 'success';
-                                        } else if($resource->verified == '2') {
-                                            $color = 'danger';
-                                        }
+                                        $color = 'warning';
                                     @endphp
                                     <div class="selectgroup selectgroup-{{ $color }} w-100" id="selectGroup">
                                         <label class="selectgroup-city success">
-                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input" <?php if($resource->verified == 1) { echo "checked";  } ?>>
+                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input">
                                             <span class="selectgroup-button">Verified <i class="fa fa-check-circle"></i></span>
                                         </label>
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input" <?php if($resource->verified == 0) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input">
                                             <span class="selectgroup-button">Unknown <i class="fa fa-exclamation-triangle"></i></span>
                                         </label>
 
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input" <?php if($resource->verified == 2) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input">
                                             <span class="selectgroup-button">Refuted <i class="fa fa-times-circle"></i></span>
                                         </label>
                                     </div>
@@ -251,11 +132,13 @@
                         </div>
 
                         <div class="form-actions">
-                            <button class="btn btn-info btn-md" type="submit">
+                            <button class="btn btn-info btn-md ml-2 mb-2" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.resources.delete', $resource->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md">Delete</a>
+                            <a href="{{ route('admin.geographies.districts.delete', $districts->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
                             <!-- Button to Open the Modal -->
+                        </div>
+                       
                         </div>
                     </form>
                 </div>

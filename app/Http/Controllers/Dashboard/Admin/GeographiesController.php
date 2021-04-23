@@ -24,10 +24,14 @@ class GeographiesController extends Controller
         ]);
     }
 
-    public function admin_district_manage($id) {
-        return view('dashboard.admin.districts.manage', [
-            'geographies' => geographies::find($id),
+    public function admin_districts_manage($id) {
+        return view('dashboard.admin.geographies.districts.manage', [
+            'districts' => Districts::find($id),
+            'states' => States::all(),
+
         ]);
+       
+
     }
 
     public function admin_districts_save(Request $request) {
@@ -44,22 +48,22 @@ class GeographiesController extends Controller
         return redirect(route('admin.geographies.districts.index'));
     }
 
-    public function admin_update($id) {
-        $geographies = geographies::find($id);
-        $geographies->name = request('name');
-        $geographies->description = request('description');
-        $geographies->status = request('status');
-        $geographies->update();
+    public function admin_districts_update($id,Request $request) {
+        $districts = Districts::find($id);
+        $state= States::find($request->statedropdown);
+        $districts->state = $state->name;
+        $districts->code = $state->code;
+        $districts->update();
 
-        notify()->success('geographies was updated', 'Yayy!');
-        return redirect(route('admin.geographies.index'));
+        notify()->success('Districts Were Updated', 'Yayy!');
+        return redirect(route('admin.geographies.districts.index'));
     }
 
-    public function admin_delete($id) {
+    public function admin_districts_delete($id) {
 
-        geographies::find($id)->delete();
-        notify()->success('geographies was deleted', 'Hmmm, okay');
-        return redirect(route('admin.geographies.index'));
+        Districts::find($id)->delete();
+        notify()->success('Districts were Deleted', 'Hmmm, okay');
+        return redirect(route('admin.geographies.districts.index'));
 
     }
 }
