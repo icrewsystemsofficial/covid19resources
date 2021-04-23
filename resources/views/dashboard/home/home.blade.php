@@ -162,8 +162,8 @@
 
     <script>
         function changeLocation(state) {
-            var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
-            axios.get(api_url + state)
+            // var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
+            axios.get('/currentlocation/update/' + state)
             .then(function (response) {
             // handle success
                 // $.notify({
@@ -395,8 +395,8 @@
                                                         </a>
                                                     </small>
                                                     @else
-                                                    <span class="text-muted">
-                                                        Not applicable
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
                                                     </span>
                                                 @endif
                                             </td>

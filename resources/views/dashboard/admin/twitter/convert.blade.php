@@ -1,15 +1,49 @@
 @extends('layouts.atlantis')
 @section('title', 'Manage Resource')
 @section('js')
-    {{-- <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> --}}
+    <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script>
 
-        // $(document).ready(function() {
-        //     $('.select2').select2();
-        // });
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
 
-        // CKEDITOR.replace('desc');
+        CKEDITOR.replace('desc');
+
+        function getCities(state_name) {
+            var selector = document.getElementById('city');
+            $('#city').select2();
+
+
+            axios.get('http://covid19resources.test/api/v1/cities/' + state_name)
+            .then(function (response) {
+                // handle success
+                var selector = document.getElementById('city');
+                selector.innerHTML = '';
+                var cities = response.data.districts;
+                var option = [];
+                cities.forEach((city, index) => {
+                    option[index] = document.createElement("option");
+                    option[index].text = city.name + ', ' + city.district;
+                    option[index].value = city.name;
+
+                    // if(loaded_state == city.name) {
+                    //     option[index].selected = true;
+                    // }
+
+                    selector.appendChild(option[index]);
+                });
+            })
+            .catch(function (error) {
+                // handle error
+                alert('Something went wrong! Please report this ASAP to the developers');
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+        }
 
         function changeTweetStatus() {
 
@@ -47,12 +81,9 @@
         } else if(status == 2) {
             button.classList = "btn btn-block btn-warning";
             button.innerHTML = "Mark Refuted";
-        } else if(status == 3) {
+        } else {
             button.classList = "btn btn-block btn-danger";
             button.innerHTML = "Mark Spam";
-        } else if(status == 4) {
-            button.classList = "btn btn-block btn-danger";
-            button.innerHTML = "Mark Inadequate";
         }
 
 
@@ -77,10 +108,6 @@
         $panel_color = 'bg-danger-gradient';
         $status = 'Spam';
         $color = 'danger';
-    } else if($tweet->status == 4) {
-        $panel_color = 'bg-dark';
-        $status = 'Inadequate Information';
-        $color = 'dark';
     }
 @endphp
 <div class="panel-header {{ $panel_color }}">
@@ -113,14 +140,6 @@
                         <span class="btn btn-white">
                             Spam <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
                         </span>
-                    @elseif($tweet->status == 4)
-                        <span class="btn btn-white">
-                            Inadequate Information <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
-                    @elseif($tweet->status == 0)
-                        <span class="btn btn-white">
-                            Pending <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
                     @else
                         <span class="btn btn-white">
                             Unknown <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
@@ -132,7 +151,7 @@
 </div>
 <div class="page-inner mt--5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -165,12 +184,12 @@
 
 
                         @if (count($other_tweets) > 0)
-                        <div class="accordion mt-2" id="otherTweetsAccordion">
+                        <div class="accordion mt-2" id="accordionExample">
                             <div class="">
                                 <a class="btn btn-block btn-dark text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                     Found {{ count($other_tweets) }} other tweets by {{ $tweet->username }}
                                 </a>
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#otherTweetsAccordion">
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         @foreach ($other_tweets as $otweet)
                                             @php
@@ -215,127 +234,31 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage this tweet</h4>
+                    <h4 class="card-title">Create Resource</h4>
                 </div>
                 <div class="card-body">
-                    <p class="mt-2">
-                        This tweet is currently marked as <span class="badge badge-{{ $color }}">{{ strtoupper($status) }}</span>
-                    </p>
-
-                    <div class="">
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6 text-left">
-                                    <label for="choose_status">Choose Tweet Status</label>
-                                    <select id="choose_status" onchange="choose_status_change(this.value);" class="form-control">
-                                        <option value="0" disabled @if($tweet->status == 0) selected @endif>Pending</option>
-                                        <option value="1" @if($tweet->status == 1) selected @endif>Verified</option>
-                                        <option value="2" @if($tweet->status == 2) selected @endif>Refuted</option>
-                                        <option value="3" @if($tweet->status == 3) selected @endif>Spam</option>
-                                        <option value="4" @if($tweet->status == 4) selected @endif>Inadequate Information</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mt-4">
-                                    <button id="choose_status_button" onclick="changeTweetStatus();" type="button" class="btn btn-block btn-black" disabled>
-                                        Choose status
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        @if($tweet->status == 1)
-                            <a href="{{ route('admin.twitter.convert', $tweet->id) }}" class="btn btn-success btn-lg mb-3 mt-3">
-                                Convert to RESOURCE
-                            </a>
-
-                            <br>
-                            <span class="text-muted mt-2">
-                                <i class="fa fa-check-circle text-success"></i> Success:
-                                This tweet as been marked as verified, you can now convert it into a resource.
-                            </span>
-                            @else
-                                <button class="btn btn-dark btn-lg mt-3 mb-3" disabled>
-                                    Convert to RESOURCE
-                                </button>
-                                <br>
-                                <span class="text-muted mt-2">
-                                    <i class="fa fa-exclamation-triangle text-warning"></i> Error: To convert a tweet into a resource, the status to be "Verified"
-                                    <br>
-                                    <ol class="text-left mt-4 list">
-                                        <li>
-                                            Call the phone number / Visit the URL mentioned in the Tweet
-                                        </li>
-                                        <li>
-                                            Mark it as "VERIFIED" only after you get positive response from the source
-                                        </li>
-                                    </ol>
-                                </span>
-                        @endif
-
-                        <br>
-
-
-                        @if (count($resources) > 0)
-                        <div class="accordion mt-2">
-                            <div class="">
-                                <a class="btn btn-block btn-success text-white" data-toggle="collapse" data-target="#resourcesAccordion" aria-expanded="false" aria-controls="collapseOne">
-                                    <span class="">{{ count($resources) }} </span> resources generated from this Tweet.
-                                </a>
-                                <div id="resourcesAccordion" class="collapse" aria-labelledby="headingOne">
-                                    <div class="card-body">
-                                        @foreach ($resources as $resource)
-                                            @php
-                                                if($resource->verified == 0) {
-                                                    $rcolor = 'warning';
-                                                } else if($resource->verified == 1) {
-                                                    $rcolor = 'success';
-                                                } else if($resource->verified == 2) {
-                                                    $rcolor = 'danger';
-                                                } else if($resource->verified == 3) {
-                                                    $rcolor = 'danger';
-                                                }
-                                                 else {
-                                                    $rcolor = 'dark';
-                                                }
-                                            @endphp
-                                            <div class="alert alert-{{ $rcolor }}">
-                                                <span class="text-left text-muted mt-3 b-b1 mb-2">
-                                                    Updated {{ $resource->updated_at->diffForHumans() }}
-                                                </span>
-                                                <div class="mt-2">
-                                                    <h3>{{ $resource->title }}</h3>
-                                                </div>
-                                                <span class="text-muted ">
-                                                    <small>
-                                                        FEATURE: If Tweet Status is != Resource Status, Add a single button to change
-                                                    status of all resources with "tweet_id".
-                                                    </small>
-                                                </span>
-                                                <br><br>
-                                                <a href="{{ route('admin.resources.manage', $resource->id) }}" target="_blank" id="status_link" class="btn btn-primary">
-                                                    Manage
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
-
-                    </div>
-
-                    <form style="display: none;" action="{{ route('admin.twitter.update', $tweet->id) }}" method="post">
+                    <form style="display: block;" action="{{ route('admin.twitter.convert.save', $tweet->id) }}" method="post">
                         @csrf
+                        <p>
+                            <i class="fa fa-check-circle text-success"></i> Keep the title CLEAR, CRISP & CONCISE. Max 10 words
+                            <br>
+                            <i class="fa fa-check-circle text-success"></i> IMPORTANT! Verify & then include URLs & Phone Numbers in description
+                            <br>
+                            <i class="fa fa-check-circle text-success"></i> Choose the appropriate category, and keep 1 resource for 1 category. If same resource fits in multiple categories, then create multiple resources.
+                            <br>
+                            <i class="fa fa-check-circle text-success"></i> INCLUDE Source for your verification. Don't add any resource without hard-verifying it personally.
+                            <br>
+                            <i class="fa fa-times-circle text-danger"></i> Don't include Locations / Category / Expressive terms in title. We have seperate search-able columns for those.
+                            <br>
+                            <i class="fa fa-times-circle text-danger"></i> Don't include HASHTAGS or PROFILE HANDLES in the description
+                        </p>
 
                         <div class="form-group">
-                            <label for="title"><strong>Name</strong></label>
-                            <input type="text" name="name" class="form-control" required value="{{ $tweet->title }}" />
+                            <label for="title"><strong>Title</strong></label>
+                            <input type="text" name="name" class="form-control" required placeholder="Title for the resource" />
                         </div>
 
                         <div class="row">
@@ -354,7 +277,7 @@
                                     </select>
                                 </div>
 
-                                {{-- <div class="form-group">
+                                <div class="form-group">
                                     <label for="category">
                                         <strong>Phone Number</strong>
                                     </label>
@@ -368,9 +291,42 @@
                                     </label>
 
                                     <input type="text" class="form-control" name="url" value="{{ $tweet->url }}" placeholder="URL (website, social media link)">
-                                </div> --}}
+                                </div>
                             </div>
 
+                            <div class="col-md-8">
+                                <span id="geography" style="display: block;">
+                                    <div class="form-group">
+                                        <label for="state">
+                                            <strong>State / Union Territory</strong>
+                                        </label>
+
+                                        <select name="state" onchange="getCities(this.value);" class="form-control" required="required">
+                                            <option value="null" selected disabled>Select State / UT</option>
+                                            @foreach ($states as $state)
+                                                <option value="{{ $state->name }}">
+                                                    {{ $state->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="city">
+                                            <strong>City</strong>
+                                        </label>
+
+                                        <select id="city" name="city" class="form-control" required="required">
+                                            <option value="null" selected>Select State / UT first</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="landmark"></label>
+                                        <input type="text" class="form-control" name="landmark" placeholder="Landmark / Full Address">
+                                    </div>
+                                </span>
+                            </div>
 
 
 
@@ -379,13 +335,17 @@
 
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>
-                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">{{ $tweet->tweet }}</textarea>
+                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">As per this <a href="https://twitter.com/{{ $tweet->username }}/status/{{ $tweet->tweet_id }}" target="_blank">tweet</a> by {{ $tweet->fullname }} ({{$tweet->username }})<br><br>-- CONTENT --
+                                <br><br>
+                                This was verified by {{ auth()->user()->name }}
+                                <br><br><hr>{{ $tweet->tweet }}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="author_id">Author</label>
 
-                            <input type="text" class="form-control" value=" {{ $tweet->username }}" disabled>
+                            <input type="text" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                            <input type="hidden" class="form-control" name="author_id" value=" {{ auth()->user()->id }}">
 
                             {{-- <select name="authour_id" id="" class="form-select select2">
                                 @foreach ($users as $user)

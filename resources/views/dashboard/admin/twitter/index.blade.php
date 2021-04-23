@@ -5,12 +5,20 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#tweets_table').DataTable();
+            var myTable = $('#tweets_table').DataTable();
+            $('#myTable').on( 'click', 'tbody tr', function () {
+                myTable.row( this ).delete( {
+                    buttons: [
+                        { label: 'Cancel', fn: function () { this.close(); } },
+                        'Delete'
+                    ]
+                } );
+            } );
         });
 
         Pusher.logToConsole = false;
 
-        var pusher = new Pusher('607e86479a0c9a0a5620', {
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
             cluster: 'ap2'
         });
 
@@ -263,7 +271,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="tweets_table" class="table table-hover">
+                    <table id="tweets_table" class="table table-hover table-responsive">
                         <thead>
                             <th>Tweet</th>
                             <th>User</th>
@@ -280,7 +288,7 @@
                                 var refuted = 0;
                             </script>
                             @forelse ($tweets as $tweet)
-                                <tr>
+                                <tr id="row_{{$tweet->id}}">
                                     <td>
                                         {{ $tweet->tweet }}
                                     </td>
@@ -292,28 +300,37 @@
                                         </small>
                                     </td>
                                     <td>
-                                        @if ($tweet->verified == 1)
+                                    	@if($tweet->status == 0)
+                                            <span class="badge badge-warning">
+                                                Pending <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                        @elseif($tweet->status == 1)
                                             <span class="badge badge-success">
-                                                Verified <i class="fas fa-check"></i>
+                                                Verified <i class="fas fa-check-circle"></i>
                                             </span>
                                             <script>
                                                 verified = verified + 1;
                                             </script>
-                                        @elseif($tweet->verified == 2)
+                                        @elseif($tweet->status == 2)
                                             <span class="badge badge-danger">
-                                                Refuted <i class="fas fa-times"></i>
+                                                Refuted <i class="fas fa-times-circle"></i>
                                             </span>
                                             <script>
                                                 refuted = refuted + 1;
                                             </script>
-                                        @else
-                                            <span class="badge badge-warning">
-                                                Pending <i class="fas fa-exclamation-triangle"></i>
+                                        @elseif($tweet->status == 3)
+                                            <span class="badge badge-danger">
+                                                Spam <i class="fas fa-exclamation-triangle"></i>
                                             </span>
-                                            <script>
+                                        @elseif($tweet->status == 4)
+                                            <span class="badge badge-danger">
+                                                Inadequate Information <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                        @endif
+                                        
+                                        <script>
                                                 pending = pending + 1;
                                             </script>
-                                        @endif
                                     </td>
                                     <td class="text-center">
                                         {{ $tweet->created_at->format('d/m/Y H:i A') }}
@@ -327,9 +344,11 @@
                                                 Manage
                                             </a>
 
-                                            <a href="{{ route('admin.resources.manage', $tweet->id) }}" class="btn btn-sm btn-danger">
-                                                Delete
+                                            <a onclick="deleteRow('{{$tweet->id}}');" chref="#" class="btn btn-sm btn-danger">
+                                                <i class="fa fa-trash text-white"></i>
                                             </a>
+
+
                                         </div>
 
                                     </td>
@@ -347,6 +366,25 @@
                         document.getElementById('pending').innerHTML = pending;
                         document.getElementById('refuted').innerHTML = refuted;
                         // document.getElementById('total').innerHTML = verified + pending + refuted;
+
+                        function deleteRow(row) {
+
+                            if(confirm('Are you sure you wish to delete this tweet? This action is not un-doable')) {
+                                var row_id = 'row_'+row;
+                                var row_element = document.getElementById(row_id);
+                                row_element.style.display = 'none';
+                                axios.get('/tweets/' + row + '/delete')
+                                .then(function(response) {
+                                    console.log('Removing row # ' + row);
+                                    row_element.remove();
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                            } else {
+
+                            }
+                        }
                     </script>
                 </div>
             </div>
