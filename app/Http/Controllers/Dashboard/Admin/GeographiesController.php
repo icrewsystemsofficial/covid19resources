@@ -16,7 +16,9 @@ class GeographiesController extends Controller
     }
 
     public function admin_create() {
-        return view('dashboard.admin.geographies.create');
+        return view('dashboard.admin.geographies.create',[
+            'geographies' =>Districts::all(),
+        ]);
     }
 
     public function admin_manage($id) {

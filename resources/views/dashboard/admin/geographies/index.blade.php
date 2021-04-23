@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'geographys Admin')
+@section('title', 'Geographies Admin')
 @section('js')
     <script>
         $(document).ready( function () {
@@ -83,7 +83,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage geographiees <span class="badge badge-primary">{{ count($geographies) }}</span></h4>
+                    <h4 class="card-title">Manage Geographies <span class="badge badge-primary">{{ count($geographies) }}</span></h4>
                     <div class="text-right">
                         <a href="{{ route('admin.geographies.create') }}" class="btn btn-md btn-primary">
                             Add a new geography <i class="fas fa-plus"></i>
@@ -111,13 +111,7 @@
                                 <tr>
                                     <td>
                                         {{ $geography->name }}
-                                        <br><br>
-                                        <small>
-                                            <span class="badge badge-primary">
-                                                {{ $geography->name }}
-                                            </span>
-                                        </small>
-                                        <br><br>
+                                    
                                     </td>
                                     <td>
                                         {{ $geography->state }}
