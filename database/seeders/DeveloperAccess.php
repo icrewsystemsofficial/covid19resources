@@ -100,6 +100,16 @@ class DeveloperAccess extends Seeder
         $user->save();
         $this->command->info("User: Aara Amuthan created.");
       }
-
+      $user = User::where('name', 'Vibula')->first();
+      if(!$user) {
+        $user = new User;
+        $user->name = 'Vibula';
+        $user->email = 'vibularoslin@gmail.com';
+        $user->email_verified_at = now();
+        $user->password = '$2y$10$sk3M5Z8MKDsouFdG9UnYhea.W5tONqLLDGDFe2MNlj3RoRqi0/wpu';
+        $user->accepted = '1';
+        $user->save();
+        $this->command->info("User:vibula created.");
+      }
     }
 }

@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -64,6 +64,8 @@ class UserController extends Controller
          $user->district = $request->district;
          $user->password = Hash::make($request->password);
          $user->accepted = $request->accepted;
+      
+
          $user->save();
 
          $user->roles()->detach();
