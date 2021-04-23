@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-//use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
