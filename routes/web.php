@@ -25,6 +25,8 @@ use App\Http\Controllers\Dashboard\Admin\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
+
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
@@ -71,9 +73,10 @@ Route::prefix('admin')->group(function () {
     Route::prefix('access-control')->group(function () {
         Route::get('/',[AccessController::class,'admin_roles_perms_index'])->name('accesscontrol.index');
         Route::post('/add-role',[AccessController::class,'admin_roles_perms_store'])->name('accesscontrol.store');
-        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_edit'])->name('accesscontrol.edit');
-        Route::get('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
-        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.update');
+        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_manage'])->name('accesscontrol.edit');
+        Route::post('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
+        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.delete');
+        Route::get('cache-clear/',[AccessController::class,'clearCache'])->name('accesscontrol.cacheclear');
     });
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');

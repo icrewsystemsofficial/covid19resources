@@ -76,8 +76,8 @@ class DeveloperAccess extends Seeder
         $user->save();
         $this->command->info("User: Ayshwaria Grace created.");
       }
-      
-      $user = User::where('name', 'Ayshwaria Grace')->first();
+
+      $user = User::where('name', 'Dhruv Bhatt')->first();
       if(!$user) {
         $user = new User;
         $user->name = 'Dhruv Bhatt';

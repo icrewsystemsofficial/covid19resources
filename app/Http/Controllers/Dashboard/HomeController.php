@@ -72,4 +72,19 @@ class HomeController extends Controller
             ]);
         }
     }
+// http://covid19resources.test/admin/resources/44/manage
+
+    public function store_report(Request $request , $id) {
+        $resource = Resource::find($id); 
+        // dd($request->all());
+        if($request->reason == 1 || $request->reason == 2 || $request->reason == 3 || $request->reason == 4) {
+            $resource->verified = 2;
+            $resource->save();
+            notify()->success('Your response were reported to admin');
+            return redirect(route('home'));
+        } else {
+            notify()->error('Some error occured try again', 'Whoops');
+            return redirect(route('home'));
+        }
+    }
 }
