@@ -8,7 +8,7 @@ use App\Models\Resource;
 use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
@@ -88,4 +88,10 @@ class HomeController extends Controller
         }
     }
 
+    public function activity() {
+        $activities = LogActivity::all();
+        // dd($activities);
+        return view('dashboard.admin.activity.index')->with('activities', $activities);
+      }
+    
 }

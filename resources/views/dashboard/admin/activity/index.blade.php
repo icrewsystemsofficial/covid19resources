@@ -29,23 +29,20 @@
                             <th>When</th>
                         </thead>
                         <tbody>
-                            @forelse ($activites $activity)
-                                <tr>
-                                    <td>{{ $activity->id }}</td>
-                                    <td>{{ $activity->description }}</td>
-                                    <td>
-                                        {{-- @if($activity->causer_id == 'null')
-                                        <a href="#" class="btn btn-danger btn-sm">System</a>
-                                        @else
-                                        <a class="btn btn-default btn-sm" href="{{ route('usermanagement.manage' ,$activity->causer_id) }}">{{ App\Models\User::find($activity->causer_id)->name }}</a> --}}
-                                       @endif
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    Whoops! Activity found
-                                </tr>
-                            @endforelse
+                          @foreach ($activities as $activity)
+                              <td>{{ $activity->id }}</td>
+                              <td>{{ $activity->description }}</td>
+                              {{-- <td>
+                                  {{ App\Models\User::find($activity->causer_id)->name }}</td> --}}
+                                <td>
+                                    @if($activity->causer_id == 'null')
+                                    <a href="#" class="btn btn-danger btn-xs text-white">System</a>
+                                    @else
+                                    <a class="btn btn-xs btn-info text-white" >{{ App\Models\User::find($activity->causer_id)->name }}</a>
+                                    @endif
+                                </td>
+                              <td>{{ $activity->created_at->diffForHumans() }}</td>
+                          @endforeach
                         </tbody>
                     </table>
                 </div>

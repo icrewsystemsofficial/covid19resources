@@ -1261,16 +1261,7 @@
                 </div>
                 <div class="card-body">
                     <ol class="activity-feed">
-                        @forelse ($activity as $acti)
-                            <li class="feed-item feed-item-secondary">
-                                <time class="date" datetime="9-25">{{ $acti->updated_at->diffForHumans() }}</time>
-                                <span class="text">{{ $acti->user->name }} <a href="#">"{{ $acti->activity }}"</a></span>
-                            </li>                            
-                        @empty
-                            <div class="alert alert-danger">
-                                Whoops! No Activity found {{ $currentlocation->name }} yet.
-                            </div>
-                        @endforelse
+                        
 
                         {{-- <li class="feed-item feed-item-success">
                             <time class="date" datetime="9-24">Sep 24</time>
