@@ -24,7 +24,7 @@ class TwitterListen extends Command
      *
      * @var string
      */
-    protected $description = 'Scan twitter for tweets using #covid19resources';
+    protected $description = 'Scan twitter for tweets using #COVID19VerifiedResources';
 
     /**
      * Create a new command instance.
@@ -43,8 +43,25 @@ class TwitterListen extends Command
      */
     public function handle()
     {
+        $keywords = config('app.tweet_keywords');
+        $string = '';
+        $i = 0;
+        foreach($keywords as $keyword) {
+
+
+            if($i != 0) {
+                $string .= ' ';
+            }
+
+            $string .= $keyword;
+            $i++;
+        }
+
+        $query = $string;
+        $this->line($query);
+
         TwitterStreamingApi::publicStream()
-        ->whenHears('#COVID19India', function(array $tweet) {
+        ->whenHears($query, function(array $tweet) {
             $tweet_data = [
                 'id' => $tweet['id_str'],
                 'avatar' => $tweet['user']['profile_background_image_url_https'],
@@ -72,7 +89,7 @@ class TwitterListen extends Command
 
             // File::put(storage_path().'/tweets/'.$tweet_data['user_name'].'.json', json_encode($tweet_data));
             // File::put(storage_path().'/tweets_full/'.$tweet_data['user_name'].'.json', json_encode($tweet));
-            echo $tweet_data['user_name'];
+            // echo $tweet_data['user_name'];
             ProcessTweet::dispatch($tweet_data);
             broadcast(new BroadcastTweets($tweet_data))->toOthers();
         })
