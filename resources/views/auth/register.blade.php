@@ -24,11 +24,11 @@
 <div class="wrapper wrapper-login wrapper-login-full p-0">
     <div class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-primary-gradient">
         <h1 class="title fw-bold text-white mb-3">
-            Together against COVID19
+            {{ config('app.name') }}
         </h1>
         <p class="subtitle text-white op-7">
-            Awareness is the first step against the COVID 19 in this battle. Let's make our fellow people aware
-            in the best way we know.
+            We're confident, because we're being run by the YOUTH of this nation.
+            Come be a part of an initative with {{ \App\Models\User::count() }}+ volunteers, across the country.
         </p>
     </div>
     <div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
@@ -94,6 +94,11 @@
                         Already a volunteer?
                     </span>
                     <a href="{{ route('login') }}" class="link">Login</a>
+                    |
+                    <span class="msg">
+                        Sign up for a generic account
+                    </span>
+                    <a href="{{ route('login') }}" class="link">Generic account</a>
                 </div>
             </div>
         </div>
