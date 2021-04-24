@@ -140,34 +140,40 @@ class GeographiesController extends Controller
     }
 
     public function admin_cities_update($id,Request $request) {
-        $state= States::find($id);
-        $state->name = request('statename');
-        $state->type = request('statetype'); 
-        $state->code = request('statecode');
-        $state->capital = request('statecapital');
-        $state->districts = request('statedistricts');
+        $cities= City::find($id);
+        $cities->name = request('cityname');
+        $cities->district = request('citydistrict'); 
+        $cities->state = request('citystate');
 
 
-        $state->update();
+        $cities->update();
 
-        notify()->success('States Were Updated', 'Yayy!');
-        return redirect(route('admin.geographies.states.index'));
+        notify()->success('Cities Were Updated', 'Yayy!');
+        return redirect(route('admin.geographies.cities.index'));
     }
 
     public function admin_districts_delete($id) {
 
         Districts::find($id)->delete();
-        notify()->success('Districts were Deleted', 'Hmmm, okay');
+        notify()->success('District was Deleted', 'Hmmm, okay');
         return redirect(route('admin.geographies.districts.index'));
 
     }
 
     public function admin_states_delete($id) {
 
-        Districts::find($id)->delete();
-        notify()->success('States were Deleted', 'Hmmm, okay');
+        States::find($id)->delete();
+        notify()->success('States was Deleted', 'Hmmm, okay');
         return redirect(route('admin.geographies.states.index'));
 
+        }
+
+    public function admin_cities_delete($id) {
+
+        City::find($id)->delete();
+        notify()->success('City was Deleted', 'Hmmm, okay');
+        return redirect(route('admin.geographies.cities.index'));
+    
         }
 }
 

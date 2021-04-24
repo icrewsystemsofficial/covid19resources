@@ -69,16 +69,27 @@
                             <span id="geography" style="display: block;">
                                 <div class="form-group">
                                     <label for="state">
-                                        <strong>Change State / Union Territory</strong>
+                                        <strong>Change Name of City</strong>
                                     </label>
-                                    <select name="statedropdown" class="form-control select2" required="required">
-                                        <option value="null" disabled selected>No state selected</option>
-                                        @foreach ($states as $state)
-                                            <option value="{{ $state->id }}">
-                                                {{ $state->name. ',' .$state->code }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+
+                                    <div class="form-group">
+                                        <label for="cityname"><strong>Edit City Name</strong></label>
+                                        <input type="text" name="cityname" class="form-control" required value="{{ $cities->name }}" placeholder="Enter City Name"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit District</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="citydistrict" value="{{ $cities->district }}" placeholder="Enter District">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit State</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="citystate" value="{{ $cities->state }}" placeholder="Enter State">
+                                     </div>
                                 </div>
                             </span>
                         </div>
@@ -135,7 +146,7 @@
                             <button class="btn btn-info btn-md ml-2 mb-2" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.geographies.districts.delete', $districts->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
+                            <a href="{{ route('admin.geographies.cities.delete', $cities->id) }}" onclick="return confirm('Are you sure you wish to delete this city? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
                             <!-- Button to Open the Modal -->
                         </div>
                        

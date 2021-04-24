@@ -160,7 +160,7 @@
                             <button class="btn btn-info btn-md ml-2 mb-2" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.geographies.states.delete', $state->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
+                            <a href="{{ route('admin.geographies.states.delete', $state->id) }}" onclick="return confirm('Are you sure you wish to delete this state? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
                             <!-- Button to Open the Modal -->
                         </div>
                        
