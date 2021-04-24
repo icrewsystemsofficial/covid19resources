@@ -5,6 +5,7 @@ use App\Http\Controllers\API\States;
 use App\Http\Controllers\API\Twitter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Location;
+use App\Http\Controllers\API\ScheduleRunner;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,13 @@ Route::prefix('v1')->group(function () {
     Route::get('/currentlocation', [Location::class, 'currentLocation']);
     Route::get('/currentlocation/update/{code}', [Location::class, 'currentLocation_update']);
     Route::get('/twitter', [Twitter::class, 'index']);
+    Route::get('/twitter/getstats', [Twitter::class, 'getstats']);
 
-    Route::get('/tweet/{id}/{status}', [Twitter::class, 'change_status']);
+    Route::get('/tweet/change-status/{id}/{status}', [Twitter::class, 'change_status']);
     Route::get('/tweets/{id}/delete', [Twitter::class, 'delete_tweet']);
+    Route::get('/tweet/autoflag/{id}', [Twitter::class, 'autoflag']);
+
+    Route::get('/scheduleRun', [ScheduleRunner::class, 'run']);
+    Route::get('/scheduleList', [ScheduleRunner::class, 'list']);
+    Route::get('/scheduleTweet', [ScheduleRunner::class, 'tweet']);
 });

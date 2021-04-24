@@ -1,26 +1,18 @@
 @extends('layouts.atlantis')
 @section('title', 'Tweets Admin')
 @section('js')
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="{{ asset('atlantis/assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('atlantis/assets/js/pusher.min.js') }}"></script>
     <script>
         $(document).ready( function () {
             var myTable = $('#tweets_table').DataTable();
-            $('#myTable').on( 'click', 'tbody tr', function () {
-                myTable.row( this ).delete( {
-                    buttons: [
-                        { label: 'Cancel', fn: function () { this.close(); } },
-                        'Delete'
-                    ]
-                } );
-            } );
         });
 
-        Pusher.logToConsole = false;
+        // Pusher.logToConsole = false;
 
-        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
-            cluster: 'ap2'
-        });
+        // var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+        //     cluster: 'ap2'
+        // });
 
         var tweets = [];
         var latest_tweet = 0;
@@ -123,7 +115,7 @@
         })();
 
         //Update tthe Stats
-        var db_tweets = {{ count($tweets) }};
+        var db_tweets = {{ $tweet_stats->total }};;
         streamed_tweets_stats.innerHTML = db_tweets;
         var total = verified + pending + refuted;
         //Progress bar.
@@ -131,28 +123,164 @@
         progress = ((db_tweets - pending) / 100);
         document.getElementById('progressBar').setAttribute('aria-valuenow', progress);
 
-        var channel = pusher.subscribe('pusher-tweets');
-            channel.bind('tweets', function(data) {
-                tweets.push(data);
-                db_tweets = db_tweets + 1;
-                streamed_tweets_stats.innerHTML = db_tweets;
-            });
+
+        // var channel = pusher.subscribe('pusher-tweets');
+        // channel.bind('tweets', function(data) {
+        //     tweets.push(data);
+        //     db_tweets = db_tweets + 1;
+        //     streamed_tweets_stats.innerHTML = db_tweets;
+        // });
 
 
+        function getStatus() {
+
+            var status_button = document.getElementById('STATUS_refresh_button');
+
+            var pending = document.getElementById('STATUS_pending');
+            var converted = document.getElementById('STATUS_converted');
+            var total = document.getElementById('STATUS_total');
+            var verified = document.getElementById('STATUS_verified');
+            var refuted = document.getElementById('STATUS_refuted');
+            var screened = document.getElementById('STATUS_screened');
+            var inadequate = document.getElementById('STATUS_inadequate');
+            var spam = document.getElementById('STATUS_spam');
+
+            status_button.innerHTML = "<i class='fa fa-sync fa-spin'></i>";
+            status_button.disabled = true;
+
+            axios.get('/twitter/getstats')
+            .then(function(response){
+                console.log(response);
+                status_button.innerHTML = "<i class='fa fa-sync'></i> Refresh Data";
+                status_button.disabled = false;
+
+                var data = response.data;
+
+                pending.innerHTML = data[0].count;
+                converted.innerHTML = data.converted;
+                total.innerHTML = data.total;
+                verified.innerHTML = data[1].count;
+                screened.innerHTML = data[6].count;
+                spam.innerHTML = data[3].count;
+                inadequate.innerHTML = data[4].count;
+
+            })
+            .catch(function(error) {
+                alert('There was an error getting updates from the API Server. Please contact admins');
+                console.log(error);
+            })
+        }
+
+        getStatus();
     </script>
 @endsection
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Tweets Admin</h4>
+        <h4 class="page-title">Tweets Dashboard</h4>
     </div>
-    <p>
+    <p class="mb-4">
         This is a collection of data that has been streamed from Twitter. These tweets have the keywords
         @foreach ($keywords as $keywords) <strong>{{ $keywords }}</strong> @endforeach
     </p>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-4">
+                                <div>
+                                    <p class="text-muted">
+                                        Tweets Streamed <i class="fa fa-circle-notch fa-spin"></i>
+                                        <h1 class="text-success fw-bold h1" id="STATUS_total">12,34,253,523 </h1>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button id="STATUS_refresh_button" onclick="getStatus();" class="btn btn-block btn-primary">
+                                <i class="fa fa-sync"></i> Refresh Data
+                            </button>
+                        </div>
+
+                        <div class="col-md-8">
+                            To avoid server overload, we only load 500 datapoints at a time.
+                            Oldest information is stored first. Use the links below to navigate further to the next 500 of the TOTAL TWEETS
+                            <br>
+                            <br>
+                            {{ $tweets->links() }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="text-right">
+                        <i class="fa fa-exclamation-triangle text-danger"></i>
+                    </div>
+                    <div class="h1 m-0" id="STATUS_pending">-</div>
+                    <div class="text-muted mb-3">Pending</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_screened">-</div>
+                    <div class="text-muted mb-3">Screened</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_converted">-</div>
+                    <div class="text-muted mb-3">Converted</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_verified">-</div>
+                    <div class="text-muted mb-3">Verified</div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_refuted">-</div>
+                    <div class="text-muted mb-3">Refuted</div>
+                </div>
+            </div>
+        </div> --}}
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_inadequate">-</div>
+                    <div class="text-muted mb-3">Inadequate</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0 mt-4" id="STATUS_spam">-</div>
+                    <div class="text-muted mb-3">Spam</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="row">
+
                 <div class="col-12 col-sm-6 col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -196,7 +324,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h5><b>TweetScanner</b> <i class="fab fa-twitter"></i></h5>
-                                    <p class="text-muted">Scanning for tweets with keywords
+                                    <p class="text-muted mb-4">Scanning for tweets with keywords
                                         <br>
                                         @php
                                             $keywords = config('app.tweet_keywords');
@@ -265,9 +393,11 @@
                 <div class="card-header">
                     <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($tweets) }}</span></h4>
                     <div class="text-right">
-                        <a href="{{ route('admin.resources.create') }}" class="btn btn-md btn-primary">
-                            Add a new resource <i class="fas fa-plus"></i>
-                        </a>
+                        <div class="col-md-4">
+                            <select name="" id="" class="form-control">
+                                <option value="">1 day older</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -300,7 +430,10 @@
                                         </small>
                                     </td>
                                     <td>
-                                    	@if($tweet->status == 0)
+                                        <span class="badge badge-{{ $tweet->getStatus()->color }}">
+                                            {{ $tweet->getStatus()->name }} <i class="fas fa-{{ $tweet->getStatus()->icon }}"></i>
+                                        </span>
+                                    	{{-- @if($tweet->status == 0)
                                             <span class="badge badge-warning">
                                                 Pending <i class="fas fa-exclamation-triangle"></i>
                                             </span>
@@ -327,10 +460,10 @@
                                                 Inadequate Information <i class="fas fa-exclamation-triangle"></i>
                                             </span>
                                         @endif
-                                        
+
                                         <script>
                                                 pending = pending + 1;
-                                            </script>
+                                            </script> --}}
                                     </td>
                                     <td class="text-center">
                                         {{ $tweet->created_at->format('d/m/Y H:i A') }}
@@ -362,9 +495,9 @@
                     </table>
 
                     <script>
-                        document.getElementById('verified').innerHTML = verified;
-                        document.getElementById('pending').innerHTML = pending;
-                        document.getElementById('refuted').innerHTML = refuted;
+                        document.getElementById('verified').innerHTML = {{ $tweet_stats->verified }};
+                        document.getElementById('pending').innerHTML = {{ $tweet_stats->pending }};
+                        document.getElementById('refuted').innerHTML = {{ $tweet_stats->refuted }};
                         // document.getElementById('total').innerHTML = verified + pending + refuted;
 
                         function deleteRow(row) {

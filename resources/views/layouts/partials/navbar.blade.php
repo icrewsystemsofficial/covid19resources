@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 
     <div class="container-fluid">
@@ -194,7 +195,14 @@
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                             <div class="user-box">
+<<<<<<< HEAD
                                 <div class="avatar-lg"><img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"></div>
+=======
+                                <div class="avatar-lg">
+                                    {{-- <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"> --}}
+                                    <img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                                </div>
+>>>>>>> f5a609caaa08e8edaec3b7e6af8d0d29d3168377
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>
@@ -204,7 +212,7 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Account Setting</a>
+                            <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Account Setting</a>
                             <div class="dropdown-divider"></div>
                             <form id="logout_form" action="{{ route('logout') }}" method="POST">
                                 @csrf

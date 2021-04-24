@@ -20,7 +20,7 @@
         var tweet_id = "{{ $tweet->id }}";
         var status = document.getElementById('choose_status').value;
 
-            axios.get('tweet/' + tweet_id + '/' + status)
+            axios.get('/tweet/change-status/' + tweet_id + '/' + status)
             .then(function(response){
                 console.log(response);
                 window.location.reload();
@@ -60,30 +60,7 @@
     </script>
 @endsection
 @section('content')
-@php
-    if($tweet->status == 0) {
-        $color = 'dark';
-        $status = 'Pending';
-        $panel_color = 'bg-dark';
-    } else if($tweet->status == 1) {
-        $color = 'success';
-        $status = 'Verified';
-        $panel_color = 'bg-success-gradient';
-    } else if($tweet->status == 2) {
-        $color = 'warning';
-        $status = 'Refuted';
-        $panel_color = 'bg-warning-gradient';
-    } else if($tweet->status == 3) {
-        $panel_color = 'bg-danger-gradient';
-        $status = 'Spam';
-        $color = 'danger';
-    } else if($tweet->status == 4) {
-        $panel_color = 'bg-dark';
-        $status = 'Inadequate Information';
-        $color = 'dark';
-    }
-@endphp
-<div class="panel-header {{ $panel_color }}">
+<div class="panel-header {{ $tweet->getStatus()->gradient }}">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div class="col-md-8 col-md-6">
@@ -96,36 +73,11 @@
                 </h5>
             </div>
 
-            <div class="col-md-4 text-right">
-                {{-- <a href="{{ route('home.report', $tweet->id) }}" class="btn btn-lg btn-white hvr-bounce-in">
-                    Report this resource <i class="ml-2 fa fa-exclamation-triangle text-danger"></i>
-                </a> --}}
 
-                    @if ($tweet->status == 1)
-                        <span class="btn btn-white">
-                            Verified <i class="fas fa-check text-{{ $color }}"></i>
-                        </span>
-                    @elseif($tweet->status == 2)
-                        <span class="btn btn-white">
-                            Refuted <i class="fas fa-times text-{{ $color }}"></i>
-                        </span>
-                    @elseif($tweet->status == 3)
-                        <span class="btn btn-white">
-                            Spam <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
-                    @elseif($tweet->status == 4)
-                        <span class="btn btn-white">
-                            Inadequate Information <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
-                    @elseif($tweet->status == 0)
-                        <span class="btn btn-white">
-                            Pending <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
-                    @else
-                        <span class="btn btn-white">
-                            Unknown <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
-                        </span>
-                    @endif
+            <div class="col-md-4 text-right">
+                <span class="btn btn-white">
+                    {{ $tweet->getStatus()->name }} <i class="fas fa-{{ $tweet->getStatus()->icon }} text-{{ $tweet->getStatus()->color }}"></i>
+                </span>
             </div>
         </div>
     </div>
@@ -222,7 +174,7 @@
                 </div>
                 <div class="card-body">
                     <p class="mt-2">
-                        This tweet is currently marked as <span class="badge badge-{{ $color }}">{{ strtoupper($status) }}</span>
+                        This tweet is currently marked as <span class="badge badge-{{ $tweet->getStatus()->color }}">{{ strtoupper($tweet->getStatus()->name) }}</span>
                     </p>
 
                     <div class="">
