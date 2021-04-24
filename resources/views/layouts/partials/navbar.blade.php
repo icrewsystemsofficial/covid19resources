@@ -207,7 +207,7 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Account Setting</a>
+                            <a class="dropdown-item" href="/user/{{ auth()->user()->id }}/edit">Account Setting</a>
                             <div class="dropdown-divider"></div>
                             <form id="logout_form" action="{{ route('logout') }}" method="POST">
                                 @csrf

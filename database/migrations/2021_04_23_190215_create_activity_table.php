@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatesTable extends Migration
+class CreateActivityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('states', function (Blueprint $table) {
+        Schema::create('activity', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->default('unknown');
-            $table->string('code')->nullable();
-            $table->string('name');
-            $table->string('capital')->default('unknown');
-            $table->string('districts')->nullable();
+            $table->foreignId('user_id');
+            $table->text('activity');
             $table->timestamps();
+
+            
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('states');
+        Schema::dropIfExists('activity');
     }
 }
