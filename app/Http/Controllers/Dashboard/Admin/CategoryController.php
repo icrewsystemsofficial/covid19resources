@@ -42,7 +42,6 @@ class CategoryController extends Controller
         $category->description = request('description');
         $category->status = request('status');
         $category->update();
-
         notify()->success('Category was updated', 'Yayy!');
         return redirect(route('admin.categories.index'));
     }
