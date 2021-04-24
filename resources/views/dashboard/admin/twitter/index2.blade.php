@@ -8,11 +8,11 @@
             var myTable = $('#tweets_table').DataTable();
         });
 
-        // Pusher.logToConsole = false;
+        Pusher.logToConsole = false;
 
-        // var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
-        //     cluster: 'ap2'
-        // });
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+            cluster: 'ap2'
+        });
 
         var tweets = [];
         var latest_tweet = 0;
@@ -25,7 +25,7 @@
         var tweeter_name = document.getElementById('tweeter_name');
         var status_link = document.getElementById('status_link');
 
-        var streamed_tweets_stats = document.getElementById('streamed_tweets_stats');
+        // var streamed_tweets_stats = document.getElementById('streamed_tweets_stats');
 
         //Status boxes.
         var twitterstream_running = document.getElementById('twitterstream_running');
@@ -115,21 +115,20 @@
         })();
 
         //Update tthe Stats
-        var db_tweets = {{ $tweet_stats->total }};;
-        streamed_tweets_stats.innerHTML = db_tweets;
-        var total = verified + pending + refuted;
-        //Progress bar.
-        var progress = 0;
-        progress = ((db_tweets - pending) / 100);
-        document.getElementById('progressBar').setAttribute('aria-valuenow', progress);
+        // streamed_tweets_stats.innerHTML = db_tweets;
+        var total = document.getElementById('STATUS_total');
+        var total_tweets = total.innerText;
 
+        var channel = pusher.subscribe('pusher-tweets');
 
-        // var channel = pusher.subscribe('pusher-tweets');
-        // channel.bind('tweets', function(data) {
-        //     tweets.push(data);
-        //     db_tweets = db_tweets + 1;
-        //     streamed_tweets_stats.innerHTML = db_tweets;
-        // });
+        channel.bind('tweets', function(data) {
+            tweets.push(data);
+            // total_tweets = total_tweets + 1;
+            // total.innerHTML = total_tweets;
+            setTimeout(function() {
+                getStatus();
+            }, 5000)
+        });
 
 
         function getStatus() {
@@ -145,19 +144,18 @@
             var inadequate = document.getElementById('STATUS_inadequate');
             var spam = document.getElementById('STATUS_spam');
 
-            status_button.innerHTML = "<i class='fa fa-sync fa-spin'></i>";
-            status_button.disabled = true;
+            // status_button.innerHTML = "<i class='fa fa-sync fa-spin'></i>";
+            // status_button.disabled = true;
 
             axios.get('/twitter/getstats')
             .then(function(response){
-                console.log(response);
-                status_button.innerHTML = "<i class='fa fa-sync'></i> Refresh Data";
-                status_button.disabled = false;
+                // status_button.innerHTML = "<i class='fa fa-sync'></i> Refresh Data";
+                // status_button.disabled = false;
 
                 var data = response.data;
 
                 pending.innerHTML = data[0].count;
-                converted.innerHTML = data.converted;
+                converted.innerHTML = data[5].count;
                 total.innerHTML = data.total;
                 verified.innerHTML = data[1].count;
                 screened.innerHTML = data[6].count;
@@ -185,7 +183,7 @@
     </p>
 
     <div class="row">
-        <div class="col-md-12 mb-3">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
 
@@ -195,7 +193,7 @@
                                 <div>
                                     <p class="text-muted">
                                         Tweets Streamed <i class="fa fa-circle-notch fa-spin"></i>
-                                        <h1 class="text-success fw-bold h1" id="STATUS_total">12,34,253,523 </h1>
+                                        <h1 class="text-success fw-bold h1" id="STATUS_total">1</h1>
                                     </p>
                                 </div>
                             </div>
@@ -217,6 +215,74 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card card-stats">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5><b>TweetScanner</b> <i class="fab fa-twitter"></i></h5>
+                            <p class="text-muted mb-4">Scanning for tweets with keywords
+                                <br>
+                                @php
+                                    $keywords = config('app.tweet_keywords');
+                                @endphp
+                                @foreach ($keywords as $keywords) <strong>{{ $keywords }}</strong> @endforeach
+                                ...
+                            </p>
+                        </div>
+                        <h3 class="text-info">
+                            <span id="statusIndicator" class="badge badge-dark fw-bold">Loading...</span>
+                        </h3>
+                    </div>
+
+                    <div class="alert alert-danger" id="twitterstream_stopped" style="display: none;">
+                        <h4 class="b-b1 mb-2">
+                            <i class="fa fa-times text-danger"></i> Stopped
+                        </h4>
+                        <div>
+
+                            The TweetScanner is currently not running. This might be a temporary maintenance stop. Please check our
+                            App Status page to know more information.
+                            <br><br>
+                            <a href="#" class="btn btn-danger btn-md">App Status</a>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" id="twitterstream_idle" style="display: none;">
+                        <h4 class="b-b1 mb-2">
+                            <i class="fa fa-exclamation-triangle text-warning"></i> Idle
+                        </h4>
+                        <div>
+                            The TweetScanner stream is currently idle. This means that currently no one is tweeting with the monitored hashtags.
+                            Data will show up as soon as someone tweets it.
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="twitterstream_running" style="display: none;">
+                        <div class="alert alert-success">
+                            <h4 class="mt-3 b-b1 mb-2">
+                                <span id="tweeter_name"></span> (<a href="#" class="text-primary" id="tweeter_username" target="_blank"></a>) &bull; <span id="timeAgo">Unknown</span>
+                            </h4>
+                            <div id="tweet_box">
+                                Tweet Data
+                            </div>
+                        </div>
+
+                            <span class="text-muted">
+                                Showing tweet <span id="current_tweet">0</span> of <span id="streamed_tweets">Unknown</span> (reindexing...)
+                                <br>
+                                Saved to database <i class="fa fa-check text-success"></i>
+                            </span>
+                            <br><br>
+                            <a href="#" target="_blank" id="status_link" class="btn btn-primary">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-6 col-sm-4 col-lg-2">
             <div class="card">
                 <div class="card-body p-3 text-center">
@@ -240,7 +306,7 @@
             <div class="card">
                 <div class="card-body p-3 text-center">
                     <div class="h1 m-0 mt-4" id="STATUS_converted">-</div>
-                    <div class="text-muted mb-3">Converted</div>
+                    <div class="text-muted mb-3">Duplicated (RT)</div>
                 </div>
             </div>
         </div>
@@ -279,126 +345,9 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="row">
-
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h5><b>Statistics</b></h5>
-                                    <p class="text-muted">Tweets Streamed</p>
-                                </div>
-                                <h3 class="text-info fw-bold" id="streamed_tweets_stats"></h3>
-                            </div>
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-info w-75" id="progressBar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <p class="text-muted mb-0">Pending for Verification</p>
-                                <p class="text-warning font-weight-bold mb-0">-</p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row user-stats text-center">
-                                <div class="col">
-                                    <div class="number" id="pending">-</div>
-                                    <div class="title">Pending Verification <i class="fa fa-exclamation-triangle text-warning"></i></div>
-                                </div>
-                                <div class="col">
-                                    <div class="number text-success" id="verified">-</div>
-                                    <div class="title">Converted to resources</div>
-                                </div>
-                                <div class="col">
-                                    <div class="numbe text-danger" id="refuted">-</div>
-                                    <div class="title">Rejected</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card card-stats">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h5><b>TweetScanner</b> <i class="fab fa-twitter"></i></h5>
-                                    <p class="text-muted mb-4">Scanning for tweets with keywords
-                                        <br>
-                                        @php
-                                            $keywords = config('app.tweet_keywords');
-                                        @endphp
-                                        @foreach ($keywords as $keywords) <strong>{{ $keywords }}</strong> @endforeach
-                                        ...
-                                    </p>
-                                </div>
-                                <h3 class="text-info">
-                                    <span id="statusIndicator" class="badge badge-dark fw-bold">Loading...</span>
-                                </h3>
-                            </div>
-
-                            <div class="alert alert-danger" id="twitterstream_stopped" style="display: none;">
-                                <h4 class="b-b1 mb-2">
-                                    <i class="fa fa-times text-danger"></i> Stopped
-                                </h4>
-                                <div>
-
-                                    The TweetScanner is currently not running. This might be a temporary maintenance stop. Please check our
-                                    App Status page to know more information.
-                                    <br><br>
-                                    <a href="#" class="btn btn-danger btn-md">App Status</a>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-warning" id="twitterstream_idle" style="display: none;">
-                                <h4 class="b-b1 mb-2">
-                                    <i class="fa fa-exclamation-triangle text-warning"></i> Idle
-                                </h4>
-                                <div>
-                                    The TweetScanner stream is currently idle. This means that currently no one is tweeting with the monitored hashtags.
-                                    Data will show up as soon as someone tweets it.
-                                </div>
-                            </div>
-
-                            <div class="card-body" id="twitterstream_running" style="display: none;">
-                                <div class="alert alert-success">
-                                    <h4 class="mt-3 b-b1 mb-2">
-                                        <span id="tweeter_name"></span> (<a href="#" class="text-primary" id="tweeter_username" target="_blank"></a>) &bull; <span id="timeAgo">Unknown</span>
-                                    </h4>
-                                    <div id="tweet_box">
-                                        Tweet Data
-                                    </div>
-                                </div>
-
-                                    <span class="text-muted">
-                                        Showing tweet <span id="current_tweet">0</span> of <span id="streamed_tweets">Unknown</span> (reindexing...)
-                                        <br>
-                                        Saved to database <i class="fa fa-check text-success"></i>
-                                    </span>
-                                    <br><br>
-                                    <a href="#" target="_blank" id="status_link" class="btn btn-primary">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <br><br>
-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($tweets) }}</span></h4>
-                    <div class="text-right">
-                        <div class="col-md-4">
-                            <select name="" id="" class="form-control">
-                                <option value="">1 day older</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <table id="tweets_table" class="table table-hover table-responsive">
@@ -495,9 +444,9 @@
                     </table>
 
                     <script>
-                        document.getElementById('verified').innerHTML = {{ $tweet_stats->verified }};
-                        document.getElementById('pending').innerHTML = {{ $tweet_stats->pending }};
-                        document.getElementById('refuted').innerHTML = {{ $tweet_stats->refuted }};
+                        // document.getElementById('verified').innerHTML = {{ $tweet_stats->verified }};
+                        // document.getElementById('pending').innerHTML = {{ $tweet_stats->pending }};
+                        // document.getElementById('refuted').innerHTML = {{ $tweet_stats->refuted }};
                         // document.getElementById('total').innerHTML = verified + pending + refuted;
 
                         function deleteRow(row) {
