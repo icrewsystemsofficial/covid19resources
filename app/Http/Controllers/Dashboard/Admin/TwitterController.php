@@ -13,8 +13,24 @@ use App\Http\Controllers\Controller;
 class TwitterController extends Controller
 {
     public function index() {
-        return view('dashboard.admin.twitter.index', [
-            'tweets' => Twitter::all(),
+
+        $tweets = new Twitter;
+        $tweet_stats = array(
+            'total' => $tweets->count(),
+            'pending' => $tweets->where('status', 0)->count(),
+            'verified' => $tweets->where('status', 1)->count(),
+            'refuted' => $tweets->where('status', 2)->count(),
+            'spam' => $tweets->where('status', 3)->count(),
+            'inadequate' => $tweets->where('status', 4)->count(),
+        );
+
+        $tweet_stats = (object) $tweet_stats;
+
+        $tweets_stream = $tweets->orderBy('created_at')->paginate(500);
+
+        return view('dashboard.admin.twitter.index2', [
+            'tweets' => $tweets_stream,
+            'tweet_stats' => $tweet_stats,
         ]);
     }
 
