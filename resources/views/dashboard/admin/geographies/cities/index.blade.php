@@ -98,7 +98,7 @@
                             <th>State</th>
                             <th>Status</th>
                             <th>Last Updated</th>
-                            <th>Manage Record</th>
+                            <th>Edit Record</th>
                         </thead>
                         <tbody>
                             <script>

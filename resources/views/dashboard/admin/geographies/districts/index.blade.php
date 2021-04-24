@@ -99,7 +99,8 @@
                             {{-- <th>Status</th> --}}
                             {{-- <th>Created</th> --}}
                             <th>Status</th>
-                            <th>Updated At</th>
+                            <th>Last Updated</th>
+                            <th>Edit Record</th>
                         </thead>
                         <tbody>
                             <script>

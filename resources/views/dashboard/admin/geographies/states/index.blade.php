@@ -100,6 +100,7 @@
                             <th>Districts</th>
                             <th>Status</th>
                             <th>Last Updated</th>
+                            <th>Edit Record</th>
                         </thead>
                         <tbody>
                             <script>
