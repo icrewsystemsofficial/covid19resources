@@ -43,7 +43,7 @@
 @section('js')
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 <script>
     var map = L.map('mapid', {
@@ -69,19 +69,60 @@
 	attribution: '&copy; {{ config("app.name") }}'
     }).addTo(map);
 
+// copy to clipboard function
+function copyClip() {
+    var copyText =  document.getElementById("phone");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); 
+
+    document.execCommand("copy");
+    // alert("Copied the text: " + copyText.value);
+    $.notify({
+    icon: 'flaticon-success',
+    title: "{{ config('app.name') }}",
+    message:"Mobile number "+ copyText.value + " copied",
+    },{
+    type: 'success',
+    placement: {
+        from: "top",
+        align: "right"
+    },
+    time: 1000,
+
+    // alert('hello');
+});
+}
+
+$("#txtarea").hide();
+$("#comment").hide();
+$( "#slct" ).change(function() {
+  var val = $("#slct").val();
+    if(val=="4"){
+        $("#txtarea").show();
+        $("#comment").show();
+    } else {
+        $("#txtarea").hide();
+    }
+});
+
+// $("button").click(function() {
+//     var fired_button = $(this).val();
+//     document.execCommand("copy");
+//     alert('copied');
+// });
 </script>
 @endsection
 @section('content')
 <div class="panel-header bg-success-gradient">
     <div class="page-inner py-5">
-        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+        <div class="d-flex align-`items-left align-items-md-center flex-column flex-md-row">
             <div class="col-md-8 col-md-6">
                 <h2 class="text-white pb-2 fw-bold">{{ config('app.name') }}</h2>
                 <h5 class="text-white op-7 mb-2">State Wise COVID19 Resources. Awareness is the first step in this battle.</h5>
             </div>
 
             <div class="col-md-4 text-right">
-                <a href="{{ route('home.report', $resource->id) }}" class="btn btn-lg btn-white hvr-bounce-in">
+                <a  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-white hvr-bounce-in">
                     Report this resource <i class="ml-2 fa fa-exclamation-triangle text-danger"></i>
                 </a>
             </div>
@@ -106,23 +147,30 @@
                 </div>
 
                 <div class="form-group">
-                    <a href="#" class="btn btn-sm btn-block btn-success">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="form-group col-9">
+                            <input type="text" class="form-control form-control-sm w-100" id="phone" value="{{ $resource->phone }}" readonly>
+                        </div>
+                        <button onclick="copyClip();" class="btn btn-sm btn-warning col" >
+                            Copy <i class="fas fa-clipboard"></i>
+                        </button>
+                    </div>
+                    {{-- <button id="button" value="{{ $resource->phone }}" class="btn btn-copy btn-sm btn-block btn-warning">
+                            Copy {{ $resource->phone }} <i class="fas fa-clipboard"></i>
+                    </button> --}}
+
+
+                    <a  href="tel:{{ $resource->phone }}" class="btn btn-sm btn-block btn-success mb-2">
                         Call {{ $resource->phone }} <i class="fas fa-phone"></i>
                     </a>
-
-                    <a href="#" class="btn btn-sm btn-block btn-warning">
-                        Copy {{ $resource->phone }} <i class="fas fa-clipboard"></i>
-                    </a>
-
                     <a href="#" class="btn btn-sm btn-block btn-primary">
                         Tweet this <i class="fab fa-twitter"></i>
                     </a>
 
-                    <a href="#" class="btn btn-sm btn-block btn-dark">
+                    <a href="{{ $resource->url }}" target="_blank" class="btn btn-sm btn-block btn-dark">
                         Visit {{ $resource->url }} <i class="fas fa-link"></i>
                     </a>
                 </div>
-
             </div>
         </div>
 
@@ -147,4 +195,41 @@
 
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Report the resource</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route('home.submit.report', $resource->id) }}" method="POST">
+            @csrf 
+            <div class="p-2">
+                <div class="form-group">
+                  <label for="slct">Report Resource</label>
+                  <select id="slct" class="form-control" name="reason" >
+                      <option value="1">Tried to reach out to the resource, no response</option>
+                      <option value="2">The resource is unavailable now</option>
+                      <option value="3">The data is incorrect / inaccurate</option>
+                      <option value="4">Others</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="txtarea" id="comment">Reason</label>
+                  <textarea class="form-control" id="txtarea" name="report_comment" placeholder="Write your reason here..." cols="5"></textarea>
+              </div>
+                </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-warning">Report</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+{{-- href="{{ route('home.report', $resource->id) }}" --}}
 @endsection

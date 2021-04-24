@@ -25,6 +25,10 @@
         $(document).ready(function() {
             $('.select2').select2();
             $('#hospitals_table').DataTable();
+            $('#ambulance_table').DataTable();
+            $('#oxygen_table').DataTable();
+            $('#medicine_table').DataTable();
+            $('#misc_table').DataTable();
         });
 
 
@@ -162,8 +166,8 @@
 
     <script>
         function changeLocation(state) {
-            var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
-            axios.get(api_url + state)
+            // var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
+            axios.get('/currentlocation/update/' + state)
             .then(function (response) {
             // handle success
                 // $.notify({
@@ -225,7 +229,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        What would you like to know about?
+                        There are {{ $resources->count() }} resources indexed for <strong>{{ $currentlocation->name }}</strong>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -249,15 +253,22 @@
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-ambulance-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                            <a class="nav-link" id="pills-oxygen-tab-icon" data-toggle="pill" href="#pills-oxygen-icon" role="tab" aria-controls="pills-oxygen-icon" aria-selected="false">
                                 <i class="fas fa-lungs"></i>
                                 Oxygen
                             </a>
                         </li>
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-ambulance-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                            <a class="nav-link" id="pills-medicine-tab-icon" data-toggle="pill" href="#pills-medicine-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
                                 <i class="fa fa-syringe"></i>
                                 Medicines
+                            </a>
+                        </li>
+
+                        <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-misc-tab-icon" data-toggle="pill" href="#pills-misc-icon" role="tab" aria-controls="pills-misc-icon" aria-selected="false">
+                                <i class="fa fa-circle-notch"></i>
+                                Miscelleneous
                             </a>
                         </li>
                     </ul>
@@ -369,7 +380,7 @@
                                     <th>Options</th>
                                 </thead>
                                 <tbody>
-                                    @forelse ($resources as $resource)
+                                    @foreach ($resources as $resource)
                                         @if($resource->category_data->name == 'Hospitals')
 
                                         @php
@@ -395,8 +406,8 @@
                                                         </a>
                                                     </small>
                                                     @else
-                                                    <span class="text-muted">
-                                                        Not applicable
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
                                                     </span>
                                                 @endif
                                             </td>
@@ -431,17 +442,324 @@
                                             </td>
                                         </tr>
                                         @endif
-                                        @empty
-                                        <tr>
-                                            Whoops! No resources found.
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-ambulance-tab-icon">
-                            <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
-                            <p> But nothing the copy said could convince her and so it didnâ€™t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                            <table id="ambulance_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resources as $resource)
+                                        @if($resource->category_data->name == 'Ambulance')
+
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-oxygen-icon" role="tabpanel" aria-labelledby="pills-oxygen-tab-icon">
+                            <table id="oxygen_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resources as $resource)
+                                        @if($resource->category_data->name == 'Oxygen')
+
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-medicine-icon" role="tabpanel" aria-labelledby="pills-medicine-tab-icon">
+                            <table id="medicine_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resources as $resource)
+                                        @if($resource->category_data->name == 'Medicines')
+
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
+                            <table id="misc_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resources as $resource)
+                                        @if($resource)
+
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -943,11 +1261,18 @@
                 </div>
                 <div class="card-body">
                     <ol class="activity-feed">
-                        <li class="feed-item feed-item-secondary">
-                            <time class="date" datetime="9-25">Sep 25</time>
-                            <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-                        </li>
-                        <li class="feed-item feed-item-success">
+                        @forelse ($activity as $acti)
+                            <li class="feed-item feed-item-secondary">
+                                <time class="date" datetime="9-25">{{ $acti->updated_at->diffForHumans() }}</time>
+                                <span class="text">{{ $acti->user->name }} <a href="#">"{{ $acti->activity }}"</a></span>
+                            </li>                            
+                        @empty
+                            <div class="alert alert-danger">
+                                Whoops! No Activity found {{ $currentlocation->name }} yet.
+                            </div>
+                        @endforelse
+
+                        {{-- <li class="feed-item feed-item-success">
                             <time class="date" datetime="9-24">Sep 24</time>
                             <span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
                         </li>
@@ -966,7 +1291,7 @@
                         <li class="feed-item">
                             <time class="date" datetime="9-17">Sep 17</time>
                             <span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-                        </li>
+                        </li> --}}
                     </ol>
                 </div>
             </div>

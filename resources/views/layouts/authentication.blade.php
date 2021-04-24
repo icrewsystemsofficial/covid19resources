@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
+	<title> @yield('title', 'Authentication') | {{ config('app.name') }}</title>
 
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
@@ -21,8 +21,8 @@
 
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-	{{-- <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}"> --}}
-    <link rel="stylesheet" href="https://demo.themekita.com/atlantis/livepreview/examples/assets/css/atlantis.css">
+	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.css') }}">
+    {{-- <link rel="stylesheet" href="https://demo.themekita.com/atlantis/livepreview/examples/assets/css/atlantis.css"> --}}
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
