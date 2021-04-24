@@ -91,11 +91,15 @@ class GeographiesController extends Controller
     }
 
     public function admin_states_update($id,Request $request) {
-        $districts = Districts::find($id);
-        $state= States::find($request->statedropdown);
-        $districts->state = $state->name;
-        $districts->code = $state->code;
-        $districts->update();
+        $state= States::find($id);
+        $state->name = request('statename');
+        $state->type = request('statetype'); 
+        $state->code = request('statecode');
+        $state->capital = request('statecapital');
+        $state->districts = request('statedistricts');
+
+
+        $state->update();
 
         notify()->success('States Were Updated', 'Yayy!');
         return redirect(route('admin.geographies.states.index'));
