@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Admin\AccessController;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
+use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\Admin\UserController;
+use App\Http\Controllers\Dashboard\Admin\AccessController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
-use App\Http\Controllers\Dashboard\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +33,15 @@ Route::get('/location', function() {
 Route::get('/location/get', function() {
     dd(Cache::get('location'));
 });
+
+Route::prefix('volunteer')->group(function () {
+    Route::get('/', [Volunteers::class, 'index'])->name('home.volunteers.index');
+});
+
+Route::prefix('mission')->group(function () {
+    Route::get('/', [Volunteers::class, 'index'])->name('home.mission.index');
+});
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
