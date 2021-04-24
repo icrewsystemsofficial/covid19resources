@@ -22,4 +22,10 @@ class ScheduleRunner extends Controller
         $output = Artisan::output();
         return $output;
     }
+
+    public function tweet() {
+        Artisan::call('twitter:scan');
+        $output = Artisan::output();
+        return $output;
+    }
 }

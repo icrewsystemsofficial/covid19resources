@@ -36,4 +36,5 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/scheduleRun', [ScheduleRunner::class, 'run']);
     Route::get('/scheduleList', [ScheduleRunner::class, 'list']);
+    Route::get('/scheduleTweet', [ScheduleRunner::class, 'tweet']);
 });
