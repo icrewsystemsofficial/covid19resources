@@ -47,7 +47,7 @@ class DeveloperAccess extends Seeder
         $user->name = 'Dinesh Kumar';
         $user->email = 'randaccforme2000@gmail.com';
         $user->email_verified_at = now();
-        $user->password ='$2y$10$Bza8A1MjVfBq2HI53xna1.D8wfS9QLn9TpXoYN/IYjaoOYrlBY1aK'; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
+        $user->password ='$2y$10$RufvOqmxVVsmvWA0w9P2DuMhbfxLt8lQQrxZNCB1nu7NtpJDj1jvi'; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
         $user->accepted = '1';
         $user->save();
         $this->command->info("User: Dinesh Kumar created.");
@@ -77,7 +77,7 @@ class DeveloperAccess extends Seeder
         $this->command->info("User: Ayshwaria Grace created.");
       }
 
-      $user = User::where('name', 'Ayshwaria Grace')->first();
+      $user = User::where('name', 'Dhruv Bhatt')->first();
       if(!$user) {
         $user = new User;
         $user->name = 'Dhruv Bhatt';
@@ -87,6 +87,18 @@ class DeveloperAccess extends Seeder
         $user->accepted = '1';
         $user->save();
         $this->command->info("User: Dhruv Bhatt created.");
+      }
+      
+       $user = User::where('name', 'Aara Amuthan')->first();
+      if(!$user) {
+        $user = new User;
+        $user->name = 'Aara Amuthan';
+        $user->email = 'aaraamuthanb@gmail.com';
+        $user->email_verified_at = now();
+        $user->password = '$2y$10$sk3M5Z8MKDsouFdG9UnYhea.W5tONqLLDGDFe2MNlj3RoRqi0/wpu';
+        $user->accepted = '1';
+        $user->save();
+        $this->command->info("User: Aara Amuthan created.");
       }
 
     }

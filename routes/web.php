@@ -4,10 +4,14 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
+use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\UserEditController;
+use App\Http\Controllers\Dashboard\Admin\UserController;
+use App\Http\Controllers\Dashboard\Admin\AccessController;
+use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
-use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 use App\Http\Controllers\VolunteersController;
 
@@ -26,6 +30,7 @@ use App\Http\Controllers\VolunteersController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 
 Route::get('/volunteers/termsandconditions',[VolunteersController::class,'volunteers_termsandconditions'])->name('volunteers.termsandconditions');
 
@@ -37,6 +42,15 @@ Route::get('/location', function() {
 Route::get('/location/get', function() {
     dd(Cache::get('location'));
 });
+
+Route::prefix('volunteer')->group(function () {
+    Route::get('/', [Volunteers::class, 'index'])->name('home.volunteers.index');
+});
+
+Route::prefix('mission')->group(function () {
+    Route::get('/', [Volunteers::class, 'index'])->name('home.mission.index');
+});
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
@@ -61,8 +75,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
-
-    
+  
     Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
     Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
     Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
@@ -85,10 +98,30 @@ Route::prefix('admin')->group(function () {
     Route::get('/geographies/cities/{id}/delete', [GeographiesController::class, 'admin_cities_delete'])->name('admin.geographies.cities.delete');
 
 
+    Route::prefix('users')->group(function () {
+        Route::get('/',[UserController::class,'admin_user_index'])->name('admin.user.index');
+        Route::get('/create',[UserController::class,'admin_user_create'])->name('admin.user.create');
+        Route::post('/store',[UserController::class,'admin_user_store'])->name('admin.user.store');
+        Route::get('{id}/edit',[UserController::class,'admin_user_edit'])->name('admin.user.edit');
+        Route::post('/{id}/update',[UserController::class,'admin_user_update'])->name('admin.user.update');
+        Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
+    });
 
-    
+    Route::prefix('access-control')->group(function () {
+        Route::get('/',[AccessController::class,'admin_roles_perms_index'])->name('accesscontrol.index');
+        Route::post('/add-role',[AccessController::class,'admin_roles_perms_store'])->name('accesscontrol.store');
+        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_manage'])->name('accesscontrol.edit');
+        Route::post('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
+        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.delete');
+        Route::get('cache-clear/',[AccessController::class,'clearCache'])->name('accesscontrol.cacheclear');
+    });
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
+    Route::get('/tweets/{id}/manage', [TwitterController::class, 'manage'])->name('admin.twitter.manage');
+    Route::post('/tweets/{id}/update', [TwitterController::class, 'update'])->name('admin.twitter.update');
+    Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
+    Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
+    Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
 });
 
 
@@ -113,5 +146,8 @@ Route::get('/json', function() {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('user/{user}/edit', [UserEditController::class, 'edit']);
+Route::put('user/{user}/', [UserEditController::class, 'update']);
 
 require __DIR__.'/auth.php';

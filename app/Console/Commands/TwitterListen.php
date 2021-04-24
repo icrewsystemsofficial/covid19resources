@@ -2,9 +2,13 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use App\Models\Twitter;
 use TwitterStreamingApi;
+use App\Jobs\ProcessTweet;
+use App\Events\BroadcastTweets;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class TwitterListen extends Command
 {
@@ -20,7 +24,7 @@ class TwitterListen extends Command
      *
      * @var string
      */
-    protected $description = 'Scan twitter for tweets using #covid19resources';
+    protected $description = 'Scan twitter for tweets using #COVID19VerifiedResources';
 
     /**
      * Create a new command instance.
@@ -39,13 +43,31 @@ class TwitterListen extends Command
      */
     public function handle()
     {
+        $keywords = config('app.tweet_keywords');
+        $string = '';
+        $i = 0;
+        foreach($keywords as $keyword) {
+
+
+            if($i != 0) {
+                $string .= ' ';
+            }
+
+            $string .= $keyword;
+            $i++;
+        }
+
+        $query = $string;
+        $this->line($query);
+
         TwitterStreamingApi::publicStream()
-        ->whenHears('#COVID19', function(array $tweet) {
+        ->whenHears($query, function(array $tweet) {
             $tweet_data = [
+                'id' => $tweet['id_str'],
+                'avatar' => $tweet['user']['profile_background_image_url_https'],
                 'text' => $tweet['text'],
                 'user_name' => $tweet['user']['screen_name'],
                 'name' => $tweet['user']['name'],
-                'profile_image_url_https' => $tweet['user']['profile_image_url_https'],
                 'retweet_count' => $tweet['retweet_count'],
                 'reply_count' => $tweet['reply_count'],
                 'favorite_count' => $tweet['favorite_count'],
@@ -55,24 +77,21 @@ class TwitterListen extends Command
             }
 
             if (isset($tweet['created_at'])) {
-                $tweet_data['date'] = date("M d, Y H:i A", strtotime($tweet['created_at']));
+                $tweet_data['date'] = date("Y-m-d H:i:s", strtotime($tweet['created_at']));
+                $value = date("Y-m-d H:i:s", strtotime($tweet['created_at']));
+                $tweet_data['diffForHumans'] = Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->diffForHumans();
+                $tweet_data['momentJS'] = Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->format('YmdHi');
             }
 
             if (isset($tweet['extended_entities']['media'][0]['media_url'])) {
                 $tweet_data['image'] = $tweet['extended_entities']['media'][0]['media_url'];
             }
 
-            echo $tweet_data['user_name'].' '.$tweet['text'].' '.$tweet_data['date'];
-            // echo $tweet['id'];
-
-            // $twitter = new Twitter;
-            // $twitter->tweet_id = $tweet['id'];
-            // $twitter->tweet = $tweet_data['text'];
-            // $twitter->extended_tweet = $tweet_data['extended_tweet'];
-            // $twitter->username = $tweet_data['username'];
-            // $twitter->fullname = $tweet_data['name'];
-            // $twitter->json = $tweet;
-            // $twitter->status = 0;
+            // File::put(storage_path().'/tweets/'.$tweet_data['user_name'].'.json', json_encode($tweet_data));
+            // File::put(storage_path().'/tweets_full/'.$tweet_data['user_name'].'.json', json_encode($tweet));
+            // echo $tweet_data['user_name'];
+            ProcessTweet::dispatch($tweet_data);
+            broadcast(new BroadcastTweets($tweet_data))->toOthers();
         })
         ->startListening();
     }
