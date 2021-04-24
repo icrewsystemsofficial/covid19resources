@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
@@ -118,5 +119,8 @@ Route::get('/json', function() {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('user/{user}/edit', [UserEditController::class, 'edit']);
+Route::put('user/{user}/', [UserEditController::class, 'update']);
 
 require __DIR__.'/auth.php';
