@@ -24,6 +24,7 @@ class User extends Authenticatable
         'state',
         'district',
         'accepted',
+        'phone_number'
     ];
 
     /**
