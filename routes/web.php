@@ -74,6 +74,14 @@ Route::prefix('admin')->group(function () {
     Route::post('/geographies/states/{id}/update', [GeographiesController::class, 'admin_states_update'])->name('admin.geographies.states.update');
     Route::get('/geographies/states/{id}/delete', [GeographiesController::class, 'admin_states_delete'])->name('admin.geographies.states.delete');
 
+    Route::get('/geographies/cities', [GeographiesController::class, 'admin_cities_index'])->name('admin.geographies.cities.index');
+    Route::get('/geographies/cities/create', [GeographiesController::class, 'admin_cities_create'])->name('admin.geographies.cities.create');
+    Route::post('/geographies/cities/create/new', [GeographiesController::class, 'admin_cities_save'])->name('admin.geographies.cities.save');
+    Route::get('/geographies/cities/{id}/manage', [GeographiesController::class, 'admin_cities_manage'])->name('admin.geographies.cities.manage');
+    Route::post('/geographies/cities/{id}/update', [GeographiesController::class, 'admin_cities_update'])->name('admin.geographies.cities.update');
+    Route::get('/geographies/cities/{id}/delete', [GeographiesController::class, 'admin_cities_delete'])->name('admin.geographies.cities.delete');
+
+
 
     
 

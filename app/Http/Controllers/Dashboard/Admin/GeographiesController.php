@@ -25,6 +25,13 @@ class GeographiesController extends Controller
         ]);
     }
 
+    public function admin_cities_index() {
+        return view('dashboard.admin.geographies.cities.index', [
+            'cities' => City::all(),
+
+        ]);
+    }
+
     public function admin_districts_create() {
         return view('dashboard.admin.geographies.districts.create',[
             'states'=> States::all(),
@@ -39,6 +46,13 @@ class GeographiesController extends Controller
         ]);
     }
 
+    public function admin_cities_create() {
+        return view('dashboard.admin.geographies.cities.create',[
+            'cities'=> City::all(),
+            
+        ]);
+    }
+
     public function admin_districts_manage($id) {
         return view('dashboard.admin.geographies.districts.manage', [
             'districts' => Districts::find($id),
@@ -49,6 +63,12 @@ class GeographiesController extends Controller
     public function admin_states_manage($id) {
         return view('dashboard.admin.geographies.states.manage', [
             'state' => States::find($id),
+        ]);
+    }
+
+    public function admin_cities_manage($id) {
+        return view('dashboard.admin.geographies.cities.manage', [
+            'cities' => City::find($id),
         ]);
     }
 
@@ -91,6 +111,21 @@ class GeographiesController extends Controller
     }
 
     public function admin_states_update($id,Request $request) {
+        $state= States::find($id);
+        $state->name = request('statename');
+        $state->type = request('statetype'); 
+        $state->code = request('statecode');
+        $state->capital = request('statecapital');
+        $state->districts = request('statedistricts');
+
+
+        $state->update();
+
+        notify()->success('States Were Updated', 'Yayy!');
+        return redirect(route('admin.geographies.states.index'));
+    }
+
+    public function admin_cities_update($id,Request $request) {
         $state= States::find($id);
         $state->name = request('statename');
         $state->type = request('statetype'); 

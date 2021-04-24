@@ -72,6 +72,12 @@
                                     <span class="sub-item">States & UT</span>
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="{{ route('admin.geographies.cities.index') }}">
+                                    <span class="sub-item">Cities</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
