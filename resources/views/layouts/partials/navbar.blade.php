@@ -194,7 +194,10 @@
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                             <div class="user-box">
-                                <div class="avatar-lg"><img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="image profile" class="avatar-img rounded"></div>
+                                <div class="avatar-lg">
+                                    {{-- <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"> --}}
+                                    <img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                                </div>
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>

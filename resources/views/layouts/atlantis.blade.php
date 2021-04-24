@@ -8,6 +8,7 @@
 	<meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygenm, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
+    <script src="{{ asset('atlantis/assets/js/axios.min.js') }}"></script>
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
@@ -16,23 +17,21 @@
 				sessionStorage.fonts = true;
 			}
 		});
+
+        axios.defaults.baseURL = "{{ config('app.url') }}/api/v1";
 	</script>
 
 	<!-- CSS Files -->
-    @notifyCss
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://demo.themekita.com/atlantis/livepreview/examples/assets/css/atlantis.css">
+    {{-- <link rel="stylesheet" href="https://demo.themekita.com/atlantis/livepreview/examples/assets/css/atlantis.css"> --}}
+    <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('atlantis/assets/css/atlantis.min.css') }}"> --}}
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     @yield('css')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        // var global_api_url = "{{ config('app.url') }}/api/v1/";
-        axios.defaults.baseURL = "{{ config('app.url') }}/api/v1";
-        // axios.defaults.headers.common['Authorization'] = '1234';
-    </script>
+    @notifyCss
+
 </head>
 <body>
 	<div class="wrapper sidebar_minimize">
@@ -82,6 +81,88 @@
 
 	</div>
 
+    <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+            <div class="switcher">
+                <div class="switch-block">
+                    <h4 class="mb-4">Don't know what to do?</h4>
+                    <p>
+                        Watch <a href="#" class="text-primary">this</a> video
+                    </p>
+
+                    <h4 class="mb-4">Wish to get IT help?</h4>
+                    <p>
+                        <a target="_blank" class="btn btn-block btn-primary" href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7">
+                            Chat with us
+                        </a>
+                    </p>
+
+
+                    <div class="btnSwitch">
+                        <button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
+                        <button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+                        <br/>
+                        <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Navbar Header</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="changeTopBarColor" data-color="dark"></button>
+                        <button type="button" class="changeTopBarColor" data-color="blue"></button>
+                        <button type="button" class="changeTopBarColor" data-color="purple"></button>
+                        <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+                        <button type="button" class="changeTopBarColor" data-color="green"></button>
+                        <button type="button" class="changeTopBarColor" data-color="orange"></button>
+                        <button type="button" class="changeTopBarColor" data-color="red"></button>
+                        <button type="button" class="changeTopBarColor" data-color="white"></button>
+                        <br/>
+                        <button type="button" class="changeTopBarColor" data-color="dark2"></button>
+                        <button type="button" class="selected changeTopBarColor" data-color="blue2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="purple2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="green2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="orange2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Sidebar</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="selected changeSideBarColor" data-color="white"></button>
+                        <button type="button" class="changeSideBarColor" data-color="dark"></button>
+                        <button type="button" class="changeSideBarColor" data-color="dark2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Background</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+                        <button type="button" class="changeBackgroundColor" data-color="bg1"></button>
+                        <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
+                        <button type="button" class="changeBackgroundColor" data-color="dark"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-toggle">
+            {{-- <i class="fa fa-question"></i> --}}
+            <span class="fa fa-question"></span>
+        </div>
+    </div>
 	<!--   Core JS Files   -->
 	<script src="{{ asset('atlantis/assets/js/core/jquery.3.2.1.min.js') }}"></script>
 	<script src="{{ asset('atlantis/assets/js/core/popper.min.js') }}"></script>
@@ -142,7 +223,9 @@
 
         startTime();
     </script>
+
     @yield('js')
     @notifyJs
+    {{-- <script src="//code.tidio.co/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7.js" async></script> --}}
 </body>
 </html>

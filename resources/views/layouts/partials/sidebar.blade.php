@@ -2,13 +2,12 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
-                <li class="nav-item active">
-                    <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                <li class="nav-item">
+                    <a href="{{ route('home') }}">
                         <i class="fas fa-heartbeat"></i>
                         <p>Dashboard</p>
-                        <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="dashboard">
+                    {{-- <div class="collapse" id="dashboard">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="{{ route('home') }}"">
@@ -22,8 +21,31 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </li>
+
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Volunteering</h4>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.volunteers.index') }}">
+                        <i class="fas fa-hands"></i>
+                        <p>Volunteer</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.volunteers.index') }}">
+                        <i class="fas fa-briefcase"></i>
+                        <p>Missions</p>
+                    </a>
+                </li>
+
+
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
