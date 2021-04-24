@@ -93,8 +93,12 @@
                         <p>Access Control</p>
                     </a>
                 </li>
-
-
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
