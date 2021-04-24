@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -30,8 +32,7 @@ class CategoryController extends Controller
         $category->name = request('name');
         $category->description = request('description');
         $category->status = request('status');
-        $category->save();
-
+        $category->save();        
         notify()->success('Category was added', 'Yayy!');
         return redirect(route('admin.categories.index'));
     }

@@ -6,11 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
+use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +27,8 @@ use App\Http\Controllers\Dashboard\Admin\ResourceController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
+
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
@@ -66,6 +70,27 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
+  
+    Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
+    Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
+    Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
+    Route::get('/geographies/districts/{id}/manage', [GeographiesController::class, 'admin_districts_manage'])->name('admin.geographies.districts.manage');
+    Route::post('/geographies/districts/{id}/update', [GeographiesController::class, 'admin_districts_update'])->name('admin.geographies.districts.update');
+    Route::get('/geographies/districts/{id}/delete', [GeographiesController::class, 'admin_districts_delete'])->name('admin.geographies.districts.delete');
+
+    Route::get('/geographies/states', [GeographiesController::class, 'admin_states_index'])->name('admin.geographies.states.index');
+    Route::get('/geographies/states/create', [GeographiesController::class, 'admin_states_create'])->name('admin.geographies.states.create');
+    Route::post('/geographies/states/create/new', [GeographiesController::class, 'admin_states_save'])->name('admin.geographies.states.save');
+    Route::get('/geographies/states/{id}/manage', [GeographiesController::class, 'admin_states_manage'])->name('admin.geographies.states.manage');
+    Route::post('/geographies/states/{id}/update', [GeographiesController::class, 'admin_states_update'])->name('admin.geographies.states.update');
+    Route::get('/geographies/states/{id}/delete', [GeographiesController::class, 'admin_states_delete'])->name('admin.geographies.states.delete');
+
+    Route::get('/geographies/cities', [GeographiesController::class, 'admin_cities_index'])->name('admin.geographies.cities.index');
+    Route::get('/geographies/cities/create', [GeographiesController::class, 'admin_cities_create'])->name('admin.geographies.cities.create');
+    Route::post('/geographies/cities/create/new', [GeographiesController::class, 'admin_cities_save'])->name('admin.geographies.cities.save');
+    Route::get('/geographies/cities/{id}/manage', [GeographiesController::class, 'admin_cities_manage'])->name('admin.geographies.cities.manage');
+    Route::post('/geographies/cities/{id}/update', [GeographiesController::class, 'admin_cities_update'])->name('admin.geographies.cities.update');
+    Route::get('/geographies/cities/{id}/delete', [GeographiesController::class, 'admin_cities_delete'])->name('admin.geographies.cities.delete');
 
 
     Route::prefix('users')->group(function () {
@@ -80,9 +105,10 @@ Route::prefix('admin')->group(function () {
     Route::prefix('access-control')->group(function () {
         Route::get('/',[AccessController::class,'admin_roles_perms_index'])->name('accesscontrol.index');
         Route::post('/add-role',[AccessController::class,'admin_roles_perms_store'])->name('accesscontrol.store');
-        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_edit'])->name('accesscontrol.edit');
-        Route::get('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
-        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.update');
+        Route::get('{id}/edit-role',[AccessController::class,'admin_roles_perms_manage'])->name('accesscontrol.edit');
+        Route::post('{id}/update-role',[AccessController::class,'admin_roles_perms_update'])->name('accesscontrol.update');
+        Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.delete');
+        Route::get('cache-clear/',[AccessController::class,'clearCache'])->name('accesscontrol.cacheclear');
     });
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
@@ -115,5 +141,8 @@ Route::get('/json', function() {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('user/{user}/edit', [UserEditController::class, 'edit']);
+Route::put('user/{user}/', [UserEditController::class, 'update']);
 
 require __DIR__.'/auth.php';

@@ -87,6 +87,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Access Control</p>
+                    </a>
+                </li>
+
 
 
                 <li class="nav-item">
@@ -98,14 +105,20 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ route('admin.categories.index') }}">
+                                <a href="{{ route('admin.geographies.districts.index') }}">
                                     <span class="sub-item">Districts</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ route('admin.faq.index') }}">
+                                <a href="{{ route('admin.geographies.states.index') }}">
                                     <span class="sub-item">States & UT</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('admin.geographies.cities.index') }}">
+                                    <span class="sub-item">Cities</span>
                                 </a>
                             </li>
                         </ul>

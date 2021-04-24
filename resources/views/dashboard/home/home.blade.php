@@ -1261,11 +1261,18 @@
                 </div>
                 <div class="card-body">
                     <ol class="activity-feed">
-                        <li class="feed-item feed-item-secondary">
-                            <time class="date" datetime="9-25">Sep 25</time>
-                            <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-                        </li>
-                        <li class="feed-item feed-item-success">
+                        @forelse ($activity as $acti)
+                            <li class="feed-item feed-item-secondary">
+                                <time class="date" datetime="9-25">{{ $acti->updated_at->diffForHumans() }}</time>
+                                <span class="text">{{ $acti->user->name }} <a href="#">"{{ $acti->activity }}"</a></span>
+                            </li>                            
+                        @empty
+                            <div class="alert alert-danger">
+                                Whoops! No Activity found {{ $currentlocation->name }} yet.
+                            </div>
+                        @endforelse
+
+                        {{-- <li class="feed-item feed-item-success">
                             <time class="date" datetime="9-24">Sep 24</time>
                             <span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
                         </li>
@@ -1284,7 +1291,7 @@
                         <li class="feed-item">
                             <time class="date" datetime="9-17">Sep 17</time>
                             <span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-                        </li>
+                        </li> --}}
                     </ol>
                 </div>
             </div>

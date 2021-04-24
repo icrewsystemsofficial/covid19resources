@@ -7,7 +7,9 @@ use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Models\FAQ as ModelsFAQ;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class FAQ extends Controller
 {
@@ -36,6 +38,11 @@ class FAQ extends Controller
         $faq->author_id = auth()->user()->id;
         $faq->status = request('status');
         $faq->save();
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Added a FAQ";
+        $activity->save();
 
         notify()->success('FAQ was added', 'Yayyy');
         return redirect(route('admin.faq.index'));
@@ -68,12 +75,24 @@ class FAQ extends Controller
         $faq->status = request('status');
         $faq->update();
 
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Updated a FAQ";
+        $activity->save();
+
+
         notify()->success('FAQ was updated', 'Yayyy');
         return redirect(route('admin.faq.index'));
     }
 
     public function admin_delete($id) {
         ModelsFAQ::find($id)->delete();
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Deleted a FAQ";
+        $activity->save();
+
         notify()->success('FAQ was deleted', 'Hmmm, okay');
         return redirect(route('admin.faq.index'));
     }
