@@ -62,10 +62,20 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
     Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
-    Route::post('/geographies/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
-    Route::get('/geographies/{id}/manage', [GeographiesController::class, 'admin_districts_manage'])->name('admin.geographies.districts.manage');
-    Route::post('/geographies/{id}/update', [GeographiesController::class, 'admin_districts_update'])->name('admin.geographies.districts.update');
-    Route::get('/geographies/{id}/delete', [GeographiesController::class, 'admin_districts_delete'])->name('admin.geographies.districts.delete');
+    Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
+    Route::get('/geographies/districts/{id}/manage', [GeographiesController::class, 'admin_districts_manage'])->name('admin.geographies.districts.manage');
+    Route::post('/geographies/districts/{id}/update', [GeographiesController::class, 'admin_districts_update'])->name('admin.geographies.districts.update');
+    Route::get('/geographies/districts/{id}/delete', [GeographiesController::class, 'admin_districts_delete'])->name('admin.geographies.districts.delete');
+
+    Route::get('/geographies/states', [GeographiesController::class, 'admin_states_index'])->name('admin.geographies.states.index');
+    Route::get('/geographies/states/create', [GeographiesController::class, 'admin_states_create'])->name('admin.geographies.states.create');
+    Route::post('/geographies/states/create/new', [GeographiesController::class, 'admin_states_save'])->name('admin.geographies.states.save');
+    Route::get('/geographies/states/{id}/manage', [GeographiesController::class, 'admin_states_manage'])->name('admin.geographies.states.manage');
+    Route::post('/geographies/states/{id}/update', [GeographiesController::class, 'admin_states_update'])->name('admin.geographies.states.update');
+    Route::get('/geographies/states/{id}/delete', [GeographiesController::class, 'admin_states_delete'])->name('admin.geographies.states.delete');
+
+
+    
 
     Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
 });

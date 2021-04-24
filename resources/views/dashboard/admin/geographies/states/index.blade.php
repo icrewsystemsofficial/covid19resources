@@ -10,10 +10,10 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Districts Admin</h4>
+        <h4 class="page-title">States Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the districts. There are a total of <span id="total"></span> districts available.
+        This is a collection of the latest information regarding the states. There are a total of <span id="total"></span> states available.
     </p>
     <div class="row">
         <div class="col-md-12">
@@ -83,10 +83,10 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Districts <span class="badge badge-primary">{{ count($districts) }}</span></h4>
+                    <h4 class="card-title">Manage States / Union Territories <span class="badge badge-primary">{{ count($states) }}</span></h4>
                     <div class="text-right">
                         <a href="{{ route('admin.geographies.districts.create') }}" class="btn btn-md btn-primary">
-                            Add a new district <i class="fas fa-plus"></i>
+                            Add a new State / Union Territory <i class="fas fa-plus"></i>
                         </a>
                     </div>
                 </div>
@@ -94,12 +94,12 @@
                     <table id="geography_table" class="table table-hover">
                         <thead>
                             <th>Name</th>
-                            <th>State</th>
                             <th>Code</th>
-                            {{-- <th>Status</th> --}}
-                            {{-- <th>Created</th> --}}
+                            <th>Type</th>
+                            <th>Capital</th>
+                            <th>Districts</th>
                             <th>Status</th>
-                            <th>Updated At</th>
+                            <th>Last Updated</th>
                         </thead>
                         <tbody>
                             <script>
@@ -107,27 +107,33 @@
                                 var refuted = 0;
                                 var pending = 0;
                             </script>
-                            @forelse ($districts as $district)
+                            @forelse ($states as $state)
                                 <tr>
                                     <td>
-                                        {{ $district->name }}
+                                        {{ $state->name }}
                                     
                                     </td>
                                     <td>
-                                        {{ $district->state }}
+                                        {{ $state->code }}
                                     </td>
                                     <td>
-                                        {{ $district->code }}
+                                        {{ $state->type }}
                                     </td>
                                     <td>
-                                        @if ($district->verified == 1)
+                                        {{ $state->capital }}
+                                    </td>
+                                    <td>
+                                        {{ $state->districts }}
+                                    </td>
+                                    <td>
+                                        @if ($state->verified == 1)
                                             <span class="badge badge-success">
                                                 Verified <i class="fas fa-check"></i>
                                             </span>
                                             <script>
                                                 verified = verified + 1;
                                             </script>
-                                        @elseif($district->verified == 2)
+                                        @elseif($state->verified == 2)
                                             <span class="badge badge-danger">
                                                 Refuted <i class="fas fa-times"></i>
                                             </span>
@@ -147,17 +153,17 @@
                                         {{ $geography->created_at->format('d/m/Y H:i A') }}
                                     </td> --}}
                                     <td class="text-center">
-                                        {{ $district->updated_at->diffForHumans() }}
+                                        {{ $state->updated_at->diffForHumans() }}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.geographies.districts.manage', $district->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.geographies.states.manage', $state->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    Whoops! No districts found.
+                                    Whoops! No states / union territories found.
                                 </tr>
                             @endforelse
                         </tbody>

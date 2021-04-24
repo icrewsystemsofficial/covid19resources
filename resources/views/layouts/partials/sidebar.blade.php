@@ -68,7 +68,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('admin.geographies.districts.index') }}">
+                                <a href="{{ route('admin.geographies.states.index') }}">
                                     <span class="sub-item">States & UT</span>
                                 </a>
                             </li>
