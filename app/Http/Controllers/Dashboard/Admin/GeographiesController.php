@@ -48,7 +48,7 @@ class GeographiesController extends Controller
 
     public function admin_states_manage($id) {
         return view('dashboard.admin.geographies.states.manage', [
-            'states' => States::all(),
+            'state' => States::find($id),
         ]);
     }
 
@@ -69,10 +69,11 @@ class GeographiesController extends Controller
     public function admin_states_save(Request $request) {
         $states = new States;
         $state= States::find($request->statedropdown);
-        $states->name = request('statename');
+        $state->name = request('statename');
+        $state->code = $state->code;
 
         //$districts->status = request('status');
-        $states->save();
+        $state->save();
 
         notify()->success('States were added', 'Yayy!');
         return redirect(route('admin.geographies.states.index'));

@@ -51,39 +51,64 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-4">
-        <a href="{{ route('admin.resources.index') }}" class="btn btn-warning btn-sm mr-3">
+        <a href="{{ route('admin.geographies.states.index') }}" class="btn btn-warning btn-sm mr-3">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h4 class="page-title">Manage District</h4>
+        <h4 class="page-title">Manage State / UT</h4>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage District Content</h4>
+                    <h4 class="card-title">Manage State / UT Content</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.geographies.districts.update', $districts->id) }}" method="post">
+                    <form action="{{ route('admin.geographies.states.update', $state->id) }}" method="post">
                         @csrf
                         <div class="col-md-8">
                             <span id="geography" style="display: block;">
                                 <div class="form-group">
                                     <label for="state">
-                                        <strong>Change State / Union Territory</strong>
+                                        <strong>Change Name of State / Union Territory</strong>
                                     </label>
-                                    <select name="statedropdown" class="form-control select2" required="required">
-                                        <option value="null" disabled selected>No state selected</option>
-                                        @foreach ($states as $state)
-                                            <option value="{{ $state->id }}">
-                                                {{ $state->name. ',' .$state->code }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+
+                                    <div class="form-group">
+                                        <label for="title"><strong>Edit State / UT Name</strong></label>
+                                        <input type="text" name="statename" class="form-control" required value="{{ $state->name }}" placeholder="Enter State / UT Name"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit State Code</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="statecode" value="{{ $state->code }}" placeholder="Enter Code">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit Type</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="statetype" value="{{ $state->type }}" placeholder="Enter Type">
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit Capital</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="statecapital" value="{{ $state->capital }}" placeholder="Enter Capital">
+                                     </div>
+
+                                     <div class="form-group">
+                                        <label for="category">
+                                            <strong>Edit Number of Districts</strong>
+                                        </label>
+                                        <input type="text" class="form-control" name="statedistricts" value="{{ $state->districts }}" placeholder="Enter Districts">
+                                     </div>
+
                                 </div>
                             </span>
                         </div>
 
-                        
                         <div class="form-group">
                             <label for="author_id">Author</label>
 
@@ -135,7 +160,7 @@
                             <button class="btn btn-info btn-md ml-2 mb-2" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.geographies.districts.delete', $districts->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
+                            <a href="{{ route('admin.geographies.states.delete', $state->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md mb-2 ml-2">Delete</a>
                             <!-- Button to Open the Modal -->
                         </div>
                        
