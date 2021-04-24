@@ -13,7 +13,7 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\VolunteersController;
+use App\Http\Controllers\Dashboard\Admin\VolunteersController;
 
 
 /*
@@ -33,6 +33,8 @@ Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.repor
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 
 Route::get('/volunteers/termsandconditions',[VolunteersController::class,'volunteers_termsandconditions'])->name('volunteers.termsandconditions');
+Route::get('/volunteers/register',[VolunteersController::class,'volunteers_register'])->name('volunteers.register');
+
 
 
 Route::get('/location', function() {
