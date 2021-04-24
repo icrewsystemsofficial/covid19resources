@@ -28,7 +28,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
-
+Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
+Route::put('user/{user}/', [UserEditController::class, 'update'])->name('home.profile.save');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
@@ -70,7 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
-  
+
     Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
     Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
     Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
@@ -141,8 +142,5 @@ Route::get('/json', function() {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-Route::get('user/{user}/edit', [UserEditController::class, 'edit']);
-Route::put('user/{user}/', [UserEditController::class, 'update']);
 
 require __DIR__.'/auth.php';

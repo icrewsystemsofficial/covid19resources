@@ -1,7 +1,7 @@
 @extends('layouts.atlantis')
-
+@section('title', 'Edit Profile')
 @section('content')
-    
+
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -22,9 +22,9 @@
                             Edit Your Details
                         </h4>
                     </div>
-                    
+
                     <div class="card-body">
-                        <form action="/user/{{ $user->id }}" method="post">
+                        <form action="{{ route('home.profile.save') }}" method="post">
                             @csrf
                             @method('PUT')
                             <div class="login-form">
@@ -35,7 +35,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                
+
                                 <div class="form-group">
                                     <label for="email" class="placeholder"><b>Email</b></label>
                                     <input id="email" name="email" type="text" class="form-control" required="" value="{{ $user->email }}">
