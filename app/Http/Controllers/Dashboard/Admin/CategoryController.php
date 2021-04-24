@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -49,6 +51,7 @@ class CategoryController extends Controller
     public function admin_delete($id) {
 
         Category::find($id)->delete();
+
         notify()->success('Category was deleted', 'Hmmm, okay');
         return redirect(route('admin.categories.index'));
 
