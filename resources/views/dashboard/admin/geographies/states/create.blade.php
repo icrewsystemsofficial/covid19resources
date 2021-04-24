@@ -50,7 +50,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-4">
-        <a href="{{ route('admin.resources.index') }}" class="btn btn-warning btn-sm mr-3">
+        <a href="{{ route('admin.geographies.states.index') }}" class="btn btn-warning btn-sm mr-3">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h4 class="page-title">Manage States / Union Territories</h4>

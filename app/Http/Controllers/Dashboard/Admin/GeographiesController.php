@@ -99,6 +99,20 @@ class GeographiesController extends Controller
         return redirect(route('admin.geographies.states.index'));
     }
 
+    public function admin_cities_save(Request $request) {
+        $cities = new City;
+        $cities->name = request('cityname');
+        $cities->district = request('districtname');
+        $cities->state = request('statename');
+
+
+        //$districts->status = request('status');
+        $cities->save();
+
+        notify()->success('Cities were added', 'Yayy!');
+        return redirect(route('admin.geographies.cities.index'));
+    }
+
     public function admin_districts_update($id,Request $request) {
         $districts = Districts::find($id);
         $state= States::find($request->statedropdown);
