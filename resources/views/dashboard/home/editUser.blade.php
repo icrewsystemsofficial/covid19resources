@@ -88,8 +88,8 @@
                                     </div>
                                 @endif
                                 <div class="form-group d-flex align-items-center justify-content-center mb-3">
-                                    <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                     <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
+                                    <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                 </div>
                                 {{-- <input type="submit" value="UPDATE" class="btn"> --}}
                             </div>
