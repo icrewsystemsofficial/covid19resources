@@ -53,21 +53,21 @@
         <a href="{{ route('admin.resources.index') }}" class="btn btn-warning btn-sm mr-3">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h4 class="page-title">Manage Districts</h4>
+        <h4 class="page-title">Manage States / Union Territories</h4>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Add New District</h4>
+                    <h4 class="card-title">Add New State / Union Territory</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.geographies.districts.save') }}" method="post">
+                    <form action="{{ route('admin.geographies.states.save') }}" method="post">
                         @csrf
 
                         <div class="form-group">
-                            <label for="districtname"><strong>District Name</strong></label>
-                            <input type="text" name="districtname" class="form-control" required placeholder="Enter District Name"  required="required"/>
+                            <label for="statename"><strong>State / UT Name</strong></label>
+                            <input type="text" name="statename" class="form-control" required placeholder="Enter State / UT Name"  required="required"/>
                         </div>
                         <!--
                         <div class="row">
@@ -103,19 +103,20 @@
                                     <input type="text" class="form-control" name="url" placeholder="URL (website, social media link)">
                                 </div>
                             </div>
-                        -->
+                        --> 
+                            <!--
                             <div class="col-md-8">
                                 <span id="geography" style="display: block;">
                                     <div class="form-group">
                                         <label for="state">
-                                            <strong>State / Union Territory</strong>
+                                            <strong>Select State / UT Code</strong>
                                         </label>
 
                                         <select name="statedropdown" class="form-control select2" required="required">
-                                            <option value="null" disabled selected>No state selected</option>
+                                            <option value="null">State Code Unknown</option>
                                             @foreach ($states as $state)
                                                 <option value="{{ $state->id }}">
-                                                    {{ $state->name. ',' .$state->code }}
+                                                    {{ $state->code }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -126,12 +127,13 @@
                                             <strong>City</strong>
                                         </label>
                                     </div>    
-                                     --> 
+                                     
                                 </span>
                             </div>
 
 
                         </div>
+                    -   -->
 
                         <!--
                         <div class="form-group">

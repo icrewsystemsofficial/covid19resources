@@ -67,14 +67,12 @@ class GeographiesController extends Controller
     }
 
     public function admin_states_save(Request $request) {
-        $districts = new Districts;
+        $states = new States;
         $state= States::find($request->statedropdown);
-        $districts->name = request('districtname');
-        $districts->state = $state->name;
-        $districts->code = $state->code;
+        $states->name = request('statename');
 
         //$districts->status = request('status');
-        $districts->save();
+        $states->save();
 
         notify()->success('States were added', 'Yayy!');
         return redirect(route('admin.geographies.states.index'));

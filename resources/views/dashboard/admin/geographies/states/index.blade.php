@@ -85,7 +85,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Manage States / Union Territories <span class="badge badge-primary">{{ count($states) }}</span></h4>
                     <div class="text-right">
-                        <a href="{{ route('admin.geographies.districts.create') }}" class="btn btn-md btn-primary">
+                        <a href="{{ route('admin.geographies.states.create') }}" class="btn btn-md btn-primary">
                             Add a new State / Union Territory <i class="fas fa-plus"></i>
                         </a>
                     </div>

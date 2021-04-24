@@ -18,7 +18,7 @@ class CreateStatesTable extends Migration
             $table->string('type')->default('unknown');
             $table->string('code')->nullable();
             $table->string('name');
-            $table->string('capital');
+            $table->string('capital')->default('unknown');
             $table->string('districts')->nullable();
             $table->timestamps();
         });
