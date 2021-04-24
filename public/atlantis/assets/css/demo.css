@@ -24,7 +24,9 @@
 	position: absolute;
 	width: 45px;
 	height: 45px;
-	background: rgb(88, 103, 221);
+	background: #FF416C;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	top: 50%;
 	left: -45px;
 	transform: translateY(-50%);
@@ -34,16 +36,15 @@
 	text-align: center;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
-	border-right: 1px solid #177dff;
+	border-right: 1px solid #FF416C;
 	cursor: pointer;
 	color: #ffffff;
 	box-shadow: -5px 5px 20px rgba(69, 65, 78, 0.21);
 }
 
-.custom-template .custom-toggle i {
+/* .custom-template .custom-toggle i {
 	font-size: 20px;
-	animation: 1.3s spin linear infinite;
-}
+/* }  */
 
 .custom-template .title{
     padding: 15px;
@@ -53,7 +54,7 @@
     color: #ffffff;
     border-top-left-radius: 5px;
     border-bottom: 1px solid #ebedf2;
-    background: #5867dd;
+    background: #FF416C;
 }
 
 .custom-template .custom-content{
@@ -119,7 +120,7 @@
 }
 
 .custom-template .img-pick:hover img, .custom-template .img-pick.active img{
-	border-color: #177dff;
+	border-color: #FF416C;
 }
 
 .demo .btn, .demo .progress{

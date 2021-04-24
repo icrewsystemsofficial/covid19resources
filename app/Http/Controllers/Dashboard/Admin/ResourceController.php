@@ -8,7 +8,9 @@ use App\Models\Category;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {
@@ -56,6 +58,12 @@ class ResourceController extends Controller
         $resource->landmark = request('landmark');
         $resource->save();
 
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Added a new Resource";
+        $activity->save();
+
+
         notify()->success('Resource was added', 'Yayy!');
         return redirect(route('admin.resources.index'));
     }
@@ -84,6 +92,11 @@ class ResourceController extends Controller
         $resource->landmark = request('landmark');
         $resource->update();
 
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Updated an existing Resource";
+        $activity->save();
+
         notify()->success('Resource was updated', 'Yayy!');
         return redirect(route('admin.resources.index'));
     }
@@ -91,6 +104,12 @@ class ResourceController extends Controller
     public function admin_delete($id) {
 
         Resource::find($id)->delete();
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->activity = "Deleted an existing Resource";
+        $activity->save();
+
         notify()->success('Resource was deleted', 'Hmmm, okay');
         return redirect(route('admin.resources.index'));
 

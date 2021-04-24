@@ -13,7 +13,7 @@ $(function () {
 });
 
 function layoutsColors(){
-	if($('.sidebar').is('[data-background-color]')) { 
+	if($('.sidebar').is('[data-background-color]')) {
 		$('html').addClass('sidebar-color');
 	} else {
 		$('html').removeClass('sidebar-color');
@@ -151,7 +151,7 @@ $(document).ready(function(){
 
 		$('.wrapper').mouseup(function(e)
 		{
-			var subject = $('.quick-sidebar'); 
+			var subject = $('.quick-sidebar');
 
 			if(e.target.className != subject.attr('class') && !subject.has(e.target).length)
 			{
@@ -194,19 +194,19 @@ $(document).ready(function(){
 		if($('.wrapper').hasClass('sidebar_minimize')){
 			mini_sidebar = 1;
 			minibutton.addClass('toggled');
-			minibutton.html('<i class="icon-options-vertical"></i>');
+			// minibutton.html('<i class="icon-options-vertical"></i>');
 		}
 
 		minibutton.on('click', function() {
 			if (mini_sidebar == 1) {
 				$('.wrapper').removeClass('sidebar_minimize');
 				minibutton.removeClass('toggled');
-				minibutton.html('<i class="icon-menu"></i>');
+				// minibutton.html('<i class="icon-menu"></i>');
 				mini_sidebar = 0;
 			} else {
 				$('.wrapper').addClass('sidebar_minimize');
 				minibutton.addClass('toggled');
-				minibutton.html('<i class="icon-options-vertical"></i>');
+				// minibutton.html('<i class="icon-options-vertical"></i>');
 				mini_sidebar = 1;
 			}
 			$(window).resize();
@@ -236,7 +236,7 @@ $(document).ready(function(){
 			pageSidebarToggler.removeClass('toggled');
 			page_sidebar_open = 0;
 		});
-		
+
 		toggle_page_sidebar = true;
 	}
 
@@ -245,7 +245,7 @@ $(document).ready(function(){
 		if($('.wrapper').hasClass('is-show')){
 			overlay_sidebar_open = 1;
 			overlaybutton.addClass('toggled');
-			overlaybutton.html('<i class="icon-options-vertical"></i>');
+			// overlaybutton.html('<i class="icon-options-vertical"></i>');
 		}
 
 		overlaybutton.on('click', function() {
@@ -257,7 +257,7 @@ $(document).ready(function(){
 			} else {
 				$('.wrapper').addClass('is-show');
 				overlaybutton.addClass('toggled');
-				overlaybutton.html('<i class="icon-options-vertical"></i>');
+				// overlaybutton.html('<i class="icon-options-vertical"></i>');
 				overlay_sidebar_open = 1;
 			}
 			$(window).resize();
@@ -363,13 +363,13 @@ function changeContainer(){
 	}
 }
 
-$('#show-signup').on('click', function(){ 
+$('#show-signup').on('click', function(){
 	showSignUp = true;
 	showSignIn = false;
 	changeContainer();
 })
 
-$('#show-signin').on('click', function(){ 
+$('#show-signin').on('click', function(){
 	showSignUp = false;
 	showSignIn = true;
 	changeContainer();

@@ -27,7 +27,22 @@ class States extends Controller
         if($state == '') {
             $response['message'] = 'Select a state / union territory first';
         } else {
-            $cities = City::where('state', $state)->get();
+            $cities = array();
+
+            $cities[0] = array(
+                'name' => '* All Cities',
+                'district' => '* All Districts',
+            );
+
+            foreach(City::where('state', $state)->get() as $city) {
+                $cities[] = $city;
+            }
+
+            $cities[] = array(
+                'name' => '* Unavailable',
+                'district' => '* Check Landmark',
+            );
+
             $response['message'] = 'Cities in '.$state.'';
             $response['districts'] = $cities;
         }

@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('twitter:scan')->everyFifteenMinutes();
+        $schedule->command('twitter:screen 100')->everyMinute();
+        $schedule->command('twitter:duplicates 100')->everyMinute();
     }
 
     /**
