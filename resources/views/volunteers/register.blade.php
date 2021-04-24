@@ -1,4 +1,5 @@
 @extends('layouts.authentication')
+@section('title', 'Register as a volunteer')
 @section('js')
 <script>
     @if ($errors->any())
@@ -32,21 +33,38 @@
     </div>
     <div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
         <div class="container container-login container-transparent animated fadeIn" style="display: block;">
-            <h3 class="text-center">Login to {{ config('app.name') }}</h3>
+            <h3 class="text-center">Register to volunteer at {{ config('app.name') }}</h3>
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <!-- Validation Errors -->
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
             <div class="login-form">
+                <div class="form-group">
+                    <label for="name" class="placeholder"><b>Name</b></label>
+                    <input id="name" name="name" type="text" class="form-control" required="">
+                </div>
+
                 <div class="form-group">
                     <label for="email" class="placeholder"><b>Email</b></label>
                     <input id="email" name="email" type="text" class="form-control" required="">
                 </div>
+
+                <div class="form-group">
+                    <label for="state" class="placeholder"><b>State</b></label>
+                    <select name="state" onchange="getDistricts(this.value);" id="state" class="form-control">
+                        @foreach ($states as $state)
+                            <option value="{{ $state->code }}">
+                                {{ $state->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+
                 <div class="form-group">
                     <label for="password" class="placeholder"><b>Password</b></label>
-                    <a href="{{ route('password.request') }}" class="link float-right">Forget Password ?</a>
                     <div class="position-relative">
                         <input id="password" name="password" type="password" class="form-control" required="">
                         <div class="show-password">
@@ -54,18 +72,28 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="password" class="placeholder"><b>Password Confirmation</b></label>
+                    <div class="position-relative">
+                        <input id="password_confirmation" name="password_confirmation" type="password_confirmation" class="form-control" required="">
+                        <div class="show-password">
+                            <i class="icon-eye"></i>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group form-action-d-flex mb-3">
-                    <div class="custom-control custom-checkbox">
+                    {{-- <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="remember" id="remember_me">
                         <label class="custom-control-label m-0" for="remember_me">Remember Me</label>
-                    </div>
-                    <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Login</button>
+                    </div> --}}
+                    <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Register</button>
                 </div>
                 <div class="login-account">
                     <span class="msg">
-                        Wish to Voulenteer?
+                        Already a volunteer?
                     </span>
-                    <a href="{{ route('register') }}" class="link">Register</a>
+                    <a href="{{ route('login') }}" class="link">Login</a>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\VolunteersController;
 
 
 /*
@@ -25,6 +26,8 @@ use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
+
+Route::get('/volunteers/termsandconditions',[VolunteersController::class,'volunteers_termsandconditions'])->name('volunteers.termsandconditions');
 
 
 Route::get('/location', function() {
