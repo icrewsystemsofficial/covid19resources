@@ -75,7 +75,7 @@ class HomeController extends Controller
 
 
     public function store_report(Request $request , $id) {
-        $resource = Resource::find($id); 
+        $resource = Resource::find($id);
         // dd($request->all());
         if($request->reason == 1 || $request->reason == 2 || $request->reason == 3 || $request->reason == 4) {
             $resource->verified = 2;
