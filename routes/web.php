@@ -118,6 +118,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
     Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
     Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
+
+
+    Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
 });
 
 
