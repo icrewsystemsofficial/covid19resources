@@ -73,7 +73,6 @@ class HomeController extends Controller
         }
     }
 
-
     public function store_report(Request $request , $id) {
         $resource = Resource::find($id);
         // dd($request->all());
@@ -88,10 +87,14 @@ class HomeController extends Controller
         }
     }
 
+    public function about() {
+        return view('dashboard.home.static.about');
+    }
+
     public function activity() {
         $activities = LogActivity::all();
         // dd($activities);
         return view('dashboard.admin.activity.index')->with('activities', $activities);
       }
-    
+
 }
