@@ -10,6 +10,12 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PointsSystem;
+
+
+
 
 class UserController extends Controller
 {
@@ -22,6 +28,8 @@ class UserController extends Controller
     {   
         $users = User::orderby('id','desc')->get();
         $roles = Role::all();
+
+        
         return view('dashboard.admin.users.index')->with('users',$users)->with('roles',$roles);
     }
 
@@ -126,6 +134,8 @@ class UserController extends Controller
 
         User::find($id)->increment('points',$request->points);
 
+        
+        
         if ($user->points==1) {
 
             $details =[
@@ -136,7 +146,7 @@ class UserController extends Controller
             Mail::to($user->email)->send(new PointsSystem($details));
         }
 
-        if ($user->points==500) {
+        elseif ($user->points==500) {
 
             $details =[
                 'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
