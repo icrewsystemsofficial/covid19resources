@@ -40,7 +40,13 @@
             <!-- Validation Errors -->
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        @if ($uuid == '')
+            <input type="text" hidden>
+        @else
+            <input type="text" name="uuid" hidden value="{{ $uuid->id }}">
+        @endif
             <div class="login-form">
+                
                 <div class="form-group">
                     <label for="name" class="placeholder"><b>Name</b></label>
                     <input id="name" name="name" type="text" class="form-control" required="">
