@@ -240,6 +240,26 @@
         }
 
         startTime();
+
+        function copyReferralURL() {
+            var copyText = document.getElementById("referral_link_navbar");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+
+            $.notify({
+                icon: 'fa fa-check-circle',
+                title: "{{ config('app.name') }}",
+                message: "Your referral URL has been copied. Share it as much as you can 🙏",
+                },{
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        }
     </script>
 
     @yield('js')

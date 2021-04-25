@@ -159,19 +159,24 @@
                 </a>
                 <div class="dropdown-menu quick-actions quick-actions-primary animated fadeIn">
                     <div class="quick-actions-header">
-                        <span class="title mb-1">Share this tool</span>
-                        <span class="subtitle op-8">Awareness is the first step in fighting this battle</span>
+                        <span class="title mb-1">Share & Save lives</span>
+                        <span class="subtitle">
+                            We're a population of 1.3 billion people. We have enough to help each other.
+                            We've done our duty by developing this tool. We're requesting you to do yours, by sharing this tool
+                            with all the humans in your life.
+                        </span>
                     </div>
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
-                            <div class="row m-0">
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fa fa-facebook"></i>
-                                        <span class="text">Facebook</span>
-                                    </div>
-                                </a>
-
+                        <div class="row m-0">
+                            <div class="col-md-12">
+                                <label for="referrallink" class="mb-2">
+                                    <strong>
+                                        Your referral link
+                                    </strong>
+                                </label>
+                                <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ route('generate.referrallink', auth()->user()->referral_link) }}">
+                            </div>
                                 <a class="col-6 col-md-4 p-0" href="#">
                                     <div class="quick-actions-item">
                                         <i class="fas fa-clipboard"></i>

@@ -15,14 +15,14 @@ class AddReferralLinks extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('referred_by')->nullable();
-            $table->string('referral_link');
-            $table->string('referral_signups')->nullable();
+            $table->string('referral_link')->nullable();
+            $table->string('referrals')->default('0');
         });
     }
 
     /**
      * Reverse the migrations.
-     * 
+     *
      *
      * @return void
      */
@@ -31,7 +31,7 @@ class AddReferralLinks extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('referred_by');
             $table->dropColumn('referral_link');
-            $table->dropColumn('referral_signups');
+            $table->dropColumn('referrals');
         });
     }
 }

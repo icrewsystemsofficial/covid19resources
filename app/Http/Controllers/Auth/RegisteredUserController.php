@@ -25,9 +25,9 @@ class RegisteredUserController extends Controller
      * @return \Illuminate\View\View
      */
     public function create(Request $request)
-    {    
-        
-         $referrer = User::find($request->query('uuid'));     
+    {
+
+         $referrer = User::find($request->query('uuid'));
         if( $request->hasCookie('referral') && $request->query('uuid')) {
 
             return view('auth.register', [
@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-    {   
+    {
         // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
@@ -64,10 +64,10 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ]);
 
-        
-        $referrer = User::find($request->uuid);
+
+        $referrer = User::where('referral_link');
          if($referrer) {
-            $referrer->increment('referral_signups');
+            $referrer->increment('referrals');
             $referrer->save();
         }
 
@@ -87,9 +87,9 @@ class RegisteredUserController extends Controller
             'state' => $request->state,
             'password' => Hash::make($request->password),
             'referred_by' => $referred_by,
-            'referral_link' => $reflink 
+            'referral_link' => $reflink
         ]);
-        
+
 
         $user->assignRole('user');
 

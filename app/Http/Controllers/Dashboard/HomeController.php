@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\FAQ;
+use App\Models\User;
 use App\Models\States;
 use App\Models\Resource;
 use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Referral;
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
@@ -35,6 +37,41 @@ class HomeController extends Controller
             'districts' => Districts::all(),
             'resources' => Resource::where('state', $this->currentlocation->name)->get(),
         ]);
+    }
+
+    public function referral($referral = '') {
+        if($referral == '') {
+            return redirect(route('home'));
+        }
+
+        $user = User::where('referral_link', $referral)->first();
+        if(!$user) {
+            //Incorrect referral.
+
+            return redirect(route('home'));
+        }
+
+
+        if(auth()) {
+            if(auth()->user()->id == $user->id) {
+                notify()->info('Looks like you\'re testing your own referral link. That\'s good, it works, yay! Now, share it with other people!', 'Kya re? Testing ah');
+                return redirect(route('home'));
+            }
+        } else {
+            $user->increment('referrals');
+            $user->update();
+
+            $ip = request()->ip();
+            $ref = array(
+                'user_id' => $user->id,
+                'referral_link' => $referral,
+                'referrer_ip' => $ip,
+            );
+
+            Referral::create($ref);
+            notify()->info('We thank them for bringing you and '.$user->referrals.' people here! Please read the "How to" section to know how to use this tool effectively', 'Isn\'t '.$user->name.' awesome?');
+            return redirect(route('home'));
+        }
     }
 
     public function view($id = '') {
@@ -93,5 +130,5 @@ class HomeController extends Controller
         // dd($activities);
         return view('dashboard.admin.activity.index')->with('activities', $activities);
       }
-    
+
 }
