@@ -477,7 +477,7 @@
                                                 Manage
                                             </a>
 
-                                            <a onclick="deleteRow('{{$tweet->id}}');" chref="#" class="btn btn-sm btn-danger">
+                                            <a href="{{ route('admin.twitter.delete') }}" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash text-white"></i>
                                             </a>
 

@@ -100,7 +100,7 @@
                     tweeter_name.innerHTML = currentTweet.name;
                     tweeter_username.href = 'https://twitter.com/' + currentTweet.user_name;
                     status_link.href = 'https://twitter.com/' + currentTweet.user_name + '/status/' + currentTweet.id;
-                    let timeago = moment(currentTweet.momentJS, "YYYYMMDDhm").fromNow();
+                    let timeago = moment(currentTweet.momentJS_IST, "YYYYMMDDhm").fromNow();
                     timeAgo.innerHTML = timeago;
                 changeStatus('running');
 
@@ -164,7 +164,7 @@
 
             })
             .catch(function(error) {
-                alert('There was an error getting updates from the API Server. Please contact admins');
+                // alert('There was an error getting updates from the API Server. Please contact admins');
                 console.log(error);
             })
         }
