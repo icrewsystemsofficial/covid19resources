@@ -65,7 +65,7 @@
                     <span class="msg">
                         Wish to Voulenteer?
                     </span>
-                    <a href="{{ route('register') }}" class="link">Register</a>
+                    <a href="/termsandconditions" class="link">Register</a>
                 </div>
             </div>
         </div>

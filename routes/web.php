@@ -34,8 +34,16 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 
 Route::get('/volunteers/termsandconditions',[VolunteersController::class,'volunteers_termsandconditions'])->name('volunteers.termsandconditions');
 Route::get('/volunteers/register',[VolunteersController::class,'volunteers_register'])->name('volunteers.register');
+Route::post('/volunteers/store',[VolunteersController::class,'volunteers_store'])->name('volunteers.store');
 
+//Route for Error Page Redirect Buttons
+Route::get('/chatwithus')->name('chat-with-us');
+Route::get('/viewappstatus')->name('view-app-status');
 
+//Route for terms and conditions page 
+Route::get('/termsandconditions', function () {
+    return view('auth.termsandconditions');
+});
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));

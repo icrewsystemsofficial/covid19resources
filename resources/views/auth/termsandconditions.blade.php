@@ -47,7 +47,7 @@
 
                 <li class="mb-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt qui animi esse quas fuga dicta modi, minima exercitationem! Aperiam, minima?</li>
               </ol>
-              <form class="needs-validation" action="{{ route('volunteers.register') }}">
+              <form class="needs-validation" action="{{ route('register') }}">
                 <div class="form-group">
                  <div class="form-check">
                     <input class="form-check-input position-static"  name="volunteerterms"type="checkbox" id="invalidCheck" value="accepted" required>
@@ -61,41 +61,6 @@
               </div>
               <button class="btn btn-primary ml-3" type="submit">Submit form</button>
             </form>
-              <!--
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-            <div class="login-form">
-                <div class="form-group">
-                    <label for="email" class="placeholder"><b>Email</b></label>
-                    <input id="email" name="email" type="text" class="form-control" required="">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="placeholder"><b>Password</b></label>
-                    <a href="{{ route('password.request') }}" class="link float-right">Forget Password ?</a>
-                    <div class="position-relative">
-                        <input id="password" name="password" type="password" class="form-control" required="">
-                        <div class="show-password">
-                            <i class="icon-eye"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group form-action-d-flex mb-3">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="remember" id="remember_me">
-                        <label class="custom-control-label m-0" for="remember_me">Remember Me</label>
-                    </div>
-                    <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Login</button>
-                </div>
-                <div class="login-account">
-                    <span class="msg">
-                        Wish to Voulenteer?
-                    </span>
-                    <a href="{{ route('register') }}" class="link">Register</a>
-                </div>
-            </div>
-        </div>
-    </form>
--->
     </div>
 </div>
 @endsection

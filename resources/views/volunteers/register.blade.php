@@ -38,7 +38,7 @@
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <!-- Validation Errors -->
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('volunteers.store') }}">
         @csrf
             <div class="login-form">
                 <div class="form-group">

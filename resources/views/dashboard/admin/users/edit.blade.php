@@ -140,9 +140,7 @@
                                 <button type="button" onclick="toggleVisibilityforGeolocation();" class="btn btn-primary">
                                     Change Geography of this resource
                                 </button>
-                                <button type="button" class="btn btn-success">
-                                    Assign Points
-                                </button>
+                               
                             </div>
 
                             
@@ -221,6 +219,10 @@
                             </div>
                         </div>
                     </div>
+
+                    
+                    
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
