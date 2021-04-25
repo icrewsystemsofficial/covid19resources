@@ -19,5 +19,6 @@ Made with love by [icrewsystems](https://icrewsystems.com)
 ### Acitvity module 
 - Activity module added 
 
-### Refreal system 
-- work in progress
+### Refreal links module 
+By Thirumalai
+- Referral links module completed
