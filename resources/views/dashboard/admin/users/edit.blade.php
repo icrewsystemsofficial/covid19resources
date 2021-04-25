@@ -220,6 +220,38 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="points">Assign Points</label>
+                                <select name="points" class="form-control" id="points">
+                                   <option value="1">1 Point</option>
+                                   <option value="2">2 Points</option>
+                                   <option value="3">3 Points</option>
+                                   <option value="4">4 Points</option>
+                                   <option value="5">5 Points</option>
+                                   <option value="6">6 Points</option>
+                                   <option value="7">7 Points</option>
+                                   <option value="8">8 Points</option>
+                                   <option value="9">9 Points</option>
+                                   <option value="10">10 Points</option>
+                                   <option value="11">11 Points</option>
+                                   <option value="12">12 Points</option>
+                                   <option value="13">13 Points</option>
+                                   <option value="14">14 Points</option>
+                                   <option value="15">15 Points</option>
+                                   <option value="16">16 Points</option>
+                                   <option value="17">17 Points</option>
+                                   <option value="18">18 Points</option>
+                                   <option value="19">19 Points</option>
+                                   <option value="20">20 Points</option>
+                                </select>
+                                <a class="btn btn-outline-success mt-2" type="button">Submit Points</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                     
                     
 

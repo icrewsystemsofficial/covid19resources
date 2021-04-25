@@ -52,6 +52,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="phone" class="placeholder"><b>Phone Number</b></label>
+                    <input id="phone" name="phone" type="text" class="form-control" required="">
+                </div>
+
+                <div class="form-group">
                     <label for="state" class="placeholder"><b>State</b></label>
                     <select name="state" onchange="getDistricts(this.value);" id="state" class="form-control">
                         @foreach ($states as $state)

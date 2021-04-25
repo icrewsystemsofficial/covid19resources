@@ -123,6 +123,9 @@ class UserController extends Controller
         $user->state = $request->state;
         $user->district = $request->district;
         $user->accepted = $request->accepted;
+
+        User::find($id)->increment('points',$request->points);
+
         $user->save();
 
         $user->roles()->detach();
@@ -146,4 +149,6 @@ class UserController extends Controller
         notify()->success('User\'s account has been deleted', 'Alright!');
         return redirect(route('admin.user.index'));
     }
+
+    
 }
