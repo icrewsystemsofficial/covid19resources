@@ -34,6 +34,8 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
 });
