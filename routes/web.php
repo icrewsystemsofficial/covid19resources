@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
@@ -13,8 +14,7 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\Dashboard\Admin\VolunteersController;
-
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,9 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 //Route for Error Page Redirect Buttons
 Route::get('/chatwithus')->name('chat-with-us');
 Route::get('/viewappstatus')->name('view-app-status');
+
+//Route for sending emails to volunteers
+Route::get('/send-email',[MailController::class,'sendEmail']);
 
 //Route for terms and conditions page 
 Route::get('/termsandconditions', function () {
