@@ -13,10 +13,10 @@ class UserEditController extends Controller
     {
         $this->middleware('auth');
     }
-    public function edit(User $user)
+    public function edit()
     {
         return view('dashboard.home.editUser', [
-            'user' => $user
+            'user' => auth()->user()
         ]);
     }
 

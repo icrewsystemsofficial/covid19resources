@@ -35,21 +35,21 @@ class GeographiesController extends Controller
     public function admin_districts_create() {
         return view('dashboard.admin.geographies.districts.create',[
             'states'=> States::all(),
-            
+
         ]);
     }
 
     public function admin_states_create() {
         return view('dashboard.admin.geographies.states.create',[
             'states'=> States::all(),
-            
+
         ]);
     }
 
     public function admin_cities_create() {
         return view('dashboard.admin.geographies.cities.create',[
             'cities'=> City::all(),
-            
+
         ]);
     }
 
@@ -127,7 +127,7 @@ class GeographiesController extends Controller
     public function admin_states_update($id,Request $request) {
         $state= States::find($id);
         $state->name = request('statename');
-        $state->type = request('statetype'); 
+        $state->type = request('statetype');
         $state->code = request('statecode');
         $state->capital = request('statecapital');
         $state->districts = request('statedistricts');
@@ -142,7 +142,7 @@ class GeographiesController extends Controller
     public function admin_cities_update($id,Request $request) {
         $cities= City::find($id);
         $cities->name = request('cityname');
-        $cities->district = request('citydistrict'); 
+        $cities->district = request('citydistrict');
         $cities->state = request('citystate');
 
 
@@ -173,7 +173,7 @@ class GeographiesController extends Controller
         City::find($id)->delete();
         notify()->success('City was Deleted', 'Hmmm, okay');
         return redirect(route('admin.geographies.cities.index'));
-    
+
         }
 }
 

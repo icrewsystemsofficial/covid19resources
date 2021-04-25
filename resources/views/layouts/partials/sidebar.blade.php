@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.volunteers.index') }}">
+                    <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
@@ -93,8 +93,12 @@
                         <p>Access Control</p>
                     </a>
                 </li>
-
-
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">

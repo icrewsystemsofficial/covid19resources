@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
@@ -28,7 +29,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
-
+Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
+Route::put('user/{user}/', [UserEditController::class, 'update'])->name('home.profile.save');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
@@ -40,10 +42,15 @@ Route::get('/location/get', function() {
 
 Route::prefix('volunteer')->group(function () {
     Route::get('/', [Volunteers::class, 'index'])->name('home.volunteers.index');
+    Route::get('/test', [Volunteers::class, 'test']);
+    Route::get('/missions', [Volunteers::class, 'getAllMissions']);
 });
 
 Route::prefix('mission')->group(function () {
-    Route::get('/', [Volunteers::class, 'index'])->name('home.mission.index');
+    Route::get('/', [MissionsController::class, 'index'])->name('home.mission.index');
+    //Using UUID because users should not "guess" the next mission IDs,
+    //But still, other users should be able to validate someone else's missions.
+    Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
 });
 
 
@@ -70,7 +77,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
     Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
     Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
-  
+
     Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
     Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
     Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
@@ -117,6 +124,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
     Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
     Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
+
+
+    Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
 });
 
 
@@ -141,8 +151,5 @@ Route::get('/json', function() {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-Route::get('user/{user}/edit', [UserEditController::class, 'edit']);
-Route::put('user/{user}/', [UserEditController::class, 'update']);
 
 require __DIR__.'/auth.php';

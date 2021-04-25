@@ -13,7 +13,7 @@ class Twitter extends Model
 
 
     protected $blacklisted_words = array(
-        'modi', 'amitshah', 'bjp'
+        'modi', 'amitshah', 'bjp', 'hell', 'fuck', 'disaster', 'angry', 'Kumbh', 'Pakistan',
     );
 
 
