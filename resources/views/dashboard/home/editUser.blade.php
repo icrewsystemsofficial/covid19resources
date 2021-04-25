@@ -91,9 +91,18 @@
                                     <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
                                     <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                 </div>
+
+                                <p href="#">ref link 
+                                    {{ url('/').'/register?ref='.$user->referral_link.'&uuid='.$user->id}}
+                                </p>
+
                                 {{-- <input type="submit" value="UPDATE" class="btn"> --}}
                             </div>
                         </form>
+{{-- 
+                        @if(!Auth::user()->referral_link)
+                            <input type="text" readonly="readonly" value="{{url('/').'/?ref='.Auth::user()->referral_link}}">
+                        @endif --}}
                     </div>
                 </div>
             </div>

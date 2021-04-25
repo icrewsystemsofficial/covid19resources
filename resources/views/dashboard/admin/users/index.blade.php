@@ -32,8 +32,8 @@
                             <th>User Name</th>
                             <th>User Email</th>
                             <th>User Role</th>
-                            {{-- <th>State</th> --}}
                             <th>Location</th>
+                            <th>Ref Signups</th>
                             <th>Status</th>
                             <th>Manage</th>
                         </thead>
@@ -45,6 +45,7 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{  implode('',$user->roles->pluck('name')->toArray()) }}</td>
                                     <td>{{ $user->district }} {{ $user->state }} </td>
+                                    <td>{{ $user->referral_signups }}</td>
                                     <td class="text-center">
                                         @if ($user->accepted == 1)
                                             <span class="badge badge-success">

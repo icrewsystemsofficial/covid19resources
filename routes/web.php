@@ -29,7 +29,7 @@ Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
-Route::put('user/{user}/', [UserEditController::class, 'update'])->name('home.profile.save');
+Route::put('user/', [UserEditController::class, 'update'])->name('home.profile.save');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
