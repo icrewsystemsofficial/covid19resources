@@ -10,6 +10,7 @@ use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Referral;
+use App\Models\Twitter;
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
@@ -31,11 +32,30 @@ class HomeController extends Controller
             ->appends(['search' => request('search')]);
         }
 
+        $resources = Resource::
+                        where('state', $this->currentlocation->name)
+                        ->get();
+
+        // $tweets = Twitter::
+        //             where('status', Twitter::SCREENED)
+        //             ->orWhere('status', Twitter::VERIFIED)
+        //             ->orderBy('status', 'DESC')
+        //             ->get();
+
+        // $tweets_merge = array();
+
+        // foreach($tweets as $tweet) {
+
+        // }
+
+        // // dd($tweets[0]);
+        // dd($resources);
+
         return view('dashboard.home.home', [
             'faqs' => $faq,
             'states' => States::all(),
             'districts' => Districts::all(),
-            'resources' => Resource::where('state', $this->currentlocation->name)->get(),
+            'resources' => $resources,
         ]);
     }
 

@@ -125,7 +125,7 @@
 			fillColor: '#c2e9ed'
 		});
 
-        
+
         var currentStateCode = ("{{$currentlocation->code}}").toLowerCase();
 
         var today = new Date();
@@ -147,7 +147,7 @@
             dd = "0" + dd;
         }
 
-        
+
         var todaydate = yyyy+"-"+mm+"-"+dd;
         console.log(todaydate);
 
@@ -190,21 +190,21 @@
                         fillColor: 'rgba(255, 165, 52, .14)'
                     });
 
-                
+
 
             });
 
         function dailyloop(element, index) {
             if(element['status'] === 'Deceased'){
-                totalDeceased.push(element[currentStateCode]);  
+                totalDeceased.push(element[currentStateCode]);
                 if(element["dateymd"] === todaydate){
                     todayDeceased = element[currentStateCode]
                     $("#stats_deceased_cases").text(element[currentStateCode]);
-                } 
+                }
             }
 
             if(element['status'] === 'Recovered'){
-                totalRecovered.push(element[currentStateCode]);   
+                totalRecovered.push(element[currentStateCode]);
                 if(element["dateymd"] === todaydate){
                     todayRecovered = element[currentStateCode]
                     $("#stats_recovered_cases").text(element[currentStateCode]);
@@ -216,7 +216,7 @@
                 if(element["dateymd"] === todaydate){
                     todayConfirmed = element[currentStateCode]
                     $("#stats_confirmed_cases").text(element[currentStateCode]);
-                }   
+                }
             }
         }
 
@@ -228,6 +228,12 @@
 
     <script>
         function changeLocation(state) {
+
+            var locationUpdatingIcon = document.getElementById('locationUpdatingIcon');
+            var locationUpdateForm = document.getElementById('locationUpdateForm');
+
+            locationUpdateForm.style.display = 'none';
+            locationUpdatingIcon.style.display = 'block';
             // var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
             axios.get('/currentlocation/update/' + state)
             .then(function (response) {
@@ -250,6 +256,19 @@
             })
             .catch(function (error) {
             // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error in updating your location, please clear cache and try again',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
             console.log(error);
             })
             .then(function () {
@@ -257,7 +276,7 @@
             });
         }
 
-        
+
     </script>
 @endsection
 
@@ -272,7 +291,10 @@
                 <h5 class="text-white op-7 mb-2">State Wise COVID19 Resources. Awareness is the first step in this battle.</h5>
             </div>
             <div class="col-md-4 col-md-4 py-2 py-md-0">
-                <form action="">
+                <span id="locationUpdatingIcon" class="pull-right" style="display: none;">
+                    <h2 class="h3 text-white">Updating location <i class="fa fa-sync fa-spin text-white"></i></h2>
+                </span>
+                <form action="" id="locationUpdateForm">
                     <select name="state" onchange="changeLocation(this.value);" class="form-control select2" id="">
                         <option value="all" selected disabled>Select a state</option>
                         @foreach ($states as $state)
@@ -293,8 +315,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        There are {{ $resources->count() }} resources indexed for <strong>{{ $currentlocation->name }}</strong>
+                        There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                     </h4>
+                    <span class="text-muted">
+                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers. Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
+                    </span>
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-pills nav-primary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">

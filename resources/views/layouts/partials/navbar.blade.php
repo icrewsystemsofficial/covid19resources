@@ -168,25 +168,38 @@
                     </div>
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
-                        <div class="row m-0">
-                            <div class="col-md-12">
-                                <label for="referrallink" class="mb-2">
-                                    <strong>
-                                        Your referral link
-                                    </strong>
-                                </label>
-                                <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ route('generate.referrallink', auth()->user()->referral_link) }}">
-                            </div>
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fas fa-clipboard"></i>
-                                        <span class="text">Copy Link</span>
-                                    </div>
-                                </a>
+                            <div class="row m-0">
+                                <div class="col-md-12">
+                                    @auth
+                                        <label for="referrallink" class="mb-2">
+                                            <strong>
+                                                Your referral link
+                                            </strong>
+                                        </label>
+                                        <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ route('generate.referrallink', auth()->user()->referral_link) }}">
+                                        @if(auth()->user()->referrals > 0)
+                                            <p class="mt-2 text-muted mx-auto">
+                                                Your referral link was used <strong>{{ auth()->user()->referrals }} times</strong>.
+                                            </p>
+                                        @endif
+                                    @endauth
+
+                                    @guest
+                                    <label for="referrallink" class="mb-2">
+                                        <strong>
+                                            Share link
+                                        </strong>
+                                    </label>
+                                        <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ config('app.url') }}">
+
+                                        <p class="mt-2 text-muted mx-auto">
+                                            Login to get personalized referral link.
+                                        </p>
+                                    @endguest
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </li>
             @auth
             <li class="nav-item dropdown hidden-caret">
