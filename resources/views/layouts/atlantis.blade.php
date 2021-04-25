@@ -242,6 +242,11 @@
         }
 
         startTime();
+function relocate_home()
+{
+     location.href =Share::page('http://jorenvanhocht.be')->facebook();
+
+} 
     </script>
 
     @yield('js')

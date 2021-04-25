@@ -166,23 +166,43 @@
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
                             <div class="row m-0">
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fa fa-facebook"></i>
-                                        <span class="text-blue">
-                                        <!--a href="{{ Share::page('','I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->facebook() }}">Facebook</a--></span>
-                                    </div>
-                                </a>
+                                <div class="quick-actions-item">
+                                    <button class="btn btn-sm btn-secondary ml-3">
+                                        @php
+                                        echo Share::currentPage('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->facebook(); 
+                                        @endphp
+                                    </button>
+                                </div>
 
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fas fa-clipboard"></i>
-                                        <span class="text">Copy Link</span>
-                                    </div>
-                                </a>
+                                <div class="quick-actions-item">
+                                    <button class="btn btn-sm btn-secondary">
+                                        @php
+                                        echo Share::page('www.covid19resources.in','I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->twitter(); 
+                                        @endphp
+                                    </button>
+                                </div>
+
+                                <div class="quick-actions-item">
+                                    <button class="btn btn-sm btn-secondary">
+                                        @php
+                                        echo Share::page('www.covid19resources.in','Sharing Covid Resources')->linkedin('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this'); 
+                                        @endphp
+                                    </button>
+                                </div>
+                                
+                                {{-- <a class="col-6 col-md-4 p-0" href="#"> --}}
+                                <div class="quick-actions-item">
+                                    <button class="btn btn-sm btn-success">
+                                        @php
+                                            echo Share::currentPage('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->whatsapp();
+                                        @endphp
+                                    </button>
+                                </div>
+                                {{-- </a> --}}
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </li>
             @auth
@@ -235,3 +255,4 @@
         </ul>
     </div>
 </nav>
+
