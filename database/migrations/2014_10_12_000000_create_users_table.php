@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('district')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number')->nullable();
+            // $table->string('phone_number')->nullable(); Removed by Leonard. APR 24.
             $table->boolean('accepted')->default('0');
             $table->rememberToken();
             $table->timestamps();

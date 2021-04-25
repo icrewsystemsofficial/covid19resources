@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Str;
 class UserController extends Controller
 {
     /**
@@ -19,7 +19,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_user_index()
-    {   
+    {
         $users = User::orderby('id','desc')->get();
         $roles = Role::all();
         return view('dashboard.admin.users.index')->with('users',$users)->with('roles',$roles);
@@ -31,7 +31,7 @@ class UserController extends Controller
     * @return \Illuminate\Http\Response
      */
     public function admin_user_create()
-    {   
+    {
         $roles = Role::all();
         $states = States::all();
         $districts = Districts::all();
@@ -43,10 +43,10 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     * 
+     *
      */
     public function admin_user_store(Request $request)
-    { 
+    {
         // dd($request->all());
         $request->validate([
             'name' => ['required','string', 'max:255'],
@@ -57,6 +57,7 @@ class UserController extends Controller
             'role' => ['required']
         ]);
 
+
          $user = new User;
          $user->name = $request->name;
          $user->email = $request->email;
@@ -64,6 +65,11 @@ class UserController extends Controller
          $user->district = $request->district;
          $user->password = Hash::make($request->password);
          $user->accepted = $request->accepted;
+
+         $kebab = Str::kebab($user->name);
+         $randnum = rand(pow(10, 5-1), pow(10, 5)-1);
+         $reflink = $kebab.'-'.$randnum;
+         $user->referral_link = $reflink;
          $user->save();
 
          $user->roles()->detach();
@@ -71,7 +77,7 @@ class UserController extends Controller
          $user->assignRole($newrole->name);
 
          notify()->success($request->name .'\'s profile was created successfully.', 'Yay!');
-         
+
          return redirect(route('admin.user.index'))->with('success','User created successfully');
     }
 
@@ -110,7 +116,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_user_update(Request $request, $id)
-    {   
+    {
         // dd($request->all());
         $user = User::where('id','=',$id)->first();
 
@@ -130,7 +136,6 @@ class UserController extends Controller
         $user->assignRole($newrole->name);
 
          notify()->success($request->name .'\'s profile was updated successfully.', 'Yay!');
-         
          return redirect(route('admin.user.index'));
     }
 

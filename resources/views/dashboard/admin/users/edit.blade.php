@@ -53,7 +53,7 @@
                 visible: true,
                 text : 'No, cancel!',
                 className: 'btn btn-danger'
-            },        			
+            },
             confirm: {
                 text : 'Yes, delete it!',
                 className : 'btn btn-success'
@@ -107,7 +107,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Create User </h4>
+                    <h4 class="card-title">Edit User </h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.user.update',$user->id) }}" method="POST">
@@ -128,26 +128,26 @@
                                 <label>
                                     <strong>Indexed Location</strong>
                                 </label>
-                    
+
                                 <input type="text" disabled value="{{ $user->district.', '.$user->state }}" class="form-control">
                             </div>
-                    
+
                             <div class="form-group">
                                 <input type="hidden" name="district" value="{{ $user->district }}">
                             </div>
-                    
+
                             <div class="form-group">
                                 <button type="button" onclick="toggleVisibilityforGeolocation();" class="btn btn-primary">
                                     Change Geography of this resource
                                 </button>
                             </div>
                         </span>
-                    
+
                         <script>
                             function toggleVisibilityforGeolocation() {
                                 var geography = document.getElementById("geography");
                                 var geography_options = document.getElementById("geography_options");
-                    
+
                                 if (geography.style.display === "none") {
                                     geography.style.display = "block";
                                     geography_options.style.display = "none";
@@ -158,14 +158,14 @@
                                 }
                             }
                         </script>
-                    
-                    
+
+
                         <span id="geography" style="display: none;">
                             <div class="form-group">
                                 <label for="state">
                                     <strong>State / Union Territory</strong>
                                 </label>
-                    
+
                                 <select name="state" onchange="getCities(this.value,'{{ $user->district }}');" class="form-control">
                                     @foreach ($states as $state)
                                         <option value="{{ $state->name }}" @php if($user->state == $state->name) { echo "selected"; } @endphp>
@@ -174,16 +174,16 @@
                                     @endforeach
                                 </select>
                             </div>
-                    
+
                             <div class="form-group">
                                 <label for="city">
                                     <strong>City</strong>
                                 </label>
-                    
+
                                 <select id="city" name="district" class="form-control">
                                 </select>
                             </div>
-                    
+
                             <div class="form-group">
                                 <button type="button" onclick="toggleVisibilityforGeolocation();" class="btn btn-warning">
                                     Don't change
@@ -209,7 +209,7 @@
                                        $selected = '';
                                      @endphp
                                    @endif
-               
+
                                    <option value="{{$role->name}}" {{ $selected }}>{{ ucfirst($role->name) }}</option>
                                    @endforeach
                                 </select>
@@ -236,7 +236,7 @@
                                             <input type="radio" onclick="changeSelectorColor('warning');" name="accepted" value="0" {{ ($user->accepted == "0")? "checked" : "" }} class="selectgroup-input  ">
                                             <span class="selectgroup-button mr-1">Under Review <i class="fa fa-exclamation-triangle "></i></span>
                                         </label>
-                                        
+
                                         <script>
                                             function changeSelectorColor(color) {
                                                 var selectGroup = document.getElementById('selectGroup');
@@ -262,9 +262,9 @@
         </div>
     </div>
 </div>
-</div>
 
-{{-- 
+
+{{--
 <div class="form-group">
     <div class="row">
         <div class="col-md-5">

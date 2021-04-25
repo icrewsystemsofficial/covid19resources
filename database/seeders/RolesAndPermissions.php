@@ -20,6 +20,7 @@ class RolesAndPermissions extends Seeder
          $roles = array(
             'superadmin',
             'moderator',
+            'volunteer',
             'provider',
             'requester',
             'user'
