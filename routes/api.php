@@ -5,6 +5,7 @@ use App\Http\Controllers\API\States;
 use App\Http\Controllers\API\Twitter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Location;
+use App\Http\Controllers\API\StatsAPI;
 use App\Http\Controllers\API\MissionAPI;
 use App\Http\Controllers\API\ScheduleRunner;
 
@@ -41,4 +42,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/mission/changeStatus/{id}/{status}', [MissionAPI::class, 'changeStatus']);
     Route::get('/mission/completedCount/{id}/{status}', [MissionAPI::class, 'completedCount']);
+
+    Route::get('/stats/trend/dataInput', [StatsAPI::class, 'dataInput']);
 });

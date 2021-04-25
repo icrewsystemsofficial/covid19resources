@@ -81,6 +81,7 @@ class TwitterListen extends Command
                 $value = date("Y-m-d H:i:s", strtotime($tweet['created_at']));
                 $tweet_data['diffForHumans'] = Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->diffForHumans();
                 $tweet_data['momentJS'] = Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->format('YmdHi');
+                $tweet_data['momentJS_IST'] = Carbon::parse($value . '  UTC')->format('YmdHi');
             }
 
             if (isset($tweet['extended_entities']['media'][0]['media_url'])) {
@@ -89,7 +90,7 @@ class TwitterListen extends Command
 
             // File::put(storage_path().'/tweets/'.$tweet_data['user_name'].'.json', json_encode($tweet_data));
             // File::put(storage_path().'/tweets_full/'.$tweet_data['user_name'].'.json', json_encode($tweet));
-            // echo $tweet_data['user_name'];
+            echo $tweet_data['user_name'];
             ProcessTweet::dispatch($tweet_data);
             broadcast(new BroadcastTweets($tweet_data))->toOthers();
         })
