@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Mail\ResourceRefuted;
 use App\Models\Activity;
-use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Referral;
-use App\Models\Twitter;
+
 
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
