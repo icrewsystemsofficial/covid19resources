@@ -142,7 +142,10 @@ $( "#slct" ).change(function() {
                     {{ $resource->getStatus()->name }} <i class="fas fa-{{ $resource->getStatus()->icon }}"></i>
                 </h2>
                 <h5 class="text-white h4 mb-2">
-                    This resource was added {{ $resource->created_at->diffForHumans() }}, and updated {{ $resource->updated_at->diffForHumans() }}.
+                    This resource was added {{ $resource->created_at->diffForHumans() }}@if ($resource->created_at != $resource->updated_at), and updated {{ $resource->updated_at->diffForHumans() }}.
+                    @else
+                    .
+                    @endif
                 </h5>
             </div>
 
@@ -166,6 +169,19 @@ $( "#slct" ).change(function() {
                 </div>
                 <div class="card-body">
                     {!! $resource->body !!}
+                </div>
+            </div>
+
+
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h4 class="card-title h6">
+                        Comments for this resource
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    // To be added
                 </div>
             </div>
         </div>

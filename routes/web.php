@@ -30,12 +30,14 @@ use App\Http\Controllers\MailController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
-
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
+
+Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
+Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
 
 Route::get('/chat-with-us')->name('home.chat_with_us');
 Route::get('/view-app-status')->name('home.app_status');
@@ -43,7 +45,7 @@ Route::get('/terms-and-conditions', function () {
     // Dhruv, put this inside a Controller!
     // - Leonard, 26 APR.
     return view('auth.termsandconditions');
-});
+})->name('home.terms');
 
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 

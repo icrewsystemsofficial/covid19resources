@@ -35,7 +35,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/tweet/change-status/{id}/{status}', [Twitter::class, 'change_status']);
     Route::get('/tweets/{id}/delete', [Twitter::class, 'delete_tweet']);
-    Route::get('/tweet/autoflag/{id}', [Twitter::class, 'autoflag']);
+    Route::get('/tweet/autoflag', [Twitter::class, 'autoflag']);
 
     Route::get('/scheduleRun', [ScheduleRunner::class, 'run']);
     Route::get('/scheduleList', [ScheduleRunner::class, 'list']);

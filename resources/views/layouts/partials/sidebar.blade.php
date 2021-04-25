@@ -2,6 +2,14 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
+
+                <li class="nav-item">
+                    <a href="{{ route('home.add.resource') }}">
+                        <i class="fas fa-plus-circle text-primary"></i>
+                        <p>Add Resources</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('home') }}">
                         <i class="fas fa-heartbeat"></i>
@@ -10,11 +18,28 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.about') }}">
+                    <a data-toggle="collapse" href="#about_section">
                         <i class="fas fa-info-circle"></i>
                         <p>About</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="about_section">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('home.about') }}">
+                                    <span class="sub-item">About us</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('home.about') }}">
+                                    <span class="sub-item">How to</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
 
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">

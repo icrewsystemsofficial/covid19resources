@@ -94,51 +94,13 @@ class Twitter extends Controller
     }
 
 
-    public function autoflag($id) {
-        $tweet = ModelsTwitter::find($id);
-
-        //Get screened tweets with RT in them.
-        //Find earliest one, mark rest as RT.
-        $screened_tweet = ModelsTwitter::
-                    where('id', '!=', $id)
-                    ->where('status', ModelsTwitter::SCREENED)
-                    ->where('tweet', 'LIKE', '%RT%')
-                    ->orderBy('created_at')
-                    ->limit(50)
-                    ->get();
-
-                    if(count($screened_tweet) > 0) {
-            foreach($screened_tweet as $screened) {
-                // FINDING DUPLICATES
-
-                $duplicates = ModelsTwitter::
-                        where('id', '!=', $screened->id)
-                        ->where('status', '!=', ModelsTwitter::RETWEET)
-                        ->where('tweet', 'LIKE', '%'. $screened->tweet .'%')
-                        // ->where('tweet', 'LIKE', '%RT%')
-                        // ->groupBy('tweet')
-                        ->orderBy('created_at')
-                        ->get();
-
-                if(count($duplicates) > 0) {
-                    echo "Finding dupes for : ".$screened->tweet;
-                    echo "<br>";
-                    echo "<br>";
-                    foreach($duplicates as $dupe) {
-                        echo $dupe->tweet;
-                        $dupe->status = ModelsTwitter::RETWEET;
-                        $dupe->update();
-                        echo "<br>";
-                    }
-                }
-
-            }
-        } else {
-            echo "All duplicate tweets marked as RT";
-        }
-
-
+    public function autoflag() {
+        //Get total pending tweets & resources.
+        //Get total number of users.
+        // divide both to derive "X", and assign "X" number of missions accross users.
+        echo "works";
     }
+
     public function autoflag_old2($id) {
         $tweets = ModelsTwitter::where('status', ModelsTwitter::PENDING)->limit(50)->get();
         $filtered = 0;
