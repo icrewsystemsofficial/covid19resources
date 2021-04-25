@@ -318,7 +318,10 @@
                         There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                     </h4>
                     <span class="text-muted">
-                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers. Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
+                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
+                        @if ($resources->count() > 0)
+                        Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
+                        @endif
                     </span>
                 </div>
                 <div class="card-body">
