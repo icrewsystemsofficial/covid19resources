@@ -63,9 +63,9 @@
                 </div>
                 <div class="login-account">
                     <span class="msg">
-                        Wish to voulenteer?
+                        Wish to Voulenteer?
                     </span>
-                    <a href="{{ route('register') }}" class="link">Register</a>
+                    <a href="/termsandconditions" class="link">Register</a>
                 </div>
             </div>
         </div>

@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('/states', [States::class, 'getStates']);
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
     Route::get('/cities/{state?}', [States::class, 'getCities']);
     Route::get('/currentlocation', [Location::class, 'currentLocation']);

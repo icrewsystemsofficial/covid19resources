@@ -163,7 +163,7 @@ class GeographiesController extends Controller
     public function admin_states_delete($id) {
 
         States::find($id)->delete();
-        notify()->success('States was Deleted', 'Hmmm, okay');
+        notify()->success('State was Deleted', 'Hmmm, okay');
         return redirect(route('admin.geographies.states.index'));
 
         }

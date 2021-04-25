@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Districts;
-use App\Models\States;
 use App\Models\User;
-use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
+use App\Models\States;
+use App\Models\Districts;
+use App\Mail\PointsSystem;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     /**
@@ -22,6 +25,8 @@ class UserController extends Controller
     {
         $users = User::orderby('id','desc')->get();
         $roles = Role::all();
+
+
         return view('dashboard.admin.users.index')->with('users',$users)->with('roles',$roles);
     }
 
@@ -129,6 +134,31 @@ class UserController extends Controller
         $user->state = $request->state;
         $user->district = $request->district;
         $user->accepted = $request->accepted;
+
+        User::find($id)->increment('points',$request->points);
+
+
+
+        if ($user->points==1) {
+
+            $details =[
+                'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
+                'body' => 'Your first point as a volunteer. We salute your efforts in such testing times'
+            ];
+
+            Mail::to($user->email)->send(new PointsSystem($details));
+        }
+
+        elseif ($user->points==500) {
+
+            $details =[
+                'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
+                'body' => 'Your first point as a volunteer. We salute your efforts in such testing times'
+            ];
+
+            Mail::to($user->email)->send(new PointsSystem($details));
+        }
+
         $user->save();
 
         $user->roles()->detach();
@@ -151,4 +181,6 @@ class UserController extends Controller
         notify()->success('User\'s account has been deleted', 'Alright!');
         return redirect(route('admin.user.index'));
     }
+
+
 }

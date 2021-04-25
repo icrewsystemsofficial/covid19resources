@@ -217,7 +217,7 @@
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('atlantis/assets/js/atlantis.js') }}"></script>
-
+    <script src="{{ asset('js/share.js') }}"></script>
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{ asset('atlantis/assets/js/setting-demo.js') }}"></script>
 	{{-- <script src="{{ asset('atlantis/assets/js/demo.js') }}"></script> --}}

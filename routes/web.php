@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
@@ -14,8 +15,8 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\SettingController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,16 @@ Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.repor
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
+
+Route::get('/chat-with-us')->name('home.chat_with_us');
+Route::get('/view-app-status')->name('home.app_status');
+Route::get('/terms-and-conditions', function () {
+    // Dhruv, put this inside a Controller!
+    // - Leonard, 26 APR.
+    return view('auth.termsandconditions');
+});
+
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));
