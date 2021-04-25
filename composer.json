@@ -15,7 +15,11 @@
         "markwalet/laravel-changelog": "^1.4",
         "mckenziearts/laravel-notify": "^2.1",
         "pusher/pusher-php-server": "^6.1",
+<<<<<<< HEAD
         "rackbeat/laravel-ui-avatars": "^0.9.0",
+=======
+        "spatie/laravel-activitylog": "^3.17",
+>>>>>>> cbaebc5dc3415a2de92b8cb9b039e3cb6c9be71d
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-twitter-streaming-api": "^1.4"
     },

@@ -132,7 +132,7 @@ class UserController extends Controller
         $user->assignRole($newrole->name);
 
          notify()->success($request->name .'\'s profile was updated successfully.', 'Yay!');
-         
+         activity()->log('userupdated');
          return redirect(route('admin.user.index'));
     }
 

@@ -8,6 +8,7 @@ use App\Models\Resource;
 use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
@@ -71,7 +72,7 @@ class HomeController extends Controller
             ]);
         }
     }
-// http://covid19resources.test/admin/resources/44/manage
+
 
     public function store_report(Request $request , $id) {
         $resource = Resource::find($id);
@@ -86,4 +87,11 @@ class HomeController extends Controller
             return redirect(route('home'));
         }
     }
+
+    public function activity() {
+        $activities = LogActivity::all();
+        // dd($activities);
+        return view('dashboard.admin.activity.index')->with('activities', $activities);
+      }
+    
 }

@@ -169,7 +169,8 @@
                                 <a class="col-6 col-md-4 p-0" href="#">
                                     <div class="quick-actions-item">
                                         <i class="fa fa-facebook"></i>
-                                        <span class="text">Facebook</span>
+                                        <span class="text-blue">
+                                        <!--a href="{{ Share::page('','I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->facebook() }}">Facebook</a--></span>
                                     </div>
                                 </a>
 

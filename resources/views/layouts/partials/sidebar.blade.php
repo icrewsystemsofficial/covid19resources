@@ -10,7 +10,7 @@
                     {{-- <div class="collapse" id="dashboard">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ route('home') }}"">
+                                <a href="{{ route('home') }}">
                                     <span class="sub-item">Dashboard</span>
                                 </a>
                             </li>
@@ -93,6 +93,7 @@
                         <p>Access Control</p>
                     </a>
                 </li>
+<<<<<<< HEAD
 
                 <li class="nav-item">
                     <a href="{{ route('accesscontrol.index') }}">
@@ -101,6 +102,14 @@
                     </a>
                 </li>
 
+=======
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
+>>>>>>> cbaebc5dc3415a2de92b8cb9b039e3cb6c9be71d
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">

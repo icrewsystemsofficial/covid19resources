@@ -10,7 +10,7 @@ class CreateTwittersTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+    */
     public function up()
     {
         Schema::create('twitters', function (Blueprint $table) {
