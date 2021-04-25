@@ -29,6 +29,6 @@ class PointsSystem extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test Mail from Icrew - Covid19 Resource Tracker')->view('email.volunteers');
+        return $this->subject('Points for Volunteering')->view('email.volunteers');
     }
 }

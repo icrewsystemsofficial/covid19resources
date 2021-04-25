@@ -37,7 +37,7 @@ Route::get('/chatwithus')->name('chat-with-us');
 Route::get('/viewappstatus')->name('view-app-status');
 
 //Route for sending emails to volunteers
-Route::get('/send-email',[MailController::class,'sendEmail']);
+//Route::get('/send-email',[MailController::class,'sendEmail']);
 
 //Route for terms and conditions page 
 Route::get('/termsandconditions', function () {
