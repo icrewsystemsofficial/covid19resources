@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\FAQ;
+use App\Models\City;
 use App\Models\User;
 use App\Models\States;
 use App\Models\Twitter;
+use App\Models\Category;
 use App\Models\Referral;
 use App\Models\Resource;
 use App\Models\Districts;
@@ -27,6 +29,78 @@ class HomeController extends Controller
     public function __construct() {
         $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
         $this->currentlocation = $currentlocation;
+    }
+
+    public function add_resource() {
+        return view('dashboard.home.add_resource', [
+            'categories' => Category::where('status', 1)->get(),
+            'states' => States::all(),
+        ]);
+    }
+
+    public function save_resource(Request $request) {
+        $create_account = request('create_account');
+        if($create_account != null) {
+            //Find existing user by that email.
+            $existing_user = User::where('email', request('email'))->first();
+            if($existing_user) {
+                Auth::attempt(['email' => $existing_user->email, 'password' => request('password')]);
+                $user = $existing_user;
+            } else {
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255|unique:users',
+                    'state' => 'required|string|max:30',
+                    'password' => 'required|string|confirmed|min:8',
+                ]);
+
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'state' => $request->state,
+                    'password' => Hash::make($request->password),
+                ]);
+
+
+                $user->assignRole('user');
+
+                event(new Registered($user));
+
+                Auth::login($user);
+
+                Mail::to($user->email)->send(new WelcomeEmail($user->name));
+            }
+        }
+
+        // Process the resource.
+        if(!isset($user)) {
+            $user = auth()->user();
+        }
+
+        $resource = new Resource;
+        $resource->category = request('category');
+        $resource->title = request('name');
+        $resource->body = request('body');
+        $resource->phone = request('phone');
+        $resource->url = request('url');
+        $resource->author_id = $user->id;
+        $resource->verified = request('status');
+
+        if(request('status') == 1) {
+            $resource->verified_by = $user->id;
+        }
+
+        $city = City::where('name', request('city'))->first();
+        $resource->city = $city->name;
+        $resource->district = $city->district;
+        $resource->state = $city->state;
+        $resource->hasAddress = 1;
+        $resource->landmark = request('landmark');
+        $resource->save();
+
+        // dd($resource);
+
+        return redirect(route('home.view', $resource->id));
     }
 
     public function index() {
@@ -166,9 +240,6 @@ class HomeController extends Controller
             $resource->verified = Resource::REFUTED;
             $resource->save();
 
-            // TODO: Add email here.
-            
-
             notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
             $superadmins = User::role('superadmin')->get();
             notify()->success('Your response were reported to admin');
@@ -176,9 +247,14 @@ class HomeController extends Controller
                 Mail::to($superadmin)->send(new ResourceRefuted());
             }
             return redirect(route('home'));
+	if(!isset($user)) {
+	$user = auth()->user();
+	}
+	notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+	return redirect(route('home.view', $id));
         } else {
             notify()->error('Some error occured try again', 'Whoops');
-            return redirect(route('home'));
+            return redirect(route('home.view', $id));
         }
     }
 

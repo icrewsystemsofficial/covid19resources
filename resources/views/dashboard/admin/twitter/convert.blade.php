@@ -251,9 +251,7 @@
                             <br>
                             <i class="fa fa-check-circle text-success"></i> INCLUDE Source for your verification. Don't add any resource without hard-verifying it personally.
                             <br>
-                            <i class="fa fa-times-circle text-danger"></i> Don't include Locations / Category / Expressive terms in title. We have seperate search-able columns for those.
-                            <br>
-                            <i class="fa fa-times-circle text-danger"></i> Don't include HASHTAGS or PROFILE HANDLES in the description
+                            <i class="fa fa-times-circle text-danger"></i> Don't include Category / Expressive terms in title. We have seperate search-able columns for those.
                         </p>
 
                         <div class="form-group">

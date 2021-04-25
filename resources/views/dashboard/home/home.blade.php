@@ -461,11 +461,13 @@
 
                                         @php
                                             if($resource->verified == 0) {
-                                                $color = 'table-bg-muted';
+                                                $color = 'bg-warning-gradient';
                                             } else if($resource->verified == 1) {
                                                 $color = 'table-bg-success';
                                             } else if($resource->verified == 2) {
                                                 $color = 'table-bg-danger';
+                                            } else {
+                                                $color = 'bg-primary';
                                             }
                                         @endphp
 

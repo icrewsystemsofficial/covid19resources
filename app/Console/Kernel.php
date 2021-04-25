@@ -24,12 +24,13 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {   
+    {
         // $schedule->command('send:tweetstats')->everyMinute();
         $schedule->command('send:tweetstats')->dailyAt('21:00');
         $schedule->command('twitter:scan')->everyFifteenMinutes();
         $schedule->command('twitter:screen 100')->everyMinute();
         $schedule->command('twitter:duplicates 100')->everyMinute();
+        $schedule->command('mission:assign')->everyFifteenMinutes();
     }
 
     /**
