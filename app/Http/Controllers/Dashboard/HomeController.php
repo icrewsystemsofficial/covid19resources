@@ -8,7 +8,10 @@ use App\Models\Resource;
 use App\Models\Districts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\ResourceRefuted;
 use App\Models\Activity;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -82,7 +85,11 @@ class HomeController extends Controller
         if($request->reason == 1 || $request->reason == 2 || $request->reason == 3 || $request->reason == 4) {
             $resource->verified = 2;
             $resource->save();
+            $superadmins = User::role('superadmin')->get();
             notify()->success('Your response were reported to admin');
+            foreach ($superadmins as $superadmin) {
+                Mail::to($superadmin)->send(new ResourceRefuted());
+            }
             return redirect(route('home'));
         } else {
             notify()->error('Some error occured try again', 'Whoops');
