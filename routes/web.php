@@ -32,10 +32,6 @@ Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 
-Route::get('/volunteers/termsandconditions',[VolunteersController::class,'volunteers_termsandconditions'])->name('volunteers.termsandconditions');
-Route::get('/volunteers/register',[VolunteersController::class,'volunteers_register'])->name('volunteers.register');
-Route::post('/volunteers/store',[VolunteersController::class,'volunteers_store'])->name('volunteers.store');
-
 //Route for Error Page Redirect Buttons
 Route::get('/chatwithus')->name('chat-with-us');
 Route::get('/viewappstatus')->name('view-app-status');

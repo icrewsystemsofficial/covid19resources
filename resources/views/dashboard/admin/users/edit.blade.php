@@ -225,6 +225,7 @@
                             <div class="col-md-5">
                                 <label for="points">Assign Points</label>
                                 <select name="points" class="form-control" id="points">
+                                   <option value="0" selected>Select Number of Points</option>
                                    <option value="1">1 Point</option>
                                    <option value="2">2 Points</option>
                                    <option value="3">3 Points</option>
@@ -246,7 +247,6 @@
                                    <option value="19">19 Points</option>
                                    <option value="20">20 Points</option>
                                 </select>
-                                <a class="btn btn-outline-success mt-2" type="button">Submit Points</a>
                             </div>
                         </div>
                     </div>
