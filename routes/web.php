@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
@@ -44,10 +45,15 @@ Route::get('/location/get', function() {
 
 Route::prefix('volunteer')->group(function () {
     Route::get('/', [Volunteers::class, 'index'])->name('home.volunteers.index');
+    Route::get('/test', [Volunteers::class, 'test']);
+    Route::get('/missions', [Volunteers::class, 'getAllMissions']);
 });
 
 Route::prefix('mission')->group(function () {
-    Route::get('/', [Volunteers::class, 'index'])->name('home.mission.index');
+    Route::get('/', [MissionsController::class, 'index'])->name('home.mission.index');
+    //Using UUID because users should not "guess" the next mission IDs,
+    //But still, other users should be able to validate someone else's missions.
+    Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
 });
 
 

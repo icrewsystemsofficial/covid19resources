@@ -3,4 +3,5 @@
   <change type="composer module">Added new module to record changelogs and dynamically add them from the terminal</change>
   <change type="module update">Geography module updated and removed counters</change>
   <change type="api">Added TwitterScan endpoint</change>
+  <change type="module">Added Volunteer module and mission module to segregate tweets and assign to a sepearte user with UUIDs</change>
 </feature>
