@@ -1,7 +1,7 @@
 @extends('layouts.atlantis')
-
+@section('title', 'Edit Profile')
 @section('content')
-    
+
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -22,9 +22,9 @@
                             Edit Your Details
                         </h4>
                     </div>
-                    
+
                     <div class="card-body">
-                        <form action="/user/{{ $user->id }}" method="post">
+                        <form action="{{ route('home.profile.save') }}" method="post">
                             @csrf
                             @method('PUT')
                             <div class="login-form">
@@ -35,7 +35,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                
+
                                 <div class="form-group">
                                     <label for="email" class="placeholder"><b>Email</b></label>
                                     <input id="email" name="email" type="text" class="form-control" required="" value="{{ $user->email }}">
@@ -91,9 +91,18 @@
                                     <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
                                     <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                 </div>
+
+                                <p href="#">ref link 
+                                    {{ url('/').'/register?ref='.$user->referral_link.'&uuid='.$user->id}}
+                                </p>
+
                                 {{-- <input type="submit" value="UPDATE" class="btn"> --}}
                             </div>
                         </form>
+{{-- 
+                        @if(!Auth::user()->referral_link)
+                            <input type="text" readonly="readonly" value="{{url('/').'/?ref='.Auth::user()->referral_link}}">
+                        @endif --}}
                     </div>
                 </div>
             </div>

@@ -32,13 +32,7 @@ class CategoryController extends Controller
         $category->name = request('name');
         $category->description = request('description');
         $category->status = request('status');
-        $category->save();
-
-        $activity = new Activity;
-        $activity->user_id = Auth::user()->id;
-        $activity->activity = "Created new Category";
-        $activity->save();
-
+        $category->save();        
         notify()->success('Category was added', 'Yayy!');
         return redirect(route('admin.categories.index'));
     }
@@ -49,12 +43,6 @@ class CategoryController extends Controller
         $category->description = request('description');
         $category->status = request('status');
         $category->update();
-        
-        $activity = new Activity;
-        $activity->user_id = Auth::user()->id;
-        $activity->activity = "Updated existing Category";
-        $activity->save();
-
         notify()->success('Category was updated', 'Yayy!');
         return redirect(route('admin.categories.index'));
     }
@@ -62,12 +50,6 @@ class CategoryController extends Controller
     public function admin_delete($id) {
 
         Category::find($id)->delete();
-
-        $activity = new Activity;
-        $activity->user_id = Auth::user()->id;
-        $activity->activity = "Deleted existing Category";
-        $activity->save();
-
         notify()->success('Category was deleted', 'Hmmm, okay');
         return redirect(route('admin.categories.index'));
 

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeEmail;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -21,12 +24,26 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('auth.register', [
-            'states' => States::all(),
-            'districts' => Districts::all(),
-        ]);
+
+         $referrer = User::find($request->query('uuid'));
+        if( $request->hasCookie('referral') && $request->query('uuid')) {
+
+            return view('auth.register', [
+                'states' => States::all(),
+                'districts' => Districts::all(),
+                'uuid' => $referrer
+            ]);
+
+         } else {
+
+            return view('auth.register', [
+                'states' => States::all(),
+                'districts' => Districts::all(),
+                'uuid' => $referrer
+            ]);
+         }
     }
 
     /**
@@ -39,6 +56,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -47,12 +65,33 @@ class RegisteredUserController extends Controller
         ]);
 
 
+        $referrer = User::where('referral_link');
+         if($referrer) {
+            $referrer->increment('referrals');
+            $referrer->save();
+        }
+
+        // generate a referral link for new user
+        $kebab = Str::kebab($request->name);
+        $randnum = rand(pow(10, 5-1), pow(10, 5)-1);
+        $reflink = $kebab.'-'.$randnum;
+
+
+        // get referral link via cookie
+        $referred_by = Cookie::get('referral');
+
+        // create new user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'state' => $request->state,
             'password' => Hash::make($request->password),
+            'referred_by' => $referred_by,
+            'referral_link' => $reflink
         ]);
+
+
+        $user->assignRole('user');
 
         event(new Registered($user));
 

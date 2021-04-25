@@ -159,29 +159,47 @@
                 </a>
                 <div class="dropdown-menu quick-actions quick-actions-primary animated fadeIn">
                     <div class="quick-actions-header">
-                        <span class="title mb-1">Share this tool</span>
-                        <span class="subtitle op-8">Awareness is the first step in fighting this battle</span>
+                        <span class="title mb-1">Share & Save lives</span>
+                        <span class="subtitle">
+                            We're a population of 1.3 billion people. We have enough to help each other.
+                            We've done our duty by developing this tool. We're requesting you to do yours, by sharing this tool
+                            with all the humans in your life.
+                        </span>
                     </div>
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
                             <div class="row m-0">
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fa fa-facebook"></i>
-                                        <span class="text">Facebook</span>
-                                    </div>
-                                </a>
+                                <div class="col-md-12">
+                                    @auth
+                                        <label for="referrallink" class="mb-2">
+                                            <strong>
+                                                Your referral link
+                                            </strong>
+                                        </label>
+                                        <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ route('generate.referrallink', auth()->user()->referral_link) }}">
+                                        @if(auth()->user()->referrals > 0)
+                                            <p class="mt-2 text-muted mx-auto">
+                                                Your referral link was used <strong>{{ auth()->user()->referrals }} times</strong>.
+                                            </p>
+                                        @endif
+                                    @endauth
 
-                                <a class="col-6 col-md-4 p-0" href="#">
-                                    <div class="quick-actions-item">
-                                        <i class="fas fa-clipboard"></i>
-                                        <span class="text">Copy Link</span>
-                                    </div>
-                                </a>
+                                    @guest
+                                    <label for="referrallink" class="mb-2">
+                                        <strong>
+                                            Share link
+                                        </strong>
+                                    </label>
+                                        <input id="referral_link_navbar" onclick="copyReferralURL();" type="text" class="form-control" value="{{ config('app.url') }}">
+
+                                        <p class="mt-2 text-muted mx-auto">
+                                            Login to get personalized referral link.
+                                        </p>
+                                    @endguest
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </li>
             @auth
             <li class="nav-item dropdown hidden-caret">
@@ -207,7 +225,7 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/user/{{ auth()->user()->id }}/edit">Account Setting</a>
+                            <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Account Setting</a>
                             <div class="dropdown-divider"></div>
                             <form id="logout_form" action="{{ route('logout') }}" method="POST">
                                 @csrf

@@ -5,6 +5,9 @@ use App\Http\Controllers\API\States;
 use App\Http\Controllers\API\Twitter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Location;
+use App\Http\Controllers\API\StatsAPI;
+use App\Http\Controllers\API\MissionAPI;
+use App\Http\Controllers\API\ScheduleRunner;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('/states', [States::class, 'getStates']);
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
     Route::get('/cities/{state?}', [States::class, 'getCities']);
     Route::get('/currentlocation', [Location::class, 'currentLocation']);
@@ -32,4 +36,13 @@ Route::prefix('v1')->group(function () {
     Route::get('/tweet/change-status/{id}/{status}', [Twitter::class, 'change_status']);
     Route::get('/tweets/{id}/delete', [Twitter::class, 'delete_tweet']);
     Route::get('/tweet/autoflag/{id}', [Twitter::class, 'autoflag']);
+
+    Route::get('/scheduleRun', [ScheduleRunner::class, 'run']);
+    Route::get('/scheduleList', [ScheduleRunner::class, 'list']);
+    Route::get('/scheduleTweet', [ScheduleRunner::class, 'tweet']);
+
+    Route::get('/mission/changeStatus/{id}/{status}', [MissionAPI::class, 'changeStatus']);
+    Route::get('/mission/completedCount/{id}/{status}', [MissionAPI::class, 'completedCount']);
+
+    Route::get('/stats/trend/dataInput', [StatsAPI::class, 'dataInput']);
 });

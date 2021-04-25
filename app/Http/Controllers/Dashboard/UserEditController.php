@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserEditController extends Controller
 {
@@ -13,11 +14,12 @@ class UserEditController extends Controller
     {
         $this->middleware('auth');
     }
-    public function edit(User $user)
+    public function edit()
     {
         return view('dashboard.home.editUser', [
-            'user' => $user
+            'user' => auth()->user()
         ]);
+
     }
 
     public function update(User $user)

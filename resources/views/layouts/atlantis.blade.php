@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
+
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
-	<meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygenm, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
+    <!-- Primary Meta Tags -->
+    <title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
+    <meta name="title" content="Dashboard | {{ config('app.name') }}">
+    <meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://covid19.icrewsystems.com/">
+    <meta property="og:title" content="Dashboard | {{ config('app.name') }}">
+    <meta property="og:description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
+    <meta property="og:image" content="">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://covid19.icrewsystems.com/">
+    <meta property="twitter:title" content="Dashboard | {{ config('app.name') }}">
+    <meta property="twitter:description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
+    <meta property="twitter:image" content="">
+
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script src="{{ asset('atlantis/assets/js/axios.min.js') }}"></script>
@@ -199,7 +217,7 @@
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('atlantis/assets/js/atlantis.js') }}"></script>
-
+    <script src="{{ asset('js/share.js') }}"></script>
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{ asset('atlantis/assets/js/setting-demo.js') }}"></script>
 	{{-- <script src="{{ asset('atlantis/assets/js/demo.js') }}"></script> --}}
@@ -222,6 +240,26 @@
         }
 
         startTime();
+
+        function copyReferralURL() {
+            var copyText = document.getElementById("referral_link_navbar");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+
+            $.notify({
+                icon: 'fa fa-check-circle',
+                title: "{{ config('app.name') }}",
+                message: "Your referral URL has been copied. Share it as much as you can 🙏",
+                },{
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        }
     </script>
 
     @yield('js')

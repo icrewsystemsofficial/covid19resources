@@ -7,21 +7,13 @@
                         <i class="fas fa-heartbeat"></i>
                         <p>Dashboard</p>
                     </a>
-                    {{-- <div class="collapse" id="dashboard">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="{{ route('home') }}"">
-                                    <span class="sub-item">Dashboard</span>
-                                </a>
-                            </li>
+                </li>
 
-                            <li>
-                                <a href="{{ url('atlantis/examples/demo1/index.html') }}" target="_blank">
-                                    <span class="sub-item">Theme Reference</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div> --}}
+                <li class="nav-item">
+                    <a href="{{ route('home.about') }}">
+                        <i class="fas fa-info-circle"></i>
+                        <p>About</p>
+                    </a>
                 </li>
 
                 <li class="nav-section">
@@ -39,7 +31,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.volunteers.index') }}">
+                    <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
@@ -93,8 +85,12 @@
                         <p>Access Control</p>
                     </a>
                 </li>
-
-
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">

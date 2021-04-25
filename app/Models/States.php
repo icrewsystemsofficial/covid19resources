@@ -12,4 +12,9 @@ class States extends Model
         'capital' => 'unknown',
         'code' => 'unknown',
     ];
+
+    public function totalCities() {
+        return City::where('state', 'LIKE', '%' . $this->name . '%')->count();
+
+    }
 }

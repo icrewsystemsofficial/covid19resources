@@ -41,39 +41,59 @@
  @endsection
 
 @section('js')
+
+<script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            $.notify({
+                icon: 'flaticon-error',
+                title: "{{ config('app.name') }}",
+                message: "{{ $error }}",
+                },{
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        @endforeach
+    @endif
+</script>
+
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 <script>
-    var map = L.map('mapid', {
-        center: [13, 80],
-        zoom: 4
-    });
+    // var map = L.map('mapid', {
+    //     center: [13, 80],
+    //     zoom: 4
+    // });
 
-    var pulsingIcon_currentlocation = L.icon.pulse({
-   		iconSize: [12,12],
-              fillColor: 'red',
-              color: 'red',
-              animate: true,
-              heartbeat: 1
-   	});
+    // var pulsingIcon_currentlocation = L.icon.pulse({
+   	// 	iconSize: [12,12],
+    //           fillColor: 'red',
+    //           color: 'red',
+    //           animate: true,
+    //           heartbeat: 1
+   	// });
 
 
-   	var current_location_pulsing_marker = L.marker([13, 80],{
-           icon: pulsingIcon_currentlocation
-           }).bindTooltip("Resource location").addTo(map);
+   	// var current_location_pulsing_marker = L.marker([13, 80],{
+    //        icon: pulsingIcon_currentlocation
+    //        }).bindTooltip("Resource location").addTo(map);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-	maxZoom: 19,
-	attribution: '&copy; {{ config("app.name") }}'
-    }).addTo(map);
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+	// maxZoom: 19,
+	// attribution: '&copy; {{ config("app.name") }}'
+    // }).addTo(map);
 
 // copy to clipboard function
 function copyClip() {
     var copyText =  document.getElementById("phone");
     copyText.select();
-    copyText.setSelectionRange(0, 99999); 
+    copyText.setSelectionRange(0, 99999);
 
     document.execCommand("copy");
     // alert("Copied the text: " + copyText.value);
@@ -110,19 +130,24 @@ $( "#slct" ).change(function() {
 //     document.execCommand("copy");
 //     alert('copied');
 // });
+
 </script>
 @endsection
 @section('content')
-<div class="panel-header bg-success-gradient">
+<div class="panel-header {{ $resource->getStatus()->gradient }}">
     <div class="page-inner py-5">
         <div class="d-flex align-`items-left align-items-md-center flex-column flex-md-row">
             <div class="col-md-8 col-md-6">
-                <h2 class="text-white pb-2 fw-bold">{{ config('app.name') }}</h2>
-                <h5 class="text-white op-7 mb-2">State Wise COVID19 Resources. Awareness is the first step in this battle.</h5>
+                <h2 class="text-white h1 pb-2 fw-bold">
+                    {{ $resource->getStatus()->name }} <i class="fas fa-{{ $resource->getStatus()->icon }}"></i>
+                </h2>
+                <h5 class="text-white h4 mb-2">
+                    This resource was added {{ $resource->created_at->diffForHumans() }}, and updated {{ $resource->updated_at->diffForHumans() }}.
+                </h5>
             </div>
 
             <div class="col-md-4 text-right">
-                <a  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-white hvr-bounce-in">
+                <a  data-bs-toggle="modal" data-bs-target="#reportModal" class="btn btn-lg btn-white hvr-bounce-in">
                     Report this resource <i class="ml-2 fa fa-exclamation-triangle text-danger"></i>
                 </a>
             </div>
@@ -131,48 +156,6 @@ $( "#slct" ).change(function() {
 </div>
 <div class="page-inner mt--5">
     <div class="row mt--2">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3>
-                            How to reach them?
-                            <br>
-                            <small>
-                                Last updated {{ $resource->updated_at->diffForHumans() }}
-                            </small>
-                        </h3>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="form-group col-9">
-                            <input type="text" class="form-control form-control-sm w-100" id="phone" value="{{ $resource->phone }}" readonly>
-                        </div>
-                        <button onclick="copyClip();" class="btn btn-sm btn-warning col" >
-                            Copy <i class="fas fa-clipboard"></i>
-                        </button>
-                    </div>
-                    {{-- <button id="button" value="{{ $resource->phone }}" class="btn btn-copy btn-sm btn-block btn-warning">
-                            Copy {{ $resource->phone }} <i class="fas fa-clipboard"></i>
-                    </button> --}}
-
-
-                    <a  href="tel:{{ $resource->phone }}" class="btn btn-sm btn-block btn-success mb-2">
-                        Call {{ $resource->phone }} <i class="fas fa-phone"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-block btn-primary">
-                        Tweet this <i class="fab fa-twitter"></i>
-                    </a>
-
-                    <a href="{{ $resource->url }}" target="_blank" class="btn btn-sm btn-block btn-dark">
-                        Visit {{ $resource->url }} <i class="fas fa-link"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
 
         <div class="col-md-8">
             <div class="card">
@@ -183,11 +166,73 @@ $( "#slct" ).change(function() {
                 </div>
                 <div class="card-body">
                     {!! $resource->body !!}
+                </div>
+            </div>
+        </div>
 
-                    <hr>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>
+                            How to reach them?
+                        </h3>
+                    </div>
+                </div>
 
-                    <div id="mapid">
+                <div class="form-group">
 
+                    @if ($resource->phone != null)
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="form-group col-9">
+                                <input type="text" class="form-control form-control-sm w-100" id="phone" value="{{ $resource->phone }}" readonly>
+                            </div>
+                            <button onclick="copyClip();" class="btn btn-sm btn-dark col" >
+                                <i class="fas fa-clipboard"></i>
+                            </button>
+                        </div>
+
+                        <a  href="tel:{{ $resource->phone }}" class="btn btn-block btn-success mb-2">
+                            Call {{ $resource->phone }} <i class="fas fa-phone"></i>
+                        </a>
+
+                        @else
+
+                        <p class="p2 text-muted mb-4">
+                            <i class="fa fa-exclamation-triangle text-danger"></i> This resource does not contain a phone number.
+                        </p>
+
+                    @endif
+
+                    @if ($resource->url != '')
+                        <a href="{{ $resource->url }}" target="_blank" class="btn btn-sm btn-block btn-dark">
+                            Visit {{ $resource->url }} <i class="fas fa-link"></i>
+                        </a>
+                        @else
+                        <p class="p2 text-muted mb-4">
+                            <i class="fa fa-exclamation-triangle text-danger"></i> This resource does not contain a URL.
+                        </p>
+                    @endif
+
+                    <div class="mt-3">
+                        <h3 class="text-muted text-center">
+                            Share this resource
+                        </h3>
+                        @php
+                            $links =  Share::currentPage($resource->title)
+                                ->facebook()
+                                ->twitter()
+                                ->telegram()
+                                ->getRawLinks();
+
+                            $icons = array();
+                        @endphp
+
+                        @foreach ($links as $platform => $link)
+                            <a target="_blank" href="{{ $link }}" class="btn btn-white btn-block">
+                                {{ ucfirst($platform )}} <i class="fab fa-{{ $platform }}"></i>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -196,17 +241,70 @@ $( "#slct" ).change(function() {
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Report the resource</h5>
+          <h5 class="modal-title h3" id="exampleModalLabel"><strong>Report</strong> this resource</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="{{ route('home.submit.report', $resource->id) }}" method="POST">
-            @csrf 
+            @csrf
             <div class="p-2">
+                <p class="h4">
+                    We're sorry that this resource was not as per description.
+                    Your report will help us maintain our database.
+                </p>
+                @guest
+                    <span class="mt-3 mb-3 text-muted">
+                        You'll need an account to do this, let's create you one.
+                    </span>
+
+                    <input type="hidden" name="create_account" value="1">
+
+                    <div class="form-group">
+                        <label for="name" class="placeholder"><b>Name</b></label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Your name" required="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="placeholder"><b>Email</b></label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Your email" required="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state" class="placeholder"><b>State</b></label>
+                        <select name="state" id="state" class="form-control">
+                            @php
+                                $states = App\Models\States::all();
+                            @endphp
+                            @foreach ($states as $state)
+                                <option value="{{ $state->code }}">
+                                    {{ $state->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><b>Password</b>
+                        </label>
+                        <div class="position-relative">
+                            <input id="password" placeholder="Enter your password" name="password" type="password" class="form-control" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password_confirmation"><b>Password</b>
+                        </label>
+                        <div class="position-relative">
+                            <input id="password_confirmation" placeholder="..and confirm it again" name="password_confirmation" type="password" class="form-control" required="">
+                        </div>
+                    </div>
+                @endguest
+
                 <div class="form-group">
                   <label for="slct">Report Resource</label>
                   <select id="slct" class="form-control" name="reason" >
@@ -220,7 +318,7 @@ $( "#slct" ).change(function() {
                   <label for="txtarea" id="comment">Reason</label>
                   <textarea class="form-control" id="txtarea" name="report_comment" placeholder="Write your reason here..." cols="5"></textarea>
               </div>
-                </div>  
+                </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
