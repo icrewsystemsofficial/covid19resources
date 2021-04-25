@@ -125,42 +125,104 @@
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
 
-        $('#lineChart_1').sparkline([0, 50, 55, 56, 57, 60, 70, 80, 90, 95, 250, 251, 245, 260, 230, 900, 950, 1000, 1200], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#fafafa',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
+        
+        var currentStateCode = ("{{$currentlocation->code}}").toLowerCase();
 
-        $('#lineChart_2').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
+        var today = new Date();
+        var dd = today. getDate()-1;
+        var mm = today. getMonth()+1;
+        var yyyy = today.getFullYear();
 
-        $('#lineChart_3').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
+        mm = mm+"";
+        dd= dd+"";
+        yyyy=yyyy+"";
 
-        $('#lineChart_4').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
+        console.log(mm.length);
 
+        if(mm.length == 1){
+            mm = "0" + mm;
+        }
+
+        if(dd.length == 1){
+            dd = "0" + dd;
+        }
+
+        
+        var todaydate = yyyy+"-"+mm+"-"+dd;
+        console.log(todaydate);
+
+        var totalConfirmed = [];
+        var totalRecovered = [];
+        var totalDeceased = [];
+
+        var todayConfirmed = 0;
+        var todayRecovered = 0;
+        var todayDecreased = 0;
+
+        axios.get('https://api.covid19india.org/states_daily.json')
+            .then(function (response) {
+                (response.data.states_daily).forEach(dailyloop);
+
+                $('#lineChart_2').sparkline(totalConfirmed, {
+                        type: 'line',
+                        height: '70',
+                        width: '100%',
+                        lineWidth: '2',
+                        lineColor: '#ffa534',
+                        fillColor: 'rgba(255, 165, 52, .14)'
+                    });
+
+                    $('#lineChart_3').sparkline(totalRecovered, {
+                        type: 'line',
+                        height: '70',
+                        width: '100%',
+                        lineWidth: '2',
+                        lineColor: '#ffa534',
+                        fillColor: 'rgba(255, 165, 52, .14)'
+                    });
+
+                    $('#lineChart_4').sparkline(totalDeceased, {
+                        type: 'line',
+                        height: '70',
+                        width: '100%',
+                        lineWidth: '2',
+                        lineColor: '#ffa534',
+                        fillColor: 'rgba(255, 165, 52, .14)'
+                    });
+
+                
+
+            });
+
+        function dailyloop(element, index) {
+            if(element['status'] === 'Deceased'){
+                totalDeceased.push(element[currentStateCode]);  
+                if(element["dateymd"] === todaydate){
+                    todayDeceased = element[currentStateCode]
+                    $("#stats_deceased_cases").text(element[currentStateCode]);
+                } 
+            }
+
+            if(element['status'] === 'Recovered'){
+                totalRecovered.push(element[currentStateCode]);   
+                if(element["dateymd"] === todaydate){
+                    todayRecovered = element[currentStateCode]
+                    $("#stats_recovered_cases").text(element[currentStateCode]);
+                }
+            }
+
+            if(element['status'] === 'Confirmed'){
+                totalConfirmed.push(element[currentStateCode]);
+                if(element["dateymd"] === todaydate){
+                    todayConfirmed = element[currentStateCode]
+                    $("#stats_confirmed_cases").text(element[currentStateCode]);
+                }   
+            }
+        }
+
+        //totalConfirmed = totalConfirmed.slice(totalConfirmed.length - 10);
+        //totalRecovered = totalRecovered.slice(totalRecovered.length - 10);
+        //totalDeceased = totalDeceased.slice(totalDeceased.length - 10);
 
 	</script>
 
@@ -194,6 +256,8 @@
             // always executed
             });
         }
+
+        
     </script>
 @endsection
 
@@ -276,25 +340,11 @@
                         <div class="tab-pane fade active show" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-stats-tab-icon">
                             <div class="row">
 
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <div class="card card-dark bg-danger-gradient">
                                         <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white">+85%</div>
-                                            <h2 class="mb-0">1237864</h2>
-                                            <p class="text-white">Confirmed Cases</p>
-                                            <div class="pull-in sparkline-fix">
-                                                <div id="lineChart_1"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="card card-dark bg-primary-gradient">
-                                        <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white">+85%</div>
-                                            <h2 class="mb-0">1237864</h2>
-                                            <p class="text-white">Active Cases</p>
+                                            <div class="h1 fw-bold float-right text-white" id="stats_confirmed_cases"></div>
+                                            <p class="text-white">Yesterday's Confirmed Cases</p>
                                             <div class="pull-in sparkline-fix">
                                                 <div id="lineChart_2"></div>
                                             </div>
@@ -305,9 +355,8 @@
                                 <div class="col-md-4">
                                     <div class="card card-dark bg-success-gradient">
                                         <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white">+85%</div>
-                                            <h2 class="mb-0">1237864</h2>
-                                            <p class="text-white">Recovered Cases</p>
+                                            <div class="h1 fw-bold float-right text-white" id="stats_recovered_cases"></div>
+                                            <p class="text-white">Yesterday's Recovered Cases</p>
                                             <div class="pull-in sparkline-fix">
                                                 <div id="lineChart_3"></div>
                                             </div>
@@ -318,9 +367,8 @@
                                 <div class="col-md-4">
                                     <div class="card card-black">
                                         <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white">+85%</div>
-                                            <h2 class="mb-0">1237864</h2>
-                                            <p class="text-white">Deceased Cases</p>
+                                            <div class="h1 fw-bold float-right text-white" id="stats_deceased_cases"></div>
+                                            <p class="text-white">Yesterday's Deceased Cases</p>
                                             <div class="pull-in sparkline-fix">
                                                 <div id="lineChart_4"></div>
                                             </div>
@@ -1265,7 +1313,7 @@
                             <li class="feed-item feed-item-secondary">
                                 <time class="date" datetime="9-25">{{ $acti->updated_at->diffForHumans() }}</time>
                                 <span class="text">{{ $acti->user->name }} <a href="#">"{{ $acti->activity }}"</a></span>
-                            </li>                            
+                            </li>
                         @empty
                             <div class="alert alert-danger">
                                 Whoops! No Activity found {{ $currentlocation->name }} yet.
