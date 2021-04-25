@@ -14,8 +14,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
+use App\Mail\ResourceRefuted;
+use App\Models\Activity;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Referral;
+use App\Models\Twitter;
+
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
@@ -163,8 +169,14 @@ class HomeController extends Controller
             $resource->save();
 
             // TODO: Add email here.
+            
 
             notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+            $superadmins = User::role('superadmin')->get();
+            notify()->success('Your response were reported to admin');
+            foreach ($superadmins as $superadmin) {
+                Mail::to($superadmin)->send(new ResourceRefuted());
+            }
             return redirect(route('home'));
         } else {
             notify()->error('Some error occured try again', 'Whoops');

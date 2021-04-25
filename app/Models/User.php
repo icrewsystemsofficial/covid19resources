@@ -48,8 +48,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['initials'];
+    
     public function states() {
         // return States::where('code', auth()->user()->state)->first();
         return $this->hasOne(States::class, 'code', 'state');
+    }
+
+
+
+
+    public function getInitialsAttribute() {
+        $nameWords = explode(" ", $this->name);
+        $initials =  $nameWords[0][0];
+        if(count($nameWords) > 1) {
+            $initials = $initials . $nameWords[1][0];
+        }
+        return $initials;
     }
 }
