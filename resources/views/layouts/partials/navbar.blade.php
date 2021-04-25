@@ -187,7 +187,7 @@
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-                        <img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                            <span class="avatar-title rounded-circle border border-white">CF</span>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -196,7 +196,10 @@
                             <div class="user-box">
                                 <div class="avatar-lg">
                                     {{-- <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"> --}}
-                                    <img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                                    {{-- <img src="{{ asset('atlantis/assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle"> --}}
+                                    <div class="avatar">
+                                        <span class="avatar-title rounded-circle border border-white">CF</span>
+                                    </div>
                                 </div>
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>

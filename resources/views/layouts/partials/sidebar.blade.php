@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.mission.index') }}">
+                    <a href="{{ route('home.volunteers.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
@@ -91,6 +91,12 @@
                     <a href="{{ route('accesscontrol.index') }}">
                         <i class="fas fa-shield-alt"></i>
                         <p>Access Control</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.setting.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Settings</p>
                     </a>
                 </li>
                 <li class="nav-item">

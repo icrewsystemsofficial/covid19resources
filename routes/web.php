@@ -14,6 +14,8 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\Dashboard\Admin\SettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,6 +127,15 @@ Route::prefix('admin')->group(function () {
     Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
     Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
 
+// settings routes
+    Route::prefix('setting')->group(function () {
+        Route::get('/',[SettingController::class,'admin_setting_index'])->name('admin.setting.index');
+        Route::get('/add-setting',[SettingController::class,'admin_setting_create'])->name('admin.setting.add');
+        Route::post('/store-setting',[SettingController::class,'admin_setting_store'])->name('admin.setting.store');
+        Route::get('{id}/edit-setting',[SettingController::class,'admin_setting_edit'])->name('admin.setting.edit');
+        Route::post('{id}/update-setting',[SettingController::class,'admin_setting_update'])->name('admin.setting.update');
+        Route::get('{id}/delete-setting',[SettingController::class,'admin_setting_delete'])->name('admin.setting.delete');
+    });
 
     Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
 });
