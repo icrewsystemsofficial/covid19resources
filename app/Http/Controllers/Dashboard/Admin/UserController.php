@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Str;
 class UserController extends Controller
 {
     /**
@@ -56,6 +56,7 @@ class UserController extends Controller
             'accepted' => ['required'],
             'role' => ['required']
         ]);
+        
 
          $user = new User;
          $user->name = $request->name;
@@ -64,6 +65,11 @@ class UserController extends Controller
          $user->district = $request->district;
          $user->password = Hash::make($request->password);
          $user->accepted = $request->accepted;
+
+         $kebab = Str::kebab($user->name);
+         $randnum = rand(pow(10, 5-1), pow(10, 5)-1);
+         $reflink = $kebab.'-'.$randnum;
+         $user->referral_link = $reflink;
          $user->save();
 
          $user->roles()->detach();
@@ -130,7 +136,6 @@ class UserController extends Controller
         $user->assignRole($newrole->name);
 
          notify()->success($request->name .'\'s profile was updated successfully.', 'Yay!');
-         activity()->log('userupdated');
          return redirect(route('admin.user.index'));
     }
 
