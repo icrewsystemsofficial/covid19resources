@@ -12,7 +12,7 @@ use Exception;
 class MissionsController extends Controller
 {
     public function index() {
-        $missions = Mission::orderBy('status')->get();
+        $missions = Mission::where('volunteer_id', auth()->user()->id)->orderBy('status')->get();
         return view('dashboard.home.missions.index', [
             'missions' => $missions,
         ]);
