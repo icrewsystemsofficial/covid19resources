@@ -131,7 +131,7 @@ class HomeController extends Controller
     }
 
     public function how_to() {
-        return view('dashboard.static.howto');
+        return view('dashboard.static.howTo');
     }
     
     public function terms(){
