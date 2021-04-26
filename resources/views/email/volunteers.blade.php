@@ -1,21 +1,18 @@
 @component('mail::message')
-# {{ $name }}
+# Hello {{ $name }}
 
-Thank you for signing up with {{ config('app.name') }}. We are all connected together, as ONE NATION in war against the deadly Novel Corona Virus. 
+Welcome and thank you for signing up to volunteer for  {{ config('app.name') }}. As one united nation, we are in the struggle together against COVID-19. Your one step to help is one giant leap in India's fight against COVID!
 
-This app is to be used by 
+
+
 @component('mail::panel')
-1. The people who provide help or information regarding resources
-
-2. The people who require that help or information
-
-3. The volunteers who verify the facts and keep the database updated.
+Our mission is to provide COVID-19 resources along with verified statistics & logistics of the virus in India. However, with one of the largest populations in the world, obtaining validated information can be remarkably difficult. That's where you help us! By volunteering to confirm COVID-19 data we receive, your actions could be the difference in saving somebody's life. 
 @endcomponent
 
 @component('mail::button', ['url' => $redirect_url, 'color' => 'primary'])
-Let's fight this COVID19 together
+Let's work together to fight against & say bye to COVID-19! 
 @endcomponent
 
-Thank You,<br>
-Fellow Citizens
+Much Gratitude and Appreciation,<br>
+Fellow Citizens of India
 @endcomponent
