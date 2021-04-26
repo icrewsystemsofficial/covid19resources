@@ -2,7 +2,7 @@
 @section('title', 'Edit Profile')
 @section('content')
 <style>
-.switch input { 
+.switch input {
     display:none;
 }
 .switch {
@@ -138,34 +138,29 @@ input:checked ~ .slider {
                                     } else {
                                         $checked = '';
                                     }
-                                ?>  
-                                
+                                ?>
+
                                 <div class="d-flex align-items-center form-group">
                                     <div class="mt-3 mr-3">
-                                        <h4 class="text-capitalize placeholder"><b>Available For Mission : <b></h4>
+                                        <h4 class="text-capitalize placeholder"><b>Available For Missions? <b></h4>
+                                        <p class="text-muted fw-light">
+                                            <small>
+                                                If this option is checked, you will be assigned missions
+                                            </small>
+                                        </p>
                                     </div>
                                     <label class="switch mx-2" checked>
                                         <input type="checkbox" name="available_for_mission" type="checkbox" class="hidden" {{ $checked }}>
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-group d-flex align-items-center justify-content-center mb-3">
                                     <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
                                     <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                 </div>
-
-                                <p href="#">ref link 
-                                    {{ url('/').'/register?ref='.$user->referral_link.'&uuid='.$user->id}}
-                                </p>
-
-                                {{-- <input type="submit" value="UPDATE" class="btn"> --}}
                             </div>
                         </form>
-{{-- 
-                        @if(!Auth::user()->referral_link)
-                            <input type="text" readonly="readonly" value="{{url('/').'/?ref='.Auth::user()->referral_link}}">
-                        @endif --}}
                     </div>
                 </div>
             </div>

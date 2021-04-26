@@ -36,6 +36,9 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
+Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
+
+
 Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
 Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
 
@@ -48,6 +51,7 @@ Route::get('/terms-and-conditions', function () {
 })->name('home.terms');
 
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('home.privacy');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));

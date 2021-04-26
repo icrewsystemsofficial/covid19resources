@@ -36,7 +36,15 @@ class ResourceController extends Controller
         ]);
     }
 
-    public function admin_save() {
+    public function admin_save(Request $request) {
+
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha'
+        ],[
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+        ]);
+
         $resource = new Resource;
         $resource->category = request('category');
         $resource->title = request('name');

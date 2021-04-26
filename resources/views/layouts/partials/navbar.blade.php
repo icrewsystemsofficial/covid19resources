@@ -223,13 +223,27 @@
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>
+
+                                    @if(auth()->user()->hasRole('volunteer'))
+                                        @if (auth()->user()->available_for_mission == 1)
+                                            <span class="badge badge-success">
+                                                Available for mission
+                                            </span>
+
+                                            @else
+                                            <span class="badge badge-dark">
+                                                Unavailable for missions
+                                            </span>
+                                        @endif
+                                    @endif
+
                                     {{-- <p class="h5 text-muted">{{ auth()->user()->states->name }}</p> --}}
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Account Setting</a>
+                            <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Edit Profile</a>
                             <div class="dropdown-divider"></div>
                             <form id="logout_form" action="{{ route('logout') }}" method="POST">
                                 @csrf

@@ -56,7 +56,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.volunteers.index') }}">
+                    <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
