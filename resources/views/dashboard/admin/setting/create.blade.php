@@ -1,6 +1,6 @@
 @extends('layouts.atlantis')
-@section('title', 'User Admin')
-@section('js')    
+@section('title', 'Create Settings')
+@section('js')
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -39,7 +39,12 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="title"><strong>Setting Name</strong></label>
+                            <label for="title"><strong>Setting Name</strong>
+                                <br>
+                                <span class="text-muted fw-light">
+                                    Will be converted to slug case
+                                </span>
+                            </label>
                             <input type="text" name="name" class="form-control" required placeholder="Enter Setting Name" />
                         </div>
                         <div class="form-group">
