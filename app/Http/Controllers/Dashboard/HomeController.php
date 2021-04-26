@@ -129,6 +129,11 @@ class HomeController extends Controller
     public function about() {
         return view('dashboard.static.about');
     }
+
+    public function howto() {
+        return view('dashboard.static.howto');
+    }
+
     public function referral($referral = '') {
         if($referral == '') {
             return redirect(route('home'));

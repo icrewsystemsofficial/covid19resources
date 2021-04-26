@@ -135,9 +135,11 @@ class UserController extends Controller
         $user->district = $request->district;
         $user->accepted = $request->accepted;
 
-        User::find($id)->increment('points',$request->points);
-
+        $user->increment('points',$request->points);
+        
+        
         $user->save();
+
 
         $name =$user->name;
 
@@ -152,7 +154,6 @@ class UserController extends Controller
             Mail::to($user->email)->send(new PointsSystem($name));
         }
 
-        $user->save();
 
         $user->roles()->detach();
         $newrole = Role::findByName($request->role);

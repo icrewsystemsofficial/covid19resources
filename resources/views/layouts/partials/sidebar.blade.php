@@ -32,7 +32,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('home.about') }}">
+                                <a href="{{ route('home.howto') }}">
                                     <span class="sub-item">How to</span>
                                 </a>
                             </li>
