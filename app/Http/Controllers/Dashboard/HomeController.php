@@ -14,6 +14,8 @@ use App\Models\Districts;
 use App\Mail\WelcomeEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendReportJob;
+use App\Jobs\WelcomeMailJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -129,9 +131,13 @@ class HomeController extends Controller
     public function about() {
         return view('dashboard.static.about');
     }
-
+  
     public function howto() {
         return view('dashboard.static.howto');
+    }
+
+    public function privacy() {
+        return view('dashboard.static.privacy');
     }
 
     public function referral($referral = '') {
@@ -170,6 +176,8 @@ class HomeController extends Controller
     public function view($id = '') {
 
         $resource = Resource::find($id);
+        $comments = $resource->comments;
+        // dd($comments);
         if($id == '') {
             notify()->error('Resource ID not passed', 'Whoops');
             return redirect(route('home'));
@@ -182,12 +190,20 @@ class HomeController extends Controller
 
             return view('dashboard.home.view', [
                 'resource' => $resource,
+                'comments' => $comments
             ]);
         }
 
 
     }
 
+    public function add_comment(Request $request ,$id)
+    {
+        $resource = Resource::find($id);
+        $resource->comment($request->comment);
+        notify()->success('Your comment posted successfully','Yay!');
+        return redirect()->back();
+    }
     public function report($id = '') {
         $resource = Resource::find($id);
         if($id == '') {
@@ -235,8 +251,13 @@ class HomeController extends Controller
                 event(new Registered($user));
 
                 Auth::login($user);
+                $details = [
+                    'to' => $user->email,
+                    'name' => $user->name,
+                ];
+                // Mail::to($user->email)->send(new WelcomeEmail($user->name));
+                WelcomeMailJob::dispatch($details)->delay(now()->addSeconds(5));
 
-                Mail::to($user->email)->send(new WelcomeEmail($user->name));
             }
         }
 
@@ -245,18 +266,34 @@ class HomeController extends Controller
             $resource->verified = Resource::REFUTED;
             $resource->save();
 
-            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you ');
             $superadmins = User::role('superadmin')->get();
+            $user = Auth::user();
             notify()->success('Your response were reported to admin');
+
             foreach ($superadmins as $superadmin) {
-                Mail::to($superadmin)->send(new ResourceRefuted());
+
+                $details = [
+                    'to' => $superadmin->email,
+                    'reason' => $request->reason,
+                    'comment' => $request->comment,
+                    'reported_by' => $user->name,
+                    'resource' => $resource->title,
+                ];
+                SendReportJob::dispatch($details)->delay(now()->addSeconds(5));
+
+                // Mail::to($superadmin)->send(new ResourceRefuted());
             }
+
             return redirect(route('home'));
-	if(!isset($user)) {
-	$user = auth()->user();
-	}
-	notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
-	return redirect(route('home.view', $id));
+
+            if(!isset($user)) {
+                $user = auth()->user();
+            }
+
+            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+
+            return redirect(route('home.view', $id));
         } else {
             notify()->error('Some error occured try again', 'Whoops');
             return redirect(route('home.view', $id));

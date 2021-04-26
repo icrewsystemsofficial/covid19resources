@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\WelcomeMailJob;
 use App\Models\Districts;
 use App\Models\States;
 use App\Models\User;
@@ -62,11 +63,19 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'state' => 'required|string|max:30',
             'password' => 'required|string|confirmed|min:8',
+            'g-recaptcha-response' => 'required|captcha'
+        ],[
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
         ]);
 
 
-        $referrer = User::where('referral_link');
-         if($referrer) {
+        $referrer = User::find('referral_link');
+
+         if(!$referrer) {
+            // do nothing
+        } else {
+            // do some kind of magic
             $referrer->increment('referrals');
             $referrer->save();
         }
@@ -96,8 +105,14 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        
+        $details = [
+            'to' => $user->email,
+            'name' => $user->name,
+        ];
+        // Mail::to($user->email)->send(new WelcomeEmail($user->name));
+        WelcomeMailJob::dispatch($details)->delay(now()->addSeconds(5));
 
-        Mail::to($user->email)->send(new WelcomeEmail($user->name));
 
         return redirect(RouteServiceProvider::HOME);
     }

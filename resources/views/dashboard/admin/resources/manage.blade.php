@@ -53,8 +53,12 @@
 <div class="page-inner">
     <div class="page-header mt-4">
         <a href="{{ route('admin.resources.index') }}" class="btn btn-warning btn-sm mr-3">
-            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-left"></i> Back
         </a>
+        <a target="_blank" href="{{ route('home.view', $resource->id) }}" class="btn btn-success btn-sm mr-3">
+            <i class="fas fa-eye"></i> View as normal user
+        </a>
+        <br>
         <h4 class="page-title">Manage resource # {{ $resource->id }}</h4>
     </div>
     <div class="row">
