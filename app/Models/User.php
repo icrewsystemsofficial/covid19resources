@@ -26,6 +26,7 @@ class User extends Authenticatable
         'phone_number',
         'referred_by',
         'referral_link',
+        'available_for_mission',
     ];
 
     /**
