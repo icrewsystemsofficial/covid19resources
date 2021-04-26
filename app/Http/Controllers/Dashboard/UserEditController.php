@@ -34,6 +34,7 @@ class UserEditController extends Controller
         ]);
         if (request('available_for_mission')) {
             $available_for_mission = 1;
+            activity()->log('Profile Edit: Marked as available for mission');
         } else {
             $available_for_mission = 0;
         }
@@ -45,6 +46,7 @@ class UserEditController extends Controller
         }
         User::where('email', $validated_inputs['email'])->update($validated_inputs);
         notify()->success('User Profile has been successfully edited', 'Hooray');
+        activity()->log('Profile Edit: User Profile got edited');
         return redirect(route('home'));
     }
 }

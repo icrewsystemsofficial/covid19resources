@@ -58,6 +58,7 @@ class ResourceController extends Controller
         $resource->landmark = request('landmark');
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
+        activity()->log('Admin Resource: '.$resource->title. ' resource had created');
         return redirect(route('admin.resources.index'));
     }
 
@@ -86,6 +87,7 @@ class ResourceController extends Controller
         $resource->update();
 
         notify()->success('Resource was updated', 'Yayy!');
+        activity()->log('Admin Resource: '.$resource->title. ' resource had updated');
         return redirect(route('admin.resources.index'));
     }
 
@@ -94,6 +96,7 @@ class ResourceController extends Controller
         Resource::find($id)->delete();
 
         notify()->success('Resource was deleted', 'Hmmm, okay');
+        activity()->log('Admin Resource: Resource has deleted');
         return redirect(route('admin.resources.index'));
 
     }
