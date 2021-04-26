@@ -15,6 +15,7 @@ use App\Mail\WelcomeEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendReportJob;
+use App\Jobs\WelcomeMailJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -231,8 +232,13 @@ class HomeController extends Controller
                 event(new Registered($user));
 
                 Auth::login($user);
+                $details = [
+                    'to' => $user->email,
+                    'name' => $user->name,
+                ];
+                // Mail::to($user->email)->send(new WelcomeEmail($user->name));
+                WelcomeMailJob::dispatch($details)->delay(now()->addSeconds(5));
 
-                Mail::to($user->email)->send(new WelcomeEmail($user->name));
             }
         }
 
