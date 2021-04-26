@@ -137,26 +137,19 @@ class UserController extends Controller
 
         User::find($id)->increment('points',$request->points);
 
+        $user->save();
 
+        $name =$user->name;
 
         if ($user->points==1) {
 
-            $details =[
-                'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
-                'body' => 'Your first point as a volunteer. We salute your efforts in such testing times'
-            ];
 
-            Mail::to($user->email)->send(new PointsSystem($details));
+            Mail::to($user->email)->send(new PointsSystem($name));
         }
 
         elseif ($user->points==500) {
 
-            $details =[
-                'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
-                'body' => 'Your first point as a volunteer. We salute your efforts in such testing times'
-            ];
-
-            Mail::to($user->email)->send(new PointsSystem($details));
+            Mail::to($user->email)->send(new PointsSystem($name));
         }
 
         $user->save();
