@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\SearchFilterController;
 use Illuminate\Support\Facades\Http;
-
 use Illuminate\Support\Facades\Cache;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Api\SearchFilterController;
+use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\Admin\MissionAdmin;
 use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
@@ -39,6 +40,11 @@ Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.pro
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
+
+Route::get('/search', [SearchController::class, 'search'])->name('home.search');
+Route::get('/search/results/{query?}', [SearchController::class, 'results'])
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])
+    ->name('home.search.results');
 
 // Route::get('/search/{query?}',[SearchFilterController::class, 'search_filter'])->name('search.filter');
 // Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitterSearch']);

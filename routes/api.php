@@ -50,5 +50,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/search/resource/{query?}',[SearchFilterController::class, 'resource_search_filter'])->name('search.filter');
     Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitter_search_filter'])->name('search.filter.twitter');
+    Route::get('/search/n/{terms?}', [SearchFilterController::class, 'search']);
 
 });

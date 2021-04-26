@@ -18,6 +18,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.search') }}">
+                        <i class="fas fa-search"></i>
+                        <p>Search</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
                         <i class="fas fa-info-circle"></i>
                         <p>About</p>

@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Exception;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Twitter extends Model
 {
     use HasFactory;
+    use Searchable;
 
 
     protected $blacklisted_words = array(

@@ -284,9 +284,9 @@
 
             // console.log(query);
             // console.log(filter);
-            // filter resources 
+            // filter resources
             if(filter == 'resources') {
-                axios.get('http://covid19resources.test/api/v1/search/resource/'+ query)
+                axios.get('/search/resource/'+ query)
                 .then(function (response) {
                     // returns the data in array
                     console.log(response)
@@ -318,7 +318,7 @@
                 .then(function (response) {
                     // returns the data in array
                     console.log(response)
-                    
+
                  })
                  .catch(function (error) {
             // handle error
@@ -932,7 +932,7 @@
 
                     {{-- <button id="searchKeywordsButton"  class="btn btn-danger btn-block">
                         Search
-                    </button>   
+                    </button>
 
                     <!-- Modal -->
                     <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
@@ -954,9 +954,9 @@
                     </div> --}}
                     <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#searchKeywordsButton">
-                                    Search    
+                                    Search
                                 </button>
-  
+
   <!-- Modal -->
                             <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
                                 <div class="modal-dialog">
