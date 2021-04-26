@@ -167,6 +167,8 @@ class HomeController extends Controller
     public function view($id = '') {
 
         $resource = Resource::find($id);
+        $comments = $resource->comments;
+        // dd($comments);
         if($id == '') {
             notify()->error('Resource ID not passed', 'Whoops');
             return redirect(route('home'));
@@ -179,12 +181,20 @@ class HomeController extends Controller
 
             return view('dashboard.home.view', [
                 'resource' => $resource,
+                'comments' => $comments
             ]);
         }
 
 
     }
 
+    public function add_comment(Request $request ,$id)
+    {
+        $resource = Resource::find($id);
+        $resource->comment($request->comment);
+        notify()->success('Your comment posted successfully','Yay!');
+        return redirect()->back();
+    }
     public function report($id = '') {
         $resource = Resource::find($id);
         if($id == '') {

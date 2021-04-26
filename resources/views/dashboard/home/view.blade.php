@@ -181,7 +181,50 @@ $( "#slct" ).change(function() {
                 </div>
 
                 <div class="card-body">
-                    // To be added
+                    @if (!Auth::user())
+                        <p class="text-danger">Sorry you have to be logged in to post a comment</p>
+                    @else
+                    <div>
+                        <form action="{{ route('resource.postcomment',$resource->id) }}" class="mb-5" method="POST">
+                            @csrf
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <span class="avatar-title rounded-circle border border-white">
+                                        {{ auth()->user()->initials }}
+                                      </span>
+                                </div>
+                                <div class="flex-1 ml-3 pt-1">
+                                    <h6 class="text-captialize fw-bold mb-1">Post a comment</h6>
+                                    <div class="input-group">
+                                        <textarea class="form-control" aria-label="With textarea" name="comment" placeholder="Comment...."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions float-right mt-2">
+                                <button class="btn btn-info btn-sm " type="submit">
+                                    Post
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                    <div class="separator-dashed"></div>
+                    {{-- {{ $comments }} --}}
+                    @foreach ($comments as $comment)
+                    <div class="d-flex">
+                        <div class="avatar">
+                            <span class="avatar-title rounded-circle border border-white bg-info">{{ App\Models\User::find($comment->user_id)->initials }}</span>
+                        </div>
+                        <div class="flex-1 ml-3 pt-1">
+                            <h6 class="text-captialize fw-bold mb-1">{{ App\Models\User::find($comment->user_id)->name }}</h6>
+                            <span class="text-muted">{{ $comment->comment }}</span>
+                        </div>
+                        <div class="float-right pt-1">
+                            <small class="text-muted">{{ $comment->created_at->format('h:m A') }}</small>
+                        </div>
+                    </div>
+                    <div class="separator-dashed"></div>
+                    @endforeach
                 </div>
             </div>
         </div>
