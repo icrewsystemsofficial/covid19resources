@@ -14,6 +14,7 @@ use App\Models\Districts;
 use App\Mail\WelcomeEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendReportJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -235,23 +236,39 @@ class HomeController extends Controller
             }
         }
 
-
+      
         if($request->reason == 1 || $request->reason == 2 || $request->reason == 3 || $request->reason == 4) {
             $resource->verified = Resource::REFUTED;
             $resource->save();
 
-            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you ');
             $superadmins = User::role('superadmin')->get();
+            $user = Auth::user();
             notify()->success('Your response were reported to admin');
+
             foreach ($superadmins as $superadmin) {
-                Mail::to($superadmin)->send(new ResourceRefuted());
+
+                $details = [
+                    'to' => $superadmin->email,
+                    'reason' => $request->reason,
+                    'comment' => $request->comment,
+                    'reported_by' => $user->name,
+                    'resource' => $resource->title,
+                ];
+                SendReportJob::dispatch($details)->delay(now()->addSeconds(5));
+
+                // Mail::to($superadmin)->send(new ResourceRefuted());
             }
+
             return redirect(route('home'));
-	if(!isset($user)) {
-	$user = auth()->user();
-	}
-	notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
-	return redirect(route('home.view', $id));
+
+            if(!isset($user)) {
+                $user = auth()->user();
+            }
+
+            notify()->success('Your report was sent. Your effort goes a long way, we hope you find what you\'re looking for', 'Thank you '.$user->name);
+
+            return redirect(route('home.view', $id));
         } else {
             notify()->error('Some error occured try again', 'Whoops');
             return redirect(route('home.view', $id));

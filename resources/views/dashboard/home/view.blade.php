@@ -332,7 +332,7 @@ $( "#slct" ).change(function() {
               </div>
               <div class="form-group">
                   <label for="txtarea" id="comment">Reason</label>
-                  <textarea class="form-control" id="txtarea" name="report_comment" placeholder="Write your reason here..." cols="5"></textarea>
+                  <textarea class="form-control" id="txtarea" name="comment" placeholder="Write your reason here..." cols="5"></textarea>
               </div>
                 </div>
         </div>
