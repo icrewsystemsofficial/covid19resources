@@ -11,15 +11,15 @@ class PointsSystem extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($name)
     {
-        $this->details = $details;
+        $this->name = $name;
     }
 
     /**
@@ -29,6 +29,11 @@ class PointsSystem extends Mailable
      */
     public function build()
     {
-        return $this->subject('Points for Volunteering')->view('email.volunteers');
+        return $this->from('admin@icrew.com') // from address
+            ->subject('Welcome '.$this->name) // subject of the mail
+            ->markdown('email.volunteers')
+            ->with(['name' => $this->name, 
+                    'redirect_url' => route('home')
+            ]);
     }
 }

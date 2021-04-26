@@ -42,10 +42,35 @@
                         Share
                     </a>
                 </li>
+
+                <li class="nav-item mr-2 ml-5">
+                    <a href="https://instagram.com/icrewsystemsofficial" class="nav-link" target="_blank">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item ml-5">
+                    <a href="https://www.facebook.com/icrewsystems/" class="nav-link" target="_blank">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>    
+                </li>
+
+                <li class="nav-item ml-5">
+                    <a href="https://www.linkedin.com/company/icrewsystems/" class="nav-link" target="_blank">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>    
+                </li>
+
+                <li class="nav-item ml-5">
+                    <a href="https://github.com/icrewsystemsofficial" class="nav-link" target="_blank">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>    
+                </li>
             </ul>
         </nav>
 
         <div class="copyright ml-auto">
+       
             Developed & maintained with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.icrewsystems.com?ref={{ config('app.url') }}">icrewsystems</a>
         </div>
     </div>
