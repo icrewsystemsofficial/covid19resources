@@ -130,8 +130,12 @@ class HomeController extends Controller
         return view('dashboard.static.about');
     }
 
-    public function howto() {
+    public function how_to() {
         return view('dashboard.static.howto');
+    }
+    
+    public function terms(){
+        return view('dashboard.home.terms');
     }
 
     public function referral($referral = '') {

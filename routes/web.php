@@ -41,14 +41,10 @@ Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->nam
 
 Route::get('/chat-with-us')->name('home.chat_with_us');
 Route::get('/view-app-status')->name('home.app_status');
-Route::get('/terms-and-conditions', function () {
-    // Dhruv, put this inside a Controller!
-    // - Leonard, 26 APR.
-    return view('auth.termsandconditions');
-})->name('home.terms');
+Route::get('/terms',[HomeController::class,'terms'])->name('home.terms');
 
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
-Route::get('/howto', [HomeController::class, 'howto'])->name('home.howto');
+Route::get('/how-to', [HomeController::class, 'how_to'])->name('home.howTo');
 
 
 Route::get('/location', function() {
