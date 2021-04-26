@@ -4,19 +4,20 @@ use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\Admin\MissionAdmin;
 use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
+use App\Http\Controllers\Dashboard\Admin\SettingController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\Dashboard\Admin\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,6 +98,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
         Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
 
+        Route::prefix('mission')->group(function () {
+            Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
+            Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
+            Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
+        });
 
         Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
         Route::get('/categories/create', [CategoryController::class, 'admin_create'])->name('admin.categories.create');

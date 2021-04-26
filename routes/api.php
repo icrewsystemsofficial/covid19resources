@@ -43,6 +43,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/mission/changeStatus/{id}/{status}', [MissionAPI::class, 'changeStatus']);
     Route::get('/mission/completedCount/{id}/{status}', [MissionAPI::class, 'completedCount']);
+    Route::get('/mission/getstats', [MissionAPI::class, 'getstats']);
 
     Route::get('/stats/trend/dataInput', [StatsAPI::class, 'dataInput']);
 });

@@ -15,7 +15,7 @@
             $('#city').select2();
 
 
-            axios.get('http://covid19resources.test/api/v1/cities/' + state_name)
+            axios.get('cities/' + state_name)
             .then(function (response) {
                 // handle success
                 var selector = document.getElementById('city');
@@ -213,10 +213,10 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             {!! NoCaptcha::display() !!}
-                        </div>  
+                        </div>
 
                         <div class="form-actions">
                             <button class="btn btn-info btn-md" type="submit">

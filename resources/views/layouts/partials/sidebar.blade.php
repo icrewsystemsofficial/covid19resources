@@ -70,6 +70,13 @@
                     <h4 class="text-section">Administration</h4>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.mission.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Mission Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.categories.index') }}">
                         <i class="fas fa-layer-group"></i>
                         <p>Categories</p>
