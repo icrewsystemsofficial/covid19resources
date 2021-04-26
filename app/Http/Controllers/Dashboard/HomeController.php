@@ -71,6 +71,7 @@ class HomeController extends Controller
                 Auth::login($user);
 
                 Mail::to($user->email)->send(new WelcomeEmail($user->name));
+                activity()->log('Profile Create: New User Profile created');
             }
         }
 
@@ -169,6 +170,7 @@ class HomeController extends Controller
 
             Referral::create($ref);
             notify()->info('We thank them for bringing you and '.$user->referrals.' people here! Please read the "How to" section to know how to use this tool effectively', 'Isn\'t '.$user->name.' awesome?');
+            activity()->log('Referral Create: New Referral User created');
             return redirect(route('home'));
         }
     }
@@ -284,7 +286,8 @@ class HomeController extends Controller
 
                 // Mail::to($superadmin)->send(new ResourceRefuted());
             }
-
+          
+            activity()->log('Resource Reported: A Resource has been reported captain');
             return redirect(route('home'));
 
             if(!isset($user)) {
