@@ -10,15 +10,15 @@ use Illuminate\Queue\SerializesModels;
 class ResourceRefuted extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -31,6 +31,6 @@ class ResourceRefuted extends Mailable
         return $this->markdown('email.resourceRefuted')
             ->from('admin@icrew.com')
             ->subject('Resource reported')
-            ->with(['redirect_url' =>  route('home') ]);
+            ->with(['redirect_url' =>  route('home') ])->with('details',$this->details);
     }
 }

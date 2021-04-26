@@ -1,5 +1,5 @@
 @component('mail::message')
-# {{ $name }}
+# Hey 👋 {{ $details['name'] }}
 
 Thank you for signing up with {{ config('app.name') }}. We are all connected together, as ONE NATION in war against the deadly Novel Corona Virus. 
 
