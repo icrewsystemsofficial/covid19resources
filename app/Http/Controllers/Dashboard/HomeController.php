@@ -74,7 +74,7 @@ class HomeController extends Controller
             }
         }
 
-        // Process the resource.
+        // Process the resource. 
         if(!isset($user)) {
             $user = auth()->user();
         }
