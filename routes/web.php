@@ -51,6 +51,7 @@ Route::get('/terms-and-conditions', function () {
 })->name('home.terms');
 
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('home.privacy');
 
 Route::get('/location', function() {
     Cache::put('location', 'TN', now()->addHours(1));

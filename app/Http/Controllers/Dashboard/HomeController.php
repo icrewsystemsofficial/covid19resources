@@ -74,7 +74,7 @@ class HomeController extends Controller
             }
         }
 
-        // Process the resource. 
+        // Process the resource.
         if(!isset($user)) {
             $user = auth()->user();
         }
@@ -131,6 +131,12 @@ class HomeController extends Controller
     public function about() {
         return view('dashboard.static.about');
     }
+
+    public function privacy() {
+        return view('dashboard.static.privacy');
+    }
+
+
     public function referral($referral = '') {
         if($referral == '') {
             return redirect(route('home'));
@@ -252,7 +258,7 @@ class HomeController extends Controller
             }
         }
 
-      
+
         if($request->reason == 1 || $request->reason == 2 || $request->reason == 3 || $request->reason == 4) {
             $resource->verified = Resource::REFUTED;
             $resource->save();
