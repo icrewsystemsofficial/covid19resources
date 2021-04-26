@@ -44,7 +44,7 @@ class UserEditController extends Controller
             $validated_inputs = Arr::except($validated_inputs, ['password']);
         }
         User::where('email', $validated_inputs['email'])->update($validated_inputs);
-        notify()->success('User Profile has been successfully edited', 'Hooray');
+        notify()->success('Your profile was updated successfully', 'Yay!');
         return redirect(route('home'));
     }
 }

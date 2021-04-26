@@ -176,13 +176,15 @@ $( "#slct" ).change(function() {
             <div class="card mt-5">
                 <div class="card-header">
                     <h4 class="card-title h6">
-                        Comments for this resource
+                        Comments
                     </h4>
                 </div>
 
                 <div class="card-body">
                     @if (!Auth::user())
-                        <p class="text-danger">Sorry you have to be logged in to post a comment</p>
+                        <p class="text-danger">
+                            Have something to ask / say about this resource? Please <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                        </p>
                     @else
                     <div>
                         <form action="{{ route('resource.postcomment',$resource->id) }}" class="mb-5" method="POST">
@@ -194,7 +196,9 @@ $( "#slct" ).change(function() {
                                       </span>
                                 </div>
                                 <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-captialize fw-bold mb-1">Post a comment</h6>
+                                    <h6 class="text-captialize mb-2">
+                                        Do you have an update / query about this resource?
+                                    </h6>
                                     <div class="input-group">
                                         <textarea class="form-control" aria-label="With textarea" name="comment" placeholder="Comment...."></textarea>
                                     </div>
@@ -220,7 +224,8 @@ $( "#slct" ).change(function() {
                             <span class="text-muted">{{ $comment->comment }}</span>
                         </div>
                         <div class="float-right pt-1">
-                            <small class="text-muted">{{ $comment->created_at->format('h:m A') }}</small>
+                            {{-- <small class="text-muted">{{ $comment->created_at->format('d/m/Y, h:m A') }}</small> --}}
+                            <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                         </div>
                     </div>
                     <div class="separator-dashed"></div>
@@ -265,7 +270,7 @@ $( "#slct" ).change(function() {
 
                     @if ($resource->url != '')
                         <a href="{{ $resource->url }}" target="_blank" class="btn btn-sm btn-block btn-dark">
-                            Visit {{ $resource->url }} <i class="fas fa-link"></i>
+                            Visit URL <i class="fas fa-link"></i>
                         </a>
                         @else
                         <p class="p2 text-muted mb-4">

@@ -139,7 +139,7 @@ class UserController extends Controller
 
 
 
-        if ($user->points==1) {
+        if ($user->points == 1) {
 
             $details =[
                 'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
@@ -149,7 +149,7 @@ class UserController extends Controller
             Mail::to($user->email)->send(new PointsSystem($details));
         }
 
-        elseif ($user->points==500) {
+        elseif ($user->points == 500) {
 
             $details =[
                 'title' => 'Mail from Icrew-Covid 19 Resource Tracker',
