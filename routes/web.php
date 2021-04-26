@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SearchFilterController;
 use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Cache;
@@ -38,6 +39,8 @@ Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.s
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
+// Route::get('/search/{query?}',[SearchFilterController::class, 'search_filter'])->name('search.filter');
+// Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitterSearch']);
 
 Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
 Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
