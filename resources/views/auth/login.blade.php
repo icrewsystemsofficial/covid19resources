@@ -19,7 +19,6 @@
     @endif
 </script>
 @section('js')
-{!! NoCaptcha::renderJs() !!}
 @endsection
 
 @endsection
@@ -57,9 +56,6 @@
                             <i class="icon-eye"></i>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {!! NoCaptcha::display() !!}
                 </div>
                 <div class="form-group form-action-d-flex mb-3">
                     <div class="custom-control custom-checkbox">
