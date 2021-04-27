@@ -39,13 +39,8 @@
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <!-- Validation Errors -->
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        @if ($uuid == '')
-            <input type="text" hidden>
-        @else
-            <input type="text" name="uuid" hidden value="{{ $uuid->id }}">
-        @endif
+        <form method="POST" action="{{ route('volunteer.registration.save') }}">
+            @csrf
             <div class="login-form">
 
                 <div class="form-group">
@@ -97,6 +92,37 @@
                 <div class="form-group form-action  ">
                     {!! NoCaptcha::display() !!}
                 </div>
+
+                <p>
+                    Thank you for choosing to volunteer at {{ config('app.name') }}. Before we begin,
+                        we need to make sure that you know what it takes to be a volunteer for {{ config('app.name') }}
+                </p>
+                <!-- Validation Errors -->
+                <ol>
+                    <li class="mb-2">
+                        This is an online-tool that curates data from sources mainly Twitter, and then user-fed information.
+                        Your duty as a volunteer would be to verify the authenticity of that information.
+                    </li>
+
+                    <li class="mb-2">
+                        You are informed that you'll be required to make phone calls to verify resources.
+                        {{ config('app.name') }} or ICREWSYSTEMS SOFTWARE ENGINEERING LLP will not be
+                        able to cover the charges.
+                    </li>
+
+                    <li>
+                        You are eligible for a certificate of apprecitation acknowledging your efforts,
+                        This certificate will be provided ONLY after you fullfil the points criteria.
+                    </li>
+                  </ol>
+
+                  <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" required type="checkbox" value="">
+                        <span class="form-check-sign">Agree with terms and conditions</span>
+                    </label>
+                </div>
+
                 <div class="form-group form-action-d-flex mb-3">
 
                     <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Register</button>

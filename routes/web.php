@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
+use App\Models\User;
+use App\Mail\Volunteers\Welcome;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
@@ -31,6 +34,10 @@ use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 |
 */
 
+Route::get('/sendmail', function() {
+    $user = User::find(1);
+   Mail::to('kashrayks@gmail.com')->send(new Welcome($user));
+});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');

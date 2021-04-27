@@ -21,7 +21,7 @@
 @section('js')
 {!! NoCaptcha::renderJs() !!}
 @endsection
-    
+
 @endsection
 @section('content')
 <div class="wrapper wrapper-login wrapper-login-full p-0">
@@ -72,7 +72,12 @@
                     <span class="msg">
                         Wish to Voulenteer?
                     </span>
-                    <a href="/termsandconditions" class="link">Register</a>
+                    <a href="{{ route('volunteer.registration') }}" class="link">Volunteer Registration</a>
+
+                    <span class="msg">
+                        Or just a normal user?
+                    </span>
+                    <a href="{{ route('register') }}" class="link">Registration</a>
                 </div>
             </div>
         </div>
