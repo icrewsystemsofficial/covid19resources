@@ -32,7 +32,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7" target="_blank">
+                    <a class="nav-link" href="https://twitter.com/icrewsystems" target="_blank">
                         Tweet us
                     </a>
                 </li>
@@ -44,22 +44,11 @@
                 </li>
 
                 <li class="nav-item mr-2 ml-5">
-                    <a href="https://instagram.com/icrewsystemsofficial" class="nav-link" target="_blank">
+                    <a href="https://instagram.com/covid19verifiedresources.in" class="nav-link" target="_blank">
                         <i class="fab fa-instagram fa-lg"></i>
                     </a>
                 </li>
 
-                <li class="nav-item ml-5">
-                    <a href="https://www.facebook.com/icrewsystems/" class="nav-link" target="_blank">
-                        <i class="fab fa-facebook fa-lg"></i>
-                    </a>    
-                </li>
-
-                <li class="nav-item ml-5">
-                    <a href="https://www.linkedin.com/company/icrewsystems/" class="nav-link" target="_blank">
-                        <i class="fab fa-linkedin fa-lg"></i>
-                    </a>    
-                </li>
 
                 <li class="nav-item ml-5">
                     <a href="https://github.com/icrewsystemsofficial" class="nav-link" target="_blank">
