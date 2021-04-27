@@ -18,6 +18,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.search') }}">
+                        <i class="fas fa-search"></i>
+                        <p>Search</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
                         <i class="fas fa-info-circle"></i>
                         <p>About</p>
@@ -32,7 +39,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('home.about') }}">
+                                <a href="{{ route('home.howto') }}">
                                     <span class="sub-item">How to</span>
                                 </a>
                             </li>
@@ -56,7 +63,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.volunteers.index') }}">
+                    <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
@@ -69,6 +76,13 @@
                     </span>
                     <h4 class="text-section">Administration</h4>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.mission.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Mission Dashboard</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.categories.index') }}">
                         <i class="fas fa-layer-group"></i>

@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Users Admin')
+@section('title', 'Application Settings')
 @section('js')
     <script>
         $(document).ready( function () {
@@ -10,17 +10,16 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Users Admin</h4>
+        <h4 class="page-title">Application Settings</h4>
     </div>
     <div class="row">
         <div class="col-md-12">
 
             <a href="{{ route('admin.setting.add') }}" class="btn btn-md btn-primary">
-                Create new Setting <i class="fas fa-plus"></i>
+                Add a new setting <i class="fas fa-plus"></i>
             </a>
 
             <br><br>
-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Manage App Settings </h4>
@@ -28,9 +27,9 @@
                 <div class="card-body">
                     <table id="users_table" class="table table-hover">
                         <thead>
-                            <th>Setting Id</th>
+                            <th>Setting #</th>
                             <th>Setting Name</th>
-                            {{-- <th>Setting Value</th> --}}
+                            <th>Setting Value</th>
                             <th>Setting Core</th>
                             <th>Manage</th>
                         </thead>
@@ -39,7 +38,7 @@
                                 <tr>
                                     <td>{{ $setting->id }}</td>
                                     <td>{{ $setting->name }}</td>
-                                    {{-- <td>{{ $setting->value }}</td> --}}
+                                    <td>{{ $setting->value }}</td>
                                     <td class="text-center">
                                         @if ($setting->core == 1)
                                             <span class="btn btn-success btn-sm">

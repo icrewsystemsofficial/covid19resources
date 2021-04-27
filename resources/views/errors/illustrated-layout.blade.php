@@ -460,6 +460,11 @@
         <div class="md:flex min-h-screen">
             <div class="w-full md:w-1/2 bg-white flex items-center justify-center">
                 <div class="max-w-sm m-8">
+
+                    <div class="text-black text-sm font-black">
+                        Houston, we have an error
+                    </div>
+
                     <div class="text-black text-5xl md:text-15xl font-black">
                         @yield('code', __('Oh no'))
                     </div>
@@ -470,9 +475,14 @@
                         @yield('message')
                     </p>
 
-                    <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
+                    {{-- <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                             {{ __('Go Home') }}
+                        </button>
+                    </a> --}}
+                    <a href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7" target="_blank">
+                        <button class="bg-transparent text-grey-darkest font-bold tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                            Let us know?
                         </button>
                     </a>
                 </div>

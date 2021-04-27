@@ -36,7 +36,15 @@ class ResourceController extends Controller
         ]);
     }
 
-    public function admin_save() {
+    public function admin_save(Request $request) {
+
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha'
+        ],[
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+        ]);
+
         $resource = new Resource;
         $resource->category = request('category');
         $resource->title = request('name');
@@ -58,6 +66,7 @@ class ResourceController extends Controller
         $resource->landmark = request('landmark');
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
+        activity()->log('Admin Resource: '.$resource->title. ' resource had created');
         return redirect(route('admin.resources.index'));
     }
 
@@ -86,6 +95,7 @@ class ResourceController extends Controller
         $resource->update();
 
         notify()->success('Resource was updated', 'Yayy!');
+        activity()->log('Admin Resource: '.$resource->title. ' resource had updated');
         return redirect(route('admin.resources.index'));
     }
 
@@ -94,6 +104,7 @@ class ResourceController extends Controller
         Resource::find($id)->delete();
 
         notify()->success('Resource was deleted', 'Hmmm, okay');
+        activity()->log('Admin Resource: Resource has deleted');
         return redirect(route('admin.resources.index'));
 
     }

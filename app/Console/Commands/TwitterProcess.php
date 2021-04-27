@@ -42,7 +42,6 @@ class TwitterProcess extends Command
         foreach($tweets as $tweet) {
             $this->line($tweet->id);
             $this->line($tweet->tweet);
-
         }
         $this->info('Done');
     }

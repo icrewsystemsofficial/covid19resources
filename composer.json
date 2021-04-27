@@ -6,12 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "algolia/algoliasearch-client-php": "^3.0",
+        "anhskohbo/no-captcha": "^3.3",
+        "beyondcode/laravel-comments": "^1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jorenvanhocht/laravel-share": "^4.0",
         "larabug/larabug": "^2.3",
         "laravel/framework": "^8.12",
+        "laravel/scout": "^8.6",
         "laravel/tinker": "^2.5",
         "markwalet/laravel-changelog": "^1.4",
         "mckenziearts/laravel-notify": "^2.1",
@@ -23,6 +27,7 @@
         "spatie/laravel-twitter-streaming-api": "^1.4"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.1",

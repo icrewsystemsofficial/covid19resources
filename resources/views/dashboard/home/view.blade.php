@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Dashboard')
+`@section('title', 'Dashboard')
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" integrity="sha512-SJw7jzjMYJhsEnN/BuxTWXkezA2cRanuB8TdCNMXFJjxG9ZGSKOX5P3j03H6kdMxalKHZ7vlBMB4CagFP/de0A==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
@@ -176,12 +176,60 @@ $( "#slct" ).change(function() {
             <div class="card mt-5">
                 <div class="card-header">
                     <h4 class="card-title h6">
-                        Comments for this resource
+                        Comments
                     </h4>
                 </div>
 
                 <div class="card-body">
-                    // To be added
+                    @if (!Auth::user())
+                        <p class="text-danger">
+                            Have something to ask / say about this resource? Please <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                        </p>
+                    @else
+                    <div>
+                        <form action="{{ route('resource.postcomment',$resource->id) }}" class="mb-5" method="POST">
+                            @csrf
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <span class="avatar-title rounded-circle border border-white">
+                                        {{ auth()->user()->initials }}
+                                      </span>
+                                </div>
+                                <div class="flex-1 ml-3 pt-1">
+                                    <h6 class="text-captialize mb-2">
+                                        Do you have an update / query about this resource?
+                                    </h6>
+                                    <div class="input-group">
+                                        <textarea class="form-control" aria-label="With textarea" name="comment" placeholder="Comment...."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions float-right mt-2">
+                                <button class="btn btn-info btn-sm " type="submit">
+                                    Post
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
+                    <div class="separator-dashed"></div>
+                    {{-- {{ $comments }} --}}
+                    @foreach ($comments as $comment)
+                    <div class="d-flex">
+                        <div class="avatar">
+                            <span class="avatar-title rounded-circle border border-white bg-info">{{ App\Models\User::find($comment->user_id)->initials }}</span>
+                        </div>
+                        <div class="flex-1 ml-3 pt-1">
+                            <h6 class="text-captialize fw-bold mb-1">{{ App\Models\User::find($comment->user_id)->name }}</h6>
+                            <span class="text-muted">{{ $comment->comment }}</span>
+                        </div>
+                        <div class="float-right pt-1">
+                            {{-- <small class="text-muted">{{ $comment->created_at->format('d/m/Y, h:m A') }}</small> --}}
+                            <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                        </div>
+                    </div>
+                    <div class="separator-dashed"></div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -222,7 +270,7 @@ $( "#slct" ).change(function() {
 
                     @if ($resource->url != '')
                         <a href="{{ $resource->url }}" target="_blank" class="btn btn-sm btn-block btn-dark">
-                            Visit {{ $resource->url }} <i class="fas fa-link"></i>
+                            Visit URL <i class="fas fa-link"></i>
                         </a>
                         @else
                         <p class="p2 text-muted mb-4">
@@ -332,7 +380,7 @@ $( "#slct" ).change(function() {
               </div>
               <div class="form-group">
                   <label for="txtarea" id="comment">Reason</label>
-                  <textarea class="form-control" id="txtarea" name="report_comment" placeholder="Write your reason here..." cols="5"></textarea>
+                  <textarea class="form-control" id="txtarea" name="comment" placeholder="Write your reason here..." cols="5"></textarea>
               </div>
                 </div>
         </div>

@@ -34,6 +34,7 @@ class CategoryController extends Controller
         $category->status = request('status');
         $category->save();        
         notify()->success('Category was added', 'Yayy!');
+        activity()->log('Admin Category: '.$category->name.' was added');
         return redirect(route('admin.categories.index'));
     }
 
@@ -44,6 +45,7 @@ class CategoryController extends Controller
         $category->status = request('status');
         $category->update();
         notify()->success('Category was updated', 'Yayy!');
+        activity()->log('Admin Category: '.$category->name.' was updated');
         return redirect(route('admin.categories.index'));
     }
 
@@ -51,6 +53,7 @@ class CategoryController extends Controller
 
         Category::find($id)->delete();
         notify()->success('Category was deleted', 'Hmmm, okay');
+        activity()->log('Admin Category: Category was deleted');
         return redirect(route('admin.categories.index'));
 
     }

@@ -23,10 +23,11 @@
 <div class="wrapper wrapper-login wrapper-login-full p-0">
     <div class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-primary-gradient">
         <h1 class="title fw-bold text-white mb-3">
-            Volunteers Page
+            {{ config('app.name') }}
         </h1>
         <p class="subtitle text-white op-7">
-            Accept the terms and conditions to start volunteering!
+            A curated repository of #verified COVID19 resources across India. Our databases are updated
+            in "real-time". Spread the word, awareness is the first step in this battle.
         </p>
     </div>
     <div class="login-aside w-50 d-flex align-items-left justify-content-left bg-white">
@@ -35,31 +36,43 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
+            <p>
+                Thank you for choosing to volunteer at {{ config('app.name') }}. Before we begin,
+                    we need to make sure that you know what it takes to be a volunteer for {{ config('app.name') }}
+            </p>
             <!-- Validation Errors -->
             <ol>
-                <li class="mb-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus sit in pariatur unde. Quos, libero nihil doloremque natus odio maiores?</li>
+                <li class="mb-2">
+                    This is an online-tool that curates data from sources mainly Twitter, and then user-fed information.
+                    Your duty as a volunteer would be to verify the authenticity of that information.
+                </li>
 
-                <li class="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quas itaque error officia totam voluptatum molestiae qui facere atque id?</li>
+                <li class="mb-2">
+                    You are informed that you'll be required to make phone calls to verify resources.
+                    {{ config('app.name') }} or ICREWSYSTEMS SOFTWARE ENGINEERING LLP will not be
+                    able to cover the charges.
+                </li>
 
-                <li class="mb-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto assumenda, eum totam voluptatum libero molestias minus. At ipsa rerum doloribus?</li>
-
-                <li class="mb-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus facilis tenetur natus qui nisi nostrum accusantium error porro nihil sapiente?</li>
-
-                <li class="mb-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt qui animi esse quas fuga dicta modi, minima exercitationem! Aperiam, minima?</li>
+                <li>
+                    You are eligible for a certificate of apprecitation acknowledging your efforts,
+                    This certificate will be provided ONLY after you fullfil the points criteria.
+                </li>
               </ol>
               <form class="needs-validation" action="{{ route('register') }}">
                 <div class="form-group">
                  <div class="form-check">
                     <input class="form-check-input position-static"  name="volunteerterms"type="checkbox" id="invalidCheck" value="accepted" required>
                     <label class="form-check-label" for="invalidCheck">
-                        Agree to terms and conditions
+                         I agree to the above mentioned terms
                     </label>
                     <div class="invalid-feedback">
                         You must agree before submitting.
                     </div>
                 </div>
               </div>
-              <button class="btn btn-primary ml-3" type="submit">Submit form</button>
+              <button class="btn btn-primary ml-3" type="submit">
+                  Continue
+              </button>
             </form>
     </div>
 </div>

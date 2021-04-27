@@ -18,7 +18,7 @@ class MissionAssign extends Command
      *
      * @var string
      */
-    protected $signature = 'mission:assign {role=user}';
+    protected $signature = 'mission:assign {role=none}';
 
     /**
      * The console command description.
@@ -91,21 +91,36 @@ class MissionAssign extends Command
 
     public function handle()
     {
-        $tweets = Twitter::where('status', Twitter::SCREENED)->get();
+        $this->line('Preparing to assign missions....');
 
-        if($this->argument('role')) {
-            $volunteers = User::role($this->argument('role'))->where('available_for_mission', 1)->get();
-        } else {
+        if($this->argument('role') == 'none') {
             $volunteers = User::where('available_for_mission', 1)->get();
+            $this->line('Found '.$volunteers->count().' general users who are ready to be assigned missions...');
+
+        } else if($this->argument('role')) {
+
+            $volunteers = User::role($this->argument('role'))->where('available_for_mission', 1)->get();
+            $this->line('Found '.$volunteers->count().' users with role '.$this->argument('role'));
+
+        } else {
+            $volunteers = User::hasRoles(['volunteer'])->where('available_for_mission', 1)->get();
+            $this->line('Found '.$volunteers->count().' general users who are ready to be assigned missions...');
         }
+
+        $this->line('Peparing screened tweets...');
+        $tweets = Twitter::where('status', Twitter::SCREENED)->limit(100)->get();
+        $this->line('Found '.$tweets->count().' tweets...');
 
         $total_tweets = $tweets->count();
         $total_volunteers = $volunteers->count();
 
         $how_many_tweets_to_assign = round($total_tweets / $total_volunteers);
+
         if($how_many_tweets_to_assign > config('app.max_tweets_to_assign_in_a_mission')) {
             $how_many_tweets_to_assign = config('app.max_tweets_to_assign_in_a_mission');
         }
+
+        $this->line('Assigning calculated value of '.$how_many_tweets_to_assign.' tweets per user');
         // dd($tweets->count());
         // dd($how_many_tweets_to_assign);
 
@@ -116,6 +131,7 @@ class MissionAssign extends Command
             if(is_object($result)) {
                 $mission[] = $result;
                 $assigned_tweets = $result->total + $assigned_tweets;
+                $this->info('Assigned mission to '.$volunteer->name.', mailing them...');
                 Mail::to($volunteer->email)->send(new Assigned($result));
                 sleep(5);
             } else {
@@ -125,7 +141,9 @@ class MissionAssign extends Command
 
 
         if($assigned_tweets != 0) {
-            $this->info("We were only able to assign ".$assigned_tweets." tweets in ".count($mission)." missions");
+            $pending_tweets = Twitter::where('status', Twitter::SCREENED)->count();
+            $this->info("Assigned ".$assigned_tweets." tweets in ".count($mission)." missions");
+            $this->line($pending_tweets.' tweets pending');
         } else {
             if($mission == []) {
                 $this->info("All tweets assigned as missions");

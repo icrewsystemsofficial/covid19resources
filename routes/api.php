@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Location;
 use App\Http\Controllers\API\StatsAPI;
 use App\Http\Controllers\API\MissionAPI;
 use App\Http\Controllers\API\ScheduleRunner;
+use App\Http\Controllers\Api\SearchFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/mission/changeStatus/{id}/{status}', [MissionAPI::class, 'changeStatus']);
     Route::get('/mission/completedCount/{id}/{status}', [MissionAPI::class, 'completedCount']);
+    Route::get('/mission/getstats', [MissionAPI::class, 'getstats']);
 
     Route::get('/stats/trend/dataInput', [StatsAPI::class, 'dataInput']);
+
+    Route::get('/search/resource/{query?}',[SearchFilterController::class, 'resource_search_filter'])->name('search.filter');
+    Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitter_search_filter'])->name('search.filter.twitter');
+    Route::get('/search/n/{terms?}', [SearchFilterController::class, 'search']);
+
 });
