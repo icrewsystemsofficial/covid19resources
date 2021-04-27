@@ -28,11 +28,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('send:tweetstats')->everyMinute();
 
         $schedule->command('queue:work')->description('Runs the queue-worker')->everyMinute();
+        $schedule->command('twitter:screen 500')->description('Starts screening the tweets for blacklisted words')->everyFiveMinutes();
+        $schedule->command('twitter:duplicates 500')->description('Marks the duplicated tweets')->everyFiveMinutes();
 
         $schedule->command('twitter:scan')->description('Restarts the TwitterScanner')->everyFifteenMinutes();
-
-        $schedule->command('twitter:screen 500')->description('Starts screening the tweets for blacklisted words')->everyFiveMinutes();
-        $schedule->command('twitter:duplicates 500')->description('Marks the duplicated tweets')->everyMinute();
 
         $schedule->command('mission:assign')->everyFifteenMinutes();
         $schedule->command('scout:import "App\Models\Twitter"')->hourly();

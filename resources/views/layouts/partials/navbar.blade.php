@@ -23,16 +23,11 @@
         </div>
 
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-            <li class="nav-item toggle-nav-search hidden-caret">
-                <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
-                    <i class="fa fa-search"></i>
-                </a>
-            </li>
             <li class="nav-item dropdown hidden-caret">
-                <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-search"></i>
                 </a>
-                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="searchDropdown">
                     <li>
                         <div class="dropdown-title d-flex justify-content-between align-items-center">
                             Search
