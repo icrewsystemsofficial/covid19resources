@@ -30,7 +30,7 @@ class Assigned extends Mailable
     public function build()
     {
         $user = User::find($this->mission->volunteer_id);
-        return $this->subject('[IMPORTANT] Mission #'.$this->mission->id.' assigned')->markdown('email.mission.assigned', [
+        return $this->subject('[IMPORTANT] '.config('app.name').' | Mission #'.$this->mission->id.' assigned')->markdown('email.mission.assigned', [
             'mission' => $this->mission,
             'user' => $user,
         ]);

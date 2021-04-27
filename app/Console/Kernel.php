@@ -31,6 +31,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('twitter:screen 100')->everyMinute();
         $schedule->command('twitter:duplicates 100')->everyMinute();
         $schedule->command('mission:assign')->everyFifteenMinutes();
+        $schedule->command('scout:import "App\Models\Twitter"')->hourly();
+
         // $schedule->command('send:tweetstats')->dailyAt('21:00');
     }
 

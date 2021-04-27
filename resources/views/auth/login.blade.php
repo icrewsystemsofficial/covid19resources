@@ -18,10 +18,7 @@
         @endforeach
     @endif
 </script>
-@section('js')
 {!! NoCaptcha::renderJs() !!}
-@endsection
-    
 @endsection
 @section('content')
 <div class="wrapper wrapper-login wrapper-login-full p-0">
@@ -38,7 +35,7 @@
         <div class="container container-login container-transparent animated fadeIn" style="display: block;">
             <h3 class="text-center">Login to {{ config('app.name') }}</h3>
             <!-- Session Status -->
-            {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+            <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <!-- Validation Errors -->
     <form method="POST" action="{{ route('login') }}">
@@ -58,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-action  ">
                     {!! NoCaptcha::display() !!}
                 </div>
                 <div class="form-group form-action-d-flex mb-3">
@@ -72,7 +69,12 @@
                     <span class="msg">
                         Wish to Voulenteer?
                     </span>
-                    <a href="{{ route('home.terms') }}" class="link">Register</a>
+                    <a href="{{ route('volunteer.registration') }}" class="link">Volunteer Registration</a>
+
+                    <span class="msg">
+                        Or just a normal user?
+                    </span>
+                    <a href="{{ route('register') }}" class="link">Registration</a>
                 </div>
             </div>
         </div>

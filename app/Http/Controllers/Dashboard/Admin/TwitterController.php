@@ -117,12 +117,14 @@ class TwitterController extends Controller
         $resource->save();
 
         notify()->success('Resource was successfully added', 'Yayy!');
+        activity()->log('Resource: '.$resource->name. ' resource had created');
         return redirect(route('admin.twitter.manage', $tweet->id));
     }
 
     public function delete($id) {
         Twitter::find($id)->delete();
         notify()->success('Tweet was successfully deleted', 'Hmmm okay');
+        activity()->log('Twitter: Tweet was successfully deleted');
         return redirect(route('admin.twitter.index'));
     }
 }

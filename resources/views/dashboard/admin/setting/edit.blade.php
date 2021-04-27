@@ -1,6 +1,6 @@
 @extends('layouts.atlantis')
 @section('title', 'Setting Admin')
-@section('js')    
+@section('js')
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -14,7 +14,7 @@
                         from: "top",
                         align: "right"
                     },
-                    time: 1000, 
+                    time: 1000,
                 });
             @endforeach
         @endif
@@ -29,7 +29,7 @@
                 visible: true,
                 text : 'No, cancel!',
                 className: 'btn btn-danger'
-            },        			
+            },
             confirm: {
                 text : 'Yes, delete it!',
                 className : 'btn btn-success'
@@ -73,7 +73,8 @@
 
                         <div class="form-group">
                             <label for="title"><strong>Setting Name</strong></label>
-                            <input type="text" name="name" class="form-control" value="{{ $setting->name }}" required placeholder="Enter Setting Name" />
+                            <input type="text" name="name" disabled class="form-control" value="{{ $setting->name }}" required placeholder="Enter Setting Name" />
+                            <input type="hidden" name="name" id="" value="{{ $setting->name }}" />
                         </div>
                         <div class="form-group">
                             <label for="email"><strong>Setting Value</strong></label>
@@ -87,6 +88,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
+                                    <label for="">Core Setting</label>
                                     @php
                                     if($setting->core == 1) {
                                         $color = 'success';
@@ -103,7 +105,7 @@
                                             <input type="radio" onclick="changeSelectorColor('warning');" name="core" value="0" {{ ($setting->core == "0")? "checked" : "" }} class="selectgroup-input  ">
                                             <span class="selectgroup-button mr-1">No<i class="fa fa-exclamation-triangle "></i></span>
                                         </label>
-                                        
+
                                         <script>
                                             function changeSelectorColor(color) {
                                                 var selectGroup = document.getElementById('selectGroup');
@@ -120,7 +122,7 @@
                                 Update
                             </button>
                            @if ($setting->core == 1)
-                               
+
                            @else
                            <button class="btn btn-danger btn-md" type="button" id="deleteSetting" type="submit">
                                Delete

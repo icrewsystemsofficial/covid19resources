@@ -19,6 +19,8 @@
 </style>
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
 <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
 <script>
 
@@ -274,6 +276,77 @@
             .then(function () {
             // always executed
             });
+        }
+
+        function searchFilter() {
+            var query = document.getElementById('query').value;
+            var filter = document.getElementById('filter').value;
+
+            // console.log(query);
+            // console.log(filter);
+            // filter resources
+            if(filter == 'resources') {
+                axios.get('/search/resource/'+ query)
+                .then(function (response) {
+                    // returns the data in array
+                    console.log(response)
+                 })
+                 .catch(function (error) {
+            // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error while searching, try again later',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
+            console.log(error);
+            })
+            .then(function () {
+            // always executed
+            });
+            }
+
+            if(filter == 'twitter') {
+                axios.get('http://covid19resources.test/api/v1/search/twitter/'+ query)
+                .then(function (response) {
+                    // returns the data in array
+                    console.log(response)
+
+                 })
+                 .catch(function (error) {
+            // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error while searching, try again later',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
+            console.log(error);
+            })
+            .then(function () {
+            // always executed
+            });
+            }
+
+
+
+
+
+
         }
 
 
@@ -857,16 +930,70 @@
                         Our database contains X data points. You can search through them with a keywords of your own.
                     </p>
 
-                    <button id="searchKeywordsButton" onclick="searchKeywords();" class="btn btn-danger btn-block">
+                    {{-- <button id="searchKeywordsButton"  class="btn btn-danger btn-block">
                         Search
                     </button>
 
-                    <script>
+                    <!-- Modal -->
+                    <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div> --}}
+                    <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#searchKeywordsButton">
+                                    Search
+                                </button>
+
+  <!-- Modal -->
+                            <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="query">Keywords</label>
+												<input type="text" class="form-control" id="query"  name="query" placeholder="Search tweets with #tags" required>
+											</div>
+                                            <div class="form-group">
+												<label for="filter">Filter</label>
+												<select class="form-control" id="filter" required>
+													<option value="resources">Resources</option>
+													<option value="twitter">Twitter</option>
+												</select>
+											</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" onclick="searchFilter();" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+
+                    {{-- <script>
                         function searchKeywords() {
                             var searchKeywordsButton = document.getElementById('searchKeywordsButton');
                             searchKeywordsButton.innerHTML = "Feature not included yet";
                         }
-                    </script>
+                    </script> --}}
                 </div>
             </div>
 

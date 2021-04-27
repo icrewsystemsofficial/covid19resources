@@ -18,6 +18,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.search') }}">
+                        <i class="fas fa-search"></i>
+                        <p>Search</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
                         <i class="fas fa-info-circle"></i>
                         <p>About</p>
@@ -69,6 +76,13 @@
                     </span>
                     <h4 class="text-section">Administration</h4>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.mission.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Mission Dashboard</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.categories.index') }}">
                         <i class="fas fa-layer-group"></i>

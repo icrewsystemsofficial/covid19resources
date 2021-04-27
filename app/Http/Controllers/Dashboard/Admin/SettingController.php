@@ -12,7 +12,7 @@ class SettingController extends Controller
 {
 
     public function admin_setting_index()
-    {   
+    {
         $settings = Setting::all();
         return view('dashboard.admin.setting.index')->with('settings',$settings);
     }
@@ -23,7 +23,7 @@ class SettingController extends Controller
     }
 
     public function admin_setting_store(Request $request)
-    {  
+    {
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -31,21 +31,22 @@ class SettingController extends Controller
             'core' => 'required'
         ]);
 
+       $setting_name = Str::upper(Str::slug($request->name, '_'));
        $setting = new Setting;
-       $setting->name = Str::kebab($request->name);
+       $setting->name = $setting_name;
        $setting->description = $request->description;
-       $setting->value = Str::kebab($request->value);
+       $setting->value = $request->value;
        $setting->core = $request->core;
        $setting->save();
 
        activity()->log('Setting: '.$setting->name.'has been created');
-       notify()->success($setting->name.'created successfully','Yay!');
-       
+       notify()->success($setting->name.' created successfully','Yay!');
+
        return redirect(route('admin.setting.index'));
     }
 
     public function admin_setting_edit($id)
-    {   
+    {
         $setting = Setting::findOrFail($id);
         // dd($setting->name);
         return view('dashboard.admin.setting.edit')->with('setting',$setting);
@@ -53,11 +54,14 @@ class SettingController extends Controller
 
     public function admin_setting_update(Request $request, $id)
     {
+
+
         $setting = Setting::find($id);
-        $setting->name = Str::kebab($request->name);
+        $setting->name = $request->name;
         $setting->description = $request->description;
-        $setting->value = Str::kebab($request->value);
+        $setting->value = $request->value;
         $setting->core = $request->core;
+        // dd($setting);
         $setting->save();
 
         activity()->log('Setting: '.$setting->name.'has been updated');
@@ -67,13 +71,13 @@ class SettingController extends Controller
     }
 
     public function admin_setting_delete($id)
-    {    
+    {
         $setting = Setting::find($id)->name;
         Setting::find($id)->delete();
 
         activity()->log('Setting: '.$setting.'has been deleted');
         notify()->success($setting.'successfully deleted','Alright');
-        
+
         return redirect(route('admin.setting.index'));
     }
 }

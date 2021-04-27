@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Exception;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Twitter extends Model
 {
     use HasFactory;
+    use Searchable;
 
 
     protected $blacklisted_words = array(
@@ -120,7 +122,11 @@ class Twitter extends Model
     }
 
     public function blacklistedwords() : array {
-        return $this->blacklisted_words;
+
+        $words = config('app.blacklisted_words');
+        $words = explode(',', $words);
+        // return $this->blacklisted_words;
+        return $words;
     }
 
     public function filterTweet() : array {
@@ -128,7 +134,8 @@ class Twitter extends Model
         $response_json = array();
 
         $haystack = strtolower($this->tweet);
-        $needle = $this->blacklisted_words;
+        // $needle = $this->blacklisted_words;
+        $needle = $this->blacklistedwords();
         $check = Str::contains($haystack, $needle);
         if($check){
             // echo "Contains blacklisted words";

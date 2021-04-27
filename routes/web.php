@@ -1,22 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use App\Mail\Volunteers\Welcome;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Api\SearchFilterController;
+use App\Http\Controllers\Dashboard\SearchController;
+use App\Http\Controllers\Dashboard\Admin\MissionAdmin;
 use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\Admin\AccessController;
+use App\Http\Controllers\Dashboard\Admin\SettingController;
 use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\Dashboard\Admin\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +34,10 @@ use App\Http\Controllers\Dashboard\Admin\SettingController;
 |
 */
 
+Route::get('/sendmail', function() {
+    $user = User::find(1);
+   Mail::to('kashrayks@gmail.com')->send(new Welcome($user));
+});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
@@ -38,6 +48,13 @@ Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.s
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
+Route::get('/search', [SearchController::class, 'search'])->name('home.search');
+Route::get('/search/results/{query?}', [SearchController::class, 'results'])
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])
+    ->name('home.search.results');
+
+// Route::get('/search/{query?}',[SearchFilterController::class, 'search_filter'])->name('search.filter');
+// Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitterSearch']);
 
 Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
 Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
@@ -49,7 +66,6 @@ Route::get('/terms',[HomeController::class,'terms'])->name('home.terms');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/how-to', [HomeController::class, 'how_to'])->name('home.howTo');
 
-Route::get('/howto', [HomeController::class, 'howto'])->name('home.howTo');
 Route::get('/privacy', [HomeController::class, 'privacy'])->name('home.privacy');
 
 Route::get('/location', function() {
@@ -95,6 +111,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
         Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
 
+        Route::prefix('mission')->group(function () {
+            Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
+            Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
+            Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
+        });
 
         Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
         Route::get('/categories/create', [CategoryController::class, 'admin_create'])->name('admin.categories.create');

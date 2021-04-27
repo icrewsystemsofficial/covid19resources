@@ -14,8 +14,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'tweet_keywords' => array('#COVID19India'),
-    'max_tweets_to_assign_in_a_mission' => 100,
+    'tweet_keywords' => array('#Verified #COVID19India'),
+    // 'max_tweets_to_assign_in_a_mission' => 100,
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        App\Providers\DBConfigProvier::class,
     ],
 
     /*

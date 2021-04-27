@@ -47,7 +47,7 @@
             <input type="text" name="uuid" hidden value="{{ $uuid->id }}">
         @endif
             <div class="login-form">
-                
+
                 <div class="form-group">
                     <label for="name" class="placeholder"><b>Name</b></label>
                     <input id="name" name="name" type="text" class="form-control" required="">
@@ -98,10 +98,10 @@
                     {!! NoCaptcha::display() !!}
                 </div>
                 <div class="form-group form-action-d-flex mb-3">
-                  
+
                     <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Register</button>
                 </div>
-                
+
                 <div class="login-account">
                     <span class="msg">
                         Already a volunteer?

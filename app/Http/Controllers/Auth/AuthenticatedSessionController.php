@@ -27,14 +27,17 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LoginRequest $request)
-    {   
-        $request->validate([
-            'g-recaptcha-response' => 'required|captcha'
-        ],[
-            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
-            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
-        ]);
-        
+    {
+
+        if(config('app.env') == 'production') {
+            $request->validate([
+                'g-recaptcha-response' => 'required|captcha'
+            ],[
+                'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+                'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+            ]);
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();

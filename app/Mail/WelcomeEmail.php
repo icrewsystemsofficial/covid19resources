@@ -29,10 +29,10 @@ class WelcomeEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('admin@icrew.com') // from address
-            ->subject('Welcome '.$this->details['name']) // subject of the mail
+        return $this
+            ->subject('['.config('app.name').'] We\'re in this together, '.$this->details['name']) // subject of the mail
             ->markdown('email.welcome')
-            ->with(['details' => $this->details, 
+            ->with(['details' => $this->details,
                     'redirect_url' => route('home')
             ]);
     }
