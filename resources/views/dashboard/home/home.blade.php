@@ -19,6 +19,8 @@
 </style>
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
 <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
 <script>
 
@@ -125,7 +127,7 @@
 			fillColor: '#c2e9ed'
 		});
 
-        
+
         var currentStateCode = ("{{$currentlocation->code}}").toLowerCase();
 
         var today = new Date();
@@ -147,7 +149,7 @@
             dd = "0" + dd;
         }
 
-        
+
         var todaydate = yyyy+"-"+mm+"-"+dd;
         console.log(todaydate);
 
@@ -190,21 +192,21 @@
                         fillColor: 'rgba(255, 165, 52, .14)'
                     });
 
-                
+
 
             });
 
         function dailyloop(element, index) {
             if(element['status'] === 'Deceased'){
-                totalDeceased.push(element[currentStateCode]);  
+                totalDeceased.push(element[currentStateCode]);
                 if(element["dateymd"] === todaydate){
                     todayDeceased = element[currentStateCode]
                     $("#stats_deceased_cases").text(element[currentStateCode]);
-                } 
+                }
             }
 
             if(element['status'] === 'Recovered'){
-                totalRecovered.push(element[currentStateCode]);   
+                totalRecovered.push(element[currentStateCode]);
                 if(element["dateymd"] === todaydate){
                     todayRecovered = element[currentStateCode]
                     $("#stats_recovered_cases").text(element[currentStateCode]);
@@ -216,7 +218,7 @@
                 if(element["dateymd"] === todaydate){
                     todayConfirmed = element[currentStateCode]
                     $("#stats_confirmed_cases").text(element[currentStateCode]);
-                }   
+                }
             }
         }
 
@@ -228,6 +230,12 @@
 
     <script>
         function changeLocation(state) {
+
+            var locationUpdatingIcon = document.getElementById('locationUpdatingIcon');
+            var locationUpdateForm = document.getElementById('locationUpdateForm');
+
+            locationUpdateForm.style.display = 'none';
+            locationUpdatingIcon.style.display = 'block';
             // var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
             axios.get('/currentlocation/update/' + state)
             .then(function (response) {
@@ -250,6 +258,19 @@
             })
             .catch(function (error) {
             // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error in updating your location, please clear cache and try again',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
             console.log(error);
             })
             .then(function () {
@@ -257,7 +278,78 @@
             });
         }
 
-        
+        function searchFilter() {
+            var query = document.getElementById('query').value;
+            var filter = document.getElementById('filter').value;
+
+            // console.log(query);
+            // console.log(filter);
+            // filter resources
+            if(filter == 'resources') {
+                axios.get('/search/resource/'+ query)
+                .then(function (response) {
+                    // returns the data in array
+                    console.log(response)
+                 })
+                 .catch(function (error) {
+            // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error while searching, try again later',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
+            console.log(error);
+            })
+            .then(function () {
+            // always executed
+            });
+            }
+
+            if(filter == 'twitter') {
+                axios.get('http://covid19resources.test/api/v1/search/twitter/'+ query)
+                .then(function (response) {
+                    // returns the data in array
+                    console.log(response)
+
+                 })
+                 .catch(function (error) {
+            // handle error
+            $.notify({
+                    icon: 'fa fa-times-circle',
+                    title: '{{ config("app.name") }}',
+                    message: 'There was an error while searching, try again later',
+                },{
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 4000,
+                });
+
+            console.log(error);
+            })
+            .then(function () {
+            // always executed
+            });
+            }
+
+
+
+
+
+
+        }
+
+
     </script>
 @endsection
 
@@ -272,7 +364,10 @@
                 <h5 class="text-white op-7 mb-2">State Wise COVID19 Resources. Awareness is the first step in this battle.</h5>
             </div>
             <div class="col-md-4 col-md-4 py-2 py-md-0">
-                <form action="">
+                <span id="locationUpdatingIcon" class="pull-right" style="display: none;">
+                    <h2 class="h3 text-white">Updating location <i class="fa fa-sync fa-spin text-white"></i></h2>
+                </span>
+                <form action="" id="locationUpdateForm">
                     <select name="state" onchange="changeLocation(this.value);" class="form-control select2" id="">
                         <option value="all" selected disabled>Select a state</option>
                         @foreach ($states as $state)
@@ -293,8 +388,14 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        There are {{ $resources->count() }} resources indexed for <strong>{{ $currentlocation->name }}</strong>
+                        There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                     </h4>
+                    <span class="text-muted">
+                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
+                        @if ($resources->count() > 0)
+                        Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
+                        @endif
+                    </span>
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-pills nav-primary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
@@ -433,11 +534,13 @@
 
                                         @php
                                             if($resource->verified == 0) {
-                                                $color = 'table-bg-muted';
+                                                $color = 'bg-warning-gradient';
                                             } else if($resource->verified == 1) {
                                                 $color = 'table-bg-success';
                                             } else if($resource->verified == 2) {
                                                 $color = 'table-bg-danger';
+                                            } else {
+                                                $color = 'bg-primary';
                                             }
                                         @endphp
 
@@ -827,16 +930,70 @@
                         Our database contains X data points. You can search through them with a keywords of your own.
                     </p>
 
-                    <button id="searchKeywordsButton" onclick="searchKeywords();" class="btn btn-danger btn-block">
+                    {{-- <button id="searchKeywordsButton"  class="btn btn-danger btn-block">
                         Search
                     </button>
 
-                    <script>
+                    <!-- Modal -->
+                    <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div> --}}
+                    <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#searchKeywordsButton">
+                                    Search
+                                </button>
+
+  <!-- Modal -->
+                            <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="query">Keywords</label>
+												<input type="text" class="form-control" id="query"  name="query" placeholder="Search tweets with #tags" required>
+											</div>
+                                            <div class="form-group">
+												<label for="filter">Filter</label>
+												<select class="form-control" id="filter" required>
+													<option value="resources">Resources</option>
+													<option value="twitter">Twitter</option>
+												</select>
+											</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" onclick="searchFilter();" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+
+                    {{-- <script>
                         function searchKeywords() {
                             var searchKeywordsButton = document.getElementById('searchKeywordsButton');
                             searchKeywordsButton.innerHTML = "Feature not included yet";
                         }
-                    </script>
+                    </script> --}}
                 </div>
             </div>
 

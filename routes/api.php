@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Location;
 use App\Http\Controllers\API\StatsAPI;
 use App\Http\Controllers\API\MissionAPI;
 use App\Http\Controllers\API\ScheduleRunner;
+use App\Http\Controllers\Api\SearchFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('/states', [States::class, 'getStates']);
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
     Route::get('/cities/{state?}', [States::class, 'getCities']);
     Route::get('/currentlocation', [Location::class, 'currentLocation']);
@@ -34,7 +36,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/tweet/change-status/{id}/{status}', [Twitter::class, 'change_status']);
     Route::get('/tweets/{id}/delete', [Twitter::class, 'delete_tweet']);
-    Route::get('/tweet/autoflag/{id}', [Twitter::class, 'autoflag']);
+    Route::get('/tweet/autoflag', [Twitter::class, 'autoflag']);
 
     Route::get('/scheduleRun', [ScheduleRunner::class, 'run']);
     Route::get('/scheduleList', [ScheduleRunner::class, 'list']);
@@ -42,6 +44,12 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/mission/changeStatus/{id}/{status}', [MissionAPI::class, 'changeStatus']);
     Route::get('/mission/completedCount/{id}/{status}', [MissionAPI::class, 'completedCount']);
+    Route::get('/mission/getstats', [MissionAPI::class, 'getstats']);
 
     Route::get('/stats/trend/dataInput', [StatsAPI::class, 'dataInput']);
+
+    Route::get('/search/resource/{query?}',[SearchFilterController::class, 'resource_search_filter'])->name('search.filter');
+    Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitter_search_filter'])->name('search.filter.twitter');
+    Route::get('/search/n/{terms?}', [SearchFilterController::class, 'search']);
+
 });

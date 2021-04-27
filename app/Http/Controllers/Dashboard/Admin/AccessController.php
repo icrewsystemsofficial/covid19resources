@@ -54,6 +54,7 @@ class AccessController extends Controller
             $role->save();
 
         notify()->success('Yay!', 'New role '. $role->name .' was created.');
+        activity()->log('Admin Role: '.$role->name.' was created');
         return redirect(route('accesscontrol.index'));
         } else {
             notify()->error('Oops!','Role '. $role->name .' already exists.');
@@ -123,6 +124,7 @@ class AccessController extends Controller
         $role->syncPermissions($permissions);
   
         notify()->success('Role '. $role->name. ' has been modified', 'Yay!');
+        activity()->log('Admin Role: '.$role->name.' was updated');
         return redirect(route('accesscontrol.index'));
     }
 
@@ -136,6 +138,7 @@ class AccessController extends Controller
     {
         $role = Role::find($id);
         if($role) {
+          activity()->log('Admin Role: '.$role->name.' was deleted');
           $role->delete();
           notify()->success('Role has been successfully deleted', 'Alrighty!');
         }

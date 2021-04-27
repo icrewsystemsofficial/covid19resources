@@ -11,15 +11,15 @@ class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $name;
+    protected $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(string $name)
+    public function __construct($details)
     {
-        $this->name = $name;
+        $this->details = $details;
     }
 
     /**
@@ -29,10 +29,10 @@ class WelcomeEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('admin@icrew.com') // from address
-            ->subject('Welcome '.$this->name) // subject of the mail
+        return $this
+            ->subject('['.config('app.name').'] We\'re in this together, '.$this->details['name']) // subject of the mail
             ->markdown('email.welcome')
-            ->with(['name' => $this->name, 
+            ->with(['details' => $this->details,
                     'redirect_url' => route('home')
             ]);
     }

@@ -114,7 +114,7 @@
                     <strong>
                         Objective:
                     </strong>
-                    {{ $mission->description }}
+                    {!! $mission->description !!}
                     <br><br><br>
 
                     <div class="table-responsive">

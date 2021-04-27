@@ -8,14 +8,19 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\VolunteerRegistration;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/volunteer-registration', [VolunteerRegistration::class, 'index'])->name('volunteer.registration');
+Route::post('/volunteer-registration', [VolunteerRegistration::class, 'register'])->name('volunteer.registration.save');
+
 Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
+                ->middleware(['guest','checkreferral'])
                 ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
+                ->middleware(['guest','checkreferral']);
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')

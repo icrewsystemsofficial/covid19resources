@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Referral extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'referral_link',
+        'referrer_ip',
+    ];
 }

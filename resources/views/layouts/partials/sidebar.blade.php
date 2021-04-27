@@ -2,27 +2,56 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
+
+                <li class="nav-item">
+                    <a href="{{ route('home.add.resource') }}">
+                        <i class="fas fa-plus-circle text-primary"></i>
+                        <p>Add Resources</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('home') }}">
                         <i class="fas fa-heartbeat"></i>
                         <p>Dashboard</p>
                     </a>
-                    {{-- <div class="collapse" id="dashboard">
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.search') }}">
+                        <i class="fas fa-search"></i>
+                        <p>Search</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#about_section">
+                        <i class="fas fa-info-circle"></i>
+                        <p>About</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="about_section">
                         <ul class="nav nav-collapse">
                             <li>
+<<<<<<< HEAD
                                 <a href="{{ route('home') }}">
                                     <span class="sub-item">Dashboard</span>
+=======
+                                <a href="{{ route('home.about') }}">
+                                    <span class="sub-item">About us</span>
+>>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ url('atlantis/examples/demo1/index.html') }}" target="_blank">
-                                    <span class="sub-item">Theme Reference</span>
+                                <a href="{{ route('home.howto') }}">
+                                    <span class="sub-item">How to</span>
                                 </a>
                             </li>
                         </ul>
-                    </div> --}}
+                    </div>
                 </li>
+
 
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
@@ -52,6 +81,13 @@
                     </span>
                     <h4 class="text-section">Administration</h4>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.mission.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Mission Dashboard</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.categories.index') }}">
                         <i class="fas fa-layer-group"></i>
@@ -103,6 +139,12 @@
                 </li>
 
 =======
+                <li class="nav-item">
+                    <a href="{{ route('admin.setting.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('activity.log') }}">
                         <i class="fas fa-history"></i>

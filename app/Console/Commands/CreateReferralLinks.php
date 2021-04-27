@@ -20,7 +20,7 @@ class CreateReferralLinks extends Command
      *
      * @var string
      */
-    protected $description = 'Used to create Referral links for the users';
+    protected $description = 'Command to generate referral signup links';
 
     /**
      * Create a new command instance.
@@ -39,17 +39,21 @@ class CreateReferralLinks extends Command
      */
     public function handle()
     {
-        $users = User::all();
+        $users = User::where('referral_link', null)->get();
+        if(count($users) == 0) {
+            return $this->info('Good job! All users already have referral links');
+        }
 
         foreach ($users as $user) {
             $kebab = Str::kebab($user->name);
-            $referral = new Referral;
-            $referral->user_id = $user->id;
-            $referral->referral_link = $kebab;
-            $referral->referrer_ip = "192.168.0.138";
-            $referral->save();
+            $randnum = rand(pow(10, 5-1), pow(10, 5)-1);
+            $reflink = $kebab.'-'.$randnum;
+            $user->referral_link = $reflink;
+            $user->save();
+            $this->line('Created ' . $user->referral_link);
         }
-        $this->info('refrreal links created ');
+
+        return $this->info('Manually created links for '.count($users).' users');
 
         // $referral->referral_link =
     }

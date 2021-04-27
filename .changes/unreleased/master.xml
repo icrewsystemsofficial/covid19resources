@@ -4,4 +4,5 @@
   <change type="module update">Geography module updated and removed counters</change>
   <change type="api">Added TwitterScan endpoint</change>
   <change type="module">Added Volunteer module and mission module to segregate tweets and assign to a sepearte user with UUIDs</change>
+  <change type="module">Added a referral links module, that grants the user points for everytime someone signs up</change>
 </feature>

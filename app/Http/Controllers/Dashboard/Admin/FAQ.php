@@ -45,6 +45,7 @@ class FAQ extends Controller
         $activity->save();
 
         notify()->success('FAQ was added', 'Yayyy');
+        activity()->log('Admin FAQ: '.$faq->title.' was added');
         return redirect(route('admin.faq.index'));
     }
 
@@ -82,6 +83,7 @@ class FAQ extends Controller
 
 
         notify()->success('FAQ was updated', 'Yayyy');
+        activity()->log('Admin FAQ: '.$faq->title.' was updated');
         return redirect(route('admin.faq.index'));
     }
 
@@ -94,6 +96,7 @@ class FAQ extends Controller
         $activity->save();
 
         notify()->success('FAQ was deleted', 'Hmmm, okay');
+        activity()->log('Admin FAQ: FAQ was deleted');
         return redirect(route('admin.faq.index'));
     }
 

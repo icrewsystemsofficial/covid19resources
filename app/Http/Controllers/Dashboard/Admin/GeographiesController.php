@@ -83,6 +83,7 @@ class GeographiesController extends Controller
         $districts->save();
 
         notify()->success('districts were added', 'Yayy!');
+        activity()->log('Admin District: '.$districts->name. ' were added');
         return redirect(route('admin.geographies.districts.index'));
     }
 
@@ -96,6 +97,7 @@ class GeographiesController extends Controller
         $state->save();
 
         notify()->success('States were added', 'Yayy!');
+        activity()->log('Admin State: '.$state->name. ' were added');
         return redirect(route('admin.geographies.states.index'));
     }
 
@@ -110,6 +112,7 @@ class GeographiesController extends Controller
         $cities->save();
 
         notify()->success('Cities were added', 'Yayy!');
+        activity()->log('Admin City: '.$cities->name. ' were added');
         return redirect(route('admin.geographies.cities.index'));
     }
 
@@ -121,6 +124,7 @@ class GeographiesController extends Controller
         $districts->update();
 
         notify()->success('Districts Were Updated', 'Yayy!');
+        activity()->log('Admin District: '.$districts->name. ' were updated');
         return redirect(route('admin.geographies.districts.index'));
     }
 
@@ -136,6 +140,7 @@ class GeographiesController extends Controller
         $state->update();
 
         notify()->success('States Were Updated', 'Yayy!');
+        activity()->log('Admin State: '.$state->name. ' were updated');
         return redirect(route('admin.geographies.states.index'));
     }
 
@@ -149,6 +154,7 @@ class GeographiesController extends Controller
         $cities->update();
 
         notify()->success('Cities Were Updated', 'Yayy!');
+        activity()->log('Admin City: '.$cities->name. ' were updated');
         return redirect(route('admin.geographies.cities.index'));
     }
 
@@ -156,6 +162,7 @@ class GeographiesController extends Controller
 
         Districts::find($id)->delete();
         notify()->success('District was Deleted', 'Hmmm, okay');
+        activity()->log('Admin District: District were deleted');
         return redirect(route('admin.geographies.districts.index'));
 
     }
@@ -163,7 +170,8 @@ class GeographiesController extends Controller
     public function admin_states_delete($id) {
 
         States::find($id)->delete();
-        notify()->success('States was Deleted', 'Hmmm, okay');
+        notify()->success('State was Deleted', 'Hmmm, okay');
+        activity()->log('Admin State: State were deleted');
         return redirect(route('admin.geographies.states.index'));
 
         }
@@ -172,6 +180,7 @@ class GeographiesController extends Controller
 
         City::find($id)->delete();
         notify()->success('City was Deleted', 'Hmmm, okay');
+        activity()->log('Admin City: City->id = '. $id . ' were deleted');
         return redirect(route('admin.geographies.cities.index'));
 
         }

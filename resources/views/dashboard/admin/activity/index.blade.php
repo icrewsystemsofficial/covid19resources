@@ -10,7 +10,14 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header mt-2">
-        <h4 class="page-title">Users Admin</h4>
+        <h4 class="page-title">Activity logs
+
+            <span class="text-muted">
+                <small>
+                    This logs the different actions users perform in this application.
+                </small>
+            </span>
+        </h4>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -18,12 +25,12 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Users</h4>
+                    <h4 class="card-title">Manage logs <span class="badge badge-primary">{{ $activities->count() }}</span></h4>
                 </div>
                 <div class="card-body">
                     <table id="activity_table" class="table table-hover">
                         <thead>
-                            <th> Id</th>
+                            <th>Log #</th>
                             <th>Activity</th>
                             <th>Logged By</th>
                             <th>When</th>

@@ -127,4 +127,8 @@ class Mission extends Model
     public function dataArray() {
         return json_decode($this->data);
     }
+
+    public function getVolunteer() {
+        return $this->hasOne(User::class, 'id', 'volunteer_id');
+    }
 }

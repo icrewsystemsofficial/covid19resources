@@ -182,7 +182,7 @@
     </p>
 
     <div class="row">
-        <div class="col-md-12">
+        {{-- <div class="col-md-12">
             <p>
 
 
@@ -235,9 +235,9 @@
                 </div>
               </div>
 
-        </div>
+        </div> --}}
 
-        <div class="col-6 col-sm-4 col-lg-4">
+        {{-- <div class="col-6 col-sm-4 col-lg-4">
             <div class="card">
                 <div class="card-body p-3 text-center">
                     <div class="text-right">
@@ -263,7 +263,7 @@
                     <div class="text-muted mb-3">Completed</div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="row">
         <div class="col-md-12">

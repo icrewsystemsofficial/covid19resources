@@ -1,7 +1,52 @@
 @extends('layouts.atlantis')
 @section('title', 'Edit Profile')
 @section('content')
+<style>
+.switch input {
+    display:none;
+}
+.switch {
+    display:inline-block;
+    width:45px;
+    height:20px;
+    margin:8px;
+    transform:translateY(50%);
+    position:relative;
+    cursor: pointer;
+}
+/* Style Wired */
+.slider {
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    border-radius: 30px;
+    box-shadow:0 0 0 2px #777, 0 0 4px #777;
+    cursor:pointer;
+    border:4px solid transparent;
+    overflow:hidden;
+        transition:.4s;
+}
+.slider:before {
+    position:absolute;
+    content:"";
+    width:100%;
+    height:100%;
+    background:#777;
+    border-radius:30px;
+    transform:translateX(-20px);
+    transition:.4s;
+}
 
+input:checked ~ .slider:before {
+    transform:translateX(20px);
+    background:limeGreen;
+}
+input:checked ~ .slider {
+    box-shadow:0 0 0 2px limeGreen,0 0 2px limeGreen;
+}
+</style>
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -87,11 +132,33 @@
                                         @enderror
                                     </div>
                                 @endif
+                                <?php
+                                    if($user->available_for_mission == 1) {
+                                        $checked = 'checked';
+                                    } else {
+                                        $checked = '';
+                                    }
+                                ?>
+
+                                <div class="d-flex align-items-center form-group">
+                                    <div class="mt-3 mr-3">
+                                        <h4 class="text-capitalize placeholder"><b>Available For Missions? <b></h4>
+                                        <p class="text-muted fw-light">
+                                            <small>
+                                                If this option is checked, you will be assigned missions
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <label class="switch mx-2" checked>
+                                        <input type="checkbox" name="available_for_mission" type="checkbox" class="hidden" {{ $checked }}>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
                                 <div class="form-group d-flex align-items-center justify-content-center mb-3">
                                     <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
                                     <button type="submit" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</button>
                                 </div>
-                                {{-- <input type="submit" value="UPDATE" class="btn"> --}}
                             </div>
                         </form>
                     </div>

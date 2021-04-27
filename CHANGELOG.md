@@ -13,6 +13,7 @@
 
 ### Module
  - Added Volunteer module and mission module to segregate tweets and assign to a sepearte user with UUIDs
+ - Added a referral links module, that grants the user points for everytime someone signs up
 
 ### Module update
  - Geography module updated and removed counters

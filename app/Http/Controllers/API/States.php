@@ -5,10 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Districts;
+use App\Models\States as ModelsStates;
 use Illuminate\Http\Request;
 
 class States extends Controller
 {
+    public function getStates() {
+        $response = array();
+        $state = ModelsStates::all();
+        $response['states'] = $state;
+        return response($response);
+    }
+
     public function getDistricts($code) {
         $response = array();
         if($code == '') {

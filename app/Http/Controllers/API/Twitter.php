@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\API;
 use Exception;
+use App\Models\User;
+use App\Models\Mission;
 use App\Models\Resource;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\Mission\Assigned;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Twitter as ModelsTwitter;
 
 class Twitter extends Controller
@@ -94,51 +98,102 @@ class Twitter extends Controller
     }
 
 
-    public function autoflag($id) {
-        $tweet = ModelsTwitter::find($id);
-
-        //Get screened tweets with RT in them.
-        //Find earliest one, mark rest as RT.
-        $screened_tweet = ModelsTwitter::
-                    where('id', '!=', $id)
-                    ->where('status', ModelsTwitter::SCREENED)
-                    ->where('tweet', 'LIKE', '%RT%')
-                    ->orderBy('created_at')
-                    ->limit(50)
-                    ->get();
-
-                    if(count($screened_tweet) > 0) {
-            foreach($screened_tweet as $screened) {
-                // FINDING DUPLICATES
-
-                $duplicates = ModelsTwitter::
-                        where('id', '!=', $screened->id)
-                        ->where('status', '!=', ModelsTwitter::RETWEET)
-                        ->where('tweet', 'LIKE', '%'. $screened->tweet .'%')
-                        // ->where('tweet', 'LIKE', '%RT%')
-                        // ->groupBy('tweet')
-                        ->orderBy('created_at')
-                        ->get();
-
-                if(count($duplicates) > 0) {
-                    echo "Finding dupes for : ".$screened->tweet;
-                    echo "<br>";
-                    echo "<br>";
-                    foreach($duplicates as $dupe) {
-                        echo $dupe->tweet;
-                        $dupe->status = ModelsTwitter::RETWEET;
-                        $dupe->update();
-                        echo "<br>";
-                    }
-                }
-
-            }
+    public static function assignMissions($user, $howmany) {
+        $latest = Mission::select('id', 'data', 'volunteer_id')->latest('created_at')->first();
+        if($latest) {
+            $latest_data = json_decode($latest->data);
+            $latest_assigned_tweet = $latest_data[(count($latest_data) - 1)];
+            // dd($latest_assigned_tweet);
+            //$latest_assigned_tweet = json_decode($latest->data)[99];
         } else {
-            echo "All duplicate tweets marked as RT";
+            $latest_assigned_tweet = '0';
         }
 
 
+
+        $tweets = ModelsTwitter::select('id')->where('status', ModelsTwitter::SCREENED)
+                    ->where('id', '>' ,$latest_assigned_tweet)
+                    ->orderBy('created_at')
+                    ->limit($howmany)
+                    ->get();
+
+        if(count($tweets) != '') {
+            // dd($tweets);
+            $processed_tweets = array();
+            $i = 0;
+            foreach($tweets as $tweet) {
+                $processed_tweets[] = $tweet->id;
+                $i++;
+            }
+            // dd($processed_tweets);
+            $processed_tweets = json_encode($processed_tweets);
+            $data = array(
+                'uuid' => (string) Str::uuid(),
+                'description' => 'Your mission objective is to call the phone numbers in the Tweets and verify if the information they have provided accurate & mark them as verified',
+                'volunteer_id' => $user->id,
+                'slot_start' => $tweets[0]->id,
+                'slot_end' => $tweets[(count($tweets) - 1)]->id,
+                'data' => $processed_tweets,
+                'total' => count($tweets),
+            );
+
+            $mission = Mission::create($data);
+            return $mission;
+        } else {
+            return "No tweets left";
+        }
     }
+
+
+    public function autoflag() {
+        //Get total pending tweets & resources.
+        //Get total number of users.
+        // divide both to derive "X", and assign "X" number of missions accross users.
+
+        $tweets = ModelsTwitter::where('status', ModelsTwitter::SCREENED)->get();
+        // $volunteers = User::role('volunteer')->where('available_for_mission', 1)->get();
+        $volunteers = User::where('available_for_mission', 1)->get();
+        $total_tweets = $tweets->count();
+        $total_volunteers = $volunteers->count();
+
+        $how_many_tweets_to_assign = round($total_tweets / $total_volunteers);
+        if($how_many_tweets_to_assign > config('app.max_tweets_to_assign_in_a_mission')) {
+            $how_many_tweets_to_assign = config('app.max_tweets_to_assign_in_a_mission');
+        }
+        // dd($tweets->count());
+        // dd($how_many_tweets_to_assign);
+
+        $mission = array(); //These are mssions that will be created.
+        $assigned_tweets = 0;
+        foreach($volunteers as $volunteer) {
+            $result = self::assignMissions($volunteer, $how_many_tweets_to_assign);
+            if(is_object($result)) {
+                $mission[] = $result;
+                $assigned_tweets = $result->total + $assigned_tweets;
+                $mail = Mail::to($volunteer->email)->send(new Assigned($result));
+            } else {
+                continue;
+            }
+        }
+
+
+        if($assigned_tweets != 0) {
+            echo "We were only able to assign ".$assigned_tweets." tweets in ".count($mission)." missions";
+        } else {
+            if($mission == []) {
+                echo "All tweets assigned as missions";
+            } else {
+                echo "Success! We were able to assign ".$assigned_tweets." tweets in ".count($mission)." missions";
+            }
+        }
+
+
+        // $mission = Mission::find(1);
+        // $md = json_decode($mission->data);
+        // echo Mission::select('id')->count();
+
+    }
+
     public function autoflag_old2($id) {
         $tweets = ModelsTwitter::where('status', ModelsTwitter::PENDING)->limit(50)->get();
         $filtered = 0;

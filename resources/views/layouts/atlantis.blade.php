@@ -219,7 +219,7 @@
 
 	<!-- Atlantis JS -->
 	<script src="{{ asset('atlantis/assets/js/atlantis.js') }}"></script>
-
+    <script src="{{ asset('js/share.js') }}"></script>
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{ asset('atlantis/assets/js/setting-demo.js') }}"></script>
 	{{-- <script src="{{ asset('atlantis/assets/js/demo.js') }}"></script> --}}
@@ -242,11 +242,34 @@
         }
 
         startTime();
+<<<<<<< HEAD
 function relocate_home()
 {
      location.href =Share::page('http://jorenvanhocht.be')->facebook();
 
 } 
+=======
+
+        function copyReferralURL() {
+            var copyText = document.getElementById("referral_link_navbar");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+
+            $.notify({
+                icon: 'fa fa-check-circle',
+                title: "{{ config('app.name') }}",
+                message: "Your referral URL has been copied. Share it as much as you can 🙏",
+                },{
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        }
+>>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
     </script>
 
     @yield('js')
