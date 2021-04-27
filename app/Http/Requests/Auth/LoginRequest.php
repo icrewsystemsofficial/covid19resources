@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests\Auth;
 
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Auth\Events\Lockout;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\RateLimiter;
+
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Lockout;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -36,14 +37,14 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Attempt to authenticate the request's credentials.
+     * Attempt to authenticate the request's credential s.
      *
      * @return void
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(Request $request)
-    {   
+    public function authenticate()
+    {
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
@@ -62,7 +63,7 @@ class LoginRequest extends FormRequest
      *
      * @return void
      *
-     * @throws 
+     * @throws
      * +\Illuminate\Validation\ValidationException
      */
     public function ensureIsNotRateLimited()

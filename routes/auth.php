@@ -12,8 +12,8 @@ use App\Http\Controllers\Auth\VolunteerRegistration;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('/volunteer-registration', [VolunteerRegistration::class, 'index'])->name('volunteer.registration');
-// Route::post('/volunteer-registration', [VolunteerRegistration::class, 'register'])->name('volunteer.registration.save');
+Route::get('/volunteer-registration', [VolunteerRegistration::class, 'index'])->name('volunteer.registration');
+Route::post('/volunteer-registration', [VolunteerRegistration::class, 'register'])->name('volunteer.registration.save');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware(['guest','checkreferral'])
