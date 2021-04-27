@@ -19,6 +19,7 @@
         @endforeach
     @endif
 </script>
+{!! NoCaptcha::renderJs() !!}
 @endsection
 @section('content')
 <div class="wrapper wrapper-login wrapper-login-full p-0">
@@ -93,13 +94,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group form-action  ">
+                    {!! NoCaptcha::display() !!}
+                </div>
                 <div class="form-group form-action-d-flex mb-3">
-                    {{-- <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="remember" id="remember_me">
-                        <label class="custom-control-label m-0" for="remember_me">Remember Me</label>
-                    </div> --}}
+                  
                     <button type="submit" class="btn btn-secondary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Register</button>
                 </div>
+                
                 <div class="login-account">
                     <span class="msg">
                         Already a volunteer?
@@ -111,6 +113,8 @@
                     </span>
                     <a href="{{ route('login') }}" class="link">Generic account</a>
                 </div>
+
+
             </div>
         </div>
     </form>

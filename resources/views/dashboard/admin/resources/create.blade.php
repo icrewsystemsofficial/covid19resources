@@ -45,7 +45,25 @@
         }
 
         CKEDITOR.replace('desc');
-    </script>
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        $.notify({
+            icon: 'flaticon-error',
+            title: "{{ config('app.name') }}",
+            message: "{{ $error }}",
+            },{
+            type: 'danger',
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            time: 1000,
+        });
+    @endforeach
+@endif
+</script>
+        {!! NoCaptcha::renderJs() !!}
 @endsection
 @section('content')
 <div class="page-inner">
@@ -195,6 +213,10 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            {!! NoCaptcha::display() !!}
+                        </div>  
 
                         <div class="form-actions">
                             <button class="btn btn-info btn-md" type="submit">

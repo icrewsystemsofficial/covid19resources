@@ -6,10 +6,10 @@ use Exception;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use BeyondCode\Comments\Traits\HasComments;
 class Resource extends Model
 {
-    use HasFactory;
+    use HasFactory, HasComments;
 
     protected $fillable = [
         'category',

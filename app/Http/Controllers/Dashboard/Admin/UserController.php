@@ -143,13 +143,13 @@ class UserController extends Controller
 
         $name =$user->name;
 
-        if ($user->points==1) {
+        if ($user->points == 1) {
 
 
             Mail::to($user->email)->send(new PointsSystem($name));
         }
 
-        elseif ($user->points==500) {
+        elseif ($user->points == 500) {
 
             Mail::to($user->email)->send(new PointsSystem($name));
         }
