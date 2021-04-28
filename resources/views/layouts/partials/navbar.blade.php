@@ -6,6 +6,14 @@
 
     <div class="container-fluid">
         <div class="collapse" id="search-nav">
+
+            <span class="text-white" id="clock-box">
+                { TIME }
+            </span>
+            <span class="text-white">
+                | <span id="location">{{ $currentlocation->name }}</span>
+            </span>
+
             {{-- <form class="navbar-left navbar-form nav-search mr-md-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -15,90 +23,68 @@
                     </div>
                     <input type="text" placeholder="Search ..." class="form-control">
                 </div>
-            </form> --}}
-            <span class="text-white" id="clock-box">
-                { TIME } 
-            </span>
-            <span class="text-white">
-                | <span id="location">{{ App\Http\Controllers\API\Location::locationDisplay()->name }}</span>
-            </span>
+            </form>             --}}
         </div>
+
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-            <li class="nav-item toggle-nav-search hidden-caret">
-                <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+            <li class="nav-item dropdown hidden-caret">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-search"></i>
                 </a>
-            </li>
-            {{-- <li class="nav-item dropdown hidden-caret">
-                <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-envelope"></i>
-                </a>
-                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="searchDropdown">
                     <li>
                         <div class="dropdown-title d-flex justify-content-between align-items-center">
-                            Messages
-                            <a href="#" class="small">Mark all as read</a>
+                            Search
+                        </div>
+                    </li>
+                    <li>
+                        <div class="d-flex justify-content-between align-items-center bg-primary">
+                            <form action="{{ route('home.search.results') }}" class="navbar-form nav-search mr-md-3" >
+                                <div class="input-group">
+                                    <input name="query" type="text" placeholder="What are you looking for?" class="form-control">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn text-white fw-bold">
+                                            Go
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </li>
                     <li>
                         <div class="message-notif-scroll scrollbar-outer">
                             <div class="notif-center">
-                                <a href="#">
-                                    <div class="notif-img">
-                                        <img src="{{ asset('atlantis/assets/img/jm_denis.jpg') }}" alt="Img Profile">
-                                    </div>
-                                    <div class="notif-content">
-                                        <span class="subject">Jimmy Denis</span>
-                                        <span class="block">
-                                            How are you ?
-                                        </span>
-                                        <span class="time">5 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-img">
-                                        <img src="{{ asset('atlantis/assets/img/chadengle.jpg') }}" alt="Img Profile">
-                                    </div>
-                                    <div class="notif-content">
-                                        <span class="subject">Chad</span>
-                                        <span class="block">
-                                            Ok, Thanks !
-                                        </span>
-                                        <span class="time">12 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-img">
-                                        <img src="{{ asset('atlantis/assets/img/mlane.jpg') }}" alt="Img Profile">
-                                    </div>
-                                    <div class="notif-content">
-                                        <span class="subject">Jhon Doe</span>
-                                        <span class="block">
-                                            Ready for the meeting today...
-                                        </span>
-                                        <span class="time">12 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-img">
-                                        <img src="{{ asset('atlantis/assets/img/talha.jpg') }}" alt="Img Profile">
-                                    </div>
-                                    <div class="notif-content">
-                                        <span class="subject">Talha</span>
-                                        <span class="block">
-                                            Hi, Apa Kabar ?
-                                        </span>
-                                        <span class="time">17 minutes ago</span>
-                                    </div>
-                                </a>
+
+                                @php
+                                    $searchQuery = array(
+                                        'Delhi Oxygen',
+                                        'Mumbai Hospital Beds',
+                                        'Chennai Oxygen',
+                                        'Fabiflu Delhi'
+                                    )
+                                @endphp
+
+
+                                @foreach ($searchQuery as $search)
+                                    <a href="{{ route('home.search.results', '?query=' . $search.'') }}" class="ml-2">
+                                        <div class="notif-content text-muted">
+                                            <span class="block">
+                                            <i class="fa fa-line-chart"></i> {{ $search }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                @endforeach
+
                             </div>
                         </div>
                     </li>
                     <li>
-                        <a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
+                        <a class="see-all" href="javascript:void(0);">
+                            Go to search module <i class="fa fa-angle-right"></i>
+                        </a>
                     </li>
                 </ul>
-            </li> --}}
+            </li>
             {{-- <li class="nav-item dropdown hidden-caret">
                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell"></i>

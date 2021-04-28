@@ -58,7 +58,7 @@ class TwitterListen extends Command
         }
 
         $query = $string;
-        $this->line($query);
+        $this->line('Scanning Twitter Feed for: '.$query);
 
         TwitterStreamingApi::publicStream()
         ->whenHears($query, function(array $tweet) {
@@ -88,11 +88,24 @@ class TwitterListen extends Command
                 $tweet_data['image'] = $tweet['extended_entities']['media'][0]['media_url'];
             }
 
-            // File::put(storage_path().'/tweets/'.$tweet_data['user_name'].'.json', json_encode($tweet_data));
-            // File::put(storage_path().'/tweets_full/'.$tweet_data['user_name'].'.json', json_encode($tweet));
-            echo $tweet_data['user_name'];
-            ProcessTweet::dispatch($tweet_data);
-            broadcast(new BroadcastTweets($tweet_data))->toOthers();
+
+            $twitterModel = new Twitter;
+
+            $filterTweet = $twitterModel->filterTweet($tweet['text']);
+
+            /*
+                Screening the tweet as and when it streams.
+                - Leonard, April 27th, 2021
+            */
+            if($filterTweet['type'] != 'ok') {
+                    $this->info('Tweet by: '.$tweet_data['user_name'].', contains blacklisted words: '.$tweet['text'].'');
+                    // File::put(storage_path().'/tweets/'.$tweet_data['user_name'].'.json', json_encode($tweet_data));
+                    // File::put(storage_path().'/tweets_full/'.$tweet_data['user_name'].'.json', json_encode($tweet));
+                } else {
+                    $this->line('Tweet by: '.$tweet_data['user_name'].' streamed - OK');
+                    ProcessTweet::dispatch($tweet_data);
+                    broadcast(new BroadcastTweets($tweet_data))->toOthers();
+            }
         })
         ->startListening();
     }

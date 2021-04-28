@@ -129,11 +129,14 @@ class Twitter extends Model
         return $words;
     }
 
-    public function filterTweet() : array {
+    public function filterTweet($query = '') : array {
 
         $response_json = array();
-
-        $haystack = strtolower($this->tweet);
+        if($query == '') {
+            $haystack = strtolower($this->tweet);
+        } else {
+            $haystack = strtolower($query);
+        }
         // $needle = $this->blacklisted_words;
         $needle = $this->blacklistedwords();
         $check = Str::contains($haystack, $needle);

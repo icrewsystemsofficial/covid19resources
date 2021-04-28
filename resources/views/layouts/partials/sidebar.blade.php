@@ -44,7 +44,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('home.howto') }}">
+                                <a href="{{ route('home.howTo') }}">
                                     <span class="sub-item">How to</span>
                                 </a>
                             </li>
