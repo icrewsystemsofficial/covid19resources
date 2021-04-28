@@ -1,4 +1,8 @@
+@if (cache()->get('key') == 'dark')
+<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+@else
 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+@endif
 
     <div class="container-fluid">
         <div class="collapse" id="search-nav">
@@ -13,7 +17,7 @@
                 </div>
             </form> --}}
             <span class="text-white" id="clock-box">
-                { TIME }
+                { TIME } 
             </span>
             <span class="text-white">
                 | <span id="location">{{ App\Http\Controllers\API\Location::locationDisplay()->name }}</span>

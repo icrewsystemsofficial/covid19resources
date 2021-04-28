@@ -23,6 +23,8 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\Dashboard\Api\DarkmodeApi;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +47,9 @@ Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.repor
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
+
+
+Route::get('/toggle-mode',[DarkmodeApi::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 

@@ -1,4 +1,9 @@
+@if (cache()->get('key') == 'dark')
+<div class="sidebar sidebar-style-2" data-background-color="dark">
+@else
 <div class="sidebar sidebar-style-2" data-background-color="white">
+    
+@endif
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
