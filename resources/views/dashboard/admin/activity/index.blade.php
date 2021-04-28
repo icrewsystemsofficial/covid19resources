@@ -36,8 +36,8 @@
                             <th>When</th>
                         </thead>
                         <tbody>
+                            @foreach ($activities as $activity)
                             <tr>
-                                @foreach ($activities as $activity)
                                     <td>{{ $activity->id }}</td>
                                     <td>{{ $activity->description }}</td>
                                     {{-- <td>
@@ -50,8 +50,8 @@
                                           @endif
                                       </td>
                                     <td>{{ $activity->created_at->diffForHumans() }}</td>
+                                </tr>
                                 @endforeach
-                            </tr>
                         </tbody>
                     </table>
                 </div>
