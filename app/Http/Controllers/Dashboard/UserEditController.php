@@ -23,6 +23,13 @@ class UserEditController extends Controller
 
     }
 
+    public function show()
+    {
+        return view('dashboard.home.viewUser', [
+            'user' => auth()->user()
+        ]);
+    }
+
     public function update(User $user)
     {
         // dd(request()->all());

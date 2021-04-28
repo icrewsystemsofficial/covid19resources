@@ -243,6 +243,8 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('home.profile.view') }}">View Profile</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Edit Profile</a>
                             <div class="dropdown-divider"></div>
                             <form id="logout_form" action="{{ route('logout') }}" method="POST">

@@ -43,6 +43,7 @@ Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generat
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
+Route::get('/view-profile', [UserEditController::class, 'show'])->name('home.profile.view');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
