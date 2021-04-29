@@ -121,9 +121,59 @@ class HomeController extends Controller
     }
 
     public function how_to() {
+
+
         return view('dashboard.static.howTo');
     }
 
+    public function statistics() {
+        // Resources Count
+        $verified=Resource::where('verified','=',1)->count();
+        $pending=Resource::where('verified','=',0)->count();
+        $spam=Resource::where('verified','=',3)->count();
+        $total=Resource::all()->count();
+
+        
+
+        //Users Count
+        $volunteer_users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
+        $admin_users = User::whereHas("roles", function($q){ $q->where("name","superadmin"); })->get();
+        $total_users = User::all()->count();
+
+        $volunteer_count=count($volunteer_users);
+        $admin_count=count($admin_users);
+
+
+        //Twitter Count
+        $total_tweets=Twitter::all()->count();
+        $verified_tweets=Twitter::where('status','=',1)->get();
+        $pending_tweets=Twitter::where('status','=',0)->get();
+        $inadequate_tweets=Twitter::where('status','=',4)->get();
+
+        $count_verified=count($verified_tweets);
+        $count_pending=count($pending_tweets);
+        $count_inadequate=count($inadequate_tweets);
+        
+
+        return view('dashboard.static.statistics',[
+            'resources_verified'=> $verified,
+            'resources_pending'=>$pending,
+            'resources_spam'=>$spam,
+            'resources_total'=>$total,
+
+            'userstotal'=>$total_users,
+            'usersvolunteer'=>$volunteer_count,
+            'usersadmin'=>$admin_count,
+
+            'tweetsverified'=>$count_verified,
+            'tweetspending'=>$count_pending,
+            'tweetsinadequate'=>$count_inadequate,
+            'tweetstotal'=>$total_tweets,
+            
+
+        ]);
+    }
+    
     public function terms(){
         return view('dashboard.home.terms');
 
