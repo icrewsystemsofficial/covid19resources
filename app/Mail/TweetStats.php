@@ -7,12 +7,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Twitter as ModelTwitter;
 
 class TweetStats extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $tweet_stats = (new Twitter)->getstats();
+    public $tweet_stats;
 
     /**
      * Create a new message instance.
@@ -31,6 +32,7 @@ class TweetStats extends Mailable
      */
     public function build()
     {
+        // $this->tweet_stats = ModelTwitter::getstats();
         return $this->markdown('email.tweetStats')
             ->from('admin@icrew.com')
             ->subject('Twitter Stats from our Dashboard')

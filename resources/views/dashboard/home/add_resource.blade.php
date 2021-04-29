@@ -100,8 +100,6 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form style="display: block;" action="{{ route('home.save.resource') }}" method="post">
-                        @csrf
                         <p class="mb-3">
                             <i class="fa fa-check-circle text-success"></i> Keep the title CLEAR, CRISP & CONCISE. Max 10 words
                             <br>
@@ -111,8 +109,29 @@
                             <br>
                             <i class="fa fa-times-circle text-danger"></i> Don't include Category / Expressive terms in title. We have seperate search-able columns for those.
                         </p>
+                        <hr>
+                        <br>
+                        <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('ocr.parse.text') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <p class="ml-2 p-2">
+                                Have a <strong>screenshot</strong> from <strong>social media</strong>? We can convert the image contents to text. Why? Text can be used to filter & search in this website
+                            </p>
 
-                        <div class="form-group">
+                             <div class="col-md-4">
+                                 <label for="OCR_upload">Choose File</label>
+                                 <input type="file" class="form-control-file mt-1" name="image" id="OCR_upload">
+                                 <small>(Max file size is 5mb allowed)</small>
+                             </div>
+                             <div class="col-5">
+                               <button type="submit" class="btn btn-primary btn-sm">Convert to text</button>
+                             </div>
+                           </form>
+                           <br>
+                          <hr>
+                          <br>
+                        <form style="display: block;" action="{{ route('home.save.resource') }}" method="post">
+                            @csrf
+                           <div class="form-group">
                             <label for="title"><strong>Title</strong> <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" required placeholder="Title for the resource" />
                         </div>
@@ -202,12 +221,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <textarea class="form-control" name="body" id="desc" cols="30" rows="10">
-                                <b>RESOURCE_NAME</b> is available in <b>LOCATION</b>, please contact phone number <b>PHONE_NUMBER</b>
-                                for more information.
+                                @if (Cookie::get('parsedText'))
+                                {{ Cookie::get('parsedText') }}
+                               @else
+                               <b>RESOURCE_NAME</b> is available in <b>LOCATION</b>, please contact phone number <b>PHONE_NUMBER</b>
+                               for more information.
 
-                                <br><br>
+                               <br><br>
 
-                                Verified on {{ date('d/m/Y H:i A') }}
+                               Verified on {{ date('d/m/Y H:i A') }}
+                               @endif
                             </textarea>
                         </div>
 

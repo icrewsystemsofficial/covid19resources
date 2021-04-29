@@ -34,7 +34,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('twitter:scan')->description('Restarts the TwitterScanner')->everyFifteenMinutes();
 		$schedule->command('twitter:purge-spam')->description('Deletes all the spam tweets')->everyFiveMinutes();
         $schedule->command('mission:assign')->everyFifteenMinutes();
-        $schedule->command('scout:import "App\Models\Twitter"')->hourly();
+        $schedule->command('scout:flush "App\Models\Twitter"')->hourlyAt(1);
+        $schedule->command('scout:import "App\Models\Twitter"')->hourlyAt(3);
+        $schedule->command('scout:send-updates')->hourlyAt(4);
 
         // $schedule->command('send:tweetstats')->dailyAt('21:00');
     }

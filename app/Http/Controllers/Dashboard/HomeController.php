@@ -28,10 +28,10 @@ use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
-    public function __construct() {
-        $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-        $this->currentlocation = $currentlocation;
-    }
+    // public function __construct() {
+    //     $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
+    //     $this->currentlocation = $currentlocation;
+    // }
 
     public function add_resource() {
         return view('dashboard.home.add_resource', [
@@ -115,24 +115,11 @@ class HomeController extends Controller
     }
 
     public function index() {
-
-        if(request('search')) {
-            $faq = FAQ::where('state', $this->currentlocation->name)->paginate(5);
-        } else {
-            $faq = FAQ::where('state', $this->currentlocation->name)
-            ->orWhere('title', '%LIKE%', request('search'))
-            // ->orWhere('description', '%LIKE%', request('search'))
-            ->paginate(5)
-            ->appends(['search' => request('search')]);
-        }
-
         $resources = Resource::
-                        where('state', $this->currentlocation->name)
+                        where('state', \App\Http\Controllers\API\Location::locationDisplay()->name)
                         ->get();
         return view('dashboard.home.home', [
-            'faqs' => $faq,
-            'states' => States::all(),
-            'districts' => Districts::all(),
+            'states' => States::select('name', 'code')->get(),
             'resources' => $resources,
         ]);
     }
@@ -142,12 +129,62 @@ class HomeController extends Controller
     }
 
     public function how_to() {
+
+
         return view('dashboard.static.howTo');
+    }
+
+    public function statistics() {
+        // Resources Count
+        $verified=Resource::where('verified','=',1)->count();
+        $pending=Resource::where('verified','=',0)->count();
+        $spam=Resource::where('verified','=',3)->count();
+        $total=Resource::all()->count();
+
+        
+
+        //Users Count
+        $volunteer_users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
+        $admin_users = User::whereHas("roles", function($q){ $q->where("name","superadmin"); })->get();
+        $total_users = User::all()->count();
+
+        $volunteer_count=count($volunteer_users);
+        $admin_count=count($admin_users);
+
+
+        //Twitter Count
+        $total_tweets=Twitter::all()->count();
+        $verified_tweets=Twitter::where('status','=',1)->get();
+        $pending_tweets=Twitter::where('status','=',0)->get();
+        $inadequate_tweets=Twitter::where('status','=',4)->get();
+
+        $count_verified=count($verified_tweets);
+        $count_pending=count($pending_tweets);
+        $count_inadequate=count($inadequate_tweets);
+        
+
+        return view('dashboard.static.statistics',[
+            'resources_verified'=> $verified,
+            'resources_pending'=>$pending,
+            'resources_spam'=>$spam,
+            'resources_total'=>$total,
+
+            'userstotal'=>$total_users,
+            'usersvolunteer'=>$volunteer_count,
+            'usersadmin'=>$admin_count,
+
+            'tweetsverified'=>$count_verified,
+            'tweetspending'=>$count_pending,
+            'tweetsinadequate'=>$count_inadequate,
+            'tweetstotal'=>$total_tweets,
+            
+
+        ]);
     }
     
     public function terms(){
         return view('dashboard.home.terms');
-  
+
     }
     public function privacy(){
         return view('dashboard.static.privacy');
@@ -294,7 +331,7 @@ class HomeController extends Controller
 
                 // Mail::to($superadmin)->send(new ResourceRefuted());
             }
-          
+
             activity()->log('Resource Reported: A Resource has been reported captain');
             return redirect(route('home'));
 

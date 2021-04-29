@@ -11,7 +11,7 @@ class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $details;
+    public $details;
     /**
      * Create a new message instance.
      *
