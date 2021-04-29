@@ -58,7 +58,7 @@
                     </div>
                 </li>
 
-
+                @hasanyrole('superadmin|moderator|volunteer')
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -79,8 +79,9 @@
                         <p>Missions</p>
                     </a>
                 </li>
+                @endrole
 
-
+                @hasanyrole('superadmin|moderator')
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -102,13 +103,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.twitter.index') }}">
-                        <i class="fab fa-twitter"></i>
-                        <p>Tweets</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a href="{{ route('admin.resources.index') }}">
                         <i class="fas fa-database"></i>
                         <p>Resources</p>
@@ -119,32 +113,6 @@
                     <a href="{{ route('admin.faq.index') }}">
                         <i class="fas fa-question-circle"></i>
                         <p>FAQ</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index') }}">
-                        <i class="fas fa-user"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('accesscontrol.index') }}">
-                        <i class="fas fa-shield-alt"></i>
-                        <p>Access Control</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.setting.index') }}">
-                        <i class="fas fa-cog"></i>
-                        <p>Settings</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('activity.log') }}">
-                        <i class="fas fa-history"></i>
-                        <p>Activity Log</p>
                     </a>
                 </li>
 
@@ -176,6 +144,44 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.twitter.index') }}">
+                        <i class="fab fa-twitter"></i>
+                        <p>Tweets</p>
+                    </a>
+                </li>              
+                @endrole
+
+                @role('superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('admin.user.index') }}">
+                        <i class="fas fa-user"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Access Control</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.setting.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
+                @endrole
+
+                
             </ul>
         </div>
     </div>

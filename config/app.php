@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         App\Providers\DBConfigProvier::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
