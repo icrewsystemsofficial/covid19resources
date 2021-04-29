@@ -123,7 +123,7 @@ class HomeController extends Controller
     public function how_to() {
 
 
-        return view('dashboard.static.howTo');
+        return view('dashboard.static.howto');
     }
 
     public function statistics() {
@@ -133,7 +133,7 @@ class HomeController extends Controller
         $spam=Resource::where('verified','=',3)->count();
         $total=Resource::all()->count();
 
-        
+
 
         //Users Count
         $volunteer_users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
@@ -153,7 +153,7 @@ class HomeController extends Controller
         $count_verified=count($verified_tweets);
         $count_pending=count($pending_tweets);
         $count_inadequate=count($inadequate_tweets);
-        
+
 
         return view('dashboard.static.statistics',[
             'resources_verified'=> $verified,
@@ -169,11 +169,11 @@ class HomeController extends Controller
             'tweetspending'=>$count_pending,
             'tweetsinadequate'=>$count_inadequate,
             'tweetstotal'=>$total_tweets,
-            
+
 
         ]);
     }
-    
+
     public function terms(){
         return view('dashboard.home.terms');
 

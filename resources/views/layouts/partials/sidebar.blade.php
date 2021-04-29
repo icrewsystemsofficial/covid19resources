@@ -2,7 +2,7 @@
 <div class="sidebar sidebar-style-2" data-background-color="dark">
 @else
 <div class="sidebar sidebar-style-2" data-background-color="white">
-    
+
 @endif
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
@@ -41,7 +41,7 @@
                         <p>Our Statistics</p>
                     </a>
                 </li>
-                
+
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
@@ -158,7 +158,7 @@
                         <i class="fab fa-twitter"></i>
                         <p>Tweets</p>
                     </a>
-                </li>              
+                </li>
                 @endrole
 
                 @role('superadmin')
@@ -189,7 +189,7 @@
                 </li>
                 @endrole
 
-                
+
             </ul>
         </div>
     </div>
