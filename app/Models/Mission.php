@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 
 class Mission extends Model
 {
@@ -130,5 +131,6 @@ class Mission extends Model
 
     public function getVolunteer() {
         return $this->hasOne(User::class, 'id', 'volunteer_id');
+        // return User::find($this->volunteer_id)->first();
     }
 }

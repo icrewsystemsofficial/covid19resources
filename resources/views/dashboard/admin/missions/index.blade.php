@@ -149,8 +149,15 @@
                                             Mission {{ $mission->id }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.user.edit', $mission->getVolunteer->id) }}" target="_blank" class="text-primary">
-                                                {{ $mission->getVolunteer->name }}
+                                            <a href="{{ route('admin.user.edit', $mission->volunteer_id) }}" target="_blank" class="text-primary">
+                                                @php 
+                                                	$user = App\Models\User::find($mission->volunteer_id);
+                                                	if($user != '') {
+                                                		echo $user->name;
+                                                	} else {
+                                                		echo "Unknown user with ID # $mission->volunteer_id";
+                                                	}
+                                                @endphp
                                             </a>
                                         </td>
                                         <td>

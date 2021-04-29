@@ -49,9 +49,9 @@ class TwitterFilter extends Command
         foreach($tweets as $tweet) {
             $filterTweet = $tweet->filterTweet();
                 if($filterTweet['type'] != 'ok') {
-                    $this->line($filterTweet['message']);
-                    $tweet->status = Twitter::SPAM;
-                    $tweet->update();
+                    $this->info($filterTweet['message']);
+                    // $tweet->status = Twitter::SPAM;
+                    $tweet->delete();
                 } else {
                     $this->line($filterTweet['message']);
                     $tweet->status = Twitter::SCREENED;

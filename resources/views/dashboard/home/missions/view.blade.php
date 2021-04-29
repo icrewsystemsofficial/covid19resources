@@ -135,8 +135,14 @@
                                     @php
                                         $tweet = App\Models\Twitter::find($data);
                                     @endphp
-                                    @if ($tweet->status == App\Models\Twitter::SCREENED)
-
+                                    @if($tweet == '')
+                                        <tr>
+                                        	<td>
+                                        		This tweet is unavailable
+                                        	</td>
+                                        </tr>
+                                    @elseif($tweet->status == App\Models\Twitter::SCREENED)
+									
                                     <script>
                                         screened = screened - 1;
                                     </script>
