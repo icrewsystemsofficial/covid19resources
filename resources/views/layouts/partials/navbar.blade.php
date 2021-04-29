@@ -1,4 +1,8 @@
+@if (cache()->get('key') == 'dark')
+<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+@else
 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+@endif
 
     <div class="container-fluid">
         <div class="collapse" id="search-nav">

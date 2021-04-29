@@ -23,6 +23,9 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\Dashboard\DarkmodeController;
+use App\Http\Controllers\Dashboard\OcrController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +36,7 @@ use App\Http\Controllers\Dashboard\Admin\GeographiesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/upload-image',[OcrController::class,'parse_text'])->name('parse.text');
 
 Route::get('/sendmail', function() {
     $user = User::find(1);
@@ -46,6 +50,9 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 Route::get('/view-profile', [UserEditController::class, 'show'])->name('home.profile.view');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
+
+
+Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
@@ -95,6 +102,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
     });
 
+    Route::prefix('ocr')->group(function () {
+        Route::get('/',[OcrController::class, 'index'])->name('ocr.index');
+        Route::post('/upload-image',[OcrController::class,'getImage'])->name('ocr.parse.text');
+    });
 
     Route::prefix('admin')->group(function () {
         Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
@@ -171,8 +182,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
         Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
         Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
-
-
+  
+    
         Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
     });
 
