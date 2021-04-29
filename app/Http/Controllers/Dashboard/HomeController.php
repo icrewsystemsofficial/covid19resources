@@ -134,7 +134,18 @@ class HomeController extends Controller
     }
 
     public function how_to() {
+
+
         return view('dashboard.static.howTo');
+    }
+
+    public function statistics() {
+
+        $resources=Resource::where('verified','=',1)->count();
+
+        return view('dashboard.static.statistics',[
+            'resources'=> $resources,
+        ]);
     }
     
     public function terms(){

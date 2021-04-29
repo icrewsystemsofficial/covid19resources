@@ -19,10 +19,18 @@
 
                 <li class="nav-item">
                     <a href="{{ route('home.search') }}">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search" aria-hidden="true"></i>
                         <p>Search</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.statistics') }}">
+                        <i class="far fa-chart-bar"></i>
+                        <p>Our Statistics</p>
+                    </a>
+                </li>
+                
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
