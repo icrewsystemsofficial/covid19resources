@@ -40,8 +40,9 @@
                         <button type="submit" class="btn btn-primary btn-sm">
                             Upload File
                         </button>
+                        action="{{ route('ocr.parse.text') }}"
                     </form> --}}
-                    <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('ocr.parse.text') }}" method="POST" enctype="multipart/form-data">
+                    <form class="row row-cols-lg-auto g-3 align-items-center"  method="POST" enctype="multipart/form-data">
                        @csrf
                         <div class="col-3">
                             <label for="exampleFormControlFile1">Choose File</label>

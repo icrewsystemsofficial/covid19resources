@@ -45,6 +45,7 @@ class OcrController extends Controller
 
         foreach($response['ParsedResults'] as $pareValue) {
             $cookie = cookie('parsedText', $pareValue['ParsedText'],10);
+            notify()->success('OCR text generated successfully check body');
             return back()->withCookie($cookie);
         }
     }
