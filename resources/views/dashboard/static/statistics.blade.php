@@ -49,8 +49,8 @@
                                 </div>
                                 <div class="col-7 col-stats">
                                     <div class="numbers">
-                                        <p class="card-category"> Tweets</p>
-                                        <h4 class="card-title" id="pending">0</h4>
+                                        <p class="card-category">Total Tweets</p>
+                                        <h4 class="card-title" id="pending">{{ $tweetstotal }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                         <div class="col-7 col-stats">
                                             <div class="numbers">
                                                 <p class="card-category">Verified Tweets</p>
-                                                <h4 class="card-title" id="pending">0</h4>
+                                                <h4 class="card-title" id="pending">{{ $tweetsverified }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                                 <div class="col-7 col-stats">
                                                     <div class="numbers">
                                                         <p class="card-category">Pending Tweets</p>
-                                                        <h4 class="card-title" id="pending">0</h4>
+                                                        <h4 class="card-title" id="pending">{{ $tweetspending }}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -245,7 +245,7 @@
                                                         <div class="col-7 col-stats">
                                                             <div class="numbers">
                                                                 <p class="card-category">Tweets with Inadequate Information</p>
-                                                                <h4 class="card-title" id="pending">0</h4>
+                                                                <h4 class="card-title" id="pending">{{ $tweetsinadequate }}</h4>
                                                             </div>
                                                         </div>
                                                     </div>

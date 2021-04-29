@@ -158,7 +158,15 @@ class HomeController extends Controller
 
 
         //Twitter Count
+        $total_tweets=Twitter::all()->count();
+        $verified_tweets=Twitter::where('status','=',1)->get();
+        $pending_tweets=Twitter::where('status','=',0)->get();
+        $inadequate_tweets=Twitter::where('status','=',4)->get();
 
+        $count_verified=count($verified_tweets);
+        $count_pending=count($pending_tweets);
+        $count_inadequate=count($inadequate_tweets);
+        
 
         return view('dashboard.static.statistics',[
             'resources_verified'=> $verified,
@@ -169,6 +177,13 @@ class HomeController extends Controller
             'userstotal'=>$total_users,
             'usersvolunteer'=>$volunteer_count,
             'usersadmin'=>$admin_count,
+
+            'tweetsverified'=>$count_verified,
+            'tweetspending'=>$count_pending,
+            'tweetsinadequate'=>$count_inadequate,
+            'tweetstotal'=>$total_tweets,
+            
+
         ]);
     }
     
