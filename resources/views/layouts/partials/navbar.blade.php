@@ -1,4 +1,8 @@
+@if (cache()->get('key') == 'dark')
+<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+@else
 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+@endif
 
     <div class="container-fluid">
         <div class="collapse" id="search-nav">
@@ -228,6 +232,8 @@
                             </div>
                         </li>
                         <li>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('home.profile.view') }}">View Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('home.profile.edit') }}">Edit Profile</a>
                             <div class="dropdown-divider"></div>

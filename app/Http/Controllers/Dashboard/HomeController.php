@@ -28,10 +28,10 @@ use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
-    public function __construct() {
-        $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-        $this->currentlocation = $currentlocation;
-    }
+    // public function __construct() {
+    //     $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
+    //     $this->currentlocation = $currentlocation;
+    // }
 
     public function add_resource() {
         return view('dashboard.home.add_resource', [
@@ -107,24 +107,11 @@ class HomeController extends Controller
     }
 
     public function index() {
-
-        if(request('search')) {
-            $faq = FAQ::where('state', $this->currentlocation->name)->paginate(5);
-        } else {
-            $faq = FAQ::where('state', $this->currentlocation->name)
-            ->orWhere('title', '%LIKE%', request('search'))
-            // ->orWhere('description', '%LIKE%', request('search'))
-            ->paginate(5)
-            ->appends(['search' => request('search')]);
-        }
-
         $resources = Resource::
-                        where('state', $this->currentlocation->name)
+                        where('state', \App\Http\Controllers\API\Location::locationDisplay()->name)
                         ->get();
         return view('dashboard.home.home', [
-            'faqs' => $faq,
-            'states' => States::all(),
-            'districts' => Districts::all(),
+            'states' => States::select('name', 'code')->get(),
             'resources' => $resources,
         ]);
     }
@@ -189,7 +176,7 @@ class HomeController extends Controller
     
     public function terms(){
         return view('dashboard.home.terms');
-  
+
     }
     public function privacy(){
         return view('dashboard.static.privacy');
@@ -340,7 +327,7 @@ class HomeController extends Controller
 
                 // Mail::to($superadmin)->send(new ResourceRefuted());
             }
-          
+
             activity()->log('Resource Reported: A Resource has been reported captain');
             return redirect(route('home'));
 
