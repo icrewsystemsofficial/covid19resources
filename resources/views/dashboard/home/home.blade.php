@@ -79,43 +79,43 @@
 			styleText:true
 		})
 
-		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type: 'bar',
-			data: {
-				labels: <?php echo App\Http\Controllers\API\StatsAPI::dataInput()['labels']; ?>,
-				datasets : [{
-					label: "Tweets Captured",
-					backgroundColor: 'blue',
-					borderColor: 'rgb(23, 125, 255)',
-					data: {{App\Http\Controllers\API\StatsAPI::dataInput()['data']}},
-				}],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					display: false,
-				},
-				scales: {
-					yAxes: [{
-						ticks: {
-							display: false //this will remove only the label
-						},
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}],
-					xAxes : [ {
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}]
-				},
-			}
-		});
+		// var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+		// var mytotalIncomeChart = new Chart(totalIncomeChart, {
+		// 	type: 'bar',
+		// 	data: {
+		// 		labels: <?php echo App\Http\Controllers\API\StatsAPI::dataInput()['labels']; ?>,
+		// 		datasets : [{
+		// 			label: "Tweets Captured",
+		// 			backgroundColor: 'blue',
+		// 			borderColor: 'rgb(23, 125, 255)',
+		// 			data: {{App\Http\Controllers\API\StatsAPI::dataInput()['data']}},
+		// 		}],
+		// 	},
+		// 	options: {
+		// 		responsive: true,
+		// 		maintainAspectRatio: false,
+		// 		legend: {
+		// 			display: false,
+		// 		},
+		// 		scales: {
+		// 			yAxes: [{
+		// 				ticks: {
+		// 					display: false //this will remove only the label
+		// 				},
+		// 				gridLines : {
+		// 					drawBorder: false,
+		// 					display : false
+		// 				}
+		// 			}],
+		// 			xAxes : [ {
+		// 				gridLines : {
+		// 					drawBorder: false,
+		// 					display : false
+		// 				}
+		// 			}]
+		// 		},
+		// 	}
+		// });
 
 
 		$('#lineChart').sparkline({{App\Http\Controllers\API\StatsAPI::dataInput()['data']}}, {
@@ -221,11 +221,6 @@
                 }
             }
         }
-
-        //totalConfirmed = totalConfirmed.slice(totalConfirmed.length - 10);
-        //totalRecovered = totalRecovered.slice(totalRecovered.length - 10);
-        //totalDeceased = totalDeceased.slice(totalDeceased.length - 10);
-
 	</script>
 
     <script>
@@ -236,23 +231,8 @@
 
             locationUpdateForm.style.display = 'none';
             locationUpdatingIcon.style.display = 'block';
-            // var api_url = "{{ config('app.url') }}/api/v1/currentlocation/update/";
             axios.get('/currentlocation/update/' + state)
             .then(function (response) {
-            // handle success
-                // $.notify({
-                //     icon: 'flaticon-alarm-1',
-                //     title: '{{ config("app.name") }}',
-                //     message: 'Location has been updated to ' + response.data.name,
-                // },{
-                //     type: 'primary',
-                //     placement: {
-                //         from: "top",
-                //         align: "right"
-                //     },
-                //     time: 4000,
-                // });
-
                 document.getElementById('location').innerHTML = response.data.name;
                 window.location.reload();
             })
@@ -274,82 +254,9 @@
             console.log(error);
             })
             .then(function () {
-            // always executed
+
             });
         }
-
-        function searchFilter() {
-            var query = document.getElementById('query').value;
-            var filter = document.getElementById('filter').value;
-
-            // console.log(query);
-            // console.log(filter);
-            // filter resources
-            if(filter == 'resources') {
-                axios.get('/search/resource/'+ query)
-                .then(function (response) {
-                    // returns the data in array
-                    console.log(response)
-                 })
-                 .catch(function (error) {
-            // handle error
-            $.notify({
-                    icon: 'fa fa-times-circle',
-                    title: '{{ config("app.name") }}',
-                    message: 'There was an error while searching, try again later',
-                },{
-                    type: 'danger',
-                    placement: {
-                        from: "top",
-                        align: "right"
-                    },
-                    time: 4000,
-                });
-
-            console.log(error);
-            })
-            .then(function () {
-            // always executed
-            });
-            }
-
-            if(filter == 'twitter') {
-                axios.get('http://covid19resources.test/api/v1/search/twitter/'+ query)
-                .then(function (response) {
-                    // returns the data in array
-                    console.log(response)
-
-                 })
-                 .catch(function (error) {
-            // handle error
-            $.notify({
-                    icon: 'fa fa-times-circle',
-                    title: '{{ config("app.name") }}',
-                    message: 'There was an error while searching, try again later',
-                },{
-                    type: 'danger',
-                    placement: {
-                        from: "top",
-                        align: "right"
-                    },
-                    time: 4000,
-                });
-
-            console.log(error);
-            })
-            .then(function () {
-            // always executed
-            });
-            }
-
-
-
-
-
-
-        }
-
-
     </script>
 @endsection
 
@@ -382,6 +289,8 @@
     </div>
 </div>
 <div class="page-inner mt--5">
+
+
     <div class="row mt--2">
 
         <div class="col-md-12">
@@ -396,13 +305,51 @@
                         Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
                         @endif
                     </span>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <div class="card card-dark bg-danger-gradient">
+                                <div class="card-body pb-0">
+                                    <div class="h1 fw-bold float-right text-white" id="stats_confirmed_cases"></div>
+                                    <p class="text-white">Confirmed Cases</p>
+                                    <div class="pull-in sparkline-fix">
+                                        <div id="lineChart_2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card card-dark bg-success-gradient">
+                                <div class="card-body pb-0">
+                                    <div class="h1 fw-bold float-right text-white" id="stats_recovered_cases"></div>
+                                    <p class="text-white">Recovered Cases</p>
+                                    <div class="pull-in sparkline-fix">
+                                        <div id="lineChart_3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card card-black">
+                                <div class="card-body pb-0">
+                                    <div class="h1 fw-bold float-right text-white" id="stats_deceased_cases"></div>
+                                    <p class="text-white">Deceased Cases</p>
+                                    <div class="pull-in sparkline-fix">
+                                        <div id="lineChart_4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-primary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                    <ul class="nav nav-pills nav-success  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                         <li class="nav-item submenu">
-                            <a class="nav-link active show" id="pills-stats-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" artelected="true">
-                                <i class="fa fa-chart-line"></i>
-                                Statistics
+                            <a class="nav-link active show" id="pills-misc-tab-icon" data-toggle="pill" href="#pills-misc-icon" role="tab" aria-controls="pills-misc-icon" aria-selected="false">
+                                <i class="fa fa-circle-notch"></i>
+                                All Resources
                             </a>
                         </li>
                         <li class="nav-item submenu">
@@ -431,91 +378,92 @@
                         </li>
 
                         <li class="nav-item submenu">
-                            <a class="nav-link" id="pills-misc-tab-icon" data-toggle="pill" href="#pills-misc-icon" role="tab" aria-controls="pills-misc-icon" aria-selected="false">
-                                <i class="fa fa-circle-notch"></i>
-                                Miscelleneous
+                            <a class="nav-link" id="pills-add-resources-tab-icon" data-toggle="pill" href="#pills-add-resources-icon" role="tab" aria-controls="pills-add-resources-icon" aria-selected="false">
+                                <i class="fas fa-plus-circle"></i>
+                                Add Resources
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                        <div class="tab-pane fade active show" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-stats-tab-icon">
-                            <div class="row">
+                        <div class="tab-pane fade active show" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
 
-                                <div class="col-md-4">
-                                    <div class="card card-dark bg-danger-gradient">
-                                        <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white" id="stats_confirmed_cases"></div>
-                                            <p class="text-white">Yesterday's Confirmed Cases</p>
-                                            <div class="pull-in sparkline-fix">
-                                                <div id="lineChart_2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-4">
-                                    <div class="card card-dark bg-success-gradient">
-                                        <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white" id="stats_recovered_cases"></div>
-                                            <p class="text-white">Yesterday's Recovered Cases</p>
-                                            <div class="pull-in sparkline-fix">
-                                                <div id="lineChart_3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <table id="misc_table" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Added by</th>
+                                    <th>Status</th>
+                                    {{-- <th>Created</th> --}}
+                                    <th>Last Updated</th>
+                                    <th>Options</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resources as $resource)
+                                        @if($resource)
 
-                                <div class="col-md-4">
-                                    <div class="card card-black">
-                                        <div class="card-body pb-0">
-                                            <div class="h1 fw-bold float-right text-white" id="stats_deceased_cases"></div>
-                                            <p class="text-white">Yesterday's Deceased Cases</p>
-                                            <div class="pull-in sparkline-fix">
-                                                <div id="lineChart_4"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        @php
+                                            if($resource->verified == 0) {
+                                                $color = 'table-bg-muted';
+                                            } else if($resource->verified == 1) {
+                                                $color = 'table-bg-success';
+                                            } else if($resource->verified == 2) {
+                                                $color = 'table-bg-danger';
+                                            }
+                                        @endphp
 
-                                <div class="col-6 col-sm-4 col-lg-4">
-                                    <div class="card">
-                                        <div class="card-body p-3 text-center">
-                                            <div class="text-right text-success">
-                                                6%
-                                                <i class="fa fa-chevron-up"></i>
-                                            </div>
-                                            <div class="h1 m-0">4278</div>
-                                            <div class="text-muted mb-3">Total Resources</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-6 col-sm-4 col-lg-4">
-                                    <div class="card">
-                                        <div class="card-body p-3 text-center">
-                                            <div class="text-right text-success">
-                                                6%
-                                                <i class="fa fa-chevron-up"></i>
-                                            </div>
-                                            <div class="h1 m-0">94</div>
-                                            <div class="text-muted mb-3">Users / Moderators</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-6 col-sm-4 col-lg-4">
-                                    <div class="card">
-                                        <div class="card-body p-3 text-center">
-                                            <div class="text-right text-success">
-                                                6%
-                                                <i class="fa fa-chevron-up"></i>
-                                            </div>
-                                            <div class="h1 m-0">43</div>
-                                            <div class="text-muted mb-3">Data providers</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                            <td class="text-center">
+                                                {{ $resource->title }}
+                                                <br>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($resource->hasAddress == 1)
+                                                    <small>
+                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                        </a>
+                                                    </small>
+                                                    @else
+                                                    <span class="text-white">
+                                                        Landmark: {{ $resource->landmark }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $resource->author_data->name }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($resource->verified == 1)
+                                                    <span class="badge badge-success">
+                                                        Verified <i class="fas fa-check"></i>
+                                                    </span>
+                                                @elseif($resource->verified == 2)
+                                                    <span class="badge badge-danger">
+                                                        Refuted <i class="fas fa-times"></i>
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Pending <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
+                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                            </td> --}}
+                                            <td class="text-center">
+                                                {{ $resource->updated_at->diffForHumans() }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                    Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-hospitals-tab-icon">
                             <table id="hospitals_table" class="table table-hover table-borderless">
@@ -834,253 +782,38 @@
                             </table>
                         </div>
 
-                        <div class="tab-pane fade" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
-                            <table id="misc_table" class="table table-hover table-borderless">
-                                <thead>
-                                    <th>Title</th>
-                                    <th>Location</th>
-                                    <th>Added by</th>
-                                    <th>Status</th>
-                                    {{-- <th>Created</th> --}}
-                                    <th>Last Updated</th>
-                                    <th>Options</th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($resources as $resource)
-                                        @if($resource)
-
-                                        @php
-                                            if($resource->verified == 0) {
-                                                $color = 'table-bg-muted';
-                                            } else if($resource->verified == 1) {
-                                                $color = 'table-bg-success';
-                                            } else if($resource->verified == 2) {
-                                                $color = 'table-bg-danger';
-                                            }
-                                        @endphp
-
-                                        <tr class="{{ $color }} text-white" style="border-radius: 50px;">
-                                            <td class="text-center">
-                                                {{ $resource->title }}
-                                                <br>
-                                            </td>
-                                            <td class="text-center">
-                                                @if($resource->hasAddress == 1)
-                                                    <small>
-                                                        <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
-                                                            <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
-                                                        </a>
-                                                    </small>
-                                                    @else
-                                                    <span class="text-white">
-                                                        Landmark: {{ $resource->landmark }}
-                                                    </span>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $resource->author_data->name }}
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($resource->verified == 1)
-                                                    <span class="badge badge-success">
-                                                        Verified <i class="fas fa-check"></i>
-                                                    </span>
-                                                @elseif($resource->verified == 2)
-                                                    <span class="badge badge-danger">
-                                                        Refuted <i class="fas fa-times"></i>
-                                                    </span>
-                                                @else
-                                                    <span class="badge badge-warning">
-                                                        Pending <i class="fas fa-exclamation-triangle"></i>
-                                                    </span>
-                                                @endif
-                                            </td>
-                                            {{-- <td class="text-center">
-                                                {{ $resource->created_at->format('d/m/Y H:i A') }}
-                                            </td> --}}
-                                            <td class="text-center">
-                                                {{ $resource->updated_at->diffForHumans() }}
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
-                                                    Details
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        Wish to do a more detailed search?
-                    </h4>
-                </div>
-                <div class="card-body">
-
-                    <p class="mb-4">
-                        Our database contains X data points. You can search through them with a keywords of your own.
-                    </p>
-
-                    {{-- <button id="searchKeywordsButton"  class="btn btn-danger btn-block">
-                        Search
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            ...
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                        </div>
-                    </div> --}}
-                    <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal" data-bs-target="#searchKeywordsButton">
-                                    Search
-                                </button>
-
-  <!-- Modal -->
-                            <div class="modal fade" id="searchKeywordsButton" tabindex="-1" aria-labelledby="searchKeywordsButton" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="searchKeywordsButton">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="query">Keywords</label>
-												<input type="text" class="form-control" id="query"  name="query" placeholder="Search tweets with #tags" required>
-											</div>
-                                            <div class="form-group">
-												<label for="filter">Filter</label>
-												<select class="form-control" id="filter" required>
-													<option value="resources">Resources</option>
-													<option value="twitter">Twitter</option>
-												</select>
-											</div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" onclick="searchFilter();" class="btn btn-primary">Search</button>
-                                        </div>
-                                    </form>
+                        <div class="tab-pane fade" id="pills-add-resources-icon" role="tabpanel" aria-labelledby="pills-add-resources-tab-icon">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        Do you have <strong>verified</strong> information?
+                                    </h4>
                                 </div>
+                                <div class="card-body">
+                                    <p class="mb-4">
+                                        You can add information to our website in 2 easy steps. You'll be
+                                        saving countless lives.
+                                    </p>
+                                    <a target="_blank" class="btn btn-danger btn-block" href="{{ route('home.add.resource') }}">
+                                        Add resources <i class="fas fa-plus-circle"></i>
+                                    </a>
                                 </div>
+
                             </div>
+                        </div>
 
-                    {{-- <script>
-                        function searchKeywords() {
-                            var searchKeywordsButton = document.getElementById('searchKeywordsButton');
-                            searchKeywordsButton.innerHTML = "Feature not included yet";
-                        }
-                    </script> --}}
-                </div>
-            </div>
 
-            {{-- <div class="card">
-                <div class="card-body pb-0">
-                    <div class="h1 fw-bold float-right text-danger">
-                        1284
-                    </div>
-                    <h4 class="">{{ $currentlocation->name }}</h4>
-                    <p class="text-muted">Update rate</p>
-                    <div class="pull-in sparkline-fix">
-                        <div id="lineChart"></div>
                     </div>
                 </div>
-            </div> --}}
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        Do you have <strong>verified</strong> information?
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <p class="mb-4">
-                        You can add information to our website in 2 easy steps. You'll be
-                        saving countless lives.
-                    </p>
-                    <button class="btn btn-danger btn-block">
-                        Add
-                    </button>
-                </div>
-
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>
+                    <h4 class="card-title">
                         Not COVID-19 Positive? There are <strong>12 ways</strong> you can help
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card full-height">
-                <div class="card-body">
-                    <div class="card-title">Overall Status</div>
-                    <div class="card-category">
-                        Latest information according to COVID API data for {{ $currentlocation->name }}
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-                        <div class="px-2 pb-2 pb-md-0 text-center">
-                            <div id="circles-1"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Active</h6>
-                        </div>
-                        <div class="px-2 pb-2 pb-md-0 text-center">
-                            <div id="circles-2"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Recovered</h6>
-                        </div>
-                        <div class="px-2 pb-2 pb-md-0 text-center">
-                            <div id="circles-3"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Vaccinated</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card full-height">
-                <div class="card-body">
-                    <div class="card-title">Tweet Streams</div>
-                    <div class="row py-3">
-                        <div class="col-md-4 d-flex flex-column justify-content-around">
-                            <div>
-                                <h6 class="fw-bold text-uppercase text-success op-8">Total Streams Recorded</h6>
-                                <h3 class="fw-bold">{{App\Http\Controllers\API\StatsAPI::dataInput()['total']}}</h3>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div id="chart-container">
-                                <canvas id="totalIncomeChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -1095,70 +828,6 @@
                     <div class="pull-in sparkline-fix">
                         <div id="lineChart"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="card full-height">
-                <div class="card-header">
-                    <div class="card-head-row">
-                        <div class="card-title">Frequently Asked Questions</div>
-                        <div class="card-tools">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" id="faq_query" name="query" class="form-control" placeholder="Search">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-primary" onclick="search();" type="button"><i class="fa fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    function search() {
-                                        var query = document.getElementById('faq_query').value;
-                                        alert(query);
-                                    }
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @forelse ($faqs as $faq)
-                        <div class="d-flex">
-                            <div class="flex-1 ml-3 pt-1">
-                                <h6 class="text-uppercase fw-bold mb-1">
-                                    {{ $faq->title }}
-                                </h6>
-                                <span class="text-muted">
-                                    By: {{ $faq->author->name }}
-                                </span>
-                                <br><br>
-                                    @foreach (json_decode($faq->categories) as $cat)
-                                        @php
-                                            $category = \App\Models\Category::find($cat);
-                                        @endphp
-                                        @if ($category)
-                                        <span class="badge badge-primary">
-                                            {{ $category->name }}
-                                        </span>
-                                        @endif
-                                    @endforeach
-                            </div>
-                            <div class="float-right pt-1">
-                                <small class="text-muted">{{ $faq->updated_at->diffForHumans() }}</small>
-                            </div>
-                        </div>
-                        <div class="separator-dashed"></div>
-                    @empty
-                        <div class="alert alert-danger">
-                            Whoops! No FAQs added for {{ $currentlocation->name }} yet.
-                        </div>
-                    @endforelse
-                </div>
-                <div class="card-footer">
-                    {{ $faqs->appends(['search' => Request::get('search')])->links() }}
                 </div>
             </div>
         </div>

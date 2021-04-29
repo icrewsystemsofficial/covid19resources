@@ -36,20 +36,22 @@
                             <th>When</th>
                         </thead>
                         <tbody>
-                          @foreach ($activities as $activity)
-                              <td>{{ $activity->id }}</td>
-                              <td>{{ $activity->description }}</td>
-                              {{-- <td>
-                                  {{ App\Models\User::find($activity->causer_id)->name }}</td> --}}
-                                <td>
-                                    @if($activity->causer_id == 'null')
-                                    <a href="#" class="btn btn-danger btn-xs text-white">System</a>
-                                    @else
-                                    <a class="btn btn-xs btn-info text-white" >{{ App\Models\User::find($activity->causer_id)->name }}</a>
-                                    @endif
-                                </td>
-                              <td>{{ $activity->created_at->diffForHumans() }}</td>
-                          @endforeach
+                            @foreach ($activities as $activity)
+                            <tr>
+                                    <td>{{ $activity->id }}</td>
+                                    <td>{{ $activity->description }}</td>
+                                    {{-- <td>
+                                        {{ App\Models\User::find($activity->causer_id)->name }}</td> --}}
+                                      <td>
+                                          @if($activity->causer_id == 'null')
+                                          <a href="#" class="btn btn-danger btn-xs text-white">System</a>
+                                          @else
+                                          <a class="btn btn-xs btn-info text-white" >{{ App\Models\User::find($activity->causer_id)->name }}</a>
+                                          @endif
+                                      </td>
+                                    <td>{{ $activity->created_at->diffForHumans() }}</td>
+                                </tr>
+                                @endforeach
                         </tbody>
                     </table>
                 </div>
