@@ -534,7 +534,7 @@
 
                                         @php
                                             if($resource->verified == 0) {
-                                                $color = 'bg-warning-gradient';
+                                                $color = 'table-bg-warning';
                                             } else if($resource->verified == 1) {
                                                 $color = 'table-bg-success';
                                             } else if($resource->verified == 2) {
