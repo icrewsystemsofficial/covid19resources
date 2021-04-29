@@ -149,8 +149,13 @@ class HomeController extends Controller
         
 
         //Users Count
-        $users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
-        $user_count=count($users);
+        $volunteer_users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
+        $admin_users = User::whereHas("roles", function($q){ $q->where("name","superadmin"); })->get();
+        $total_users = User::all()->count();
+
+        $volunteer_count=count($volunteer_users);
+        $admin_count=count($admin_users);
+
 
         //Twitter Count
 
@@ -161,7 +166,9 @@ class HomeController extends Controller
             'resources_spam'=>$spam,
             'resources_total'=>$total,
 
-            'users'=>$user_count,
+            'userstotal'=>$total_users,
+            'usersvolunteer'=>$volunteer_count,
+            'usersadmin'=>$admin_count,
         ]);
     }
     

@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-5">
                                     <div class="icon-big text-center">
-                                        <i class="fas fa-hospital-user"></i>
+                                        <i class="fa fa-check-circle text-success"></i>
                                     </div>
                                 </div>
                                 <div class="col-7 col-stats">
@@ -69,8 +69,8 @@
                                 </div>
                                 <div class="col-7 col-stats">
                                     <div class="numbers">
-                                        <p class="card-category"> Users</p>
-                                        <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                        <p class="card-category"> Total Users</p>
+                                        <h4 class="card-title" id="refuted">{{ $userstotal }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                     <div class="row">
                                         <div class="col-5">
                                             <div class="icon-big text-center">
-                                                <i class="fas fa-hospital-user"></i>
+                                                <i class="fa fa-exclamation-triangle text-warning"></i>
                                             </div>
                                         </div>
                                         <div class="col-7 col-stats">
@@ -135,7 +135,7 @@
                                         <div class="col-7 col-stats">
                                             <div class="numbers">
                                                 <p class="card-category"> Volunteers</p>
-                                                <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                                <h4 class="card-title" id="refuted">{{ $usersvolunteer }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                             <div class="row">
                                                 <div class="col-5">
                                                     <div class="icon-big text-center">
-                                                        <i class="fas fa-hospital-user"></i>
+                                                        <i class="fa fa-times-circle text-danger"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-7 col-stats">
@@ -199,8 +199,8 @@
                                                 </div>
                                                 <div class="col-7 col-stats">
                                                     <div class="numbers">
-                                                        <p class="card-category">Number of Volunteers</p>
-                                                        <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                                        <p class="card-category">Admins</p>
+                                                        <h4 class="card-title" id="refuted">{{ $usersadmin}}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,25 +253,7 @@
                                             </div>
                                         </div>
                         
-                                        <div class="col-sm-12 col-md-4">
-                                            <div class="card card-stats card-round">
-                                                <div class="card-body ">
-                                                    <div class="row">
-                                                        <div class="col-5">
-                                                            <div class="icon-big text-center">
-                                                                <i class="fas fa-hands-helping"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-7 col-stats">
-                                                            <div class="numbers">
-                                                                <p class="card-category"> Administrators</p>
-                                                                <h4 class="card-title" id="refuted">{{ $users }}</h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                  
                         
                                     </div>
             <br><br>
