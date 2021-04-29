@@ -404,6 +404,7 @@
 
                                         @php
                                             if($resource->verified == 0) {
+                                                // $color = 'bg-warning'
                                                 $color = 'table-bg-muted';
                                             } else if($resource->verified == 1) {
                                                 $color = 'table-bg-success';
