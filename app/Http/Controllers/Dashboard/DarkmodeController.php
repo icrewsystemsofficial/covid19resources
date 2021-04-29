@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Api;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
-class DarkmodeApi extends Controller
+class DarkmodeController extends Controller
 {
     public function toggle(Request $request)
     {   

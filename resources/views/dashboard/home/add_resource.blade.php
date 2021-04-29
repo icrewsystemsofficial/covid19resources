@@ -111,6 +111,7 @@
                             <br>
                             <i class="fa fa-times-circle text-danger"></i> Don't include Category / Expressive terms in title. We have seperate search-able columns for those.
                         </p>
+                        <hr>
 
                         <div class="form-group">
                             <label for="title"><strong>Title</strong> <span class="text-danger">*</span></label>

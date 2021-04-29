@@ -14,6 +14,12 @@
                         <p>Add Resources</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('ocr.index') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <p>OCR Reader</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}">
