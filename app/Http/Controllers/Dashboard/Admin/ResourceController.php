@@ -37,7 +37,8 @@ class ResourceController extends Controller
     }
 
     public function admin_save(Request $request) {
-
+	
+	
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
         ],[
