@@ -29,8 +29,8 @@
                                 </div>
                                 <div class="col-7 col-stats">
                                     <div class="numbers">
-                                        <p class="card-category">Resources Verified</p>
-                                        <h4 class="card-title" id="verified">{{ $resources}}</h4>
+                                        <p class="card-category"> Verified Resources</p>
+                                        <h4 class="card-title" id="verified">{{ $resources_verified}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-7 col-stats">
                                     <div class="numbers">
-                                        <p class="card-category">Tweets Verified</p>
+                                        <p class="card-category"> Tweets</p>
                                         <h4 class="card-title" id="pending">0</h4>
                                     </div>
                                 </div>
@@ -69,8 +69,8 @@
                                 </div>
                                 <div class="col-7 col-stats">
                                     <div class="numbers">
-                                        <p class="card-category">Number of Volunteers</p>
-                                        <h4 class="card-title" id="refuted">0</h4>
+                                        <p class="card-category"> Users</p>
+                                        <h4 class="card-title" id="refuted">{{ $users }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +79,201 @@
                 </div>
 
             </div>
+
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card card-stats card-round">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="fas fa-hospital-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Pending Resources</p>
+                                                <h4 class="card-title" id="verified">{{ $resources_pending}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card card-stats card-round">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="fab fa-twitter"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Verified Tweets</p>
+                                                <h4 class="card-title" id="pending">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card card-stats card-round">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="fas fa-hands-helping"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category"> Volunteers</p>
+                                                <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="card card-stats card-round">
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="icon-big text-center">
+                                                        <i class="fas fa-hospital-user"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7 col-stats">
+                                                    <div class="numbers">
+                                                        <p class="card-category">Spam Resources</p>
+                                                        <h4 class="card-title" id="verified">{{ $resources_spam}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="card card-stats card-round">
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="icon-big text-center">
+                                                        <i class="fab fa-twitter"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7 col-stats">
+                                                    <div class="numbers">
+                                                        <p class="card-category">Pending Tweets</p>
+                                                        <h4 class="card-title" id="pending">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="card card-stats card-round">
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="icon-big text-center">
+                                                        <i class="fas fa-hands-helping"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7 col-stats">
+                                                    <div class="numbers">
+                                                        <p class="card-category">Number of Volunteers</p>
+                                                        <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card card-stats card-round">
+                                                <div class="card-body ">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <div class="icon-big text-center">
+                                                                <i class="fas fa-hospital-user"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-7 col-stats">
+                                                            <div class="numbers">
+                                                                <p class="card-category">Total Resources</p>
+                                                                <h4 class="card-title" id="verified">{{ $resources_pending}}</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card card-stats card-round">
+                                                <div class="card-body ">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <div class="icon-big text-center">
+                                                                <i class="fab fa-twitter"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-7 col-stats">
+                                                            <div class="numbers">
+                                                                <p class="card-category">Tweets with Inadequate Information</p>
+                                                                <h4 class="card-title" id="pending">0</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card card-stats card-round">
+                                                <div class="card-body ">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <div class="icon-big text-center">
+                                                                <i class="fas fa-hands-helping"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-7 col-stats">
+                                                            <div class="numbers">
+                                                                <p class="card-category"> Administrators</p>
+                                                                <h4 class="card-title" id="refuted">{{ $users }}</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
             <br><br>
         </div>
     </div>

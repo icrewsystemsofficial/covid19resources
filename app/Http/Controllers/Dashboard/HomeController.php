@@ -140,11 +140,28 @@ class HomeController extends Controller
     }
 
     public function statistics() {
+        // Resources Count
+        $verified=Resource::where('verified','=',1)->count();
+        $pending=Resource::where('verified','=',0)->count();
+        $spam=Resource::where('verified','=',3)->count();
+        $total=Resource::all()->count();
 
-        $resources=Resource::where('verified','=',1)->count();
+        
+
+        //Users Count
+        $users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
+        $user_count=count($users);
+
+        //Twitter Count
+
 
         return view('dashboard.static.statistics',[
-            'resources'=> $resources,
+            'resources_verified'=> $verified,
+            'resources_pending'=>$pending,
+            'resources_spam'=>$spam,
+            'resources_total'=>$total,
+
+            'users'=>$user_count,
         ]);
     }
     
