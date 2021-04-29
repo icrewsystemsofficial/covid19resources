@@ -175,7 +175,7 @@
                     <form  action="{{ route('home.toggle.mode') }}">
                         <div class="selectgroup selectgroup-secondary selectgroup-pills">
                             <label class="selectgroup-item">
-                                <input type="radio" name="mode" value="light" onchange="this.form.submit();" class="selectgroup-input" <?php if(cache()->get('key') == 'light') { echo "checked"; } ?>>
+                                <input type="radio" name="mode" value="light" onchange="this.form.submit();" class="selectgroup-input" <?php if(cache()->get('key') != 'dark' || cache()->get('key') == '') { echo "checked"; } ?>>
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-sun"></i></span>
                             </label>
                             <label class="selectgroup-item">
