@@ -73,6 +73,8 @@ Route::get('/terms',[HomeController::class,'terms'])->name('home.terms');
 
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/how-to', [HomeController::class, 'how_to'])->name('home.howTo');
+Route::get('/statistics', [HomeController::class, 'statistics'])->name('home.statistics');
+
 
 Route::get('/privacy', [HomeController::class, 'privacy'])->name('home.privacy');
 
