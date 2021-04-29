@@ -1,6 +1,8 @@
 @extends('layouts.atlantis')
 @section('title', 'Dashboard')
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css" integrity="sha512-DcHJLWkmfnv+isBrT8M3PhKEhsHWhEgulhr8m5EuGhdAG9w+vUyjlwgR4ISLN0+s/m4ItmPsTOqPzW714dtr5w==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" integrity="sha512-SJw7jzjMYJhsEnN/BuxTWXkezA2cRanuB8TdCNMXFJjxG9ZGSKOX5P3j03H6kdMxalKHZ7vlBMB4CagFP/de0A==" crossorigin="anonymous" />
 <style>
     .table-bg-success {
         border-radius: 25px;
@@ -15,14 +17,129 @@
         background: linear-gradient(to left, #93291E, #ED213A) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 
+    .table-bg-muted {
+        background: #000 !important;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #000000, #5f5d5d) !important;  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left,  #000000, #5f5d5d) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    }
+
+    .file-upload {
+	position: relative;
+	display: inline-block;
+}
+
+.file-upload__label {
+  display: block;
+  padding: 1em 2em;
+  color: #fff;
+  background: #222;
+  border-radius: .4em;
+  transition: background .3s;
+
+  &:hover {
+     cursor: pointer;
+     background: #000;
+  }
+}
+
+.file-upload__input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}
+
 
 </style>
 @endsection
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-<script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" integrity="sha512-VTd65gL0pCLNPv5Bsf5LNfKbL8/odPq0bLQ4u226UNmT7SzE4xk+5ckLNMuksNTux/pDLMtxYuf0Copz8zMsSA==" crossorigin="anonymous"></script>
+<script src="https://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
 <script>
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+var tourcompleted = getCookie("tourcompleted");
+  if (tourcompleted != "") {
+   console.log('Tour completed')
+  } else {
+    introJs().setOptions({
+        steps: [{
+            title: 'Welcome to {{ config("app.name") }}',
+            intro: 'Hey there 👋 <br> welcome to {{ config("app.name") }}, please follow this guide to know how to use this app efficiently'
+        },
+        {
+            element: document.getElementById('currentlocation_intro'),
+            intro: 'This shows the location forwhich the app is currently showing results for'
+        },
+        {
+            element: document.querySelector('.select2'),
+            intro: 'You can select your state here, we have listed all the states in India, and the app is capable of getting inputs for all districts & cities in India'
+        },
+        {
+            element: document.getElementById('total_retrived_results'),
+            intro: 'This shows the number of results we have for the selected state'
+        },
+        {
+            element: document.getElementById('pills-tab-with-icon'),
+            intro: 'The results for the selected state is shown in these tabs'
+        },
+        {
+            element: document.getElementById('share_link_nav'),
+            intro: 'Once you login, you\'ll get a personalized link which you can share with your friends and family'
+        },
+        {
+            title: 'Farewell!',
+            element: document.querySelector('.card__image'),
+            intro: 'We sincerely hope and pray you find what you\'re looking for 🙏'
+        }]
+        }).start().oncomplete(function() {
+            setCookie('tourcompleted', '1', 5);
+        });
+}
+
+@if ($errors->any())
+        @foreach ($errors->all() as $error)
+            $.notify({
+                icon: 'flaticon-error',
+                title: "{{ config('app.name') }}",
+                message: "{{ $error }}",
+                },{
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        @endforeach
+    @endif
 
         $(document).ready(function() {
             $('.select2').select2();
@@ -32,90 +149,6 @@
             $('#medicine_table').DataTable();
             $('#misc_table').DataTable();
         });
-
-
-		Circles.create({
-			id:'circles-1',
-			radius:45,
-			value:60,
-			maxValue:100,
-			width:7,
-			text: 5,
-			colors:['#f1f1f1', '#FF9E27'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-2',
-			radius:45,
-			value:70,
-			maxValue:100,
-			width:7,
-			text: 36,
-			colors:['#f1f1f1', '#2BB930'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-3',
-			radius:45,
-			value:40,
-			maxValue:100,
-			width:7,
-			text: 12,
-			colors:['#f1f1f1', '#F25961'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		// var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-		// var mytotalIncomeChart = new Chart(totalIncomeChart, {
-		// 	type: 'bar',
-		// 	data: {
-		// 		labels: <?php echo App\Http\Controllers\API\StatsAPI::dataInput()['labels']; ?>,
-		// 		datasets : [{
-		// 			label: "Tweets Captured",
-		// 			backgroundColor: 'blue',
-		// 			borderColor: 'rgb(23, 125, 255)',
-		// 			data: {{App\Http\Controllers\API\StatsAPI::dataInput()['data']}},
-		// 		}],
-		// 	},
-		// 	options: {
-		// 		responsive: true,
-		// 		maintainAspectRatio: false,
-		// 		legend: {
-		// 			display: false,
-		// 		},
-		// 		scales: {
-		// 			yAxes: [{
-		// 				ticks: {
-		// 					display: false //this will remove only the label
-		// 				},
-		// 				gridLines : {
-		// 					drawBorder: false,
-		// 					display : false
-		// 				}
-		// 			}],
-		// 			xAxes : [ {
-		// 				gridLines : {
-		// 					drawBorder: false,
-		// 					display : false
-		// 				}
-		// 			}]
-		// 		},
-		// 	}
-		// });
 
 
 		$('#lineChart').sparkline({{App\Http\Controllers\API\StatsAPI::dataInput()['data']}}, {
@@ -288,6 +321,7 @@
         </div>
     </div>
 </div>
+
 <div class="page-inner mt--5">
 
 
@@ -296,13 +330,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">
+                    <h4 class="card-title" id="total_retrived_results">
                         There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                     </h4>
                     <span class="text-muted">
                         All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
                         @if ($resources->count() > 0)
-                        Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong>
+                        <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
                         @endif
                     </span>
 
@@ -794,9 +828,47 @@
                                         You can add information to our website in 2 easy steps. You'll be
                                         saving countless lives.
                                     </p>
-                                    <a target="_blank" class="btn btn-danger btn-block" href="{{ route('home.add.resource') }}">
+                                    <a target="_blank" class="btn btn-success btn-block hvr-grow" href="{{ route('home.add.resource') }}">
                                         Add resources <i class="fas fa-plus-circle"></i>
                                     </a>
+
+
+
+                                    <form class="row mt-3 p-2" action="{{ route('home.resource.ocr') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <h4 class="h3">Wait a <strong>minute</strong>, screenshots?</h4>
+                                        <p class="ml-2 p-2">
+                                            Adding resources couldn't be simpler, just take a screenshot & upload it here. We'll extract the text from it in real time.
+                                            You really don't have to switch apps / tabs to look for information.
+                                        </p>
+
+                                        <div class="col-md-12">
+                                            <center>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="OCR_upload">Select your screenshot</label>
+                                                    <input type="file" class="form-control-file mt-1" name="image" id="OCR_upload">
+                                                    <small>(Maximum filesize is 5MB)</small>
+                                                </div>
+                                            </center>
+                                        </div>
+                                         <div class="col-md-12">
+                                           <center>
+                                            <button onclick="ocr_loading();" id="ocr_button" type="submit" class="btn btn-success btn-md hvr-grow">Extract text from screenshot <i class="fas fa-file"></i></button>
+                                            <script>
+                                                function ocr_loading() {
+                                                    var ocrbutton = document.getElementById('ocr_button');
+                                                    ocrbutton.disabled = true;
+                                                    ocrbutton.innerHTML = "Processing <i class='fa fa-circle-notch fa-spin'></i>"
+                                                }
+                                            </script>
+                                           </center>
+                                         </div>
+                                       </form>
+                                       <br>
+                                      <hr>
+                                      <br>
+
+
                                 </div>
 
                             </div>
@@ -812,13 +884,28 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        Not COVID-19 Positive? There are <strong>12 ways</strong> you can help
+                        Not COVID-19 Positive? There are <strong>6 other ways</strong> you can help
                     </h4>
+                </div>
+
+                <div class="card-body">
+                    1). Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need.
+                    <br><br>
+                    2). Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission .sign up as volunteer today (link here)
+                    <br><br>
+                    3). Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them .
+                    <br><br>
+                    4). Add resources to our Website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process (link here)
+                    <br><br>
+                    5). If you are an NGO and you are willing to support this cause : contact us immediately, we could join hands to save the nation
+                    <br><br>
+                    6). If you can offer technical help: great minds don't just think alike .they work alike . You can help us by taking care of the backend data updation processes.
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="display: none;">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body pb-0">

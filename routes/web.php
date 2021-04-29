@@ -66,6 +66,7 @@ Route::get('/search/results/{query?}', [SearchController::class, 'results'])
 
 Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
 Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
+Route::post('/add-resource/upload-image',[OcrController::class, 'generateText_getImage'])->name('home.resource.ocr');
 
 Route::get('/chat-with-us')->name('home.chat_with_us');
 Route::get('/view-app-status')->name('home.app_status');
@@ -182,8 +183,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
         Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
         Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
-  
-    
+
+
         Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
     });
 

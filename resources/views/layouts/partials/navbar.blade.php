@@ -10,7 +10,7 @@
             <span class="text-white" id="clock-box">
                 { TIME }
             </span>
-            <span class="text-white">
+            <span class="text-white" id="currentlocation_intro">
                 | <span id="location">{{ $currentlocation->name }}</span>
             </span>
         </div>
@@ -74,7 +74,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown hidden-caret">
+            <li id="share_link_nav" class="nav-item dropdown hidden-caret">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                     <i class="fas fa-share-alt"></i>
                 </a>

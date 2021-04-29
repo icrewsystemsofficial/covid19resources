@@ -113,13 +113,17 @@
                         <br>
                         <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('ocr.parse.text') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                             <div class="col-3">
-                                 <label for="exampleFormControlFile1">Choose File</label>
-                                 <input type="file" class="form-control-file mt-1" name="image" id="exampleFormControlFile1">
+                            <p class="ml-2 p-2">
+                                Have a <strong>screenshot</strong> from <strong>social media</strong>? We can convert the image contents to text. Why? Text can be used to filter & search in this website
+                            </p>
+
+                             <div class="col-md-4">
+                                 <label for="OCR_upload">Choose File</label>
+                                 <input type="file" class="form-control-file mt-1" name="image" id="OCR_upload">
                                  <small>(Max file size is 5mb allowed)</small>
                              </div>
                              <div class="col-5">
-                               <button type="submit" class="btn btn-primary btn-sm">Get OCR</button>
+                               <button type="submit" class="btn btn-primary btn-sm">Convert to text</button>
                              </div>
                            </form>
                            <br>
