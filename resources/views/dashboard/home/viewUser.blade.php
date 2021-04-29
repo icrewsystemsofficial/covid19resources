@@ -1,6 +1,14 @@
 @extends('layouts.atlantis')
 @section('title', 'Your Profile')
 @section('content')
+<style>
+    .non-editable {
+        pointer-events: none;
+    }
+    .form-group:hover {
+        background-color: #f8f5f1;
+    }
+</style>
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -22,64 +30,90 @@
                         </h4>
                     </div>
 
-                    <div class="card-body">
-                        {{-- Name --}}
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-12 col-md-3 offset-md-1 mb-3 mb-md-0">
-                                <h4 class="fw-bold text-uppercase">Name</h4>
-                            </div>                            
-                            <div class="col-12 col-md-5 mb-3">
-                                <input type="text" class="form-control fw-bold text-black text-uppercase" value="{{$user->name}}" readonly>
-                            </div>                            
-                        </div>
-                        {{-- Volunteer Or Not --}}
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-12 col-md-3 offset-md-1 mb-3 mb-md-0">
-                                <h4 class="fw-bold text-uppercase">Is Volunteer</h4>
-                            </div>                            
-                            <div class="col-12 col-md-5 mb-3">
-                                <?php
-                                if ($user->hasRole('volunteer'))
-                                    $volunteer = 'YES';
-                                else
-                                    $volunteer = 'NO';                                
-                                ?>
-                                <input type="text" class="form-control fw-bold text-black" value="{{ $volunteer }}" readonly>
-                            </div>                            
-                        </div>
-                        {{-- State --}}
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-12 col-md-3 offset-md-1 mb-3 mb-md-0">
-                                <h4 class="fw-bold text-uppercase">State</h4>
-                            </div>                            
-                            <div class="col-12 col-md-5 mb-3">
-                                <?php
-                                    if($user->state == null)
-                                        $user->state = 'NOT SET YET';
-                                ?>
-                                <input type="text" class="form-control fw-bold text-black" value="{{$user->state}}" readonly>
-                            </div>                            
-                        </div>
-                        {{-- Available for mission --}}
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-12 col-md-3 offset-md-1 mb-3 mb-md-0">
-                                <h4 class="fw-bold text-uppercase">Available For Mission</h4>
-                            </div>                            
-                            <div class="col-12 col-md-5 mb-3">
-                                <?php
-                                if ($user->available_for_mission == 1)
-                                    $available_for_mission = 'YES';
-                                else
-                                    $available_for_mission = 'NO';                                
-                                ?>
-                                <input type="text" class="form-control fw-bold text-black" value="{{ $available_for_mission }}" readonly>
-                            </div>                            
-                        </div>
-                        {{-- Action Buttons --}}
-                        <div class="form-group row align-items-center justify-content-around justify-content-md-center mb-3">
-                            <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
-                            <a href="{{ route('home.profile.edit') }}" class="btn btn-success mt-3 mr-4 fw-bold">UPDATE</a>
-                        </div>
+                    <div class="card-body">                        
+                        <div class="col-md-8 offset-md-2">
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label class="fw-bold text-primary">Name</label>
+                                        <input type="text" class="form-control non-editable" name="name" value="{{$user->name}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <label class="fw-bold text-primary">Email</label>
+                                        <input type="email" class="form-control non-editable" name="email" value="{{$user->email}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <?php
+                                        if ($user->hasRole('volunteer')) {
+                                            $volunteer = 'YES';
+                                            $font_class = 'text-success';
+                                        }
+                                        else {
+                                            $volunteer = 'NO';
+                                            $font_class = 'text-danger';
+                                        }
+                                    ?>
+                                    <div class="form-group form-group-default">
+                                        <label class="fw-bold text-primary">Volunteer</label>
+                                        <input type="text" class="form-control non-editable {{$font_class}}" name="volunteer" value="{{$volunteer}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <?php
+                                        if ($user->available_for_mission == 1) {
+                                            $available_for_mission = 'YES';
+                                            $font_class = 'text-success';
+                                        }
+                                        else {
+                                            $available_for_mission = 'NO';
+                                            $font_class = 'text-danger';
+                                        }
+                                    ?>
+                                    <div class="form-group form-group-default">
+                                        <label class="fw-bold text-primary">Available For Mission</label>
+                                        <input type="text" class="form-control non-editable {{$font_class}}" name="volunteer" value="{{$available_for_mission}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">    
+                                    <div class="form-group form-group-default">
+                                        <label class="fw-bold text-primary">Referrals</label>
+                                        <input type="text" class="form-control non-editable fw-bold" name="volunteer" value="{{$user->referrals}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <?php
+                                            if($user->state == null)
+                                                $user->state = 'NOT SET';
+                                        ?>
+                                        <label class="fw-bold text-primary">State</label>
+                                        <input type="text" class="form-control non-editable" name="volunteer" value="{{$user->state}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-default">
+                                        <?php
+                                            if($user->district == null)
+                                                $user->district = 'NOT SET';
+                                        ?>
+                                        <label class="fw-bold text-primary">District</label>
+                                        <input type="text" class="form-control non-editable" name="volunteer" value="{{$user->district}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <a href="/" class="btn btn-primary mt-3 mr-4 fw-bold">BACK</a>
+                                </div>
+                            </div>
+                        </div>                
                     </div>
                 </div>
             </div>
