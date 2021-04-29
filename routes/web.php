@@ -66,6 +66,7 @@ Route::get('/search/results/{query?}', [SearchController::class, 'results'])
 
 Route::get('/add-resource', [HomeController::class, 'add_resource'])->name('home.add.resource');
 Route::post('/add-resource/save', [HomeController::class, 'save_resource'])->name('home.save.resource');
+Route::post('/add-resource/upload-image',[OcrController::class, 'generateText_getImage'])->name('home.resource.ocr');
 
 Route::get('/chat-with-us')->name('home.chat_with_us');
 Route::get('/view-app-status')->name('home.app_status');
@@ -97,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/test', [Volunteers::class, 'test']);
             Route::get('/missions', [Volunteers::class, 'getAllMissions']);
         });
-    
+
         Route::prefix('mission')->group(function () {
             Route::get('/', [MissionsController::class, 'index'])->name('home.mission.index');
             //Using UUID because users should not "guess" the next mission IDs,
@@ -115,49 +116,49 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
 
         Route::group(['middleware' => ['role:superadmin|moderator']], function () {
-            
+
             Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
             Route::get('/faq/create', [FAQ::class, 'admin_create'])->name('admin.faq.create');
             Route::post('/faq/create/new', [FAQ::class, 'admin_save'])->name('admin.faq.save');
             Route::get('/faq/{id}/manage', [FAQ::class, 'admin_manage'])->name('admin.faq.manage');
             Route::post('/faq/{id}/update', [FAQ::class, 'admin_update'])->name('admin.faq.update');
             Route::get('/faq/{id}/delete', [FAQ::class, 'admin_delete'])->name('admin.faq.delete');
-    
-    
+
+
             Route::get('/resources', [ResourceController::class, 'admin_index'])->name('admin.resources.index');
             Route::get('/resources/create', [ResourceController::class, 'admin_create'])->name('admin.resources.create');
             Route::post('/resources/create/new', [ResourceController::class, 'admin_save'])->name('admin.resources.save');
             Route::get('/resources/{id}/manage', [ResourceController::class, 'admin_manage'])->name('admin.resources.manage');
             Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
             Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
-    
+
             Route::prefix('mission')->group(function () {
                 Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
                 Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
             });
-    
+
             Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
             Route::get('/categories/create', [CategoryController::class, 'admin_create'])->name('admin.categories.create');
             Route::post('/categories/create/new', [CategoryController::class, 'admin_save'])->name('admin.categories.save');
             Route::get('/categories/{id}/manage', [CategoryController::class, 'admin_manage'])->name('admin.categories.manage');
             Route::post('/categories/{id}/update', [CategoryController::class, 'admin_update'])->name('admin.categories.update');
             Route::get('/categories/{id}/delete', [CategoryController::class, 'admin_delete'])->name('admin.categories.delete');
-    
+
             Route::get('/geographies/districts', [GeographiesController::class, 'admin_districts_index'])->name('admin.geographies.districts.index');
             Route::get('/geographies/districts/create', [GeographiesController::class, 'admin_districts_create'])->name('admin.geographies.districts.create');
             Route::post('/geographies/districts/create/new', [GeographiesController::class, 'admin_districts_save'])->name('admin.geographies.districts.save');
             Route::get('/geographies/districts/{id}/manage', [GeographiesController::class, 'admin_districts_manage'])->name('admin.geographies.districts.manage');
             Route::post('/geographies/districts/{id}/update', [GeographiesController::class, 'admin_districts_update'])->name('admin.geographies.districts.update');
             Route::get('/geographies/districts/{id}/delete', [GeographiesController::class, 'admin_districts_delete'])->name('admin.geographies.districts.delete');
-    
+
             Route::get('/geographies/states', [GeographiesController::class, 'admin_states_index'])->name('admin.geographies.states.index');
             Route::get('/geographies/states/create', [GeographiesController::class, 'admin_states_create'])->name('admin.geographies.states.create');
             Route::post('/geographies/states/create/new', [GeographiesController::class, 'admin_states_save'])->name('admin.geographies.states.save');
             Route::get('/geographies/states/{id}/manage', [GeographiesController::class, 'admin_states_manage'])->name('admin.geographies.states.manage');
             Route::post('/geographies/states/{id}/update', [GeographiesController::class, 'admin_states_update'])->name('admin.geographies.states.update');
             Route::get('/geographies/states/{id}/delete', [GeographiesController::class, 'admin_states_delete'])->name('admin.geographies.states.delete');
-    
+
             Route::get('/geographies/cities', [GeographiesController::class, 'admin_cities_index'])->name('admin.geographies.cities.index');
             Route::get('/geographies/cities/create', [GeographiesController::class, 'admin_cities_create'])->name('admin.geographies.cities.create');
             Route::post('/geographies/cities/create/new', [GeographiesController::class, 'admin_cities_save'])->name('admin.geographies.cities.save');
@@ -175,7 +176,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/{id}/update',[UserController::class,'admin_user_update'])->name('admin.user.update');
                 Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
             });
-    
+
             Route::prefix('access-control')->group(function () {
                 Route::get('/',[AccessController::class,'admin_roles_perms_index'])->name('accesscontrol.index');
                 Route::post('/add-role',[AccessController::class,'admin_roles_perms_store'])->name('accesscontrol.store');
@@ -184,11 +185,11 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('{id}/delete-role',[AccessController::class,'admin_roles_perms_destroy'])->name('accesscontrol.delete');
                 Route::get('cache-clear/',[AccessController::class,'clearCache'])->name('accesscontrol.cacheclear');
             });
-    
-    
+
+
             Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
         });
-        
+
         Route::group(['middleware' => ['role:superadmin|moderator']], function () {
 
           Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
@@ -198,8 +199,16 @@ Route::middleware(['auth'])->group(function () {
           Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
           Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
         });
-    
 
+        Route::get('/tweets', [TwitterController::class, 'index'])->name('admin.twitter.index');
+        Route::get('/tweets/{id}/manage', [TwitterController::class, 'manage'])->name('admin.twitter.manage');
+        Route::post('/tweets/{id}/update', [TwitterController::class, 'update'])->name('admin.twitter.update');
+        Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
+        Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
+        Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
+
+
+        Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
     });
 
     Route::group(['middleware' => ['role:superadmin']], function () {
@@ -212,7 +221,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/delete-setting',[SettingController::class,'admin_setting_delete'])->name('admin.setting.delete');
         });
     });
-    
+
 
 });
 
