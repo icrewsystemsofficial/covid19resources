@@ -26,4 +26,18 @@ class SearchController extends Controller
             'query' => $query,
         ]);
     }
+
+    public function view(Request $request){
+        $query = $request->input('query');
+        if($query == '') {
+            notify()->info('You haven\'t mentioned what you\'re searching for', 'Wait a minute...');
+            return redirect(route('home.search'));
+        }
+        $tweets = Twitter::search($query)->get();
+
+        return view('dashboard.home.search.view', [
+            'results' => $tweets,
+            'query' => $query,
+        ]);
+    }
 }

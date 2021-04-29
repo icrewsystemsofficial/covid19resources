@@ -56,7 +56,9 @@
                                     <tr>
                                         <td>{{ $result->tweet }}</td>
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
-                                        <td><a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary" target="_blank">View Tweet</a></td>
+                                        <td><a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary" target="_blank">Manage Tweet</a>
+                                            <a href="{{ route('admin.search.view', $result->id) }}" class="btn btn-primary" target="_blank">View Tweet</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
