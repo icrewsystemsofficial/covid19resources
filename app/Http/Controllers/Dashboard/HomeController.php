@@ -92,16 +92,24 @@ class HomeController extends Controller
         if(request('status') == 1) {
             $resource->verified_by = $user->id;
         }
-
-        $city = City::where('name', request('city'))->first();
-        $resource->city = $city->name;
-        $resource->district = $city->district;
-        $resource->state = $city->state;
-        $resource->hasAddress = 1;
-        $resource->landmark = request('landmark');
-        $resource->save();
-
-        // dd($resource);
+        
+        
+        
+        if(request('city') == '* All Cities') {
+        	$resource->city = request('city');	
+        	$resource->district = '* All Districts';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 1;
+        } else {
+        	$city = City::where('name', request('city'))->first();
+        	$resource->city = $city->name;
+		    $resource->district = $city->district;
+		    $resource->state = $city->state;
+		    $resource->hasAddress = 1;
+		    $resource->landmark = request('landmark');
+        }
+        
+        $resource->save();	
 
         return redirect(route('home.view', $resource->id));
     }
@@ -193,7 +201,7 @@ class HomeController extends Controller
         }
 
 
-        if(auth()) {
+        if(Auth::check()) {
             if(auth()->user()->id == $user->id) {
                 notify()->info('Looks like you\'re testing your own referral link. That\'s good, it works, yay! Now, share it with other people!', 'Kya re? Testing ah');
                 return redirect(route('home'));
@@ -217,20 +225,16 @@ class HomeController extends Controller
     }
 
     public function view($id = '') {
-
-        $resource = Resource::find($id);
-        $comments = $resource->comments;
-        // dd($comments);
         if($id == '') {
-            notify()->error('Resource ID not passed', 'Whoops');
-            return redirect(route('home'));
-        } else if(!$resource) {
-            notify()->error('The resource you are trying to view is not available', 'Whoops');
+            notify()->error('You were trying to view a resource, but the ID was not passed. ', 'Whoops');
             return redirect(route('home'));
         } else {
-
-
-
+			$resource = Resource::find($id);
+			if(!$resource) {
+			    notify()->error('The resource you are trying to view is not available', 'Whoops');
+			    return redirect(route('home'));
+			} 
+			$comments = $resource->comments;
             return view('dashboard.home.view', [
                 'resource' => $resource,
                 'comments' => $comments

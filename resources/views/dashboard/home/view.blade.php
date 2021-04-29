@@ -2,43 +2,7 @@
 @section('title', 'Dashboard')
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" integrity="sha512-SJw7jzjMYJhsEnN/BuxTWXkezA2cRanuB8TdCNMXFJjxG9ZGSKOX5P3j03H6kdMxalKHZ7vlBMB4CagFP/de0A==" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<style>
-    .leaflet-pulsing-icon {
-    border-radius: 100%;
-    box-shadow: 1px 1px 8px 0 rgba(0,0,0,0.75);
-    }
-    .leaflet-pulsing-icon:after {
-    content: "";
-    border-radius: 100%;
-    height: 300%;
-    width: 300%;
-    position: absolute;
-    margin: -100% 0 0 -100%;
-    }
-    @keyframes pulsate {
-    0% {
-    transform: scale(0.1, 0.1);
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    }
-    50% {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
-    }
-    100% {
-    transform: scale(1.2, 1.2);
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    }
-    }
-
-    #mapid { height: 200px; }
- </style>
- @endsection
+@endsection
 
 @section('js')
 
@@ -61,75 +25,38 @@
     @endif
 </script>
 
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-<script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
 <script>
-    // var map = L.map('mapid', {
-    //     center: [13, 80],
-    //     zoom: 4
-    // });
+	function copyClip() {
+	    var copyText =  document.getElementById("phone");
+	    copyText.select();
+	    copyText.setSelectionRange(0, 99999);
+	    document.execCommand("copy");
+	    $.notify({
+		    icon: 'flaticon-success',
+		    title: "{{ config('app.name') }}",
+		    message:"Mobile number "+ copyText.value + " copied",
+		    },{
+		    type: 'success',
+		    placement: {
+		        from: "top",
+		        align: "right"
+		    },
+		    time: 1000,
+		});
+	}
 
-    // var pulsingIcon_currentlocation = L.icon.pulse({
-   	// 	iconSize: [12,12],
-    //           fillColor: 'red',
-    //           color: 'red',
-    //           animate: true,
-    //           heartbeat: 1
-   	// });
-
-
-   	// var current_location_pulsing_marker = L.marker([13, 80],{
-    //        icon: pulsingIcon_currentlocation
-    //        }).bindTooltip("Resource location").addTo(map);
-
-    // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-	// maxZoom: 19,
-	// attribution: '&copy; {{ config("app.name") }}'
-    // }).addTo(map);
-
-// copy to clipboard function
-function copyClip() {
-    var copyText =  document.getElementById("phone");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-
-    document.execCommand("copy");
-    // alert("Copied the text: " + copyText.value);
-    $.notify({
-    icon: 'flaticon-success',
-    title: "{{ config('app.name') }}",
-    message:"Mobile number "+ copyText.value + " copied",
-    },{
-    type: 'success',
-    placement: {
-        from: "top",
-        align: "right"
-    },
-    time: 1000,
-
-    // alert('hello');
-});
-}
-
-$("#txtarea").hide();
-$("#comment").hide();
-$( "#slct" ).change(function() {
-  var val = $("#slct").val();
-    if(val=="4"){
-        $("#txtarea").show();
-        $("#comment").show();
-    } else {
-        $("#txtarea").hide();
-    }
-});
-
-// $("button").click(function() {
-//     var fired_button = $(this).val();
-//     document.execCommand("copy");
-//     alert('copied');
-// });
+	$("#txtarea").hide();
+	$("#comment").hide();
+	
+	$( "#slct" ).change(function() {
+	  var val = $("#slct").val();
+	    if(val=="4"){
+	        $("#txtarea").show();
+	        $("#comment").show();
+	    } else {
+	        $("#txtarea").hide();
+	    }
+	});
 
 </script>
 @endsection

@@ -64,7 +64,6 @@
             @endif
 
 				<a href="{{ route('home') }}" class="logo text-white">
-					{{-- <img style="margin-top: -5px; width: 20px; height: auto;" src="https://cdn.discordapp.com/attachments/530789778912837640/686668588500779122/PicsArt_03-10-01.45.43.png" alt="navbar brand" class="navbar-brand"> --}}
                     {{ config('app.name') }}
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,8 +81,7 @@
 			<!-- End Logo Header -->
 
 			<!-- Navbar Header -->
-
-    @include('layouts.partials.navbar')
+				@include('layouts.partials.navbar')
 			<!-- End Navbar -->
 		</div>
 
@@ -188,7 +186,6 @@
                 </div>
         </div>
         <div class="custom-toggle">
-            {{-- <i class="fa fa-question"></i> --}}
             <span class="fa fa-question"></span>
         </div>
     </div>
