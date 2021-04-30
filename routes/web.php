@@ -59,7 +59,7 @@ Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name(
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 
 // to simply view the tweet using the search bar
-Route::get('/search/results/{query?}', [SearchController::class, 'view'])
+Route::get('/tweets/{id}/view', [SearchController::class, 'view'])
     ->name('home.search.view');
 
 Route::get('/search/results/{query?}', [SearchController::class, 'results'])
