@@ -235,27 +235,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
-Route::get('/json', function() {
-    $coords = Http::get('https://www.gps-coordinates.net/api/chennai');
-    $data = $coords->json();
-    $data = (object) $data;
-    if($data->responseCode == 200) {
-        $coordinates = $data->latitude.','.$data->longitude;
-    } else {
-        // $coordinates = $this->faker->latitude().','.$this->faker->longitude();
-        $coordinates = $data;
-    }
-
-    echo $coordinates;
-
-    // if($coords->response->responseCode == 200) {
-    //     echo "success";
-    // }
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
