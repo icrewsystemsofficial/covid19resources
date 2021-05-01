@@ -110,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('mission')->group(function () {
             Route::get('/', [MissionsController::class, 'index'])->name('home.mission.index');
+            Route::get('/leaderboard', [MissionsController::class, 'leaderboard'])->name('home.mission.leaderboard');
             //Using UUID because users should not "guess" the next mission IDs,
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');

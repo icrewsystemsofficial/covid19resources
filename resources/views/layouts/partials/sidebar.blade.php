@@ -81,6 +81,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.mission.leaderboard') }}">
+                        <i class="fas fa-list"></i>
+                        <p>Leaderboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
