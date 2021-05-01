@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <center>
                                 <div class="input-group">
-                                    <input name="query" type="text" placeholder="What are you looking for?" class="form-control">
+                                    <input name="query" type="text" placeholder="Enter city / district / state and resource of interest?     Example: Delhi Oxygen Cylinders" class="form-control">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-search pl-4">
                                             <i class="fa fa-search search-icon"></i>
