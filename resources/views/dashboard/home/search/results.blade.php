@@ -64,10 +64,13 @@
                                         </td>
                                         <td>{{ $result->created_at->format('d/m/Y H:i A') }}</td>
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
-                                        <td>
-                                            <a href="{{ route('home.search.view', $result->id) }}" class="btn btn-success btn-sm" target="_blank">View Tweet</a>
-                                            <a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary btn-sm" target="_blank">Manage Tweet</a> 
-
+                                        <td class="row">
+                                        	<div class="col-lg-6 col-sm-12 mt-2">
+                                        		<a href="{{ route('home.search.view', $result->id) }}" class="btn btn-success btn-sm" target="_blank">View Tweet</a>
+                                        	</div>
+                                        	<div class="col-lg-6 col-md-12 mt-2">
+                                        		<a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary btn-sm" target="_blank">Manage Tweet</a> 
+                                        	</div>
                                         </td>
                                     </tr>
                                 @endforeach
