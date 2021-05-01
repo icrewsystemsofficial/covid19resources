@@ -49,7 +49,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = ['initials'];
-    
+
     public function states() {
         // return States::where('code', auth()->user()->state)->first();
         return $this->hasOne(States::class, 'code', 'state');
