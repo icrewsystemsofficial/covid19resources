@@ -58,10 +58,10 @@ class ClearOldTweets extends Command
 	        $i = 0;
 	        foreach($tweets as $tweet) {
 
-                $tweet->status = Twitter::OLD;
-                $tweet->save();
+                // $tweet->status = Twitter::OLD;
+                // $tweet->save();
 	            $i++;
-	            $this->line('Marked Tweet # '.$tweet->created_at->format('d/m/Y'));
+	            $this->line('Marked Tweet # '.$tweet->id.', '.$tweet->created_at->format('d/m/Y'));
 	        }
 
             $this->info('Marked: '.$i.' tweets as OLD, email superadmins..');
