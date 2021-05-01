@@ -164,40 +164,6 @@
                         @endif
 
                 </div>
-
-                <div class="card-body">
-                    @if (!Auth::user())
-                        <p class="">
-                            Have something to ask / say about this resource? Please <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                        </p>
-                    @else
-                    <div>
-                        <form action="{{ route('resource.postcomment',$resource->id) }}" class="mb-5" method="POST">
-                            @csrf
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <span class="avatar-title rounded-circle border border-white">
-                                        {{ auth()->user()->initials }}
-                                      </span>
-                                </div>
-                                <div class="flex-1 ml-3 pt-1">
-                                    <h6 class="text-captialize mb-2">
-                                        Do you have an update / query about this resource?
-                                    </h6>
-                                    <div class="input-group">
-                                        <textarea class="form-control" aria-label="With textarea" name="comment" placeholder="Comment...."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions float-right mt-2">
-                                <button class="btn btn-info btn-sm " type="submit">
-                                    Post
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    @endif
-                </div>
             </div>
         </div>
     </div>
