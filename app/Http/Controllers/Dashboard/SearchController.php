@@ -22,7 +22,7 @@ class SearchController extends Controller
             notify()->info('You haven\'t mentioned what you\'re searching for', 'Wait a minute...');
             return redirect(route('home.search'));
         }
-        $tweets = Twitter::search($query)->get();
+        $tweets = Twitter::search($query)->orderBy('created_at', 'DESC')->get();
 
         return view('dashboard.home.search.results', [
             'results' => $tweets,
