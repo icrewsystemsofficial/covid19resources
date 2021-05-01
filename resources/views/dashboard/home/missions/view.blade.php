@@ -28,7 +28,7 @@
 
                 var status = {{ \App\Models\Mission::COMPLETED }};
 
-                alert(screened + ' ' + total);
+                // alert(screened + ' ' + total);
 
                 axios.get('/mission/changeStatus/' + id + '/' + status)
                 .then(function(response) {
