@@ -331,7 +331,7 @@ var tourcompleted = getCookie("tourcompleted");
             <div class="card">
                 <div class="card-header">
                    <div class="row">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-12">
                         <h4 class="card-title" id="total_retrived_results">
                             There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                         </h4>
@@ -341,11 +341,6 @@ var tourcompleted = getCookie("tourcompleted");
                             <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
                             @endif
                         </span>
-                    </div>
-                    <div class="col-lg-8 col-sm-12">
-                        <h4 class="card-title">
-                            Couldn't find enough resources? <br><a href="{{ route('home.search') }}" class="btn btn-info text-white mt-1 font-weight-bold text-uppercase">  Click here to search for more </a> 
-                        </h4>
                     </div>
                    </div>
                     <div class="row mt-3">
@@ -426,6 +421,11 @@ var tourcompleted = getCookie("tourcompleted");
                             </a>
                         </li>
                     </ul>
+
+                    <div class="mt-2 text-center">
+                        <a href="{{ route('home.search') }}" class="btn btn-sm btn-warning">Looking for something in particular? A.I. Search <i class="fa fa-search"></i></a>
+                    </div>
+
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                         <div class="tab-pane fade active show" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
                             <div class="table-responsive">
