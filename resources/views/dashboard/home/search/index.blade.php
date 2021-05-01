@@ -36,7 +36,11 @@
                                     </div>
                                 </div>
                                 <br>
-                                Powered by Algolia
+                                <span class="text-muted">AI based search powered by</span>
+                                <br><br>
+                                <a href="https://www.algolia.com/?ref={{ config('app.url') }}" target="_blank">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Algolia-logo.svg/1280px-Algolia-logo.svg.png" style="width: 100px; height: auto;" />
+                                </a>
                             </center>
                         </div>
 
