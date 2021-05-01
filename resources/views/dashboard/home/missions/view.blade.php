@@ -21,8 +21,26 @@
         }, 180000)
 
         function updateStatus(screened, total) {
-            if(screened != 0) {
-                var id = {{ $mission->id }};
+            var id = {{ $mission->id }};
+            alert(screened + ' ' + total);
+
+            if(screened == total) {
+
+                var status = {{ \App\Models\Mission::COMPLETED }};
+
+                alert(screened + ' ' + total);
+
+                axios.get('/mission/changeStatus/' + id + '/' + status)
+                .then(function(response) {
+                    if(response.data.type == 'success') {
+                        window.location.reload();
+                        console.log(response);
+                    } else {
+                        alert('There was an error updating the mission status. Screenshot this and show it to the admins');
+                    }
+                })
+            }
+            else if(screened != 0) {
                 var status = {{ \App\Models\Mission::INPROGRESS }};
 
                 // alert(screened + ' ' + total);
@@ -37,6 +55,7 @@
                     }
                 })
             }
+
         }
 
         function updateMissionCompletedCount(screened) {
@@ -51,7 +70,9 @@
                 });
         }
 
+        // This updates the count of the tweets that are verified.
         updateMissionCompletedCount(screened);
+
 
         document.getElementById('screened').innerHTML = screened;
         document.getElementById('screened').value = screened;
@@ -142,7 +163,7 @@
                                         	</td>
                                         </tr>
                                     @elseif($tweet->status == App\Models\Twitter::SCREENED)
-									
+
                                     <script>
                                         screened = screened - 1;
                                     </script>

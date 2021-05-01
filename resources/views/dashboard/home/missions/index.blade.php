@@ -288,9 +288,9 @@
                             <tbody>
                                 <script>
                                     // This is added here, because the js section is rendered below the page
-                                    var verified = 0;
-                                    var pending = 0;
-                                    var refuted = 0;
+                                    var assigned = 0;
+                                    var inprogress = 0;
+                                    var completed = 0;
                                 </script>
                                 @forelse ($missions as $mission)
                                     <tr>
