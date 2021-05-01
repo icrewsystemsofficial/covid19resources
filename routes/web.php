@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\User;
-use App\Mail\Volunteers\Welcome;
+use App\Models\Mission;
 
+use App\Mail\Volunteers\Welcome;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
@@ -10,10 +11,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
+use App\Http\Controllers\Dashboard\OcrController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Api\SearchFilterController;
 use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\Admin\MissionAdmin;
+use App\Http\Controllers\Dashboard\DarkmodeController;
 use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
@@ -23,8 +26,6 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\Dashboard\DarkmodeController;
-use App\Http\Controllers\Dashboard\OcrController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +40,11 @@ use App\Http\Controllers\Dashboard\OcrController;
 Route::post('/upload-image',[OcrController::class,'parse_text'])->name('parse.text');
 
 Route::get('/sendmail', function() {
-    $user = User::find(1);
-   Mail::to('kashrayks@gmail.com')->send(new Welcome($user));
+    $missions = Mission::where('status', '!=', Mission::COMPLETED)->groupBy('volunteer_id')->get();
+        foreach($missions as $mission) {
+            echo $mission->volunteer_id;
+            echo "<br>";
+        }
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
