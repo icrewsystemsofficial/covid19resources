@@ -102,11 +102,20 @@ class HomeController extends Controller
 		    $resource->hasAddress = 0;
         } else {
         	$city = City::where('name', request('city'))->first();
-        	$resource->city = $city->name;
-		    $resource->district = $city->district;
-		    $resource->state = $city->state;
-		    $resource->hasAddress = 1;
-		    $resource->landmark = request('landmark');
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('State');
+                $resource->hasAddress = 0;
+            }
         }
 
         $resource->save();
