@@ -898,17 +898,17 @@ var tourcompleted = getCookie("tourcompleted");
                 </div>
 
                 <div class="card-body">
-                    1). Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need.
+                    1) Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need
                     <br><br>
-                    2). Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission .sign up as volunteer today <a href="{{ route('volunteer.registration') }}" style="text-decoration: none">(link here)</a>
+                    2) Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission. Sign up as volunteer today <a href="{{ route('volunteer.registration') }}" style="text-decoration: none">(link here)</a>
                     <br><br>
-                    3). Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them .
+                    3) Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them 
                     <br><br>
-                    4). Add resources to our Website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process <a href="{{ route('home.add.resource') }}" style="text-decoration: none"> (link here)</a>
+                    4) Add resources to our website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process <a href="{{ route('home.add.resource') }}" style="text-decoration: none"> (link here)</a>
                     <br><br>
-                    5). If you are an NGO and you are willing to support this cause : contact us immediately, we could join hands to save the nation
+                    5) If you are an NGO and you are willing to support this cause : contact us immediately, we could join hands to save the nation
                     <br><br>
-                    6). If you can offer technical help: great minds don't just think alike .they work alike . You can help us by taking care of the backend data updation processes.
+                    6) If you can offer technical help: great minds don't just think alike,they work alike. You can help us by taking care of the backend data updation processes
 
                 </div>
             </div>
