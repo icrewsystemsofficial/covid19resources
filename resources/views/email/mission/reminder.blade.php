@@ -29,7 +29,7 @@ This is a VERY important reminder. You have {{ count($missions) }} missions pend
 @endcomponent
 
 If you're unable to complete the mission(s), please relieve yourself from that mission and request to be reassigned.
-Contact Mr. Dhruv or Ms. Tushara to get your mission reassigned.
+Contact Mr. Dhruv or Ms. Tushara to get your mission re-assigned.
 
 <br>
 The availability span for each tweet is just 1 hour from the time of broadcasting. If you delay,

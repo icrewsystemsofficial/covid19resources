@@ -22,8 +22,6 @@
 
         function updateStatus(screened, total) {
             var id = {{ $mission->id }};
-            alert(screened + ' ' + total);
-
             if(screened == total) {
 
                 var status = {{ \App\Models\Mission::COMPLETED }};

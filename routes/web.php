@@ -144,6 +144,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('mission')->group(function () {
                 Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
+                Route::get('/dissolve/{id}', [MissionAdmin::class, 'dissolve'])->name('admin.mission.dissolve');
                 Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
             });
