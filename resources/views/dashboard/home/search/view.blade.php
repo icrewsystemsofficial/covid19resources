@@ -84,7 +84,7 @@
 </div>
 <div class="page-inner mt--5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -167,7 +167,7 @@
 
                 <div class="card-body">
                     @if (!Auth::user())
-                        <p class="text-danger">
+                        <p class="">
                             Have something to ask / say about this resource? Please <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                         </p>
                     @else

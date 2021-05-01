@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\States;
 use App\Models\Twitter;
+use App\Models\Category;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -34,17 +37,13 @@ class SearchController extends Controller
             return redirect(route('admin.twitter.index'));
         }
 
-        $resources = Resource::where('tweet_id', $id)->get();
 
         // Try to find other tweets by the same user.
         $other_tweets = Twitter::where('username', $tweet->username)->where('id', '!=', $id)->get();
 
-        return view('dashboard.admin.twitter.view', [
+        return view('dashboard.home.search.view', [
             'tweet' => $tweet,
             'other_tweets' => $other_tweets,
-            'resources' => $resources,
-            'categories' => Category::where('status', 1)->get(),
-            'states' => States::all(),
         ]);
     }
 }

@@ -48,6 +48,8 @@
                         <table class="table" id="results_table">
                             <thead>
                                 <th>Data</th>
+                                <th>Type</th>
+                                <th>Date</th>
                                 <th>Created</th>
                                 <th>Options</th>
                             </thead>
@@ -55,9 +57,16 @@
                                 @foreach ($results as $result)
                                     <tr>
                                         <td>{{ $result->tweet }}</td>
+                                        <td>
+                                            <span class="text-primary">
+                                                Tweet <i class="fab fa-twitter"></i>
+                                            </span>
+                                        </td>
+                                        <td>{{ $result->created_at->format('d/m/Y H:i A') }}</td>
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
-                                        <td><a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary" target="_blank">Manage Tweet</a>
-                                            <a href="{{ route('home.search.view', $result->id) }}" class="btn btn-primary" target="_blank">View Tweet</a>
+                                        <td>
+                                            {{-- <a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary" target="_blank">Manage Tweet</a> --}}
+                                            <a href="{{ route('home.search.view', $result->id) }}" class="btn btn-primary btn-sm" target="_blank">View Tweet</a>
                                         </td>
                                     </tr>
                                 @endforeach
