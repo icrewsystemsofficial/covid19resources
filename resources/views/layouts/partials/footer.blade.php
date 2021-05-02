@@ -1,4 +1,4 @@
-<footer class="footer bg-black-gradient text-white">
+<footer class="footer bg-black-gradient text-white" id="footer">
     <div class="ml-4">
         <h2 class="h3">
             <strong>{{ config('app.name') }}</strong>

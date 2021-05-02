@@ -906,7 +906,7 @@ var tourcompleted = getCookie("tourcompleted");
                     <br><br>
                     4) Add resources to our website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process <a href="{{ route('home.add.resource') }}" style="text-decoration: none"> (link here)</a>
                     <br><br>
-                    5) If you are an NGO and you are willing to support this cause : contact us immediately, we could join hands to save the nation
+                    5) If you are an NGO and you are willing to support this cause : contact us <a href="{{ route('home.chat_with_us') }}">link here</a> immediately, we could join hands to save the nation
                     <br><br>
                     6) If you can offer technical help: great minds don't just think alike,they work alike. You can help us by taking care of the backend data updation processes
 
