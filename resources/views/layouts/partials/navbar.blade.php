@@ -68,7 +68,7 @@
                         </div>
                     </li>
                     <li>
-                        <a class="see-all" href="javascript:void(0);">
+                        <a class="see-all" href="{{ route('home.search') }}">
                             Go to search module <i class="fa fa-angle-right"></i>
                         </a>
                     </li>

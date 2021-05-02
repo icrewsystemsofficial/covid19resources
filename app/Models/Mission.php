@@ -131,6 +131,13 @@ class Mission extends Model
 
     public function getVolunteer() {
         return $this->hasOne(User::class, 'id', 'volunteer_id');
-        // return User::find($this->volunteer_id)->first();
+    }
+
+    public static function getAssignedMissions($id = '') {
+        if($id == '') {
+            $id = $this->volunteer_id;
+        }
+
+        return Mission::where('volunteer_id', $id)->get();
     }
 }

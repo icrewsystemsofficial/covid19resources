@@ -34,14 +34,15 @@ class SearchFilterController extends Controller
 
         $filtered = $db_search->select('tweet', 'fullname', 'username', 'created_at', 'updated_at', 'tweet_id')
                     ->orderBy('created_at', 'DESC')
-                    // ->limit(500)
+                    ->limit(10)
                     ->get();
 
+        $filtered_total = $db_search->count();
         $response['query'] = $query;
         $response['algolia_total'] = $tweets->count();
         $response['algolia'] = $tweets;
 
-        $response['database_total'] = $filtered->count();
+        $response['database_total'] = $filtered_total;
         $response['database'] = $filtered;
         return response($response);
     }

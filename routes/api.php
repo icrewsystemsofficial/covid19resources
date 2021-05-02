@@ -8,7 +8,7 @@ use App\Http\Controllers\API\Location;
 use App\Http\Controllers\API\StatsAPI;
 use App\Http\Controllers\API\MissionAPI;
 use App\Http\Controllers\API\ScheduleRunner;
-use App\Http\Controllers\Api\SearchFilterController;
+use App\Http\Controllers\API\SearchFilterController;
 
 /*
 |--------------------------------------------------------------------------

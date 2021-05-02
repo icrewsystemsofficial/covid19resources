@@ -331,7 +331,7 @@ var tourcompleted = getCookie("tourcompleted");
             <div class="card">
                 <div class="card-header">
                    <div class="row">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-12">
                         <h4 class="card-title" id="total_retrived_results">
                             There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
                         </h4>
@@ -341,11 +341,6 @@ var tourcompleted = getCookie("tourcompleted");
                             <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
                             @endif
                         </span>
-                    </div>
-                    <div class="col-lg-8 col-sm-12">
-                        <h4 class="card-title">
-                            Couldn't find enough resources? <br><a href="{{ route('home.search') }}" class="btn btn-info text-white mt-1 font-weight-bold text-uppercase">  Click here to search for more </a> 
-                        </h4>
                     </div>
                    </div>
                     <div class="row mt-3">
@@ -426,6 +421,11 @@ var tourcompleted = getCookie("tourcompleted");
                             </a>
                         </li>
                     </ul>
+
+                    <div class="mt-2 text-center">
+                        <a href="{{ route('home.search') }}" class="btn btn-sm btn-warning">Looking for something in particular? A.I. Search <i class="fa fa-search"></i></a>
+                    </div>
+
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                         <div class="tab-pane fade active show" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
                             <div class="table-responsive">
@@ -906,6 +906,7 @@ var tourcompleted = getCookie("tourcompleted");
                 </div>
 
                 <div class="card-body">
+<<<<<<< HEAD
                     1) Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need
                     <br><br>
                     2) Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission. Sign up as volunteer today <a href="{{ route('volunteer.registration') }}" style="text-decoration: none">(link here)</a>
@@ -917,6 +918,19 @@ var tourcompleted = getCookie("tourcompleted");
                     5) If you are an NGO and you are willing to support this cause : contact us <a href="{{ route('home.chat_with_us') }}">link here</a> immediately, we could join hands to save the nation
                     <br><br>
                     6) If you can offer technical help: great minds don't just think alike,they work alike. You can help us by taking care of the backend data updation processes
+=======
+                    1) Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need.
+                    <br><br>
+                    2) Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission .. SigU up aV volunteer today <a href="{{ route('volunteer.registration') }}" style="text-decoration: none"> (link here) </a>
+                    <br><br>
+                    3) Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them. 
+                    <br><br>
+                    4) Add resources to our Website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process <a href="{{ route('home.add.resource') }}" style="text-decoration: none"> (link here) </a>
+                    <br><br>
+                    5) If you are an NGO and you are willing to support this cause : contact us <a href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7" style="text-decoration: none" target="_blank">(link here)</a> immediately, we could join hands to save the nation.
+                    <br><br>
+                    6) If you can offer technical help: great minds don't just think alike, they work alike. You can help us by taking care of the backend data updation processes.
+>>>>>>> 8edbb67a37fb63b6498c850c67c5f84ace7e19d7
 
                 </div>
             </div>
