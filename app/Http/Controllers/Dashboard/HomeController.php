@@ -28,11 +28,6 @@ use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
-    // public function __construct() {
-    //     $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-    //     $this->currentlocation = $currentlocation;
-    // }
-
     public function add_resource() {
         return view('dashboard.home.add_resource', [
             'categories' => Category::where('status', 1)->get(),
@@ -92,24 +87,38 @@ class HomeController extends Controller
         if(request('status') == 1) {
             $resource->verified_by = $user->id;
         }
-        
-        
-        
+
+
+
         if(request('city') == '* All Cities') {
-        	$resource->city = request('city');	
+        	$resource->city = request('city');
         	$resource->district = '* All Districts';
 		    $resource->state = request('State');
-		    $resource->hasAddress = 1;
+		    $resource->hasAddress = 0;
+        } else if(request('city') == '* Unavailable') {
+        	$resource->city = request('city');
+        	$resource->district = '* Unavailable';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
         } else {
         	$city = City::where('name', request('city'))->first();
-        	$resource->city = $city->name;
-		    $resource->district = $city->district;
-		    $resource->state = $city->state;
-		    $resource->hasAddress = 1;
-		    $resource->landmark = request('landmark');
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('State');
+                $resource->hasAddress = 0;
+            }
         }
-        
-        $resource->save();	
+
+        $resource->save();
 
         return redirect(route('home.view', $resource->id));
     }
@@ -233,7 +242,7 @@ class HomeController extends Controller
 			if(!$resource) {
 			    notify()->error('The resource you are trying to view is not available', 'Whoops');
 			    return redirect(route('home'));
-			} 
+			}
 			$comments = $resource->comments;
             return view('dashboard.home.view', [
                 'resource' => $resource,

@@ -330,16 +330,24 @@ var tourcompleted = getCookie("tourcompleted");
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="total_retrived_results">
-                        There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
-                    </h4>
-                    <span class="text-muted">
-                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
-                        @if ($resources->count() > 0)
-                        <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
-                        @endif
-                    </span>
-
+                   <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <h4 class="card-title" id="total_retrived_results">
+                            There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
+                        </h4>
+                        <span class="text-muted">
+                            All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
+                            @if ($resources->count() > 0)
+                            <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
+                            @endif
+                        </span>
+                    </div>
+                    <div class="col-lg-8 col-sm-12">
+                        <h4 class="card-title">
+                            Couldn't find enough resources? <br><a href="{{ route('home.search') }}" class="btn btn-info text-white mt-1 font-weight-bold text-uppercase">  Click here to search for more </a> 
+                        </h4>
+                    </div>
+                   </div>
                     <div class="row mt-3">
                         <div class="col-md-4">
                             <div class="card card-dark bg-danger-gradient">

@@ -13,10 +13,39 @@ class SearchFilterController extends Controller
 {
 
     public function search($query) {
+        $response = array();
+
+        // Algolia
         $tweets = Twitter::search($query)->get();
 
-        return $tweets;
+        //DB Search
+        $search_fields = ['tweet', 'fullname', 'username'];
+        $search_terms = explode(' ', $query);
+
+        $db_search = Twitter::query();
+        foreach ($search_terms as $term) {
+            $db_search->orWhere(function ($db_search) use ($search_fields, $term) {
+
+                foreach ($search_fields as $field) {
+                    $db_search->orWhere($field, 'LIKE', '%' . $term . '%');
+                }
+            });
+        }
+
+        $filtered = $db_search->select('tweet', 'fullname', 'username', 'created_at', 'updated_at', 'tweet_id')
+                    ->orderBy('created_at', 'DESC')
+                    // ->limit(500)
+                    ->get();
+
+        $response['query'] = $query;
+        $response['algolia_total'] = $tweets->count();
+        $response['algolia'] = $tweets;
+
+        $response['database_total'] = $filtered->count();
+        $response['database'] = $filtered;
+        return response($response);
     }
+
     public function search_old($searchTerm) {
         $search_fields = ['tweet', 'fullname', 'username'];
         $search_terms = explode(' ', $searchTerm);

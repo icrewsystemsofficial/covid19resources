@@ -38,7 +38,7 @@
                             <li>•   You could also help by adding resources and where to find them if you have a verified source in your contact. We can make it avaialble to those who require it on an urgent basis thereby reaching out at a faster pace.</a></li>
                             <li>•   Give feedback to us at <a href="mailto:ceo@icrewsystems.com">ceo@icrewsystems.com</a></li>
                         </ul>
-                    
+
                     </p>
 
                     <p class="mb-3">
@@ -66,7 +66,7 @@
                             <li>•	 We let public post verified information and share it across the network.</li>
                         </ul>
 
-                        
+
                     </p>
 
                     <p class="mb-3">
@@ -151,19 +151,19 @@
                         <h1 class="h2">
                             <strong>10. How do I add Geographical Data?</strong>
                         </h1>
-                        For Cities - 
+                        For Cities -
                         <ul class="ml-3">
                             <li>•   When the user clicks <strong>cities</strong> in the side bar, it takes to the page where the page shows a collection of the latest information regarding the cities is available</li>
                             <li>•	When the user clicks <strong>add new city</strong> button user are able to add the new city</li>
                             <li>•	When the user clicks <strong>manage</strong> button user are able to update and delete the cities</li>
                         </ul>
-                        For Districts - 
+                        For Districts -
                         <ul class="ml-3">
                             <li>•   When the user clicks <strong>Districts</strong> in side bar, it takes you to a page where a collection of the latest information regarding the districts is available</li>
                             <li>•	When the user clicks <strong>add new district</strong> button .user are able to add the new district </li>
                             <li>•	When the user clicks <strong>manage</strong> button user are able to update and delete the district</li>
                         </ul>
-                        For States- 
+                        For States-
                         <ul class="ml-3">
                             <li>•   When the user clicks <strong>States</strong> in side bar, it takes you to the page a collection of the latest information regarding the States is available</li>
                             <li>•	When the user clicks <strong>add new States</strong> button, user will be able to add the new States</li>
