@@ -16,7 +16,7 @@ class ClearOldTweets extends Command
      *
      * @var string
      */
-    protected $signature = 'twitter:clear-old';
+    protected $signature = 'twitter:clear-old {days=5}';
 
     /**
      * The console command description.
@@ -45,21 +45,19 @@ class ClearOldTweets extends Command
         $this->line('Deleting tweets that are older than a week');
 
         // $this->line(Carbon::now()->subDays(7)->format('d/m/Y'));
-
-
-        $oneWeek = Carbon::now()->toDateTimeString();
-        // $oneWeek = Carbon::now()->subDays(7)->toDateTimeString();
+        // $oneWeek = Carbon::now()->toDateTimeString();
+        $oneWeek = Carbon::now()->subDays($this->argument('days'))->toDateTimeString();
 
         $tweets = Twitter::where('status', Twitter::SCREENED)
-                    ->whereDate('created_at', '>', $oneWeek)->orderBy('created_at', 'DESC')->get();
+                    ->whereDate('created_at', '<', $oneWeek)->orderBy('created_at', 'ASC')->get();
 
         if($tweets->count() > 0) {
         	$this->line('Found '.$tweets->count().' old tweets...marking them as OLD');
 	        $i = 0;
 	        foreach($tweets as $tweet) {
 
-                // $tweet->status = Twitter::OLD;
-                // $tweet->save();
+                $tweet->status = Twitter::OLD;
+                $tweet->save();
 	            $i++;
 	            $this->line('Marked Tweet # '.$tweet->id.', '.$tweet->created_at->format('d/m/Y'));
 	        }
@@ -71,7 +69,7 @@ class ClearOldTweets extends Command
                 $data = array(
                     'user' => $user->name,
                     'total' => $i,
-                    'date' => Carbon::now()->format('d/m/Y'),
+                    'date' => Carbon::now()->subDays($this->argument('days'))->format('d/m/Y'),
                 );
 
                 Mail::to($user->email)->send(new MarkOldTweets($data));
