@@ -69,7 +69,9 @@
                                         <td>{{ $result->created_at->format('d/m/Y H:i A') }}</td>
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
 										<td>
+                                            
 											<a href="{{ route('home.search.view', $result->id) }}" class="btn btn-success btn-sm" target="_blank">View Tweet</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
