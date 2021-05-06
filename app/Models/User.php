@@ -6,25 +6,21 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-<<<<<<< HEAD
 //use Spatie\Permission\Traits\HasRoles;
 
+use BeyondCode\Comments\Traits\HasComments;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-=======
-use Spatie\Permission\Traits\HasRoles;
-use BeyondCode\Comments\Traits\HasComments;
-class User extends Authenticatable
-{
-    use HasFactory, Notifiable, HasRoles;
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
+
+    //use HasFactory, Notifiable, HasRoles;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    
     protected $fillable = [
         'name',
         'email',

@@ -39,13 +39,9 @@ Route::get('/sendmail', function() {
    Mail::to('kashrayks@gmail.com')->send(new Welcome($user));
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-<<<<<<< HEAD
 Route::get('/about', function () {
     return view('aboutus');
 });
-=======
-Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
@@ -124,6 +120,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
             Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
             Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
+            Route::get('/mission/{id}/manage', [MissionAdmin::class, 'mission_manage'])->name('admin.mission.manage');
+            Route::post('/mission/{id}/update', [MissionAdmin::class, 'mission_update'])->name('admin.mission.update');
+            Route::get('/mission/{id}/delete', [MissionAdmin::class, 'mission_delete'])->name('admin.mission.delete');
+    
         });
 
         Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');

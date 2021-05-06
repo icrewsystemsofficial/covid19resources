@@ -23,19 +23,18 @@ return [
         ],
         'linkedin' => [
             'uri' => 'https://www.linkedin.com/sharing/share-offsite', // oud: http://www.linkedin.com/shareArticle
-<<<<<<< HEAD
+
             'extra' => ['mini' => 'true'],
         ],
         'whatsapp' => [
             'uri' => 'https://wa.me/?text=',
             'extra' => ['mini' => 'true'],
-=======
+
             'extra' => ['mini' => 'false'],
         ],
         'whatsapp' => [
             'uri' => 'https://wa.me/?text=',
             'extra' => ['mini' => 'false'],
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
         ],
         'pinterest' => [
             'uri' => 'https://pinterest.com/pin/create/button/?url=',

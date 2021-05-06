@@ -13,22 +13,14 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jorenvanhocht/laravel-share": "^4.0",
-<<<<<<< HEAD
-=======
-        "larabug/larabug": "^2.3",
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
         "laravel/framework": "^8.12",
         "laravel/scout": "^8.6",
         "laravel/tinker": "^2.5",
         "markwalet/laravel-changelog": "^1.4",
         "mckenziearts/laravel-notify": "^2.1",
         "pusher/pusher-php-server": "^6.1",
-<<<<<<< HEAD
-        "rackbeat/laravel-ui-avatars": "^0.9.0",
-=======
         "qoraiche/laravel-mail-editor": "^3.2",
         "sentry/sentry-laravel": "^2.4",
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-twitter-streaming-api": "^1.4"

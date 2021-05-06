@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 
     <div class="container-fluid">
@@ -209,7 +208,6 @@
                     </div>
                     
                 </div>
-=======
                                 <div class="col-md-12">
                                     @auth
                                         <label for="referrallink" class="mb-2">
@@ -241,26 +239,20 @@
                             </div>
                         </div>
                     </div>
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
             </li>
             @auth
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-<<<<<<< HEAD
                         <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="..." class="avatar-img rounded-circle">
-=======
                             <span class="avatar-title rounded-circle border border-white">{{ auth()->user()->initials }}</span>
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                             <div class="user-box">
-<<<<<<< HEAD
                                 <div class="avatar-lg"><img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"></div>
-=======
                                 <div class="avatar-lg">
                                     {{-- <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"> --}}
                                     <div class="avatar">
@@ -269,7 +261,6 @@
                                         </span>
                                     </div>
                                 </div>
->>>>>>> f5a609caaa08e8edaec3b7e6af8d0d29d3168377
                                 <div class="u-text">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>

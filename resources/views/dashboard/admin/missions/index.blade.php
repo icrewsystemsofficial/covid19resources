@@ -181,6 +181,11 @@
                                             </div>
 
                                         </td>
+                                        <td class="text-center">
+                                        <a href="{{ route('admin.mission.manage',$mission->id) }}" class="btn btn-sm btn-primary">
+                                            Manage
+                                        </a>
+                                    </td>
                                     </tr>
                                 @empty
                                     <div class="alert">
