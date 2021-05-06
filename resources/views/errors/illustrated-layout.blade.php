@@ -482,7 +482,7 @@
                     </a> --}}
                     <a href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7" target="_blank">
                         <button class="bg-transparent text-grey-darkest font-bold tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                            Let us know?
+                            Chat with us?
                         </button>
                     </a>
                 </div>

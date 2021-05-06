@@ -12,14 +12,14 @@ class TwitterPurgeSpam extends Command
      *
      * @var string
      */
-    protected $signature = 'twitter:purge-spam';
+    protected $signature = 'twitter:purge-spam {howmany=1000}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Purge all the spam tweets';
+    protected $description = 'Purge spam tweets, default count: 1000';
 
     /**
      * Create a new command instance.
@@ -38,13 +38,20 @@ class TwitterPurgeSpam extends Command
      */
     public function handle()
     {
-        $this->line('Deleting all Tweets marked as spam');
-        $spam = Twitter::where('status', Twitter::SPAM)->limit(1000)->get();
-        foreach($spam as $spam) {
-            $spam->delete();
+    	$this->line('Deleting all Tweets marked as SPAM');
+        $spam = Twitter::where('status', Twitter::SPAM)->limit($this->argument('howmany'))->get();
+        if($spam->count() > 0) {
+        	$this->line('Selected '.$spam->count().' spam tweets...deleting them');
+	        $i = 0;
+	        foreach($spam as $spam) {
+	            $spam->delete();
+	            $i++;
+	            $this->line('Deleting ' . $i);
+	        }
+	        $this->info('Deleted: '.$i.' tweets, '.$spam->count().' SPAM tweets remaining');	
+        } else {
+        	$this->info('Yay! No spam tweets found');
         }
-
-        $this->line($spam->count().' tweets marked as "SPAM" were deleted.');
 
     }
 }

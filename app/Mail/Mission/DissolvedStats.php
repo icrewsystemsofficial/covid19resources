@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Mission;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class dummy extends Mailable
+class DissolvedStats extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    protected $details;
+    public $data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($data)
     {
-        $this->details = $details;
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +28,8 @@ class dummy extends Mailable
      */
     public function build()
     {
-        return $this->subject('checking whether markdown is wokring or not')->markdown('email.dummy')->with('details',$this->details);
+        return $this
+            ->subject('[IMPORTANT] '.config('app.name').' | '.$this->data['total'].' missions dissolved on '.date('d/m/Y'))
+            ->markdown('email.mission.dissolved_stats');
     }
 }

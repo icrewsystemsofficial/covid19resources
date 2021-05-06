@@ -149,8 +149,15 @@
                                             Mission {{ $mission->id }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.user.edit', $mission->getVolunteer->id) }}" target="_blank" class="text-primary">
-                                                {{ $mission->getVolunteer->name }}
+                                            <a href="{{ route('admin.user.edit', $mission->volunteer_id) }}" target="_blank" class="text-primary">
+                                                @php
+                                                	$user = App\Models\User::find($mission->volunteer_id);
+                                                	if($user != '') {
+                                                		echo $user->name;
+                                                	} else {
+                                                		echo "Unknown user with ID # $mission->volunteer_id";
+                                                	}
+                                                @endphp
                                             </a>
                                         </td>
                                         <td>
@@ -175,8 +182,12 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('home.mission.view', $mission->uuid) }}" class="btn btn-primary">
+                                                <a href="{{ route('home.mission.view', $mission->uuid) }}" class="btn btn-primary btn-sm">
                                                     View
+                                                </a>
+
+                                                <a href="#" onclick="dissolveMission('{{ $mission->id }}')" class="btn btn-danger btn-sm">
+                                                    Dissolve
                                                 </a>
                                             </div>
 
@@ -199,20 +210,9 @@
 
                     <script>
 
-                        function deleteRow(row) {
-
-                            if(confirm('Are you sure you wish to delete this tweet? This action is not un-doable')) {
-                                var row_id = 'row_'+row;
-                                var row_element = document.getElementById(row_id);
-                                row_element.style.display = 'none';
-                                axios.get('/tweets/' + row + '/delete')
-                                .then(function(response) {
-                                    console.log('Removing row # ' + row);
-                                    row_element.remove();
-                                })
-                                .catch(function(error) {
-                                    console.log(error);
-                                });
+                        function dissolveMission(id) {
+                            if(confirm('Are you sure you wish to dissolve this mission? This action is not un-doable')) {
+                              window.location = "{{ config('app.url') }}/admin/mission/dissolve/" + id;
                             } else {
 
                             }

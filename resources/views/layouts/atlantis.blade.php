@@ -53,14 +53,19 @@
     @notifyCss
 
 </head>
-<body>
-	<div class="wrapper sidebar_minimize">
+
+
+<body data-background-color="{{ cache()->get('key') }}">
+	<div  class="wrapper sidebar_minimize">
 		<div class="main-header">
 			<!-- Logo Header -->
+            @if (cache()->get('key') == 'dark')
+			<div class="logo-header" data-background-color="dark2">
+            @else
 			<div class="logo-header" data-background-color="blue">
+            @endif
 
 				<a href="{{ route('home') }}" class="logo text-white">
-					{{-- <img style="margin-top: -5px; width: 20px; height: auto;" src="https://cdn.discordapp.com/attachments/530789778912837640/686668588500779122/PicsArt_03-10-01.45.43.png" alt="navbar brand" class="navbar-brand"> --}}
                     {{ config('app.name') }}
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,8 +83,7 @@
 			<!-- End Logo Header -->
 
 			<!-- Navbar Header -->
-
-                @include('layouts.partials.navbar')
+				@include('layouts.partials.navbar')
 			<!-- End Navbar -->
 		</div>
 
@@ -119,8 +123,8 @@
                     </p>
 
 
-                    <div class="btnSwitch">
-                        <button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
+                  {{--  <div class="btnSwitch">
+                         <button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
                         <button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
@@ -128,21 +132,21 @@
                         <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-                        <br/>
+                        <br/> 
                         <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button> 
                     </div>
                 </div>
                 <div class="switch-block">
                     <h4>Navbar Header</h4>
                     <div class="btnSwitch">
                         <button type="button" class="changeTopBarColor" data-color="dark"></button>
-                        <button type="button" class="changeTopBarColor" data-color="blue"></button>
+                         <button type="button" class="changeTopBarColor" data-color="blue"></button>
                         <button type="button" class="changeTopBarColor" data-color="purple"></button>
                         <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
                         <button type="button" class="changeTopBarColor" data-color="green"></button>
@@ -156,30 +160,34 @@
                         <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
                         <button type="button" class="changeTopBarColor" data-color="green2"></button>
                         <button type="button" class="changeTopBarColor" data-color="orange2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="red2"></button> 
                     </div>
                 </div>
-                <div class="switch-block">
+                {{-- <div class="switch-block">
                     <h4>Sidebar</h4>
                     <div class="btnSwitch">
-                        <button type="button" class="selected changeSideBarColor" data-color="white"></button>
-                        <button type="button" class="changeSideBarColor" data-color="dark"></button>
-                        <button type="button" class="changeSideBarColor" data-color="dark2"></button>
+                         <button type="button" class="selected changeSideBarColor" data-color="white"></button>
+                        <button type="button" class="changeSideBarColor" data-color="dark"></button>                       <button type="button" class="changeSideBarColor" data-color="dark2"></button>
                     </div>
+                </div> --}}
+                <div class="form-group">
+                    <label class="form-label d-block">Dashboard Preference</label>
+                    <form  action="{{ route('home.toggle.mode') }}">
+                        <div class="selectgroup selectgroup-secondary selectgroup-pills">
+                            <label class="selectgroup-item">
+                                <input type="radio" name="mode" value="light" onchange="this.form.submit();" class="selectgroup-input" <?php if(cache()->get('key') != 'dark' || cache()->get('key') == '') { echo "checked"; } ?>>
+                                <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-sun"></i></span>
+                            </label>
+                            <label class="selectgroup-item">
+                                <input type="radio" name="mode" onchange="this.form.submit();" value="dark" class="selectgroup-input" <?php if(cache()->get('key') == 'dark') { echo "checked"; } ?>>
+                                <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-moon"></i></span>
+                            </label>
+                        </div>
+                        <noscript><input type="submit" value="Submit"></noscript>
+                    </form>
                 </div>
-                <div class="switch-block">
-                    <h4>Background</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
-                        <button type="button" class="changeBackgroundColor" data-color="bg1"></button>
-                        <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
-                        <button type="button" class="changeBackgroundColor" data-color="dark"></button>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="custom-toggle">
-            {{-- <i class="fa fa-question"></i> --}}
             <span class="fa fa-question"></span>
         </div>
     </div>
@@ -268,8 +276,12 @@ function relocate_home()
                 },
                 time: 1000,
             });
+<<<<<<< HEAD
         }
 >>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
+=======
+        }    
+>>>>>>> 64b72df20c3a5a9bb7ff6e7adff82eca1aff3cde
     </script>
 
     @yield('js')

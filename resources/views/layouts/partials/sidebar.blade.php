@@ -1,4 +1,8 @@
+@if (cache()->get('key') == 'dark')
+<div class="sidebar sidebar-style-2" data-background-color="dark">
+@else
 <div class="sidebar sidebar-style-2" data-background-color="white">
+@endif
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
@@ -9,6 +13,12 @@
                         <p>Add Resources</p>
                     </a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a href="{{ route('ocr.index') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <p>OCR Reader</p>
+                    </a>
+                </li> --}}
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}">
@@ -19,10 +29,18 @@
 
                 <li class="nav-item">
                     <a href="{{ route('home.search') }}">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search" aria-hidden="true"></i>
                         <p>Search</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.statistics') }}">
+                        <i class="far fa-chart-bar"></i>
+                        <p>Our Statistics</p>
+                    </a>
+                </li>
+
 
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#about_section">
@@ -44,7 +62,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('home.howto') }}">
+                                <a href="{{ route('home.howTo') }}">
                                     <span class="sub-item">How to</span>
                                 </a>
                             </li>
@@ -52,7 +70,7 @@
                     </div>
                 </li>
 
-
+                @hasanyrole('superadmin|moderator|volunteer')
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -68,13 +86,21 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.mission.leaderboard') }}">
+                        <i class="fas fa-list"></i>
+                        <p>Leaderboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('home.mission.index') }}">
                         <i class="fas fa-briefcase"></i>
                         <p>Missions</p>
                     </a>
                 </li>
+                @endrole
 
-
+                @hasanyrole('superadmin|moderator')
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -96,13 +122,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.twitter.index') }}">
-                        <i class="fab fa-twitter"></i>
-                        <p>Tweets</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a href="{{ route('admin.resources.index') }}">
                         <i class="fas fa-database"></i>
                         <p>Resources</p>
@@ -117,6 +136,7 @@
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a href="{{ route('admin.user.index') }}">
                         <i class="fas fa-user"></i>
                         <p>Users</p>
@@ -154,6 +174,8 @@
 >>>>>>> cbaebc5dc3415a2de92b8cb9b039e3cb6c9be71d
 
                 <li class="nav-item">
+=======
+>>>>>>> 64b72df20c3a5a9bb7ff6e7adff82eca1aff3cde
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-globe-americas"></i>
                         <p>Geography</p>
@@ -181,6 +203,42 @@
                         </ul>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.twitter.index') }}">
+                        <i class="fab fa-twitter"></i>
+                        <p>Tweets</p>
+                    </a>
+                </li>
+                @endrole
+
+                @role('superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('admin.user.index') }}">
+                        <i class="fas fa-user"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Access Control</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.setting.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
+                @endrole
             </ul>
         </div>
     </div>

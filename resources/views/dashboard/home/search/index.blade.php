@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <center>
                                 <div class="input-group">
-                                    <input name="query" type="text" placeholder="What are you looking for?" class="form-control">
+                                    <input name="query" type="text" placeholder="Enter city / district / state and resource of interest?     Example: Delhi Oxygen Cylinders" class="form-control">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-search pl-4">
                                             <i class="fa fa-search search-icon"></i>
@@ -36,7 +36,11 @@
                                     </div>
                                 </div>
                                 <br>
-                                Powered by Algolia
+                                <span class="text-muted">AI based search powered by</span>
+                                <br><br>
+                                <a href="https://www.algolia.com/?ref={{ config('app.url') }}" target="_blank">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Algolia-logo.svg/1280px-Algolia-logo.svg.png" style="width: 100px; height: auto;" />
+                                </a>
                             </center>
                         </div>
 

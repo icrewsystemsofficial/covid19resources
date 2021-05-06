@@ -28,11 +28,6 @@ use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
-    public function __construct() {
-        $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-        $this->currentlocation = $currentlocation;
-    }
-
     public function add_resource() {
         return view('dashboard.home.add_resource', [
             'categories' => Category::where('status', 1)->get(),
@@ -93,38 +88,47 @@ class HomeController extends Controller
             $resource->verified_by = $user->id;
         }
 
-        $city = City::where('name', request('city'))->first();
-        $resource->city = $city->name;
-        $resource->district = $city->district;
-        $resource->state = $city->state;
-        $resource->hasAddress = 1;
-        $resource->landmark = request('landmark');
-        $resource->save();
 
-        // dd($resource);
+
+        if(request('city') == '* All Cities') {
+        	$resource->city = request('city');
+        	$resource->district = '* All Districts';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else if(request('city') == '* Unavailable') {
+        	$resource->city = request('city');
+        	$resource->district = '* Unavailable';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else {
+        	$city = City::where('name', request('city'))->first();
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('State');
+                $resource->hasAddress = 0;
+            }
+        }
+
+        $resource->save();
 
         return redirect(route('home.view', $resource->id));
     }
 
     public function index() {
-
-        if(request('search')) {
-            $faq = FAQ::where('state', $this->currentlocation->name)->paginate(5);
-        } else {
-            $faq = FAQ::where('state', $this->currentlocation->name)
-            ->orWhere('title', '%LIKE%', request('search'))
-            // ->orWhere('description', '%LIKE%', request('search'))
-            ->paginate(5)
-            ->appends(['search' => request('search')]);
-        }
-
         $resources = Resource::
-                        where('state', $this->currentlocation->name)
+                        where('state', \App\Http\Controllers\API\Location::locationDisplay()->name)
                         ->get();
         return view('dashboard.home.home', [
-            'faqs' => $faq,
-            'states' => States::all(),
-            'districts' => Districts::all(),
+            'states' => States::select('name', 'code')->get(),
             'resources' => $resources,
         ]);
     }
@@ -132,12 +136,66 @@ class HomeController extends Controller
     public function about() {
         return view('dashboard.static.about');
     }
-  
-    public function howto() {
+
+    public function how_to() {
+
+
         return view('dashboard.static.howto');
     }
 
-    public function privacy() {
+    public function statistics() {
+        // Resources Count
+        $verified=Resource::where('verified','=',1)->count();
+        $pending=Resource::where('verified','=',0)->count();
+        $spam=Resource::where('verified','=',3)->count();
+        $total=Resource::all()->count();
+
+
+
+        //Users Count
+        $volunteer_users = User::whereHas("roles", function($q){ $q->where("name","volunteer"); })->get();
+        $admin_users = User::whereHas("roles", function($q){ $q->where("name","superadmin"); })->get();
+        $total_users = User::all()->count();
+
+        $volunteer_count=count($volunteer_users);
+        $admin_count=count($admin_users);
+
+
+        //Twitter Count
+        $total_tweets=Twitter::all()->count();
+        $verified_tweets=Twitter::where('status','=',1)->get();
+        $pending_tweets=Twitter::where('status','=',0)->get();
+        $inadequate_tweets=Twitter::where('status','=',4)->get();
+
+        $count_verified=count($verified_tweets);
+        $count_pending=count($pending_tweets);
+        $count_inadequate=count($inadequate_tweets);
+
+
+        return view('dashboard.static.statistics',[
+            'resources_verified'=> $verified,
+            'resources_pending'=>$pending,
+            'resources_spam'=>$spam,
+            'resources_total'=>$total,
+
+            'userstotal'=>$total_users,
+            'usersvolunteer'=>$volunteer_count,
+            'usersadmin'=>$admin_count,
+
+            'tweetsverified'=>$count_verified,
+            'tweetspending'=>$count_pending,
+            'tweetsinadequate'=>$count_inadequate,
+            'tweetstotal'=>$total_tweets,
+
+
+        ]);
+    }
+
+    public function terms(){
+        return view('dashboard.home.terms');
+
+    }
+    public function privacy(){
         return view('dashboard.static.privacy');
     }
 
@@ -152,7 +210,7 @@ class HomeController extends Controller
         }
 
 
-        if(auth()) {
+        if(Auth::check()) {
             if(auth()->user()->id == $user->id) {
                 notify()->info('Looks like you\'re testing your own referral link. That\'s good, it works, yay! Now, share it with other people!', 'Kya re? Testing ah');
                 return redirect(route('home'));
@@ -176,20 +234,16 @@ class HomeController extends Controller
     }
 
     public function view($id = '') {
-
-        $resource = Resource::find($id);
-        $comments = $resource->comments;
-        // dd($comments);
         if($id == '') {
-            notify()->error('Resource ID not passed', 'Whoops');
-            return redirect(route('home'));
-        } else if(!$resource) {
-            notify()->error('The resource you are trying to view is not available', 'Whoops');
+            notify()->error('You were trying to view a resource, but the ID was not passed. ', 'Whoops');
             return redirect(route('home'));
         } else {
-
-
-
+			$resource = Resource::find($id);
+			if(!$resource) {
+			    notify()->error('The resource you are trying to view is not available', 'Whoops');
+			    return redirect(route('home'));
+			}
+			$comments = $resource->comments;
             return view('dashboard.home.view', [
                 'resource' => $resource,
                 'comments' => $comments
@@ -286,7 +340,7 @@ class HomeController extends Controller
 
                 // Mail::to($superadmin)->send(new ResourceRefuted());
             }
-          
+
             activity()->log('Resource Reported: A Resource has been reported captain');
             return redirect(route('home'));
 

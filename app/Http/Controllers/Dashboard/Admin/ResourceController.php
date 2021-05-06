@@ -38,6 +38,7 @@ class ResourceController extends Controller
 
     public function admin_save(Request $request) {
 
+
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
         ],[
@@ -58,12 +59,34 @@ class ResourceController extends Controller
             $resource->verified_by = request('author_id');
         }
 
-        $city = City::where('name', request('city'))->first();
-        $resource->city = $city->name;
-        $resource->district = $city->district;
-        $resource->state = $city->state;
-        $resource->hasAddress = 1;
-        $resource->landmark = request('landmark');
+        if(request('city') == '* All Cities') {
+        	$resource->city = request('city');
+        	$resource->district = '* All Districts';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else if(request('city') == '* Unavailable') {
+        	$resource->city = request('city');
+        	$resource->district = '* Unavailable';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else {
+        	$city = City::where('name', request('city'))->first();
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('State');
+                $resource->hasAddress = 0;
+            }
+        }
+
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
         activity()->log('Admin Resource: '.$resource->title. ' resource had created');
