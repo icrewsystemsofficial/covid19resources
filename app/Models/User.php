@@ -60,9 +60,13 @@ class User extends Authenticatable
 
     public function getInitialsAttribute() {
         $nameWords = explode(" ", $this->name);
-        $initials =  $nameWords[0][0];
-        if(count($nameWords) > 1) {
-            $initials = $initials . $nameWords[1][0];
+        
+        $initials =  "";
+        for($i = 0; $i<count($nameWords); $i++){
+        	$initials = $initials . substr($nameWords[$i], 0, 1);
+        	if($i > 2) {
+            	break;
+        	}
         }
         return $initials;
     }

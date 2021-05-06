@@ -70,6 +70,9 @@
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
 										<td>
 											<a href="{{ route('home.search.view', $result->id) }}" class="btn btn-success btn-sm" target="_blank">View Tweet</a>
+											@hasanyrole('superadmin|moderator|volunteer')
+											<a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary btn-sm" target="_blank">Manage Tweet</a>
+											@endrole
                                         </td>
                                     </tr>
                                 @endforeach
