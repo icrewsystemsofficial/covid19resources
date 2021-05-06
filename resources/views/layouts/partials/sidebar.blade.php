@@ -35,6 +35,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.crowdsourced') }}">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <p>Crowdsourced resources</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('home.statistics') }}">
                         <i class="far fa-chart-bar"></i>
                         <p>Our Statistics</p>

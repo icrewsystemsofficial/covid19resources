@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Mission;
+use App\Http\Controllers\Crowdsourced;
 
 use App\Mail\Volunteers\Welcome;
 use Illuminate\Support\Facades\Http;
@@ -47,9 +48,7 @@ Route::get('/sendmail', function() {
         }
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/about', function () {
-    return view('aboutus');
-});
+Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
 Route::get('/view/{id?}', [HomeController::class, 'view'])->name('home.view');
 Route::get('/report/{id?}', [HomeController::class, 'report'])->name('home.report');
 Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->name('home.submit.report');
@@ -61,6 +60,10 @@ Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.s
 Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
+Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
+Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
+Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
+Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
 
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 
@@ -127,16 +130,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->group(function () {
 
-<<<<<<< HEAD
-        Route::prefix('mission')->group(function () {
-            Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
-            Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
-            Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
-            Route::get('/mission/{id}/manage', [MissionAdmin::class, 'mission_manage'])->name('admin.mission.manage');
-            Route::post('/mission/{id}/update', [MissionAdmin::class, 'mission_update'])->name('admin.mission.update');
-            Route::get('/mission/{id}/delete', [MissionAdmin::class, 'mission_delete'])->name('admin.mission.delete');
-    
-=======
         Route::group(['middleware' => ['role:superadmin|moderator']], function () {
 
             Route::get('/faq', [FAQ::class, 'admin_index'])->name('admin.faq.index');
@@ -188,7 +181,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/geographies/cities/{id}/manage', [GeographiesController::class, 'admin_cities_manage'])->name('admin.geographies.cities.manage');
             Route::post('/geographies/cities/{id}/update', [GeographiesController::class, 'admin_cities_update'])->name('admin.geographies.cities.update');
             Route::get('/geographies/cities/{id}/delete', [GeographiesController::class, 'admin_cities_delete'])->name('admin.geographies.cities.delete');
->>>>>>> 64b72df20c3a5a9bb7ff6e7adff82eca1aff3cde
         });
 
         Route::group(['middleware' => ['role:superadmin']], function () {
