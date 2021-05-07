@@ -32,8 +32,12 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.mission.update') }}" method="POST">
+                    <form action="{{ route('admin.mission.update', $mission->id) }}" method="POST">
                         @csrf
+                        
+                        <?php
+                        	$users = App\Models\User::all();
+                        ?>
 
 
                         <div class="row">
@@ -42,7 +46,7 @@
                                     <label for="volunteer_id"> Select Volunteer</label>
                                     <select name="volunteer_id" id="" class="form-control select2">
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option value="{{ $user->id }}" {{ ($user->id == $mission->volunteer_id)?'selected':'' }}>
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -54,10 +58,16 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="to_verify">
-                                        Number of resources to be assigned
+                                    <label for="status">
+                                        Change Mission Status
                                     </label>
-                                    <input type="text" name="total" class="form-control" value="{{ config('app.max_tweets_to_assign_in_a_mission') }}" placeholder="Number of resources to be assigned to this user for this mission">
+                                    <select name="status" id="change_mission_status" class="form-control select2">
+                                    	<option value="0">Assigned</option>
+                                    	<option value="1">In Progress</option>
+                                    	<option value="3">Delayed</option>
+                                    	<option value="3">Completed</option>
+                                	</select>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -66,7 +76,7 @@
                                 Mission Description
                             </label>
 
-                            <textarea name="description" id="description">Your mission objective is to call the phone numbers in the Tweets and verify if the information they have provided accurate & mark them as verified</textarea>
+                            <textarea name="description" id="description">{{$mission->description}}</textarea>
                         </div>
 
                         <div class="form-group">
