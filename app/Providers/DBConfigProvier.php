@@ -35,7 +35,7 @@ class DBConfigProvier extends ServiceProvider
 
         // config()->set(['app.name' => $setting_data['APP_NAME']]);
 
-      /*  $max_tweets_per_mission = Setting::select('name', 'value')->where('name', 'MAX_TWEETS_TO_ASSIGN_IN_A_MISSION')->first();
+        $max_tweets_per_mission = Setting::select('name', 'value')->where('name', 'MAX_TWEETS_TO_ASSIGN_IN_A_MISSION')->first();
         if($max_tweets_per_mission) {
             config()->set(['app.max_tweets_to_assign_in_a_mission' => $max_tweets_per_mission->value]);
         }
@@ -43,6 +43,6 @@ class DBConfigProvier extends ServiceProvider
         $blacklisted_words = Setting::where('name', 'BLACKLISTED_KEYWORDS')->first();
         if($blacklisted_words) {
             config()->set(['app.blacklisted_words' => $blacklisted_words->value]);
-        }*/
+        }
     }
 }

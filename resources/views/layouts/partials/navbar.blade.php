@@ -90,45 +90,6 @@
                     <div class="quick-actions-scroll scrollbar-outer">
                         <div class="quick-actions-items">
                             <div class="row m-0">
-<<<<<<< HEAD
-                                <div class="quick-actions-item">
-                                    <button class="btn btn-sm btn-secondary ml-3">
-                                        @php
-                                        echo Share::currentPage('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->facebook(); 
-                                        @endphp
-                                    </button>
-                                </div>
-
-                                <div class="quick-actions-item">
-                                    <button class="btn btn-sm btn-secondary">
-                                        @php
-                                        echo Share::page('www.covid19resources.in','I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->twitter(); 
-                                        @endphp
-                                    </button>
-                                </div>
-
-                                <div class="quick-actions-item">
-                                    <button class="btn btn-sm btn-secondary">
-                                        @php
-                                        echo Share::page('www.covid19resources.in','Sharing Covid Resources')->linkedin('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this'); 
-                                        @endphp
-                                    </button>
-                                </div>
-                                
-                                {{-- <a class="col-6 col-md-4 p-0" href="#"> --}}
-                                <div class="quick-actions-item">
-                                    <button class="btn btn-sm btn-success">
-                                        @php
-                                            echo Share::currentPage('I am helping to fight COVID 19 by sharing / adding / verifying resource list on the COVID19 Resource Directory. Check it out, share it with people. You never know who might be in dire desperate need of this')->whatsapp();
-                                        @endphp
-                                    </button>
-                                </div>
-                                {{-- </a> --}}
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
                                 <div class="col-md-12">
                                     @auth
                                         <label for="referrallink" class="mb-2">
@@ -165,7 +126,6 @@
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-                        <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="..." class="avatar-img rounded-circle">
                             <span class="avatar-title rounded-circle border border-white">{{ auth()->user()->initials }}</span>
                     </div>
                 </a>
@@ -173,7 +133,6 @@
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
                             <div class="user-box">
-                                <div class="avatar-lg"><img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"></div>
                                 <div class="avatar-lg">
                                     {{-- <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ auth()->user()->name }}" alt="image profile" class="avatar-img rounded"> --}}
                                     <div class="avatar">
@@ -229,4 +188,3 @@
         </ul>
     </div>
 </nav>
-

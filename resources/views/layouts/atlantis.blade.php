@@ -27,9 +27,7 @@
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script src="{{ asset('atlantis/assets/js/axios.min.js') }}"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/share.js') }}"></script>
-    <script>
+	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
 			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['{{ asset('atlantis/assets/css/fonts.min.css') }}']},
@@ -250,13 +248,6 @@
         }
 
         startTime();
-<<<<<<< HEAD
-function relocate_home()
-{
-     location.href =Share::page('http://jorenvanhocht.be')->facebook();
-
-} 
-=======
 
         function copyReferralURL() {
             var copyText = document.getElementById("referral_link_navbar");
@@ -276,12 +267,7 @@ function relocate_home()
                 },
                 time: 1000,
             });
-<<<<<<< HEAD
-        }
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
-=======
         }    
->>>>>>> 64b72df20c3a5a9bb7ff6e7adff82eca1aff3cde
     </script>
 
     @yield('js')

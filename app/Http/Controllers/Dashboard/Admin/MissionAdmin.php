@@ -152,31 +152,4 @@ class MissionAdmin extends Controller
                 return redirect(route('admin.mission.index'));
             }
     }
-    public function mission_manage($id) {
-        return view('admin.mission.manage', [
-            'mission' => Mission::find($id),
-        ]);
-    }
-    public function mission_update($id) {
-
-        $mission = Mission::find($id);
-        $mission->description = request('description');
-        $mission->slot_start = request('slot_start');
-        $mission->slot_end = request('slot_end');
-        $mission->count = request('count');
-        $mission->completed = request('completed');
-        $mission->type = request('type');
-        $mission->total = request('total');
-
-
-        $mission->update();
-
-        notify()->success('Mission was updated', 'Yayyy');
-        return redirect(route('admin.mission.index'));
-    }
-    public function mission_delete($id) {
-        Mission::find($id)->delete();
-        notify()->success('mission was deleted', 'Hmmm, okay');
-        return redirect(route('admin.mission.index'));
-    }
 }

@@ -8,16 +8,11 @@ use App\Models\Districts;
 use App\Mail\PointsSystem;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Hash;
-//use Spatie\Permission\Models\Role;
-=======
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
 
 class UserController extends Controller
 {
@@ -75,16 +70,11 @@ class UserController extends Controller
          $user->district = $request->district;
          $user->password = Hash::make($request->password);
          $user->accepted = $request->accepted;
-<<<<<<< HEAD
-      
-
-=======
 
          $kebab = Str::kebab($user->name);
          $randnum = rand(pow(10, 5-1), pow(10, 5)-1);
          $reflink = $kebab.'-'.$randnum;
          $user->referral_link = $reflink;
->>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
          $user->save();
 
          $user->roles()->detach();

@@ -14,7 +14,7 @@ class SearchController extends Controller
     public function search() {
         return view('dashboard.home.search.index');
     }
-    
+
     public function results(Request $request) {
 
         $query = $request->input('query');
