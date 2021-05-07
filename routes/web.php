@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
             Route::get('/manage/{uuid}', [MissionsController::class, 'manage'])->name('admin.mission.manage');
+            Route::get('/update/{uuid}', [MissionsController::class, 'update'])->name('admin.mission.update');
+
 
         });
     });
