@@ -35,6 +35,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('home.crowdsourced') }}">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <p>Crowdsourced resources</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('home.statistics') }}">
                         <i class="far fa-chart-bar"></i>
                         <p>Our Statistics</p>
@@ -51,8 +57,13 @@
                     <div class="collapse" id="about_section">
                         <ul class="nav nav-collapse">
                             <li>
+<<<<<<< HEAD
+                                <a href="{{ route('home') }}">
+                                    <span class="sub-item">Dashboard</span>
+=======
                                 <a href="{{ route('home.about') }}">
                                     <span class="sub-item">About us</span>
+>>>>>>> 02edd4a9a64e86dbf542cf2e8399e9e7137c3ff8
                                 </a>
                             </li>
 
@@ -131,6 +142,46 @@
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
+                    <a href="{{ route('admin.user.index') }}">
+                        <i class="fas fa-user"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Access Control</p>
+                    </a>
+                </li>
+<<<<<<< HEAD
+
+                <li class="nav-item">
+                    <a href="{{ route('accesscontrol.index') }}">
+                        <i class="fas fa-info-circle "></i>
+                        <p>About Us</p>
+                    </a>
+                </li>
+
+=======
+                <li class="nav-item">
+                    <a href="{{ route('admin.setting.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('activity.log') }}">
+                        <i class="fas fa-history"></i>
+                        <p>Activity Log</p>
+                    </a>
+                </li>
+>>>>>>> cbaebc5dc3415a2de92b8cb9b039e3cb6c9be71d
+
+                <li class="nav-item">
+=======
+>>>>>>> 64b72df20c3a5a9bb7ff6e7adff82eca1aff3cde
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-globe-americas"></i>
                         <p>Geography</p>

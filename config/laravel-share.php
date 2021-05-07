@@ -23,6 +23,13 @@ return [
         ],
         'linkedin' => [
             'uri' => 'https://www.linkedin.com/sharing/share-offsite', // oud: http://www.linkedin.com/shareArticle
+
+            'extra' => ['mini' => 'true'],
+        ],
+        'whatsapp' => [
+            'uri' => 'https://wa.me/?text=',
+            'extra' => ['mini' => 'true'],
+
             'extra' => ['mini' => 'false'],
         ],
         'whatsapp' => [
