@@ -160,7 +160,7 @@ class MissionAdmin extends Controller
             return redirect(route('admin.mission.index'));
         }
 
-        $mission=Mission::where('uuid','$uuid')->first();
+        $mission=Mission::where('uuid',$uuid)->first();
         if($mission){
             return view('dashboard.admin.missions.manage',[
                 'mission' => $mission,
@@ -171,11 +171,12 @@ class MissionAdmin extends Controller
         }
     }
 
-    public function update($uuid){
+    public function update($id){
 
-        $mission = Mission::find($uuid);
+        $mission = Mission::find($id);
         $mission->volunteer_id = request('volunteer_id');
         $mission->status = request('status');
+        
         $mission->description = request ('description');
 
         $mission->update();
