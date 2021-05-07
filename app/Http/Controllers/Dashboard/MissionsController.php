@@ -74,4 +74,6 @@ class MissionsController extends Controller
             return redirect(route('home.mission.index'));
         }
     }
+
+  
 }

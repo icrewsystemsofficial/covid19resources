@@ -152,4 +152,36 @@ class MissionAdmin extends Controller
                 return redirect(route('admin.mission.index'));
             }
     }
+
+    public function manage($uuid) {
+
+        if($uuid == '') {
+            notify()->error('Mission UUID was not passed', 'Whoops');
+            return redirect(route('admin.mission.index'));
+        }
+
+        $mission=Mission::where('uuid','$uuid')->first();
+        if($mission){
+            return view('dashboard.admin.missions.manage',[
+                'mission' => $mission,
+            ]);
+        }else {
+            notify()->error('This mission does not exist','Whoops');
+            return redirect(route('admin.mission.index'));
+        }
+    }
+
+    public function update($uuid){
+
+        $mission = Mission::find($uuid);
+        $mission->volunteer_id = request('volunteer_id');
+        $mission->status = request('status');
+        $mission->description = request ('description');
+
+        $mission->update();
+
+        notify()->success('Mission was updated','Yayy!');
+        return redirect(route('admin.mission.index'));
+        
+    }
 }

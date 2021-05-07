@@ -185,7 +185,9 @@
                                                 <a href="{{ route('home.mission.view', $mission->uuid) }}" class="btn btn-primary btn-sm">
                                                     View
                                                 </a>
-
+                                                <a href="{{ route('admin.mission.manage', $mission->id) }}" class="btn btn-info btn-sm">
+                                                    Manage
+                                                </a>
                                                 <a href="#" onclick="dissolveMission('{{ $mission->id }}')" class="btn btn-danger btn-sm">
                                                     Dissolve
                                                 </a>
