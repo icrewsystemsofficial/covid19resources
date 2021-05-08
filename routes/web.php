@@ -56,6 +56,19 @@ Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.pro
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
 
+Route::get('/crowdsourced', [HomeController::class, 'crowdsourced_show'])->name('home.crowdsourced.index');
+
+Route::prefix('crowdsourced')->group(function () {
+    Route::get('/', [HomeController::class, 'crowdsourced_index'])->name('home.crowdsourced.index');
+    Route::get('/websites', [HomeController::class, 'crowdsourced_websites'])->name('home.crowdsourced.websites');
+    Route::get('/instagram', [HomeController::class, 'crowdsourced_instagram'])->name('home.crowdsourced.instagram');
+    Route::get('/telegram', [HomeController::class, 'crowdsourced_telegram'])->name('home.crowdsourced.telegram');
+    Route::get('/discord', [HomeController::class, 'crowdsourced_discord'])->name('home.crowdsourced.discord');
+    Route::get('/helplines', [HomeController::class, 'crowdsourced_helplines'])->name('home.crowdsourced.helplines');
+
+});
+
+
 Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
