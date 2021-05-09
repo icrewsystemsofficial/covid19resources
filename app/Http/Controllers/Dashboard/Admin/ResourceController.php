@@ -38,6 +38,8 @@ class ResourceController extends Controller
 
     public function admin_save(Request $request) {
 
+        
+
 
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
@@ -86,7 +88,7 @@ class ResourceController extends Controller
                 $resource->hasAddress = 0;
             }
         }
-
+        
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
         activity()->log('Admin Resource: '.$resource->title. ' resource had created');
