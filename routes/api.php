@@ -9,6 +9,7 @@ use App\Http\Controllers\API\StatsAPI;
 use App\Http\Controllers\API\MissionAPI;
 use App\Http\Controllers\API\ScheduleRunner;
 use App\Http\Controllers\API\SearchFilterController;
+use App\Http\Controllers\Dashboard\DarkmodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/search/twitter/{query?}',[SearchFilterController::class, 'twitter_search_filter'])->name('search.filter.twitter');
     Route::get('/search/n/{terms?}', [SearchFilterController::class, 'search']);
 
+    Route::get('/toggle-mode/{mode?}',[DarkmodeController::class,'toggle']);
 });

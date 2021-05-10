@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\Covid19MassExport;
 use App\Models\FAQ;
 use App\Models\City;
 use App\Models\User;
@@ -22,8 +23,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Mail\ResourceRefuted;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Mail;
-
-
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
@@ -361,6 +361,11 @@ class HomeController extends Controller
         $activities = LogActivity::all();
         // dd($activities);
         return view('dashboard.admin.activity.index')->with('activities', $activities);
-      }
+    }
+
+    public function mass_export()
+    {
+        return Excel::download(new Covid19MassExport,'covid19data.xlsx');
+    }
 
 }

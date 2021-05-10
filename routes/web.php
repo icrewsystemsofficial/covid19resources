@@ -115,8 +115,9 @@ Route::middleware(['auth'])->group(function () {
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
             Route::get('/manage/{uuid}', [MissionsController::class, 'manage'])->name('admin.mission.manage');
-
         });
+
+        Route::get('/mass-export',[HomeController::class,'mass_export'])->name('mass.export');
     });
 
 
@@ -143,6 +144,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/resources/{id}/manage', [ResourceController::class, 'admin_manage'])->name('admin.resources.manage');
             Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
             Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
+            Route::get('/resources/export-resources', [ResourceController::class, 'admin_resource_export'])->name('admin.resources.export');
 
             Route::prefix('mission')->group(function () {
                 Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
@@ -188,6 +190,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('{id}/edit',[UserController::class,'admin_user_edit'])->name('admin.user.edit');
                 Route::post('/{id}/update',[UserController::class,'admin_user_update'])->name('admin.user.update');
                 Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
+                Route::get('/export-users',[UserController::class,'admin_user_export'])->name('admin.user.export');
             });
 
             Route::prefix('access-control')->group(function () {
