@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class Crowdsourced extends Controller
 {
     public function crowdsourced() {
-        return view('dashboard.home.crowdsourced.crowdsourced');
+        return view('dashboard.home.crowdsourced.index');
     }
     
     public function helplines() {

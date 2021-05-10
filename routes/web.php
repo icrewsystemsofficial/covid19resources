@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Mission;
+use App\Http\Controllers\Crowdsourced;
 
 use App\Mail\Volunteers\Welcome;
 use Illuminate\Support\Facades\Http;
@@ -59,6 +60,11 @@ Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.s
 Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
+
+Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
+Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
+Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
+Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
 
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 

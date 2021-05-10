@@ -143,6 +143,32 @@ class HomeController extends Controller
         return view('dashboard.static.howto');
     }
 
+    public function crowdsourced_index(){
+        return view('dashboard.home.crowdsourced.index');
+    }
+
+    public function crowdsourced_websites(){
+        return view('dashboard.home.crowdsourced.websites');
+    }
+
+    public function crowdsourced_instagram(){
+        return view('dashboard.home.crowdsourced.instagram');
+    }
+
+    public function crowdsourced_telegram(){
+        return view('dashboard.home.crowdsourced.telegram');
+    }
+
+    public function crowdsourced_discord(){
+        return view('dashboard.home.crowdsourced.discord');
+    }
+
+    public function crowdsourced_helplines(){
+        return view('dashboard.home.crowdsourced.helpline');
+    }
+
+
+
     public function statistics() {
         // Resources Count
         $verified=Resource::where('verified','=',1)->count();
