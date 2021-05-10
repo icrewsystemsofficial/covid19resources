@@ -225,7 +225,7 @@
                                                         <div class="col-7 col-stats">
                                                             <div class="numbers">
                                                                 <p class="card-category">Total Resources</p>
-                                                                <h4 class="card-title" id="verified">{{ $resources_pending}}</h4>
+                                                                <h4 class="card-title" id="verified">{{ $resources_total}}</h4>
                                                             </div>
                                                         </div>
                                                     </div>
