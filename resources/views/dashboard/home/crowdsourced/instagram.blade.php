@@ -1,7 +1,53 @@
 @extends('layouts.atlantis')
 @section('title', 'Instgram Resources')
 @section('js')
-   
+<script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script>
+var dataSet = [
+    [ "@ahmedabadcovid","<a type='button' class='btn btn-primary' href='https://instagram.com/ahmedabadcovid?igshid=3p48wkt4vbyn'>Vist site</a>"],
+    ["@nagpur.covid.help","<a type='button' class='btn btn-primary' href='https://instagram.com/nagpur.covid.help?igshid=sgxmdt0mbhre'>Vist site</a>"],
+    ["@covidbangalore.support","<a type='button' class='btn btn-primary' href='https://instagram.com/covidbangalore.support?igshid=1dp6sck0923hy'>Vist site</a>"],
+    ["@kolkatafightscovid19","<a type='button' class='btn btn-primary' href='https://instagram.com/kolkatafightscovid19?igshid=1wm1pqotxzn1m'>Vist site</a>"],
+    ["@covidwr" ,"<a type='button' class='btn btn-primary' href='https://instagram.com/covidwr?igshid=jkyfl2j5wkkj'>vist page</a>"],
+    ["@jharkhandcovidhelp","<a type='button' class='btn btn-primary' href='https://instagram.com/jharkhandcovidhelp?igshid=19yr8lnw2dygi'>Vist site</a>"],
+    ["@covidhelp.in","<a type='button' class='btn btn-primary' href='https://instagram.com/covidhelp.in?igshid=1d30mw34lme0k'>Vist site</a>"],
+    ["@stvorg_backup","<a type='button' class='btn btn-primary' href='https://instagram.com/stvorg_backup?igshid=1bihxkrlbmvza'>Vist site</a>"],
+    ["@chhattisgarhcovidhelp","<a type='button' class='btn btn-primary' href='https://instagram.com/chhattisgarhcovidhelp?igshid=oqveq3c0x2r0'>Vist site</a>"],
+    ["@covidsosindia","<a type='button' class='btn btn-primary' href='https://instagram.com/covidsosindia?igshid=5hl2qoxvasu6'>Vist site</a>"],
+    ["@chennaivolunteers","<a type='button' class='btn btn-primary' href='https://instagram.com/chennaivolunteers?igshid=du1xlxkl0c6f'>Vist site</a>"],
+    ["@covid19chennai","<a type='button' class='btn btn-primary' href='https://instagram.com/covid19chennai?igshid=1vzkh68y6szlk'>Vist site</a>"],
+    ["@delhi_covidaid","<a type='button' class='btn btn-primary' href='https://instagram.com/delhi_covidaid?igshid=d3ny166adb4o'>Vist site</a>"],
+    ["@covid.resources.india","<a type='button' class='btn btn-primary' href='https://instagram.com/covid.resources.india?igshid=1h5rskg4w1pan'>Vist site</a>"],
+    ["@covidhelpindia","<a type='button' class='btn btn-primary' href='https://instagram.com/covidhelpindia?igshid=bwu492zi5fcu'>Vist site</a>"],
+    ["@covid.aid.chennai","<a type='button' class='btn btn-primary' href='https://instagram.com/covid.aid.chennai?igshid=1tthoq4v40x7j'>Vist site</a>"],
+    ["@cov19infohubindia","<a type='button' class='btn btn-primary' href='https://instagram.com/cov19infohubindia?igshid=19l9qssl29pt9'>Vist site</a>"],
+    ["@ahmedabadcovid","<a type='button' class='btn btn-primary' href='https://instagram.com/ahmedabadcovid?igshid=21w53lulrk9k'>Vist site</a>"],
+    ["@covidaidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/covidaidresources?igshid=1865hseonv528'>Vist site</a>"],
+    ["@cs_covidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/cs_covidresources?igshid=hy6gjg4yccdg'>Vist site</a>"],
+    ["@covidresourceinfo","<a type='button' class='btn btn-primary' href='https://instagram.com/covidresourceinfo?igshid=1iv0sxlyrqmvv'>Vist site</a>"],
+    ["@covid.delhi","<a type='button' class='btn btn-primary' href='https://instagram.com/covid.delhi?igshid=17vyi2engi483'>Vist site</a>"],    
+    ["@covid_resources","<a type='button' class='btn btn-primary' href='https://instagram.com/covid_resources?igshid=1tzl6yjpkzuew'>Vist site</a>"],
+    ["@patnacovid_resources","<a type='button' class='btn btn-primary' href='https://instagram.com/patnacovid_resources?igshid=ebddnkz8lrk3'>Vist site</a>"],
+    ["@covid_aidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/covid_aidresources?igshid=14kghusovim9u'>Vist site</a>"],
+];
+
+   $(document).ready(function() {
+    $('#instagram').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Page" },
+            { title: "Vist" }
+        ]
+    } );
+
+} );
+</script>
+@endsection
+@section('css')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<style>
+    /* Your Custom Styles Here*/
+</style>
 @endsection
 @section('content')
 <div class="panel-header bg-primary-gradient">
@@ -21,28 +67,8 @@ Instagram Resources
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                            <tr><td>@ahmedabadcovid</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/ahmedabadcovid?igshid=3p48wkt4vbyn') }}">Vist Page</a></td></tr>
-                            <tr><td>@nagpur.covid.help</td><td> <a type="button"  target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/nagpur.covid.help?igshid=sgxmdt0mbhre') }}">Vist Page</a></td></tr>
-                            <tr><td>@covidbangalore.support</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/covidbangalore.support?igshid=1dp6sck0923hy') }}">Vist Page</a></td></tr>
-                            <tr><td>@kolkatafightscovid19</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/kolkatafightscovid19?igshid=1wm1pqotxzn1m') }}">Vist Page</a></td></tr>
-                            <tr><td>@covidwr</td><td> <a type="button" class="btn btn-primary" target="_blank" href="{{ url('https://instagram.com/covidwr?igshid=jkyfl2j5wkkj') }}">Vist Page</a></td></tr>
-                            <tr><td>@jharkhandcovidhelp</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/jharkhandcovidhelp?igshid=19yr8lnw2dygi') }}">Vist Page</a></td></tr>
-                            <tr><td>@covidhelp.in</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/covidhelp.in?igshid=1d30mw34lme0k') }}">Vist Page</a></td></tr>
-                            <tr><td>@stvorg_backup</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/stvorg_backup?igshid=1bihxkrlbmvza') }}">Vist Page</a></td></tr>
-                            <tr><td>@chhattisgarhcovidhelp</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/chhattisgarhcovidhelp?igshid=oqveq3c0x2r0') }}">Vist Page</a></td></tr>
-                            <tr><td>@covidsosindia</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/covidsosindia?igshid=5hl2qoxvasu6') }}">Vist Page</a></td></tr>
-                            <tr><td>@chennaivolunteers</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/chennaivolunteers?igshid=du1xlxkl0c6f') }}">Vist Page</a></td></tr>
-                            <tr><td>@covid19chennai</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/covid19chennai?igshid=1vzkh68y6szlk') }}">Vist Page</a></td></tr>
-                            <tr><td>@delhi_covidaid</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/delhi_covidaid?igshid=d3ny166adb4o') }}">Vist Page</a></td></tr>
-                            <tr><td>@covid.resources.india</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://instagram.com/covid.resources.india?igshid=1h5rskg4w1pan') }}">Vist Page</a></td></tr>
-                            <tr><td>@covidhelpindia</td><td> <a type="button" class="btn btn-primary" target="_blank" href="{{ url('https://instagram.com/covidhelpindia?igshid=bwu492zi5fcu') }}">Vist Page</a></td></tr>
-                            <tr><td>@covid.aid.chennai</td><td> <a type="button" class="btn btn-primary" target="_blank" href="{{ url('https://instagram.com/covid.aid.chennai?igshid=1tthoq4v40x7j') }}">Vist Page</a></td></tr>
-                            <tr><td>@cov19infohubindia</td><td> <a type="button" class="btn btn-primary" target="_blank" href="{{ url('https://instagram.com/cov19infohubindia?igshid=19l9qssl29pt9') }}">Vist Page</a></td></tr>
-                            <tr><td>@ahmedabadcovid</td><td> <a type="button" class="btn btn-primary" target="_blank" href="{{ url('https://instagram.com/ahmedabadcovid?igshid=21w53lulrk9k') }}">Vist Page</a></td></tr>
-
-                            </tbody>
+                        <table class="table" id="instagram">
+                           
                         </table>
                     </div>
                 </div>

@@ -35,7 +35,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.crowdsourced.index') }}">
+                    <a href="{{ route('home.crowdsourced') }}">
                         <i class="fas fa-globe" aria-hidden="true"></i>
                         <p>Crowdsourced Resources</p>
                     </a>

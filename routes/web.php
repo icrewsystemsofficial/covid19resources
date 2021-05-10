@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Mission;
+use App\Http\Controllers\Crowdsourced;
 
 use App\Mail\Volunteers\Welcome;
 use Illuminate\Support\Facades\Http;
@@ -56,22 +57,14 @@ Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.pro
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
 
 
-Route::get('/crowdsourced', [HomeController::class, 'crowdsourced_show'])->name('home.crowdsourced.index');
-
-Route::prefix('crowdsourced')->group(function () {
-    Route::get('/', [HomeController::class, 'crowdsourced_index'])->name('home.crowdsourced.index');
-    Route::get('/websites', [HomeController::class, 'crowdsourced_websites'])->name('home.crowdsourced.websites');
-    Route::get('/instagram', [HomeController::class, 'crowdsourced_instagram'])->name('home.crowdsourced.instagram');
-    Route::get('/telegram', [HomeController::class, 'crowdsourced_telegram'])->name('home.crowdsourced.telegram');
-    Route::get('/discord', [HomeController::class, 'crowdsourced_discord'])->name('home.crowdsourced.discord');
-    Route::get('/helplines', [HomeController::class, 'crowdsourced_helplines'])->name('home.crowdsourced.helplines');
-
-});
-
-
 Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
+
+Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
+Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
+Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
+Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
 
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 
@@ -127,8 +120,6 @@ Route::middleware(['auth'])->group(function () {
             //Using UUID because users should not "guess" the next mission IDs,
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
-            Route::get('/manage/{uuid}', [MissionAdmin::class, 'manage'])->name('admin.mission.manage');
-			Route::post('/update/{id}', [MissionAdmin::class, 'update'])->name('admin.mission.update');
         });
     });
 
