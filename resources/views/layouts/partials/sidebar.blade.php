@@ -1,7 +1,7 @@
 @if (cache()->get('key') == 'dark')
-<div class="sidebar sidebar-style-2" data-background-color="dark">
+<div class="sidebar sidebar-style-2" id="side_bar" data-background-color="dark">
 @else
-<div class="sidebar sidebar-style-2" data-background-color="white">
+<div class="sidebar sidebar-style-2" id="side_bar" data-background-color="white">
 @endif
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
@@ -198,6 +198,12 @@
                     <a href="{{ route('activity.log') }}">
                         <i class="fas fa-history"></i>
                         <p>Activity Log</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('mass.export') }}">
+                        <i class="fas fa-download"></i>
+                        <p>Mass Export</p>
                     </a>
                 </li>
                 @endrole
