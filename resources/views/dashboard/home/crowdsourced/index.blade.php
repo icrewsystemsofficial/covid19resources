@@ -24,11 +24,9 @@
                     <div class="table-responsive">
                         <table class="table" id="results_table">
                             <thead>
-                                <th> <a type="button" class="btn btn-dark text-white" href="{{ route('home.crowdsourced.websites') }}"><i class="fas fa-globe-asia mr-2"></i> Website Links</th>
-                                <th> <a type="button" class="btn text-white" style="background-color: #DD2A7B" href="{{ route('home.crowdsourced.instagram') }}"><i class="fab fa-instagram mr-2"></i>Instagram Channels</th>
-                                <th> <a type="button" class="btn text-white" style="background-color: #0088cc"  href="{{ route('home.crowdsourced.telegram') }}"><i class="fab fa-telegram-plane mr-2"></i>Telegram Channels</th>
-                                <th> <a type="button" class="btn text-white" style="background-color: #7289da" href="{{ route('home.crowdsourced.discord') }}"><i class="fab fa-discord mr-2"></i>Discord Servers</th>
-                                <th> <a type="button" class="btn btn-primary" href="{{ route('home.crowdsourced.helplines') }}"><i class="fas fa-phone mr-2"></i>Helpline numbers</th>
+                                <th> <a type="button" class="btn btn-dark text-white" href="{{ route('home.websites') }}"><i class="fas fa-globe-asia mr-2"></i> Website Links</th>
+                                <th> <a type="button" class="btn text-white" style="background-color: #DD2A7B" href="{{ route('home.instagram') }}"><i class="fab fa-instagram mr-2"></i>Instagram Channels</th>
+                                 <th> <a type="button" class="btn btn-primary" href="{{ route('home.helplines') }}"><i class="fas fa-phone mr-2"></i>Helpline numbers</th>
                              </thead>
                         </table>
                     </div>

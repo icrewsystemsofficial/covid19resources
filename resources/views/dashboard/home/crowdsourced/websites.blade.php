@@ -13,10 +13,10 @@ var dataSet = [
     ["Covid19 Resources","<a type='button' class='btn btn-primary' href='https://covidhelp.teamsaath.me'>Vist site</a>"],
     ["dhoondh","<a type='button' class='btn btn-primary' href='https://plasmadonor.in'>Vist site</a>"],
     ["CoV19InfoHubIndia","<a type='button' class='btn btn-primary' href='https://linktr.ee/CoV19InfoHubIndia'>Vist site</a>"],
-    ["Covid.army</td><td> <a type='button' class='btn btn-primary' href=''https://covid.army'>Vist site</a>"],
+    ["Covid.army","<a type='button' class='btn btn-primary' href=''https://covid.army'>Vist site</a>"],
     ["crows sourcing data","<a type='button' class='btn btn-primary' href='https://covidfacts.in'>Vist site</a>"],
-    ["Covid Fight Club","<a type='button' class='btn btn-primary' href='http://covidfacts.in>Vist site</a>"]
-                        ];
+    ["Covid Fight Club","<a type='button' class='btn btn-primary' href='http://covidfacts.in'>Vist site</a>"]
+];
    $(document).ready(function() {
     $('#website').DataTable( {
         data: dataSet,
@@ -34,7 +34,6 @@ var dataSet = [
 <style>
     /* Your Custom Styles Here*/
 </style>
-@endsection
 @endsection
 @section('content')
 <div class="panel-header bg-primary-gradient">
