@@ -93,12 +93,12 @@ class HomeController extends Controller
         if(request('city') == '* All Cities') {
         	$resource->city = request('city');
         	$resource->district = '* All Districts';
-		    $resource->state = request('State');
+		    $resource->state = request('state');
 		    $resource->hasAddress = 0;
         } else if(request('city') == '* Unavailable') {
         	$resource->city = request('city');
         	$resource->district = '* Unavailable';
-		    $resource->state = request('State');
+		    $resource->state = request('state');
 		    $resource->hasAddress = 0;
         } else {
         	$city = City::where('name', request('city'))->first();
@@ -113,7 +113,7 @@ class HomeController extends Controller
                 //If city is not traceable in the DB
                 $resource->city = request('city');
                 $resource->district = 'Unknown';
-                $resource->state = request('State');
+                $resource->state = request('state');
                 $resource->hasAddress = 0;
             }
         }
