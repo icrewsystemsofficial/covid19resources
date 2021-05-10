@@ -23,11 +23,11 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table" id="results_table">
-                            <thead>
+                            <tbody>
                                 <th> <a type="button" class="btn btn-dark text-white" href="{{ route('home.websites') }}"><i class="fas fa-globe-asia mr-2"></i> Website Links</th>
                                 <th> <a type="button" class="btn text-white" style="background-color: #DD2A7B" href="{{ route('home.instagram') }}"><i class="fab fa-instagram mr-2"></i>Instagram Channels</th>
                                  <th> <a type="button" class="btn btn-primary" href="{{ route('home.helplines') }}"><i class="fas fa-phone mr-2"></i>Helpline numbers</th>
-                             </thead>
+                             </tbody>
                         </table>
                     </div>
                 </div>
