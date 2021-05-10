@@ -473,8 +473,10 @@ var tourcompleted = getCookie("tourcompleted");
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $resource->author_data->name }}
-                                                </td>
+                                                    	@if($resource->author_data)
+                                                		{{ $resource->author_data->name }}
+                                                	@endif
+                                              </td>
                                                 <td class="text-center">
                                                     @if ($resource->verified == 1)
                                                         <span class="badge badge-success">
@@ -716,7 +718,9 @@ var tourcompleted = getCookie("tourcompleted");
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $resource->author_data->name }}
+                                                    @if ($resource->author_data)
+                                                		{{ $resource->author_data->name }}
+                                                	@endif
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($resource->verified == 1)

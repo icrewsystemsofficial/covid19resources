@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Instgram Resources')
+@section('title', 'Instagram Resources')
 @section('js')
 <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script>
@@ -55,7 +55,7 @@ var dataSet = [
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div class="col-md-12 text-center">
                 <h1 class="text-white pb-2 h1 fw-bold">
-Instagram Resources
+				Instagram Crowdsourced Resources
                 </h1>
             </div>
         </div>
