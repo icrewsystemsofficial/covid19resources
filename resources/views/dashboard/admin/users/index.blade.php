@@ -19,11 +19,16 @@
                 Create new User <i class="fas fa-plus"></i>
             </a>
 
+
             <br><br>
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Users <span class="badge badge-primary">{{ count($users) }}</span></h4>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="card-title">Manage Users <span class="badge badge-primary">{{ count($users) }}</span></h4>
+    
+                        <a href="{{ route('admin.user.export') }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Export Users Data</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Telegram')
+@section('title', 'Telegram Resources')
 @section('js')
    
 @endsection
