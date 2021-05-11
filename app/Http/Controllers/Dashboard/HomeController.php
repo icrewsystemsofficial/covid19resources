@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\Covid19MassExport;
 use App\Models\FAQ;
 use App\Models\City;
 use App\Models\User;
@@ -22,17 +23,11 @@ use Illuminate\Auth\Events\Registered;
 use App\Mail\ResourceRefuted;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Mail;
-
-
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity as LogActivity;
 
 class HomeController extends Controller
 {
-    // public function __construct() {
-    //     $currentlocation = \App\Http\Controllers\API\Location::locationDisplay();
-    //     $this->currentlocation = $currentlocation;
-    // }
-
     public function add_resource() {
         return view('dashboard.home.add_resource', [
             'categories' => Category::where('status', 1)->get(),
@@ -92,24 +87,38 @@ class HomeController extends Controller
         if(request('status') == 1) {
             $resource->verified_by = $user->id;
         }
-        
-        
-        
+
+
+
         if(request('city') == '* All Cities') {
-        	$resource->city = request('city');	
+        	$resource->city = request('city');
         	$resource->district = '* All Districts';
-		    $resource->state = request('State');
-		    $resource->hasAddress = 1;
+		    $resource->state = request('state');
+		    $resource->hasAddress = 0;
+        } else if(request('city') == '* Unavailable') {
+        	$resource->city = request('city');
+        	$resource->district = '* Unavailable';
+		    $resource->state = request('state');
+		    $resource->hasAddress = 0;
         } else {
         	$city = City::where('name', request('city'))->first();
-        	$resource->city = $city->name;
-		    $resource->district = $city->district;
-		    $resource->state = $city->state;
-		    $resource->hasAddress = 1;
-		    $resource->landmark = request('landmark');
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('state');
+                $resource->hasAddress = 0;
+            }
         }
-        
-        $resource->save();	
+
+        $resource->save();
 
         return redirect(route('home.view', $resource->id));
     }
@@ -133,6 +142,32 @@ class HomeController extends Controller
 
         return view('dashboard.static.howto');
     }
+
+    public function crowdsourced_index(){
+        return view('dashboard.home.crowdsourced.index');
+    }
+
+    public function crowdsourced_websites(){
+        return view('dashboard.home.crowdsourced.websites');
+    }
+
+    public function crowdsourced_instagram(){
+        return view('dashboard.home.crowdsourced.instagram');
+    }
+
+    public function crowdsourced_telegram(){
+        return view('dashboard.home.crowdsourced.telegram');
+    }
+
+    public function crowdsourced_discord(){
+        return view('dashboard.home.crowdsourced.discord');
+    }
+
+    public function crowdsourced_helplines(){
+        return view('dashboard.home.crowdsourced.helpline');
+    }
+
+
 
     public function statistics() {
         // Resources Count
@@ -233,7 +268,7 @@ class HomeController extends Controller
 			if(!$resource) {
 			    notify()->error('The resource you are trying to view is not available', 'Whoops');
 			    return redirect(route('home'));
-			} 
+			}
 			$comments = $resource->comments;
             return view('dashboard.home.view', [
                 'resource' => $resource,
@@ -352,6 +387,11 @@ class HomeController extends Controller
         $activities = LogActivity::all();
         // dd($activities);
         return view('dashboard.admin.activity.index')->with('activities', $activities);
-      }
+    }
+
+    public function mass_export()
+    {
+        return Excel::download(new Covid19MassExport,'covid19data.xlsx');
+    }
 
 }

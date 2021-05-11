@@ -27,6 +27,7 @@ class Twitter extends Model
     public const INADEQUATE = '4';
     public const RETWEET = '5';
     public const SCREENED = '6';
+    public const OLD = '7';
 
     public static function getAllTweetStatus() {
         $status = array();
@@ -52,6 +53,7 @@ class Twitter extends Model
         4 - Inadequate Info
         5 - Retweet
         6 - Screened
+        7 - Old
     */
     public function getStatus($status = '') {
 
@@ -109,6 +111,13 @@ class Twitter extends Model
                 $response['color'] = 'primary';
                 $response['gradient'] = 'bg-gradient-primary';
                 $response['icon'] = 'check';
+            break;
+
+            case 7:
+                $response['name'] = 'Old';
+                $response['color'] = 'dark';
+                $response['gradient'] = 'bg-dark';
+                $response['icon'] = 'clock';
             break;
 
 

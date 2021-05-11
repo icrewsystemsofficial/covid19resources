@@ -1,7 +1,7 @@
 @if (cache()->get('key') == 'dark')
-<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+<nav class="navbar navbar-header navbar-expand-lg" id="nav_bar" data-background-color="dark">
 @else
-<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+<nav class="navbar navbar-header navbar-expand-lg" id="nav_bar" data-background-color="blue2">
 @endif
 
     <div class="container-fluid">
@@ -68,7 +68,7 @@
                         </div>
                     </li>
                     <li>
-                        <a class="see-all" href="javascript:void(0);">
+                        <a class="see-all" href="{{ route('home.search') }}">
                             Go to search module <i class="fa fa-angle-right"></i>
                         </a>
                     </li>

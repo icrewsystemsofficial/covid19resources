@@ -19,57 +19,67 @@
                 Create new User <i class="fas fa-plus"></i>
             </a>
 
+
             <br><br>
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Manage Users <span class="badge badge-primary">{{ count($users) }}</span></h4>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="card-title">Manage Users <span class="badge badge-primary">{{ count($users) }}</span></h4>
+    
+                        <a href="{{ route('admin.user.export') }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Export Users Data</a>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <table id="users_table" class="table table-hover">
-                        <thead>
-                            <th>User Id</th>
-                            <th>User Name</th>
-                            <th>User Email</th>
-                            <th>User Role</th>
-                            <th>Location</th>
-                            <th>Ref Signups</th>
-                            <th>Status</th>
-                            <th>Manage</th>
-                        </thead>
-                        <tbody>
-                            @forelse ($users as $user)
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{  implode('',$user->roles->pluck('name')->toArray()) }}</td>
-                                    <td>{{ $user->district }} {{ $user->state }} </td>
-                                    <td>{{ $user->referral_signups }}</td>
-                                    <td class="text-center">
-                                        @if ($user->accepted == 1)
-                                            <span class="badge badge-success">
-                                                Approved
-                                            </span>
-                                        @else
-                                            <span class="badge badge-warning">
-                                                Under Review
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-primary">
-                                            Manage
-                                        </a>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    Whoops! No Categoriess added
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="users_table" class="table table-hover">
+                            <thead>
+                                <th>User #</th>
+                                <th>User Name</th>
+                                <th>User Role</th>
+                                <th>Location</th>
+                                <th>Ref Signups</th>
+                                {{-- <th>Status</th> --}}
+                                <th>Manage</th>
+                            </thead>
+                            <tbody>
+                                @forelse ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->name }}
+                                            <br>
+                                            <small>
+                                                {{ $user->email }}
+                                            </small>
+                                        </td>
+                                        <td>{{  ucfirst(implode('',$user->roles->pluck('name')->toArray())) }}</td>
+                                        <td>{{ $user->district }} {{ $user->state }} </td>
+                                        <td>{{ $user->referrals }}</td>
+                                        {{-- <td class="text-center">
+                                            @if ($user->accepted == 1)
+                                                <span class="badge badge-success">
+                                                    Approved
+                                                </span>
+                                            @else
+                                                <span class="badge badge-warning">
+                                                    Under Review
+                                                </span>
+                                            @endif
+                                        </td> --}}
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                                Manage
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        Whoops! No users found
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -330,16 +330,19 @@ var tourcompleted = getCookie("tourcompleted");
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="total_retrived_results">
-                        There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
-                    </h4>
-                    <span class="text-muted">
-                        All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
-                        @if ($resources->count() > 0)
-                        <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
-                        @endif
-                    </span>
-
+                   <div class="row">
+                    <div class="col-12">
+                        <h4 class="card-title" id="total_retrived_results">
+                            There are {{ $resources->count() }} verified resources for <strong>{{ $currentlocation->name }}</strong>
+                        </h4>
+                        <span class="text-muted">
+                            All of these resources are <strong><abbr title="We call each and every resource and verify them">manually verified</abbr></strong> by our volunteers.
+                            @if ($resources->count() > 0)
+                            <div>Latest update was <strong>{{ $resources[($resources->count() - 1)]->updated_at->diffForHumans() }}</strong></div>
+                            @endif
+                        </span>
+                    </div>
+                   </div>
                     <div class="row mt-3">
                         <div class="col-md-4">
                             <div class="card card-dark bg-danger-gradient">
@@ -418,6 +421,11 @@ var tourcompleted = getCookie("tourcompleted");
                             </a>
                         </li>
                     </ul>
+
+                    <div class="mt-2 text-center">
+                        <a href="{{ route('home.search') }}" class="btn btn-sm btn-warning">Looking for something in particular? A.I. Search <i class="fa fa-search"></i></a>
+                    </div>
+
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                         <div class="tab-pane fade active show" id="pills-misc-icon" role="tabpanel" aria-labelledby="pills-misc-tab-icon">
                             <div class="table-responsive">
@@ -465,8 +473,10 @@ var tourcompleted = getCookie("tourcompleted");
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $resource->author_data->name }}
-                                                </td>
+                                                    	@if($resource->author_data)
+                                                		{{ $resource->author_data->name }}
+                                                	@endif
+                                              </td>
                                                 <td class="text-center">
                                                     @if ($resource->verified == 1)
                                                         <span class="badge badge-success">
@@ -708,7 +718,9 @@ var tourcompleted = getCookie("tourcompleted");
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $resource->author_data->name }}
+                                                    @if ($resource->author_data)
+                                                		{{ $resource->author_data->name }}
+                                                	@endif
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($resource->verified == 1)
@@ -898,17 +910,17 @@ var tourcompleted = getCookie("tourcompleted");
                 </div>
 
                 <div class="card-body">
-                    1). Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need.
+                    1) Refer the website to the person in need. This is the best help you could offer : a friend in need is a help in need.
                     <br><br>
-                    2). Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission .sign up as volunteer today (link here)
+                    2) Sign up as a volunteer : we have a specialised volunteering team that is working around the clock to help us verify our data. Be a part of this glorified mission .. SigU up aV volunteer today <a href="{{ route('volunteer.registration') }}" style="text-decoration: none"> (link here) </a>
                     <br><br>
-                    3). Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them .
+                    3) Share #covid19verifiedresources website via social media: Someone in dire need could use this reference. It would be a miracle to them. 
                     <br><br>
-                    4). Add resources to our Website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process (link here)
+                    4) Add resources to our Website: we appreciate all the data we could get ; you come across a valid resource, immediately add it to our website so it's available to all. It's a one step process <a href="{{ route('home.add.resource') }}" style="text-decoration: none"> (link here) </a>
                     <br><br>
-                    5). If you are an NGO and you are willing to support this cause : contact us immediately, we could join hands to save the nation
+                    5) If you are an NGO and you are willing to support this cause : contact us <a href="https://www.tidio.com/talk/cdcm4i8ho2rteyjfwrzqa19csu0eiwm7" style="text-decoration: none" target="_blank">(link here)</a> immediately, we could join hands to save the nation.
                     <br><br>
-                    6). If you can offer technical help: great minds don't just think alike .they work alike . You can help us by taking care of the backend data updation processes.
+                    6) If you can offer technical help: great minds don't just think alike, they work alike. You can help us by taking care of the backend data updation processes.
 
                 </div>
             </div>

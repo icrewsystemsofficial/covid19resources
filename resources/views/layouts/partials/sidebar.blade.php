@@ -1,8 +1,7 @@
 @if (cache()->get('key') == 'dark')
-<div class="sidebar sidebar-style-2" data-background-color="dark">
+<div class="sidebar sidebar-style-2" id="side_bar" data-background-color="dark">
 @else
-<div class="sidebar sidebar-style-2" data-background-color="white">
-
+<div class="sidebar sidebar-style-2" id="side_bar" data-background-color="white">
 @endif
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
@@ -32,6 +31,13 @@
                     <a href="{{ route('home.search') }}">
                         <i class="fas fa-search" aria-hidden="true"></i>
                         <p>Search</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.crowdsourced') }}">
+                        <i class="fas fa-globe" aria-hidden="true"></i>
+                        <p>Crowdsourced Resources</p>
                     </a>
                 </li>
 
@@ -78,6 +84,13 @@
                     <a href="{{ route('home.volunteers.index') }}">
                         <i class="fas fa-hands"></i>
                         <p>Volunteer</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.mission.leaderboard') }}">
+                        <i class="fas fa-list"></i>
+                        <p>Leaderboard</p>
                     </a>
                 </li>
 
@@ -187,9 +200,13 @@
                         <p>Activity Log</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('mass.export') }}">
+                        <i class="fas fa-download"></i>
+                        <p>Mass Export</p>
+                    </a>
+                </li>
                 @endrole
-
-
             </ul>
         </div>
     </div>

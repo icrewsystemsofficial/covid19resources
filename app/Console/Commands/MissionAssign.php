@@ -18,7 +18,7 @@ class MissionAssign extends Command
      *
      * @var string
      */
-    protected $signature = 'mission:assign {role=none}';
+    protected $signature = 'mission:assign {role=volunteer}';
 
     /**
      * The console command description.

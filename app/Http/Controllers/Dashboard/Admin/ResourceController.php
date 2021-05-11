@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
+use App\Exports\ResourceExport;
 use App\Models\City;
 use App\Models\States;
 use App\Models\Category;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResourceController extends Controller
 {
@@ -37,8 +39,8 @@ class ResourceController extends Controller
     }
 
     public function admin_save(Request $request) {
-	
-	
+
+
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
         ],[
@@ -59,12 +61,34 @@ class ResourceController extends Controller
             $resource->verified_by = request('author_id');
         }
 
-        $city = City::where('name', request('city'))->first();
-        $resource->city = $city->name;
-        $resource->district = $city->district;
-        $resource->state = $city->state;
-        $resource->hasAddress = 1;
-        $resource->landmark = request('landmark');
+        if(request('city') == '* All Cities') {
+        	$resource->city = request('city');
+        	$resource->district = '* All Districts';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else if(request('city') == '* Unavailable') {
+        	$resource->city = request('city');
+        	$resource->district = '* Unavailable';
+		    $resource->state = request('State');
+		    $resource->hasAddress = 0;
+        } else {
+        	$city = City::where('name', request('city'))->first();
+
+            if($city) {
+                $resource->city = $city->name;
+                $resource->district = $city->district;
+                $resource->state = $city->state;
+                $resource->hasAddress = 1;
+                $resource->landmark = request('landmark');
+            } else {
+                //If city is not traceable in the DB
+                $resource->city = request('city');
+                $resource->district = 'Unknown';
+                $resource->state = request('State');
+                $resource->hasAddress = 0;
+            }
+        }
+
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
         activity()->log('Admin Resource: '.$resource->title. ' resource had created');
@@ -108,5 +132,10 @@ class ResourceController extends Controller
         activity()->log('Admin Resource: Resource has deleted');
         return redirect(route('admin.resources.index'));
 
+    }
+
+    public function admin_resource_export()
+    {
+        return Excel::download(new ResourceExport,'resources.xlsx');
     }
 }

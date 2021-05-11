@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\User;
-use App\Mail\Volunteers\Welcome;
+use App\Models\Mission;
+use App\Http\Controllers\Crowdsourced;
 
+use App\Mail\Volunteers\Welcome;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
@@ -10,10 +12,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Dashboard\Admin\FAQ;
 use App\Http\Controllers\Dashboard\Volunteers;
+use App\Http\Controllers\Dashboard\OcrController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Api\SearchFilterController;
 use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\Admin\MissionAdmin;
+use App\Http\Controllers\Dashboard\DarkmodeController;
 use App\Http\Controllers\Dashboard\MissionsController;
 use App\Http\Controllers\Dashboard\UserEditController;
 use App\Http\Controllers\Dashboard\Admin\UserController;
@@ -23,8 +27,6 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
-use App\Http\Controllers\Dashboard\DarkmodeController;
-use App\Http\Controllers\Dashboard\OcrController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,11 @@ use App\Http\Controllers\Dashboard\OcrController;
 Route::post('/upload-image',[OcrController::class,'parse_text'])->name('parse.text');
 
 Route::get('/sendmail', function() {
-    $user = User::find(1);
-   Mail::to('kashrayks@gmail.com')->send(new Welcome($user));
+    $missions = Mission::where('status', '!=', Mission::COMPLETED)->groupBy('volunteer_id')->get();
+        foreach($missions as $mission) {
+            echo $mission->volunteer_id;
+            echo "<br>";
+        }
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/r/{referral?}', [HomeController::class, 'referral'])->name('generate.referrallink');
@@ -56,7 +61,17 @@ Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.togg
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
+Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
+Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
+Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
+Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
+
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
+
+// to simply view the tweet using the search bar
+Route::get('/tweets/{id}/view', [SearchController::class, 'view'])
+    ->name('home.search.view');
+
 Route::get('/search/results/{query?}', [SearchController::class, 'results'])
     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])
     ->name('home.search.results');
@@ -101,10 +116,14 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('mission')->group(function () {
             Route::get('/', [MissionsController::class, 'index'])->name('home.mission.index');
+            Route::get('/leaderboard', [MissionsController::class, 'leaderboard'])->name('home.mission.leaderboard');
             //Using UUID because users should not "guess" the next mission IDs,
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
+            Route::get('/manage/{uuid}', [MissionsController::class, 'manage'])->name('admin.mission.manage');
         });
+
+        Route::get('/mass-export',[HomeController::class,'mass_export'])->name('mass.export');
     });
 
 
@@ -131,9 +150,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/resources/{id}/manage', [ResourceController::class, 'admin_manage'])->name('admin.resources.manage');
             Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');
             Route::get('/resources/{id}/delete', [ResourceController::class, 'admin_delete'])->name('admin.resources.delete');
+            Route::get('/resources/export-resources', [ResourceController::class, 'admin_resource_export'])->name('admin.resources.export');
 
             Route::prefix('mission')->group(function () {
                 Route::get('/', [MissionAdmin::class, 'index'])->name('admin.mission.index');
+                Route::get('/dissolve/{id}', [MissionAdmin::class, 'dissolve'])->name('admin.mission.dissolve');
                 Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
             });
@@ -175,6 +196,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('{id}/edit',[UserController::class,'admin_user_edit'])->name('admin.user.edit');
                 Route::post('/{id}/update',[UserController::class,'admin_user_update'])->name('admin.user.update');
                 Route::get('/{id}/delete',[UserController::class,'admin_user_destory'])->name('admin.user.delete');
+                Route::get('/export-users',[UserController::class,'admin_user_export'])->name('admin.user.export');
             });
 
             Route::prefix('access-control')->group(function () {
@@ -225,28 +247,5 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
-
-Route::get('/json', function() {
-    $coords = Http::get('https://www.gps-coordinates.net/api/chennai');
-    $data = $coords->json();
-    $data = (object) $data;
-    if($data->responseCode == 200) {
-        $coordinates = $data->latitude.','.$data->longitude;
-    } else {
-        // $coordinates = $this->faker->latitude().','.$this->faker->longitude();
-        $coordinates = $data;
-    }
-
-    echo $coordinates;
-
-    // if($coords->response->responseCode == 200) {
-    //     echo "success";
-    // }
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

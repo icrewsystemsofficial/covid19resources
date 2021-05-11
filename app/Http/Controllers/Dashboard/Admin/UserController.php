@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
+use App\Exports\UsersExport;
 use App\Models\User;
 use App\Models\States;
 use App\Models\Districts;
@@ -13,6 +14,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -177,6 +179,12 @@ class UserController extends Controller
         notify()->success('User\'s account has been deleted', 'Alright!');
         activity()->log('Profile Delete: Volunteer User Profile got deleted');
         return redirect(route('admin.user.index'));
+    }
+
+    // Export users data
+    public function admin_user_export()
+    {
+       return Excel::download(new UsersExport,'users.xlsx');
     }
 
 

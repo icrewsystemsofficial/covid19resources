@@ -39,7 +39,11 @@
                                     </div>
                                 </div>
                                 <br>
-                                Powered by Algolia
+                                <span class="text-muted">AI based search powered by</span>
+                                <br><br>
+                                <a href="https://www.algolia.com/?ref={{ config('app.url') }}" target="_blank">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Algolia-logo.svg/1280px-Algolia-logo.svg.png" style="width: 100px; height: auto;" />
+                                </a>
                             </center>
                         </div>
                     </form>
@@ -48,6 +52,8 @@
                         <table class="table" id="results_table">
                             <thead>
                                 <th>Data</th>
+                                <th>Type</th>
+                                <th>Date</th>
                                 <th>Created</th>
                                 <th>Options</th>
                             </thead>
@@ -55,8 +61,23 @@
                                 @foreach ($results as $result)
                                     <tr>
                                         <td>{{ $result->tweet }}</td>
+                                        <td>
+                                            <span class="text-primary">
+                                                Tweet <i class="fab fa-twitter"></i>
+                                            </span>
+                                        </td>
+                                        <td>{{ $result->created_at->format('d/m/Y H:i A') }}</td>
                                         <td>{{ $result->created_at->diffForHumans() }}</td>
-                                        <td><a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary" target="_blank">View Tweet</a></td>
+										<td>
+                                            
+											<a href="{{ route('home.search.view', $result->id) }}" class="btn btn-success btn-sm" target="_blank">View Tweet</a>
+
+											@hasanyrole('superadmin|moderator|volunteer')
+											<a href="{{ route('admin.twitter.manage', $result->id) }}" class="btn btn-primary btn-sm" target="_blank">Manage Tweet</a>
+											@endrole
+
+
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
