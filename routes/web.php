@@ -61,10 +61,13 @@ Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.togg
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
-Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
-Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
-Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
-Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
+Route::get('/crowdsourced', [HomeController::class, 'crowdsourced_index'])->name('home.crowdsourced.index');
+Route::get('/helplines', [HomeController::class, 'crowdsourced_helplines'])->name('home.crowdsourced.helplines');
+Route::get('/instagram', [HomeController::class, 'crowdsourced_instagram'])->name('home.crowdsourced.instagram');
+Route::get('/websites', [HomeController::class, 'crowdsourced_websites'])->name('home.crowdsourced.websites');
+Route::get('/telegram', [HomeController::class, 'crowdsourced_telegram'])->name('home.crowdsourced.telegram');
+Route::get('/discord', [HomeController::class, 'crowdsourced_discord'])->name('home.crowdsourced.discord');
+
 
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 

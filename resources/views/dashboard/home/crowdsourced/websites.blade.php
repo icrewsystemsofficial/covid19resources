@@ -15,7 +15,11 @@ var dataSet = [
     ["CoV19InfoHubIndia","<a type='button' class='btn btn-primary' href='https://linktr.ee/CoV19InfoHubIndia'>Vist site</a>"],
     ["Covid.army","<a type='button' class='btn btn-primary' href=''https://covid.army'>Vist site</a>"],
     ["crows sourcing data","<a type='button' class='btn btn-primary' href='https://covidfacts.in'>Vist site</a>"],
-    ["Covid Fight Club","<a type='button' class='btn btn-primary' href='http://covidfacts.in'>Vist site</a>"]
+    ["Covid Fight Club","<a type='button' class='btn btn-primary' href='http://covidfacts.in'>Vist site</a>"],
+    ["Life | Corona Safe ","<a type='button' class='btn btn-primary' href='https://liferesources.in/'>Vist site</a>"],
+    ["Centralised Monitoring of Resources | Jharkhand ","<a type='button' class='btn btn-primary' href='http://amritvahini.in/'>Vist site</a>"],
+
+
 ];
    $(document).ready(function() {
     $('#website').DataTable( {
