@@ -8,7 +8,7 @@
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div class="col-md-12 text-center">
                 <h1 class="text-white pb-2 h1 fw-bold">
-                Crowdsourced Resources
+                Crowd-Sourced Resources
                 </h1>
               
             </div>
@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table" id="results_table">
-                            <tbody>
+                            <tbody">
                                 <th> <a type="button" class="btn btn-dark text-white" href="{{ route('home.crowdsourced.websites') }}"><i class="fas fa-globe-asia mr-2"></i> Website Links</th>
                                 <th> <a type="button" class="btn text-white" style="background-color: #DD2A7B" href="{{ route('home.crowdsourced.instagram') }}"><i class="fab fa-instagram mr-2"></i>Instagram Channels</th>
                                 <th> <a type="button" class="btn text-white" style="background-color: #0088cc"  href="{{ route('home.crowdsourced.telegram') }}"><i class="fab fa-telegram-plane mr-2"></i>Telegram Channels</th>

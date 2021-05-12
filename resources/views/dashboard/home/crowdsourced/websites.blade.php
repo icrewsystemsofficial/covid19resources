@@ -18,6 +18,8 @@ var dataSet = [
     ["Covid Fight Club","<a type='button' class='btn btn-primary' href='http://covidfacts.in'>Vist site</a>"],
     ["Life | Corona Safe ","<a type='button' class='btn btn-primary' href='https://liferesources.in/'>Vist site</a>"],
     ["Centralised Monitoring of Resources | Jharkhand ","<a type='button' class='btn btn-primary' href='http://amritvahini.in/'>Vist site</a>"],
+    ["Bengaluru For Humanity | Covid-19 Resources App for Bangalore ","<a type='button' class='btn btn-primary' href='https://blrforhumanity.com/'>Vist site</a>"],
+
 
 
 ];
