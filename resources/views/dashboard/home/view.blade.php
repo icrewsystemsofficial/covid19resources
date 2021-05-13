@@ -77,7 +77,7 @@
             </div>
 
             <div class="col-md-4 text-right">
-                <a  data-bs-toggle="modal" data-bs-target="#reportModal" class="btn btn-lg btn-white hvr-bounce-in">
+                <a  data-toggle="modal" data-target="#reportModal" class="btn btn-lg btn-white hvr-bounce-in">
                     Report this resource <i class="ml-2 fa fa-exclamation-triangle text-danger"></i>
                 </a>
             </div>
