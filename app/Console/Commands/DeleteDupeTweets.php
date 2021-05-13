@@ -41,24 +41,24 @@ class DeleteDupeTweets extends Command
     {
 
         // Get all the duplicates 
-       $tweets = Twitter::all();
+       $tweets = Twitter::where('status', Twitter::SCREENED)->get();
        $twitterUnique = $tweets->unique(['tweet_id']);
        $twitterDuplicates = $tweets->diff($twitterUnique);
        
         // Loops through all the duplicates and keeps only one and delete other tweets
        if(count($twitterDuplicates) < 1) {
 
-           $this->info('NO Duplicate tweets found');
+           $this->info('Good Job! No duplicate tweets found');
 
        } else {
 
-           $this->info('Found '.count($twitterDuplicates).' Duplicates');
+           $this->line('Found '.count($twitterDuplicates).' duplicates, deleting them...');
 
            foreach($twitterDuplicates as $dupes) {
-               $this->info('Deleting Tweet with tweet id '.$dupes->tweet_id);
+               $this->line('Deleting tweet '.$dupes->tweet_id.'. (ID # '.$dupes->id.' )');
                $dupes->delete();
             }
-            $this->info('Success! All the duplicates deleted');
+            $this->line('Success! Deleted '.count($twitterDuplicates).' duplicate tweets');
        }
 
 
