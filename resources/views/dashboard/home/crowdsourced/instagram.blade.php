@@ -21,7 +21,6 @@ var dataSet = [
     ["@covidhelpindia","<a type='button' class='btn btn-primary' href='https://instagram.com/covidhelpindia?igshid=bwu492zi5fcu'>Vist site</a>"],
     ["@covid.aid.chennai","<a type='button' class='btn btn-primary' href='https://instagram.com/covid.aid.chennai?igshid=1tthoq4v40x7j'>Vist site</a>"],
     ["@cov19infohubindia","<a type='button' class='btn btn-primary' href='https://instagram.com/cov19infohubindia?igshid=19l9qssl29pt9'>Vist site</a>"],
-    ["@ahmedabadcovid","<a type='button' class='btn btn-primary' href='https://instagram.com/ahmedabadcovid?igshid=21w53lulrk9k'>Vist site</a>"],
     ["@covidaidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/covidaidresources?igshid=1865hseonv528'>Vist site</a>"],
     ["@cs_covidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/cs_covidresources?igshid=hy6gjg4yccdg'>Vist site</a>"],
     ["@covidresourceinfo","<a type='button' class='btn btn-primary' href='https://instagram.com/covidresourceinfo?igshid=1iv0sxlyrqmvv'>Vist site</a>"],
@@ -29,6 +28,17 @@ var dataSet = [
     ["@covid_resources","<a type='button' class='btn btn-primary' href='https://instagram.com/covid_resources?igshid=1tzl6yjpkzuew'>Vist site</a>"],
     ["@patnacovid_resources","<a type='button' class='btn btn-primary' href='https://instagram.com/patnacovid_resources?igshid=ebddnkz8lrk3'>Vist site</a>"],
     ["@covid_aidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/covid_aidresources?igshid=14kghusovim9u'>Vist site</a>"],
+    ["@cs_covidresources","<a type='button' class='btn btn-primary' href='https://instagram.com/cs_covidresources?igshid=17q2lqmoum9pg'>Vist site</a>"],
+    ["@together_only_we_can","<a type='button' class='btn btn-primary' href='https://www.instagram.com/together_only_we_can/?igshid=1em02sbf32d1a'>Vist site</a>"],
+    ["@covidsupportdelhincr","<a type='button' class='btn btn-primary' href='https://www.instagram.com/covidsupportdelhincr/?igshid=134yrhcd9g6d2'>Vist site</a>"],
+    ["@delhi_covidaid","<a type='button' class='btn btn-primary' href='https://www.instagram.com/delhi_covidaid/?igshid=13fawmn983179'>Vist site</a>"],
+    ["@covid.aid.india","<a type='button' class='btn btn-primary' href='https://www.instagram.com/covid.aid.india/'>Vist site</a>"]
+
+
+
+    
+
+
 ];
 
    $(document).ready(function() {

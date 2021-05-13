@@ -68,7 +68,13 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [WhatsappAPI::class, 'index'])->name('api.whatsapp.index');
         Route::get('/stats', [WhatsappAPI::class, 'stats'])->name('api.whatsapp.stats');
 
-        Route::post('/create', [WhatsappAPI::class, 'create'])->name('api.whatsapp.create');
+
+        Route::post('/create', [WhatsappAPI::class, 'store'])->name('api.whatsapp.create');
+
+        Route::get('/whatsapp/change-status/{id}/{status}', [WhatsappAPI::class, 'change_status']);
+        Route::get('/whatsapp/{id}/delete', [WhatsappAPI::class, 'delete_whatsapp_resource']);
+
+
 
 
         // Route::get('/authenticate/phone/{phone}', [WhatsappAPI::class, 'authenticate'])->name('api.whatsapp.authenticate');

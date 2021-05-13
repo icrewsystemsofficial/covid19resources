@@ -27,6 +27,7 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\Dashboard\Admin\WhatsappResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,10 +62,13 @@ Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.togg
 
 Route::post('/post-comment/{id?}',[HomeController::class, 'add_comment'])->name('resource.postcomment');
 
-Route::get('/crowdsourced', [Crowdsourced::class, 'crowdsourced'])->name('home.crowdsourced');
-Route::get('/helplines', [Crowdsourced::class, 'helplines'])->name('home.helplines');
-Route::get('/instagram', [Crowdsourced::class, 'instagram'])->name('home.instagram');
-Route::get('/websites', [Crowdsourced::class, 'websites'])->name('home.websites');
+Route::get('/crowdsourced', [HomeController::class, 'crowdsourced_index'])->name('home.crowdsourced.index');
+Route::get('/helplines', [HomeController::class, 'crowdsourced_helplines'])->name('home.crowdsourced.helplines');
+Route::get('/instagram', [HomeController::class, 'crowdsourced_instagram'])->name('home.crowdsourced.instagram');
+Route::get('/websites', [HomeController::class, 'crowdsourced_websites'])->name('home.crowdsourced.websites');
+Route::get('/telegram', [HomeController::class, 'crowdsourced_telegram'])->name('home.crowdsourced.telegram');
+Route::get('/discord', [HomeController::class, 'crowdsourced_discord'])->name('home.crowdsourced.discord');
+
 
 Route::get('/search', [SearchController::class, 'search'])->name('home.search');
 
@@ -102,6 +106,11 @@ Route::get('/location/get', function() {
     dd(Cache::get('location'));
 });
 
+Route::prefix('ocr')->group(function () {
+    Route::get('/',[OcrController::class, 'index'])->name('ocr.index');
+    Route::post('/upload-image',[OcrController::class,'getImage'])->name('ocr.parse.text');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     //All users using the routes below these, SHOULD
@@ -120,17 +129,15 @@ Route::middleware(['auth'])->group(function () {
             //Using UUID because users should not "guess" the next mission IDs,
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
-            Route::get('/manage/{uuid}', [MissionsController::class, 'manage'])->name('admin.mission.manage');
+           
+
         });
 
         Route::get('/mass-export',[HomeController::class,'mass_export'])->name('mass.export');
     });
 
 
-    Route::prefix('ocr')->group(function () {
-        Route::get('/',[OcrController::class, 'index'])->name('ocr.index');
-        Route::post('/upload-image',[OcrController::class,'getImage'])->name('ocr.parse.text');
-    });
+    
 
     Route::prefix('admin')->group(function () {
 
@@ -157,6 +164,18 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/dissolve/{id}', [MissionAdmin::class, 'dissolve'])->name('admin.mission.dissolve');
                 Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
+                Route::get('/manage/{uuid}', [MissionAdmin::class, 'manage'])->name('admin.mission.manage');
+                Route::get('/update/{uuid}', [MissionAdmin::class, 'update'])->name('admin.mission.update');
+
+            });
+
+            Route::prefix('whatsapp')->group(function () {
+                Route::get('/', [WhatsappResourceController::class, 'index'])->name('admin.whatsapp.index');
+                Route::get('/{id}/manage', [WhatsappResourceController::class, 'manage'])->name('admin.whatsapp.manage');
+                Route::get('/{id}/update', [WhatsappResourceController::class, 'update'])->name('admin.whatsapp.update');
+                Route::get('/{id}/convert', [WhatsappResourceController::class, 'convert'])->name('admin.whatsapp.convert');
+                Route::post('/{id}/convert/save', [WhatsappResourceController::class, 'convert_save'])->name('admin.whatsapp.convert.save');
+                Route::get('/{id}/delete', [WhatsappResourceController::class, 'delete'])->name('admin.whatsapp.delete');
             });
 
             Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
@@ -228,6 +247,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
         Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
         Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
+        
 
 
         Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
@@ -244,6 +264,7 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
+   
 
 });
 

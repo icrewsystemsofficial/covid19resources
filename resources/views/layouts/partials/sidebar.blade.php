@@ -35,9 +35,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('home.crowdsourced') }}">
+                    <a href="{{ route('home.crowdsourced.index') }}">
                         <i class="fas fa-globe" aria-hidden="true"></i>
-                        <p>Crowdsourced Resources</p>
+                        <p>Crowd-Sourced Resources</p>
                     </a>
                 </li>
 
@@ -179,6 +179,13 @@
                     <a href="{{ route('admin.user.index') }}">
                         <i class="fas fa-user"></i>
                         <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.whatsapp.index') }}">
+                        <i class="fab fa-whatsapp"></i>
+                        <p>Whatsapp</p>
                     </a>
                 </li>
 
