@@ -60,19 +60,19 @@
                 window.location.reload();
             })
             .catch(function(error) {
-                alert('Whoops! Something went wrong while changing the status of the tweet. Please contact admins');
+                alert('Whoops! Something went wrong while changing the status of the resource. Please contact admins');
             });
 
         }
 
-        function choose_status_change(status, tweet_id = '') {
+        function choose_status_change(status, whatsapp_id = '') {
         var button = document.getElementById('choose_status_button');
         button.disabled = false;
 
         button.innerHTML = "Loading...";
 
-        if(tweet_id == '') {
-            tweet_id = "1";
+        if(whatsapp_id == '') {
+            whatsapp_id = "1";
         }
 
         if(status == 1) {

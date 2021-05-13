@@ -26,7 +26,7 @@
                 window.location.reload();
             })
             .catch(function(error) {
-                alert('Whoops! Something went wrong while changing the status of the tweet. Please contact admins');
+                alert('Whoops! Something went wrong while changing the status of the resource. Please contact admins');
             });
 
         }
