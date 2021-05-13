@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Whatsapp;
 
 class WhatsappResourceController extends Controller
 {
@@ -14,8 +15,28 @@ class WhatsappResourceController extends Controller
      */
     public function index()
     {
+        
         return view('dashboard.admin.whatsapp.index',[
             'whatsapp' => Whatsapp::all(),
+        ]);
+    }
+
+    public function manage($id) {
+
+        $whatsapp = Whatsapp::find($id);
+        if(!$whatsapp) {
+            notify()->error('The record with the given parameters were not found', 'Whoops');
+            return redirect(route('admin.whatsapp.index'));
+        }
+
+        $resources = Resource::where('tweet_id', $id)->get();
+
+
+        return view('dashboard.admin.twitter.manage', [
+            'tweet' => $tweet,
+            'resources' => $resources,
+            'categories' => Category::where('status', 1)->get(),
+            'states' => States::all(),
         ]);
     }
 

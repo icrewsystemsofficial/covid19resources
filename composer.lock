@@ -2628,92 +2628,7 @@
                 "parser",
                 "php"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.5"
-            },
             "time": "2021-05-03T19:11:20+00:00"
-        },
-        {
-            "name": "nyholm/psr7",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "23ae1f00fbc6a886cbe3062ca682391b9cc7c37b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/23ae1f00fbc6a886cbe3062ca682391b9cc7c37b",
-                "reference": "23ae1f00fbc6a886cbe3062ca682391b9cc7c37b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "php-http/message-factory": "^1.0",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0"
-            },
-            "provide": {
-                "psr/http-factory-implementation": "1.0",
-                "psr/http-message-implementation": "1.0"
-            },
-            "require-dev": {
-                "http-interop/http-factory-tests": "^0.8",
-                "php-http/psr7-integration-tests": "^1.0",
-                "phpunit/phpunit": "^7.5 || 8.5 || 9.4",
-                "symfony/error-handler": "^4.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Nyholm\\Psr7\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com"
-                },
-                {
-                    "name": "Martijn van der Ven",
-                    "email": "martijn@vanderven.se"
-                }
-            ],
-            "description": "A fast PHP7 implementation of PSR-7",
-            "homepage": "https://tnyholm.se",
-            "keywords": [
-                "psr-17",
-                "psr-7"
-            ],
-            "support": {
-                "issues": "https://github.com/Nyholm/psr7/issues",
-                "source": "https://github.com/Nyholm/psr7/tree/1.4.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Zegnat",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nyholm",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-02-18T15:41:32+00:00"
-=======
-            "time": "2021-05-03T19:11:20+00:00"
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
         },
         {
             "name": "opis/closure",
@@ -3355,12 +3270,6 @@
                 "psr",
                 "psr-3"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "time": "2021-05-03T11:20:27+00:00"
         },
         {
@@ -3758,7 +3667,6 @@
                 "php-mock/php-mock-phpunit": "^2.5",
                 "php-parallel-lint/php-parallel-lint": "^1.1",
                 "phpbench/phpbench": "^0.17.1",
-<<<<<<< HEAD
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12",
                 "phpstan/phpstan-mockery": "^0.12",
@@ -3802,11 +3710,6 @@
                 "identifier",
                 "uuid"
             ],
-            "support": {
-                "issues": "https://github.com/ramsey/uuid/issues",
-                "rss": "https://github.com/ramsey/uuid/releases.atom",
-                "source": "https://github.com/ramsey/uuid"
-            },
             "funding": [
                 {
                     "url": "https://github.com/ramsey",
@@ -3827,247 +3730,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/ReeceM/mocker/zipball/7cf5c04e87933629a5a3160f7064ef27f119452f",
                 "reference": "7cf5c04e87933629a5a3160f7064ef27f119452f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/filesystem": "^5.6|^6.0|^7.0|^8.0",
-                "illuminate/support": "^5.6|^6.0|^7.0|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^3.5|^4.0",
-                "phpunit/phpunit": "^7.5|^8.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ReeceM\\Mocker\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ReeceM",
-                    "email": "zsh.rce@gmail.com",
-                    "homepage": "https://githib.com/reecem"
-                }
-            ],
-            "description": "Mock class constructor args based on the reflection class",
-            "homepage": "https://github.com/reecem/mocker",
-            "keywords": [
-                "helper",
-                "laravel",
-                "mocker",
-                "mockery",
-                "reecem",
-                "testing"
-            ],
-            "support": {
-                "issues": "https://github.com/ReeceM/mocker/issues",
-                "source": "https://github.com/ReeceM/mocker/tree/v1.1.5"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/iexistin3d",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://ko-fi.com/reecem",
-                    "type": "ko_fi"
-                }
-            ],
-            "time": "2020-09-10T13:19:53+00:00"
-        },
-        {
-            "name": "sentry/sdk",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "f03133b067fdf03fed09ff03daf3f1d68f5f3673"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/f03133b067fdf03fed09ff03daf3f1d68f5f3673",
-                "reference": "f03133b067fdf03fed09ff03daf3f1d68f5f3673",
-                "shasum": ""
-            },
-            "require": {
-                "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.1",
-                "symfony/http-client": "^4.3|^5.0"
-            },
-            "type": "metapackage",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sentry",
-                    "email": "accounts@sentry.io"
-                }
-            ],
-            "description": "This is a metapackage shipping sentry/sentry with a recommended HTTP client.",
-            "homepage": "http://sentry.io",
-            "keywords": [
-                "crash-reporting",
-                "crash-reports",
-                "error-handler",
-                "error-monitoring",
-                "log",
-                "logging",
-                "sentry"
-            ],
-            "support": {
-                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://sentry.io/",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://sentry.io/pricing/",
-                    "type": "custom"
-                }
-            ],
-            "time": "2020-12-01T10:31:45+00:00"
-        },
-        {
-            "name": "sentry/sentry",
-            "version": "3.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "02237728bdc5b82b0a14c37417644e3f3606db9b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/02237728bdc5b82b0a14c37417644e3f3606db9b",
-                "reference": "02237728bdc5b82b0a14c37417644e3f3606db9b",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.7",
-                "jean85/pretty-package-versions": "^1.5|^2.0.1",
-                "php": "^7.2|^8.0",
-                "php-http/async-client-implementation": "^1.0",
-                "php-http/client-common": "^1.5|^2.0",
-                "php-http/discovery": "^1.6.1",
-                "php-http/httplug": "^1.1|^2.0",
-                "php-http/message": "^1.5",
-                "psr/http-factory": "^1.0",
-                "psr/http-message-implementation": "^1.0",
-                "psr/log": "^1.0",
-                "symfony/options-resolver": "^3.4.43|^4.4.11|^5.0.11",
-                "symfony/polyfill-php80": "^1.17",
-                "symfony/polyfill-uuid": "^1.13.1"
-            },
-            "conflict": {
-                "php-http/client-common": "1.8.0",
-                "raven/raven": "*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.17",
-                "http-interop/http-factory-guzzle": "^1.0",
-                "monolog/monolog": "^1.3|^2.0",
-                "nikic/php-parser": "^4.10.3",
-                "php-http/mock-client": "^1.3",
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-mockery": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpunit/phpunit": "^8.5",
-                "psy/psysh": "^0.10.0",
-                "slevomat/coding-standard": "^6.0",
-                "squizlabs/php_codesniffer": "^3.5",
-                "vimeo/psalm": "3.9.4"
-            },
-            "suggest": {
-                "ext-bcmath": "Enables faster math with arbitrary-precision integers using BCMath.",
-                "ext-ctype": "Enables faster processing of character classification using ctype functions.",
-                "ext-gmp": "Enables faster math with arbitrary-precision integers using GMP.",
-                "ext-uuid": "Enables the use of PeclUuidTimeGenerator and PeclUuidRandomGenerator.",
-                "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
-                "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Ramsey\\Uuid\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A PHP library for generating and working with universally unique identifiers (UUIDs).",
-            "homepage": "https://github.com/ramsey/uuid",
-            "keywords": [
-                "guid",
-                "identifier",
-                "uuid"
-            ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.2.2"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
-            "funding": [
-                {
-                    "url": "https://github.com/ramsey",
-                    "type": "github"
-                }
-            ],
-<<<<<<< HEAD
-            "time": "2021-05-06T10:15:01+00:00"
-        },
-        {
-            "name": "sentry/sentry-laravel",
-            "version": "2.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "23ea0d80cb2eb7d0d056879726f7800549fc7c01"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/23ea0d80cb2eb7d0d056879726f7800549fc7c01",
-                "reference": "23ea0d80cb2eb7d0d056879726f7800549fc7c01",
-=======
-            "time": "2020-08-18T17:17:46+00:00"
-        },
-        {
-            "name": "reecem/mocker",
-            "version": "v1.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ReeceM/mocker.git",
-                "reference": "7cf5c04e87933629a5a3160f7064ef27f119452f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ReeceM/mocker/zipball/7cf5c04e87933629a5a3160f7064ef27f119452f",
-                "reference": "7cf5c04e87933629a5a3160f7064ef27f119452f",
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
                 "shasum": ""
             },
             "require": {
@@ -4108,13 +3770,6 @@
                 "reecem",
                 "testing"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/2.5.3"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://www.paypal.me/iexistin3d",
@@ -4125,11 +3780,7 @@
                     "type": "ko_fi"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2021-05-10T13:41:30+00:00"
-=======
             "time": "2020-09-10T13:19:53+00:00"
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -4552,12 +4203,6 @@
                 "console",
                 "terminal"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/console/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4620,12 +4265,6 @@
             ],
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v5.3.0-BETA1"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4756,12 +4395,6 @@
             ],
             "description": "Provides tools to manage errors and ease debugging PHP code",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/error-handler/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4978,98 +4611,6 @@
             ],
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/finder/tree/v5.2.8"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-05-10T14:39:23+00:00"
-        },
-        {
-            "name": "symfony/http-client",
-            "version": "v5.2.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-client.git",
-                "reference": "a2baf9c3c5b25e04740cece0e429f0a0013002f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/a2baf9c3c5b25e04740cece0e429f0a0013002f2",
-                "reference": "a2baf9c3c5b25e04740cece0e429f0a0013002f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "psr/log": "^1.0",
-                "symfony/http-client-contracts": "^2.2",
-                "symfony/polyfill-php73": "^1.11",
-                "symfony/polyfill-php80": "^1.15",
-                "symfony/service-contracts": "^1.0|^2"
-            },
-            "provide": {
-                "php-http/async-client-implementation": "*",
-                "php-http/client-implementation": "*",
-                "psr/http-client-implementation": "1.0",
-                "symfony/http-client-implementation": "2.2"
-            },
-            "require-dev": {
-                "amphp/amp": "^2.5",
-                "amphp/http-client": "^4.2.1",
-                "amphp/http-tunnel": "^1.0",
-                "amphp/socket": "^1.1",
-                "guzzlehttp/promises": "^1.4",
-                "nyholm/psr7": "^1.0",
-                "php-http/httplug": "^1.0|^2.0",
-                "psr/http-client": "^1.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4.13|^5.1.5",
-                "symfony/process": "^4.4|^5.0",
-                "symfony/stopwatch": "^4.4|^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpClient\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5215,12 +4756,6 @@
             ],
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5330,12 +4865,6 @@
             ],
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5416,81 +4945,6 @@
                 "mime",
                 "mime-type"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/mime/tree/v5.2.7"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-04-29T20:47:09+00:00"
-        },
-        {
-            "name": "symfony/options-resolver",
-            "version": "v5.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "5d0f633f9bbfcf7ec642a2b5037268e61b0a62ce"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/5d0f633f9bbfcf7ec642a2b5037268e61b0a62ce",
-                "reference": "5d0f633f9bbfcf7ec642a2b5037268e61b0a62ce",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1",
-                "symfony/polyfill-php73": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\OptionsResolver\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides an improved replacement for the array_replace PHP function",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "config",
-                "configuration",
-                "options"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v5.2.4"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6252,100 +5706,6 @@
             ],
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/process/tree/v5.3.0-BETA1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-04-08T10:27:02+00:00"
-        },
-        {
-            "name": "symfony/psr-http-message-bridge",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "81db2d4ae86e9f0049828d9343a72b9523884e5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/81db2d4ae86e9f0049828d9343a72b9523884e5d",
-                "reference": "81db2d4ae86e9f0049828d9343a72b9523884e5d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "psr/http-message": "^1.0",
-                "symfony/http-foundation": "^4.4 || ^5.0"
-            },
-            "require-dev": {
-                "nyholm/psr7": "^1.1",
-                "psr/log": "^1.1",
-                "symfony/browser-kit": "^4.4 || ^5.0",
-                "symfony/config": "^4.4 || ^5.0",
-                "symfony/event-dispatcher": "^4.4 || ^5.0",
-                "symfony/framework-bundle": "^4.4 || ^5.0",
-                "symfony/http-kernel": "^4.4 || ^5.0",
-                "symfony/phpunit-bridge": "^4.4.19 || ^5.2"
-            },
-            "suggest": {
-                "nyholm/psr7": "For a super lightweight PSR-7/17 implementation"
-            },
-            "type": "symfony-bridge",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bridge\\PsrHttpMessage\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "PSR HTTP message bridge",
-            "homepage": "http://symfony.com",
-            "keywords": [
-                "http",
-                "http-message",
-                "psr-17",
-                "psr-7"
-            ],
-            "support": {
-                "issues": "https://github.com/symfony/psr-http-message-bridge/issues",
-                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v2.1.0"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6432,12 +5792,6 @@
                 "uri",
                 "url"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/routing/tree/v5.2.7"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6594,12 +5948,6 @@
                 "utf-8",
                 "utf8"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/string/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6690,12 +6038,6 @@
             ],
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6856,12 +6198,6 @@
                 "debug",
                 "dump"
             ],
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.2.8"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7324,13 +6660,6 @@
                 "flare",
                 "reporting"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/facade/flare-client-php/issues",
-                "source": "https://github.com/facade/flare-client-php/tree/1.8.0"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://github.com/spatie",
@@ -7408,15 +6737,6 @@
                 "laravel",
                 "page"
             ],
-<<<<<<< HEAD
-            "support": {
-                "docs": "https://flareapp.io/docs/ignition-for-laravel/introduction",
-                "forum": "https://twitter.com/flareappio",
-                "issues": "https://github.com/facade/ignition/issues",
-                "source": "https://github.com/facade/ignition"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "time": "2021-05-05T06:45:12+00:00"
         },
         {
@@ -7698,13 +7018,6 @@
                 "auth",
                 "laravel"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/laravel/breeze/issues",
-                "source": "https://github.com/laravel/breeze"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "time": "2021-05-11T20:34:17+00:00"
         },
         {
@@ -7761,13 +7074,6 @@
                 "docker",
                 "laravel"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/laravel/sail/issues",
-                "source": "https://github.com/laravel/sail"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "time": "2021-05-11T21:00:37+00:00"
         },
         {
@@ -9696,12 +9002,6 @@
             ],
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.22"
-            },
-=======
->>>>>>> 59de9a6ff7889678886a55c26e834c6f8d147b13
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
