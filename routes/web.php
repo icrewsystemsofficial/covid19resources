@@ -55,6 +55,7 @@ Route::post('/submit-report/{id?}', [HomeController::class, 'store_report'])->na
 Route::get('/view-profile', [UserEditController::class, 'show'])->name('home.profile.view');
 Route::get('/edit-profile', [UserEditController::class, 'edit'])->name('home.profile.edit');
 Route::put('/user', [UserEditController::class, 'update'])->name('home.profile.save');
+Route::get('/status', [HomeController::class, 'status_view'])->name('home.status.view');
 
 
 Route::get('/toggle-mode',[DarkmodeController::class,'toggle'])->name('home.toggle.mode');
