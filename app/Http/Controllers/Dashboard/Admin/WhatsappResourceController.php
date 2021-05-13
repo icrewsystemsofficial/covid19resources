@@ -43,6 +43,10 @@ class WhatsappResourceController extends Controller
         ]);
     }
 
+    public function update() {
+        dd(request()->input());
+    }
+
     public function convert_save($id) {
         $whatsapp = Whatsapp::find($id);
         if(!$whatsapp) {

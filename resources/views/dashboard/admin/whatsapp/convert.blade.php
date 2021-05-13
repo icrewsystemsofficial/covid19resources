@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Manage Resource')
+@section('title', 'Manage Whatsapp Resource')
 @section('js')
     <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
@@ -51,10 +51,10 @@
         button.disabled = true;
         button.innerHTML = "Loading...";
 
-        var tweet_id = "{{ $tweet->id }}";
+        var whatsapp_id = "{{ $whatsapp->id }}";
         var status = document.getElementById('choose_status').value;
 
-            axios.get('tweet/' + tweet_id + '/' + status)
+            axios.get('whatsapp/' + whatsapp_id + '/' + status)
             .then(function(response){
                 console.log(response);
                 window.location.reload();
@@ -92,19 +92,19 @@
 @endsection
 @section('content')
 @php
-    if($tweet->status == 0) {
+    if($whatsapp->status == 0) {
         $color = 'dark';
         $status = 'Pending';
         $panel_color = 'bg-dark';
-    } else if($tweet->status == 1) {
+    } else if($whatsapp->status == 1) {
         $color = 'success';
         $status = 'Verified';
         $panel_color = 'bg-success-gradient';
-    } else if($tweet->status == 2) {
+    } else if($whatsapp->status == 2) {
         $color = 'warning';
         $status = 'Refuted';
         $panel_color = 'bg-warning-gradient';
-    } else if($tweet->status == 3) {
+    } else if($whatsapp->status == 3) {
         $panel_color = 'bg-danger-gradient';
         $status = 'Spam';
         $color = 'danger';
@@ -113,30 +113,22 @@
 <div class="panel-header {{ $panel_color }}">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-            <div class="col-md-8 col-md-6">
-                <h2 class="text-white pb-2 fw-bold">
-
-                    Tweet by {{ $tweet->username }} <i class="fab fa-twitter"></i>
-                </h2>
-                <h5 class="text-white op-7 mb-2">
-                    This tweet was fetched using TwitterScanner {{ $tweet->created_at->diffForHumans() }}
-                </h5>
-            </div>
+            
 
             <div class="col-md-4 text-right">
                 {{-- <a href="{{ route('home.report', $tweet->id) }}" class="btn btn-lg btn-white hvr-bounce-in">
                     Report this resource <i class="ml-2 fa fa-exclamation-triangle text-danger"></i>
                 </a> --}}
 
-                    @if ($tweet->status == 1)
+                    @if ($whatsapp->status == 1)
                         <span class="btn btn-white">
                             Verified <i class="fas fa-check text-{{ $color }}"></i>
                         </span>
-                    @elseif($tweet->status == 2)
+                    @elseif($whatsapp->status == 2)
                         <span class="btn btn-white">
                             Refuted <i class="fas fa-times text-{{ $color }}"></i>
                         </span>
-                    @elseif($tweet->status == 3)
+                    @elseif($whatsapp->status == 3)
                         <span class="btn btn-white">
                             Spam <i class="fas fa-exclamation-triangle text-{{ $color }}"></i>
                         </span>
@@ -155,80 +147,28 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        Tweet
+                        Whatsapp Resource
                     </h4>
                 </div>
                 <div class="card-body" id="twitterstream_running">
                     <div class="alert alert-info">
                         <h4 class="mt-3 b-b1 mb-2">
-                            <span id="tweeter_name">{{ $tweet->fullname }}</span> (<a href="https://twitter.com/{{ $tweet->username }}" target="_blank" class="text-primary" id="tweeter_username">{{ $tweet->username }}</a>) &bull;
                             @php
-                                $value = date("Y-m-d H:i:s", strtotime($tweet->tweet_timestamp));
+                                $value = date("Y-m-d H:i:s", strtotime($whatsapp->timestamp));
                                 $time = Carbon\Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->format('d/m/Y H:i A');
                             @endphp
                             <span id="timeAgo"> {{ $time }} </span>
                         </h4>
                         <div id="tweet_box">
-                            {{ $tweet->tweet }}
+                            {{ $whatsapp->body }}
                         </div>
                     </div>
-                        <span class="text-muted">
-                            <small>
-                                If the full tweet is not available, view it on twitter website
-                            </small>
-                        </span>
+                      
                         <br><br>
-                        <a href="https://twitter.com/{{ $tweet->username }}/status/{{ $tweet->tweet_id }}" target="_blank" id="status_link" class="btn btn-primary">
-                            View on <i class="fab fa-twitter"></i>
-                        </a>
+                        
 
 
-                        @if (count($other_tweets) > 0)
-                        <div class="accordion mt-2" id="accordionExample">
-                            <div class="">
-                                <a class="btn btn-block btn-dark text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                    Found {{ count($other_tweets) }} other tweets by {{ $tweet->username }}
-                                </a>
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        @foreach ($other_tweets as $otweet)
-                                            @php
-                                                if($otweet->status == 0) {
-                                                    $ocolor = 'warning';
-                                                } else if($otweet->status == 1) {
-                                                    $ocolor = 'success';
-                                                } else if($otweet->status == 2) {
-                                                    $ocolor = 'danger';
-                                                } else {
-                                                    $ocolor = 'dark';
-                                                }
-                                            @endphp
-                                            <div class="alert alert-{{ $ocolor }}">
-                                                <h4 class="mt-3 b-b1 mb-2">
-                                                    <span id="tweeter_name">{{ $otweet->fullname }}</span> (<a href="https://twitter.com/{{ $tweet->username }}" target="_blank" class="text-primary" id="tweeter_username">{{ $tweet->username }}</a>) &bull;
-                                                    @php
-                                                        $value = date("Y-m-d H:i:s", strtotime($otweet->tweet_timestamp));
-                                                        $time = Carbon\Carbon::parse($value . '  UTC')->tz('Asia/Kolkata')->format('d/m/Y H:i A');
-                                                    @endphp
-                                                    <span id="timeAgo"> {{ $time }} </span>
-                                                </h4>
-                                                <div id="tweet_box">
-                                                    {{ $otweet->tweet }}
-                                                </div>
-                                                <br>
-                                                <a href="https://twitter.com/{{ $otweet->username }}/status/{{ $otweet->tweet_id }}" target="_blank" id="status_link" class="btn btn-primary">
-                                                    View on <i class="fab fa-twitter"></i>
-                                                </a>
-                                                <a href="{{ route('admin.twitter.manage', $otweet->id) }}" target="_blank" id="status_link" class="btn btn-primary">
-                                                    Manage
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
+                        
 
                 </div>
             </div>
@@ -240,7 +180,7 @@
                     <h4 class="card-title">Create Resource</h4>
                 </div>
                 <div class="card-body">
-                    <form style="display: block;" action="{{ route('admin.twitter.convert.save', $tweet->id) }}" method="post">
+                    <form style="display: block;" action="{{ route('admin.whatsapp.convert.save', $whatsapp->id) }}" method="post">
                         @csrf
                         <p>
                             <i class="fa fa-check-circle text-success"></i> Keep the title CLEAR, CRISP & CONCISE. Max 10 words
@@ -268,7 +208,7 @@
 
                                     <select name="category" class="form-control select2">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @php if($tweet->category == $category->id) { echo "selected"; } @endphp>
+                                            <option value="{{ $category->id }}">
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach
@@ -280,7 +220,7 @@
                                         <strong>Phone Number</strong>
                                     </label>
 
-                                    <input type="text" class="form-control" name="phone" value="{{ $tweet->phone }}" placeholder="Phone Number (with area code)">
+                                    <input type="text" class="form-control" name="phone" value="{{ $whatsapp->wa_phone }}" placeholder="Phone Number (with area code)">
                                 </div>
 
                                 <div class="form-group">
@@ -288,7 +228,7 @@
                                         <strong>URL</strong>
                                     </label>
 
-                                    <input type="text" class="form-control" name="url" value="{{ $tweet->url }}" placeholder="URL (website, social media link)">
+                                    <input type="text" class="form-control" name="url" placeholder="URL (website, social media link)">
                                 </div>
                             </div>
 
@@ -333,10 +273,9 @@
 
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>
-                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">As per this <a href="https://twitter.com/{{ $tweet->username }}/status/{{ $tweet->tweet_id }}" target="_blank">tweet</a> by {{ $tweet->fullname }} ({{$tweet->username }})<br><br>-- CONTENT --
-                                <br><br>
+                                Enter Content If Any
                                 This was verified by {{ auth()->user()->name }}
-                                <br><br><hr>{{ $tweet->tweet }}</textarea>
+                                <br><br><hr>{{ $whatsapp->body }}</textarea>
                         </div>
 
                         <div class="form-group">
@@ -359,11 +298,11 @@
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
                                     @php
-                                        if($tweet->status == '0') {
+                                        if($whatsapp->status == '0') {
                                             $color = 'warning';
-                                        } else if($tweet->status == '1') {
+                                        } else if($whatsapp->status == '1') {
                                             $color = 'success';
-                                        } else if($tweet->status == '2') {
+                                        } else if($whatsapp->status == '2') {
                                             $color = 'danger';
                                         } else {
                                             $color = 'danger';
@@ -371,16 +310,16 @@
                                     @endphp
                                     <div class="selectgroup selectgroup-{{ $color }} w-100" id="selectGroup">
                                         <label class="selectgroup-city success">
-                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input" <?php if($tweet->status == 1) { echo "checked";  } ?>>
+                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input" <?php if($whatsapp->status == 1) { echo "checked";  } ?>>
                                             <span class="selectgroup-button">Verified <i class="fa fa-check-circle"></i></span>
                                         </label>
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input" <?php if($tweet->status == 0) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input" <?php if($whatsapp->status == 0) { echo "checked"; } ?>>
                                             <span class="selectgroup-button">Unknown <i class="fa fa-exclamation-triangle"></i></span>
                                         </label>
 
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input" <?php if($tweet->status == 2) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input" <?php if($whatsapp->status == 2) { echo "checked"; } ?>>
                                             <span class="selectgroup-button">Refuted <i class="fa fa-times-circle"></i></span>
                                         </label>
                                     </div>
@@ -399,7 +338,7 @@
                             <button class="btn btn-info btn-md" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.twitter.update', $tweet->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md">Delete</a>
+                            <a href="{{ route('admin.whatsapp.update', $whatsapp->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md">Delete</a>
                             <!-- Button to Open the Modal -->
                         </div>
                     </form>
