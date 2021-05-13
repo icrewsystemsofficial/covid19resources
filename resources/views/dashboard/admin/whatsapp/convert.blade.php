@@ -113,7 +113,15 @@
 <div class="panel-header {{ $panel_color }}">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-            
+            <div class="col-md-8 col-md-6">
+                <h2 class="text-white pb-2 fw-bold">
+
+                    Resource by {{ $whatsapp->wa_name }} <i class="fab fa-whatsapp"></i>
+                </h2>
+                <h5 class="text-white op-7 mb-2">
+                    This resource was fetched using a WhatsApp Chatbot {{ $whatsapp->created_at->diffForHumans() }}
+                </h5>
+            </div>
 
             <div class="col-md-4 text-right">
                 {{-- <a href="{{ route('home.report', $tweet->id) }}" class="btn btn-lg btn-white hvr-bounce-in">
@@ -273,7 +281,9 @@
 
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>
-                                Enter Content If Any
+                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">
+                                -- CONTENT --
+
                                 This was verified by {{ auth()->user()->name }}
                                 <br><br><hr>{{ $whatsapp->body }}</textarea>
                         </div>

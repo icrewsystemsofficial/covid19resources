@@ -8,6 +8,7 @@ use App\Models\Whatsapp;
 use App\Models\Resource;
 use App\Models\Category;
 use App\Models\States;
+use App\Models\City;
 
 
 
@@ -53,7 +54,7 @@ class WhatsappResourceController extends Controller
 
 
         return view('dashboard.admin.whatsapp.convert', [
-            'whatsapp' => $tweet,
+            'whatsapp' => $whatsapp,
             'categories' => Category::where('status', 1)->get(),
             'states' => States::all(),
         ]);

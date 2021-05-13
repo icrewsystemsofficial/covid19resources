@@ -170,8 +170,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/', [WhatsappResourceController::class, 'index'])->name('admin.whatsapp.index');
                 Route::get('/{id}/manage', [WhatsappResourceController::class, 'manage'])->name('admin.whatsapp.manage');
                 Route::get('/{id}/update', [WhatsappResourceController::class, 'update'])->name('admin.whatsapp.update');
-                Route::post('/{id}/convert', [WhatsappResourceController::class, 'convert'])->name('admin.whatsapp.convert');
-                Route::get('/{id}/convert/save', [WhatsappResourceController::class, 'convert_save'])->name('admin.whatsapp.convert.save');
+                Route::get('/{id}/convert', [WhatsappResourceController::class, 'convert'])->name('admin.whatsapp.convert');
+                Route::post('/{id}/convert/save', [WhatsappResourceController::class, 'convert_save'])->name('admin.whatsapp.convert.save');
                 Route::get('/{id}/delete', [WhatsappResourceController::class, 'delete'])->name('admin.whatsapp.delete');
             });
 

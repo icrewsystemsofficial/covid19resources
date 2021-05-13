@@ -13,9 +13,9 @@
         <h4 class="page-title">Whatsapp Admin</h4>
     </div>
     <p>
-        This is a collection of the latest information regarding the whatsapp_records obtained from Whatsapp.
+        This is a collection of the latest information regarding the resources obtained from the Whatsapp Chatbot.
     </p>
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-12 col-md-4">
@@ -118,11 +118,6 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($whatsapp_record->author_data)
-                                        {{ $whatsapp_record->author_data->name }}
-                                        @endif
-                                    </td>
-                                    <td>
                                         @if ($whatsapp_record->verified == 1)
                                             <span class="badge badge-success">
                                                 Verified <i class="fas fa-check"></i>
@@ -146,13 +141,10 @@
                                             </script>
                                         @endif
                                     </td>
-                                    {{-- <td class="text-center">
-                                        {{ $whatsapp_record->created_at->format('d/m/Y H:i A') }}
-                                    </td> --}}
-                                    <td class="text-center">
+                                    <td>
                                         {{ $whatsapp_record->updated_at->diffForHumans() }}
                                     </td>
-                                    <td class="text-center">
+                                    <td>
                                         <a href="{{ route('admin.whatsapp.manage', $whatsapp_record->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
