@@ -8,6 +8,7 @@ use App\Models\Whatsapp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Whatsapp as ModelsWhatsapp;
+use Illuminate\Support\Facades\Log;
 
 class WhatsappAPI extends Controller
 {
