@@ -61,7 +61,7 @@ class WhatsappAPI extends Controller
         $whatsapp->status = 0;
         $whatsapp->create();
 
-        return response()->json(["msg"=>"success"])
+        return response()->json(["msg"=>"success"]);
     }
 
     public function change_status($id = '', $status = '') {
