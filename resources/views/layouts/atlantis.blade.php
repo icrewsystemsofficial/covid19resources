@@ -53,14 +53,14 @@
 </head>
 
 
-<body data-background-color="{{ cache()->get('key') }}">
+<body id="body" data-background-color="{{ cache()->get('key') }}">
 	<div  class="wrapper sidebar_minimize">
 		<div class="main-header">
 			<!-- Logo Header -->
             @if (cache()->get('key') == 'dark')
-			<div class="logo-header" data-background-color="dark2">
+			<div class="logo-header" id="logo_header" data-background-color="dark2">
             @else
-			<div class="logo-header" data-background-color="blue">
+			<div class="logo-header" id="logo_header" data-background-color="blue">
             @endif
 
 				<a href="{{ route('home') }}" class="logo text-white">
@@ -170,19 +170,17 @@
                 </div> --}}
                 <div class="form-group">
                     <label class="form-label d-block">Dashboard Preference</label>
-                    <form  action="{{ route('home.toggle.mode') }}">
                         <div class="selectgroup selectgroup-secondary selectgroup-pills">
                             <label class="selectgroup-item">
-                                <input type="radio" name="mode" value="light" onchange="this.form.submit();" class="selectgroup-input" <?php if(cache()->get('key') != 'dark' || cache()->get('key') == '') { echo "checked"; } ?>>
+                                <input type="radio" name="mode" target="formTarget" value="light" onclick="toggle_mode();" class="selectgroup-input" <?php if(cache()->get('key') != 'dark' || cache()->get('key') == '') { echo "checked"; } ?>>
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-sun"></i></span>
                             </label>
                             <label class="selectgroup-item">
-                                <input type="radio" name="mode" onchange="this.form.submit();" value="dark" class="selectgroup-input" <?php if(cache()->get('key') == 'dark') { echo "checked"; } ?>>
+                                <input type="radio" name="mode" onclick="light_mode();" value="dark" class="selectgroup-input" <?php if(cache()->get('key') == 'dark') { echo "checked"; } ?>>
                                 <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-moon"></i></span>
                             </label>
                         </div>
-                        <noscript><input type="submit" value="Submit"></noscript>
-                    </form>
+                        {{-- <noscript><input type="submit" value="Submit"></noscript> --}}
                 </div>
         </div>
         <div class="custom-toggle">
@@ -267,7 +265,54 @@
                 },
                 time: 1000,
             });
-        }    
+        }  
+        
+        var is_dark = "<?php echo(cache()->get('key'))  ?>"
+
+// light to dark func
+        function light_mode() {
+            var input_field = document.querySelector('input[name="mode"]:checked');
+            // console.log(input_field.value);
+            if(is_dark === 'light') {
+                    document.getElementById('logo_header').setAttribute('data-background-color','dark2')
+                    document.getElementById('body').setAttribute('data-background-color','dark')
+                    document.getElementById('nav_bar').setAttribute('data-background-color','dark')
+                    document.getElementById('side_bar').setAttribute('data-background-color','dark')
+                    is_dark = 'dark'
+                } 
+             axios.get('/toggle-mode/'+ input_field.value)
+             .then(function(response) {
+               
+            }).catch(function (error) {
+                // handle error
+                alert('Something went wrong! Please report this ASAP to the developers');
+                console.log(error);
+            });
+        }
+
+        // dark to light 
+
+        function toggle_mode() {
+            console.log(is_dark)
+            var input_field = document.querySelector('input[name="mode"]:checked');
+            // console.log(input_field.value);
+            if(is_dark === 'dark') {
+                    document.getElementById('logo_header').setAttribute('data-background-color','blue')
+                    document.getElementById('body').setAttribute('data-background-color','white')
+                    document.getElementById('nav_bar').setAttribute('data-background-color','blue2')
+                    document.getElementById('side_bar').setAttribute('data-background-color','white')
+                    is_dark = 'light'
+                }
+             axios.get('/toggle-mode/'+ input_field.value)
+             .then(function(response) {
+
+               
+            }).catch(function (error) {
+                // handle error
+                alert('Something went wrong! Please report this ASAP to the developers');
+                console.log(error);
+            });
+        }  
     </script>
 
     @yield('js')

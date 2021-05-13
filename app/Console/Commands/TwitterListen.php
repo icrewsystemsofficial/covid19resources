@@ -72,6 +72,11 @@ class TwitterListen extends Command
                 'reply_count' => $tweet['reply_count'],
                 'favorite_count' => $tweet['favorite_count'],
             ];
+
+            if (Twitter::find($tweet_data['id'])) {
+                return;
+            } 
+            
             if (isset($tweet['extended_tweet'])) {
                 $tweet_data['text'] = $tweet['extended_tweet']['full_text'];
             }

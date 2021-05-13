@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
+use App\Exports\ResourceExport;
 use App\Models\City;
 use App\Models\States;
 use App\Models\Category;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResourceController extends Controller
 {
@@ -130,5 +132,10 @@ class ResourceController extends Controller
         activity()->log('Admin Resource: Resource has deleted');
         return redirect(route('admin.resources.index'));
 
+    }
+
+    public function admin_resource_export()
+    {
+        return Excel::download(new ResourceExport,'resources.xlsx');
     }
 }
