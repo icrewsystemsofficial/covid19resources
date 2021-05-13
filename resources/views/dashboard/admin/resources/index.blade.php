@@ -131,7 +131,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ $resource->author_data->name }}
+                                    	@if ($resource->author_data)
+                                        	{{ $resource->author_data->name }}
+                                        @endif	
                                     </td>
                                     <td>
                                         @if ($resource->verified == 1)

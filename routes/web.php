@@ -120,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
             //Using UUID because users should not "guess" the next mission IDs,
             //But still, other users should be able to validate someone else's missions.
             Route::get('/view/{uuid}', [MissionsController::class, 'view'])->name('home.mission.view');
-            Route::get('/manage/{uuid}', [MissionsController::class, 'manage'])->name('admin.mission.manage');
+           
         });
 
         Route::get('/mass-export',[HomeController::class,'mass_export'])->name('mass.export');
@@ -157,6 +157,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/dissolve/{id}', [MissionAdmin::class, 'dissolve'])->name('admin.mission.dissolve');
                 Route::get('/assign/new', [MissionAdmin::class, 'assign'])->name('admin.mission.assign');
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
+                Route::get('/manage/{uuid}', [MissionAdmin::class, 'manage'])->name('admin.mission.manage');
+                Route::get('/update/{uuid}', [MissionAdmin::class, 'update'])->name('admin.mission.update');
             });
 
             Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
