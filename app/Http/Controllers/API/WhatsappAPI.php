@@ -59,7 +59,7 @@ class WhatsappAPI extends Controller
         $whatsapp->wa_phone = request()->get('wa_phone');
         $whatsapp->wa_name = request()->get('wa_name');
         $whatsapp->status = 0;
-        $whatsapp->create();
+        $whatsapp->save();
 
         return response()->json(["msg"=>"success"]);
     }
@@ -93,6 +93,7 @@ class WhatsappAPI extends Controller
             $respone['type'] = 'success';
             return response($respone);
         }
+}
 
     public function delete_whatsapp_resource($id) {
             $respone = array();
