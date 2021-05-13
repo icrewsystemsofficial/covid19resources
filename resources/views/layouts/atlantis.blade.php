@@ -8,21 +8,20 @@
     <!-- Primary Meta Tags -->
     <title> @yield('title', 'NO-TITLE-PASSED') | {{ config('app.name') }}</title>
     <meta name="title" content="Dashboard | {{ config('app.name') }}">
-    <meta name="description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
-
+    <meta name="description" content="{{ config('app.name') }} is an open source directory for verified resources, run by dedicated volunteers. Currently tracking 85,000+ tweets & 500+ verified resources.">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://covid19.icrewsystems.com/">
+    <meta property="og:url" content="https://covid19verifiedresources.in">
     <meta property="og:title" content="Dashboard | {{ config('app.name') }}">
-    <meta property="og:description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
-    <meta property="og:image" content="">
+    <meta property="og:description" content="{{ config('app.name') }} is an open source directory for verified resources, run by dedicated volunteers. Currently tracking 85,000+ tweets & 500+ verified resources.">
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/530789778912837640/842209265602134036/Statewise_Dashboardfooter.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://covid19.icrewsystems.com/">
+    <meta property="twitter:url" content="https://covid19verifiedresources.in">
     <meta property="twitter:title" content="Dashboard | {{ config('app.name') }}">
-    <meta property="twitter:description" content="{{ config('app.name') }} is an Open Source directory where people can add and find VERIFIED information about resources such as Hospitals, Beds, Oxygen, Ambulance, Medicine, Injections and so on. The app can autonomously fetch tweets that contain #Verified #COVID19India from twitter and source that into the application itself">
-    <meta property="twitter:image" content="">
+    <meta property="twitter:description" content="{{ config('app.name') }} is an open source directory for verified resources, run by dedicated volunteers. Currently tracking 85,000+ tweets & 500+ verified resources.">
+    <meta property="twitter:image" content="https://cdn.discordapp.com/attachments/530789778912837640/842209265602134036/Statewise_Dashboardfooter.png">
 
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -130,14 +129,14 @@
                         <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-                        <br/> 
+                        <br/>
                         <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
                         <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button> 
+                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
                     </div>
                 </div>
                 <div class="switch-block">
@@ -158,7 +157,7 @@
                         <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
                         <button type="button" class="changeTopBarColor" data-color="green2"></button>
                         <button type="button" class="changeTopBarColor" data-color="orange2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red2"></button> 
+                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
                     </div>
                 </div>
                 {{-- <div class="switch-block">
@@ -265,8 +264,8 @@
                 },
                 time: 1000,
             });
-        }  
-        
+        }
+
         var is_dark = "<?php echo(cache()->get('key'))  ?>"
 
 // light to dark func
@@ -279,10 +278,10 @@
                     document.getElementById('nav_bar').setAttribute('data-background-color','dark')
                     document.getElementById('side_bar').setAttribute('data-background-color','dark')
                     is_dark = 'dark'
-                } 
+                }
              axios.get('/toggle-mode/'+ input_field.value)
              .then(function(response) {
-               
+
             }).catch(function (error) {
                 // handle error
                 alert('Something went wrong! Please report this ASAP to the developers');
@@ -290,7 +289,7 @@
             });
         }
 
-        // dark to light 
+        // dark to light
 
         function toggle_mode() {
             console.log(is_dark)
@@ -306,13 +305,13 @@
              axios.get('/toggle-mode/'+ input_field.value)
              .then(function(response) {
 
-               
+
             }).catch(function (error) {
                 // handle error
                 alert('Something went wrong! Please report this ASAP to the developers');
                 console.log(error);
             });
-        }  
+        }
     </script>
 
     @yield('js')
