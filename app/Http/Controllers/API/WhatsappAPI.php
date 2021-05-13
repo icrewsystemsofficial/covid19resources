@@ -59,6 +59,11 @@ class WhatsappAPI extends Controller
         $whatsapp->wa_name = request('wa_name');
         $whatsapp->status = 0;
         $whatsapp->create();
+        	
+        $response = array();
+        $response['message'] = 'Whatsapp lead added successfully';
+        $response['data'] = $whatsapp;
+        return response()->json($response);
     }
 
     /**
