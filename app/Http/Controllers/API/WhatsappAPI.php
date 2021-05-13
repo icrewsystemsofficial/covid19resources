@@ -50,6 +50,8 @@ class WhatsappAPI extends Controller
         //     'status' => 'required',
         // ]);
 
+        Log::error($request);
+
         $whatsapp = new Whatsapp;
         $whatsapp->title = $request->title;
         $whatsapp->body = $request->body;
