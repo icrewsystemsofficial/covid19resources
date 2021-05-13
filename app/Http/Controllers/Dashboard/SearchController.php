@@ -23,7 +23,17 @@ class SearchController extends Controller
             return redirect(route('home.search'));
         }
         $tweets = Twitter::search($query)->orderBy('created_at', 'DESC')->get();
-
+        
+  //      $tweets = Twitter::search($query, function ($algolia, $query, $options) {
+		// $extraOptions = [
+		//         'paginationlimitedto' => 5000,
+		//     ];
+		//     $options = array_merge($options, $extraOptions);
+		//     return $algolia->search($query, $options);
+		// });
+		
+	
+		
         return view('dashboard.home.search.results', [
             'results' => $tweets,
             'query' => $query,
