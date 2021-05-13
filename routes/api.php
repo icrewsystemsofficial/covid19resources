@@ -28,6 +28,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+
+    Route::get('/', function() {
+        $response = array([
+            'message' => config('app.name').' API Version 1 Operational',
+        ]);
+        return response($response, 200);
+    });
+
     Route::get('/states', [States::class, 'getStates']);
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
     Route::get('/cities/{state?}', [States::class, 'getCities']);
