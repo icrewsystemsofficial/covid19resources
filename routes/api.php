@@ -70,6 +70,10 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/create', [WhatsappAPI::class, 'create'])->name('api.whatsapp.create');
 
+
+        // Route::get('/authenticate/phone/{phone}', [WhatsappAPI::class, 'authenticate'])->name('api.whatsapp.authenticate');
+        Route::get('/authenticate/{email}/{phone}', [WhatsappAPI::class, 'authenticate'])->name('api.whatsapp.authenticate.email');
+        Route::get('/verify/{uuid}', [WhatsappAPI::class, 'verify'])->name('api.whatsapp.verify_uuid');
     });
 
 });
