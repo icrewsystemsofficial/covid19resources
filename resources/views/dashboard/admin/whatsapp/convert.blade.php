@@ -45,7 +45,7 @@
             });
         }
 
-        function changeTweetStatus() {
+        function changeWhatsappStatus() {
 
         var button = document.getElementById('choose_status_button');
         button.disabled = true;
