@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Models\User;
 use App\Models\Resource;
 use App\Models\Whatsapp;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\WhatsappAuthentication;
 use App\Models\Whatsapp as ModelsWhatsapp;
 use Illuminate\Support\Facades\Log;
 
@@ -63,125 +60,11 @@ class WhatsappAPI extends Controller
         $whatsapp->wa_phone = $request->wa_phone;
         $whatsapp->wa_name = $request->wa_name;
         $whatsapp->status = 0;
-        //$whatsapp->save();
+        $whatsapp->save();
 
-        return response()->json($request->all());
+        return response()->json(["msg"=>"success"]);
     }
 
-
-    public function authenticate_old($phone) {
-
-        if($phone == '') {
-            $response['code'] = '201';
-            $response['message'] = 'Phone number must be passed';
-
-            return response($response);
-        }
-
-        $user = User::where('phone_number', $phone)->first();
-        if($user) {
-            $user->isPhoneVerified = 1;
-            // $user->save();
-            // return $user;
-
-            $generated_uuid = Str::uuid();
-
-
-            // $find_dupes = WhatsappAuthentication::where('uuid', $generated_uuid)->first();
-            // if(!$find_dupes) {
-
-            // }
-
-
-            $authenticate = new WhatsappAuthentication;
-            $authenticate->phone = $phone;
-            $authenticate->token = $generated_uuid;
-            $authenticate->user_id = $user->id;
-
-            // $authenticate->save();
-
-            $response['code'] = 200;
-            $response['message'] = 'Phone number verified, token generated';
-            $response['token'] = $generated_uuid;
-            $response['verifiecation_url'] = route('api.whatsapp.verify_uuid', $generated_uuid);
-
-            return $response;
-
-        } else {
-            $response['code'] = '202';
-            $response['message'] = 'No users found with phone number '.$phone;
-            return response($response);
-        }
-    }
-
-    public function authenticate($email, $phone) {
-
-        if($email == '') {
-            $response['code'] = '201';
-            $response['message'] = 'Email must be passed';
-
-            return response($response);
-        }
-
-        $user = User::where('email', $email)->first();
-        if($user) {
-
-            if($user->phone_number != $phone) {
-                $response['code'] = '201';
-                $response['message'] = 'Phone number does not match the provided account';
-                return response($response);
-            } else {
-                $generated_uuid = Str::uuid();
-
-                // $find_dupes = WhatsappAuthentication::where('uuid', $generated_uuid)->first();
-                // if(!$find_dupes) {
-
-                // }
-
-                $authenticate = new WhatsappAuthentication;
-                $authenticate->phone = $phone;
-                $authenticate->token = $generated_uuid;
-                $authenticate->user_id = $user->id;
-
-                $authenticate->save();
-
-                $response['code'] = 200;
-                $response['message'] = 'Phone number matches '.$user->name.'\'s records. Click the link to authenticate phone number';
-                $response['token'] = $generated_uuid;
-                $response['verifiecation_url'] = route('api.whatsapp.verify_uuid', $generated_uuid);
-                $response['user'] = $user;
-                return $response;
-            }
-
-        } else {
-            $response['code'] = '202';
-            $response['message'] = 'No users found with e-mail '.$email;
-            return response($response);
-        }
-    }
-
-    public function verify($token) {
-
-        $response = array();
-
-        $authentication = WhatsappAuthentication::where('token', $token)->first();
-        if($authentication) {
-            $response['code'] = '200';
-            $response['message'] = 'Token identified, authenticating phone number';
-
-            $user = User::find($authentication->user_id);
-            $user->isPhoneVerified = 1;
-            $user->save();
-
-            return response($response);
-        } else {
-            $response['code'] = '201';
-            $response['message'] = 'Invalid token';
-
-            return response($response);
-        }
-
-    }
     public function change_status($id = '', $status = '') {
         $respone = array();
         if($id == '' || $status == '') {
@@ -215,12 +98,12 @@ class WhatsappAPI extends Controller
 
     public function delete_whatsapp_resource($id) {
             $respone = array();
-
+    
             ModelsWhatsapp::find($id)->delete();
             $respone['message'] = 'Whatsapp Resource was deleted';
             return response($respone);
         }
-
+    
 
     /**
      * Display the specified resource.
