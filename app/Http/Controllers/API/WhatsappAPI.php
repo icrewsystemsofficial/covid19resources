@@ -51,8 +51,6 @@ class WhatsappAPI extends Controller
         //     'status' => 'required',
         // ]);
 
-        Log::error($request);
-
         $whatsapp = new Whatsapp;
         $whatsapp->title = $request->title;
         $whatsapp->body = $request->body;
@@ -64,7 +62,7 @@ class WhatsappAPI extends Controller
         $whatsapp->status = 0;
         $whatsapp->save();
 
-        return response()->json(["msg"=>"success"]);
+        return response()->json($request->all());
     }
 
     public function change_status($id = '', $status = '') {
