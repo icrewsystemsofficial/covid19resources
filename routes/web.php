@@ -102,6 +102,11 @@ Route::get('/location/get', function() {
     dd(Cache::get('location'));
 });
 
+Route::prefix('ocr')->group(function () {
+    Route::get('/',[OcrController::class, 'index'])->name('ocr.index');
+    Route::post('/upload-image',[OcrController::class,'getImage'])->name('ocr.parse.text');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     //All users using the routes below these, SHOULD
@@ -127,10 +132,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    Route::prefix('ocr')->group(function () {
-        Route::get('/',[OcrController::class, 'index'])->name('ocr.index');
-        Route::post('/upload-image',[OcrController::class,'getImage'])->name('ocr.parse.text');
-    });
+    
 
     Route::prefix('admin')->group(function () {
 

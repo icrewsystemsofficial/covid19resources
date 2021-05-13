@@ -38,32 +38,28 @@ class WhatsappAPI extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required|min:10',
-            'location' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'wa_phone' => 'required',
-            'wa_name' => 'required',
-            'status' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required',
+        //     'body' => 'required|min:10',
+        //     'location' => 'required',
+        //     'state' => 'required',
+        //     'city' => 'required',
+        //     'wa_phone' => 'required',
+        //     'wa_name' => 'required',
+        //     'status' => 'required',
+        // ]);
 
         $whatsapp = new Whatsapp;
-        $whatsapp->title = request('title');
-        $whatsapp->body = request('body');
-        $whatsapp->location = request('location');
-        $whatsapp->state = request('state');
-        $whatsapp->city = request('city');
-        $whatsapp->wa_phone = request('wa_phone');
-        $whatsapp->wa_name = request('wa_name');
+        $whatsapp->title = $request->title;
+        $whatsapp->body = $request->body;
+        $whatsapp->location = $request->location;
+        $whatsapp->state = $request->state;
+        $whatsapp->city = $request->city;
+        $whatsapp->wa_phone = $request->wa_phone;
+        $whatsapp->wa_name = $request->wa_name;
         $whatsapp->status = 0;
         $whatsapp->create();
-        	
-        $response = array();
-        $response['message'] = 'Whatsapp lead added successfully';
-        $response['data'] = $whatsapp;
-        return response()->json($response);
+        return response()->json(["msg"=>"success"]);
     }
 
     /**
