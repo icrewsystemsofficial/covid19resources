@@ -7,6 +7,7 @@ use App\Models\Resource;
 use App\Models\Whatsapp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Whatsapp as ModelsWhatsapp;
 
 class WhatsappAPI extends Controller
 {
@@ -62,6 +63,45 @@ class WhatsappAPI extends Controller
 
         return response()->json(["msg"=>"success"])
     }
+
+    public function change_status($id = '', $status = '') {
+        $respone = array();
+        if($id == '' || $status == '') {
+            $respone['message'] = 'ID or STATUS was not passed with the request';
+            $respone['type'] = 'error';
+            return response($respone);
+        }
+
+        //TO:DO This needs to be made into some sort of STD class.
+        $allowed_statuses = array('0', '1', '2', '3', '4');
+
+        if(!in_array($status, $allowed_statuses)) {
+            $respone['message'] = 'Unknown status type';
+            $respone['type'] = 'error';
+            return response($respone);
+        }
+
+        $whatsapp = ModelsWhatsapp::find($id);
+        if(!$whatsapp) {
+            $respone['message'] = 'Whatsapp Resource with ID not found';
+            $respone['type'] = 'error';
+            return response($respone);
+        } else {
+            $whatsapp->status = $status;
+            $whatsapp->update();
+            $respone['message'] = 'Whatsapp Resource was updated';
+            $respone['type'] = 'success';
+            return response($respone);
+        }
+
+    public function delete_whatsapp_resource($id) {
+            $respone = array();
+    
+            ModelsWhatsapp::find($id)->delete();
+            $respone['message'] = 'Whatsapp Resource was deleted';
+            return response($respone);
+        }
+    
 
     /**
      * Display the specified resource.
