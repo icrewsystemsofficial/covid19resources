@@ -93,6 +93,7 @@ class WhatsappAPI extends Controller
             $respone['type'] = 'success';
             return response($respone);
         }
+}
 
     public function delete_whatsapp_resource($id) {
             $respone = array();
