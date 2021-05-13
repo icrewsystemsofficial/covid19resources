@@ -166,6 +166,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/assign/create', [MissionAdmin::class, 'create'])->name('admin.mission.create');
                 Route::get('/manage/{uuid}', [MissionAdmin::class, 'manage'])->name('admin.mission.manage');
                 Route::get('/update/{uuid}', [MissionAdmin::class, 'update'])->name('admin.mission.update');
+
             });
 
             Route::prefix('whatsapp')->group(function () {
