@@ -38,16 +38,16 @@ class WhatsappAPI extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required|min:10',
-            'location' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'wa_phone' => 'required',
-            'wa_name' => 'required',
-            'status' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required',
+        //     'body' => 'required|min:10',
+        //     'location' => 'required',
+        //     'state' => 'required',
+        //     'city' => 'required',
+        //     'wa_phone' => 'required',
+        //     'wa_name' => 'required',
+        //     'status' => 'required',
+        // ]);
 
         $whatsapp = new Whatsapp;
         $whatsapp->title = request('title');
