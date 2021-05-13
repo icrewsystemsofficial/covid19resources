@@ -395,4 +395,9 @@ class HomeController extends Controller
         return Excel::download(new Covid19MassExport,'covid19data.xlsx');
     }
 
+    public function status_view()
+    {
+        return view('dashboard.home.status');
+    }
+
 }
