@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Manage Resource')
+@section('title', 'Manage Whatsapp Resource')
 @section('js')
     {{-- <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> --}}
@@ -61,7 +61,7 @@
 @endsection
 @section('content')
    
-<div class="page-inner mt--5">
+<div class="page-inner mt--10 py-5">
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -94,9 +94,7 @@
                     <h4 class="card-title">Manage this Whatsapp Resource</h4>
                 </div>
                 <div class="card-body">
-                    <p class="mt-2">
-                        This message is currently marked as <span class="badge badge-{{ $whatsapp->getStatus()->color }}">{{ strtoupper($whatsapp->getStatus()->name) }}</span>
-                    </p>
+                   
 
                     <div class="">
 
@@ -113,22 +111,22 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 mt-4">
-                                    <button id="choose_status_button" onclick="changeTweetStatus();" type="button" class="btn btn-block btn-black" disabled>
+                                    <button id="choose_status_button" onclick="changeWhatsappStatus();" type="button" class="btn btn-block btn-black" disabled>
                                         Choose status
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        @if($tweet->status == 1)
-                            <a href="{{ route('admin.twitter.convert', $tweet->id) }}" class="btn btn-success btn-lg mb-3 mt-3">
+                        @if($whatsapp->status == 1)
+                            <a href="{{ route('admin.whatsapp.convert', $whatsapp->id) }}" class="btn btn-success btn-lg mb-3 mt-3">
                                 Convert to RESOURCE
                             </a>
 
                             <br>
                             <span class="text-muted mt-2">
                                 <i class="fa fa-check-circle text-success"></i> Success:
-                                This tweet as been marked as verified, you can now convert it into a resource.
+                                This message as been marked as verified, you can now convert it into a resource.
                             </span>
                             @else
                                 <button class="btn btn-dark btn-lg mt-3 mb-3" disabled>
@@ -136,11 +134,11 @@
                                 </button>
                                 <br>
                                 <span class="text-muted mt-2">
-                                    <i class="fa fa-exclamation-triangle text-warning"></i> Error: To convert a tweet into a resource, the status to be "Verified"
+                                    <i class="fa fa-exclamation-triangle text-warning"></i> Error: To convert a message into a resource, the status has to be "Verified"
                                     <br>
                                     <ol class="text-left mt-4 list">
                                         <li>
-                                            Call the phone number / Visit the URL mentioned in the Tweet
+                                            Call the phone number mentioned in the message
                                         </li>
                                         <li>
                                             Mark it as "VERIFIED" only after you get positive response from the source
@@ -152,63 +150,17 @@
                         <br>
 
 
-                        @if (count($resources) > 0)
-                        <div class="accordion mt-2">
-                            <div class="">
-                                <a class="btn btn-block btn-success text-white" data-toggle="collapse" data-target="#resourcesAccordion" aria-expanded="false" aria-controls="collapseOne">
-                                    <span class="">{{ count($resources) }} </span> resources generated from this Tweet.
-                                </a>
-                                <div id="resourcesAccordion" class="collapse" aria-labelledby="headingOne">
-                                    <div class="card-body">
-                                        @foreach ($resources as $resource)
-                                            @php
-                                                if($resource->verified == 0) {
-                                                    $rcolor = 'warning';
-                                                } else if($resource->verified == 1) {
-                                                    $rcolor = 'success';
-                                                } else if($resource->verified == 2) {
-                                                    $rcolor = 'danger';
-                                                } else if($resource->verified == 3) {
-                                                    $rcolor = 'danger';
-                                                }
-                                                 else {
-                                                    $rcolor = 'dark';
-                                                }
-                                            @endphp
-                                            <div class="alert alert-{{ $rcolor }}">
-                                                <span class="text-left text-muted mt-3 b-b1 mb-2">
-                                                    Updated {{ $resource->updated_at->diffForHumans() }}
-                                                </span>
-                                                <div class="mt-2">
-                                                    <h3>{{ $resource->title }}</h3>
-                                                </div>
-                                                <span class="text-muted ">
-                                                    <small>
-                                                        FEATURE: If Tweet Status is != Resource Status, Add a single button to change
-                                                    status of all resources with "tweet_id".
-                                                    </small>
-                                                </span>
-                                                <br><br>
-                                                <a href="{{ route('admin.resources.manage', $resource->id) }}" target="_blank" id="status_link" class="btn btn-primary">
-                                                    Manage
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
+                       
 
 
                     </div>
 
-                    <form style="display: none;" action="{{ route('admin.whatsapp.update', $tweet->id) }}" method="post">
+                    <form style="display: none;" action="{{ route('admin.whatsapp.update', $whatsapp->id) }}" method="post">
                         @csrf
 
                         <div class="form-group">
                             <label for="title"><strong>Name</strong></label>
-                            <input type="text" name="name" class="form-control" required value="{{ $tweet->title }}" />
+                            <input type="text" name="name" class="form-control" required value="{{ $whatsapp->title }}" />
                         </div>
 
                         <div class="row">
@@ -220,7 +172,7 @@
 
                                     <select name="category" class="form-control select2">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @php if($tweet->category == $category->id) { echo "selected"; } @endphp>
+                                            <option value="{{ $category->id }}" @php if($whatsapp->category == $category->id) { echo "selected"; } @endphp>
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach
@@ -252,13 +204,13 @@
 
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>
-                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">{{ $tweet->tweet }}</textarea>
+                            <textarea class="form-control" name="body" id="desc" cols="30" rows="10">{{ $whatsapp->body }}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="author_id">Author</label>
 
-                            <input type="text" class="form-control" value=" {{ $tweet->username }}" disabled>
+                            <input type="text" class="form-control" value=" {{ $whatsapp->wa_name }}" disabled>
 
                             {{-- <select name="authour_id" id="" class="form-select select2">
                                 @foreach ($users as $user)
@@ -274,11 +226,11 @@
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
                                     @php
-                                        if($tweet->status == '0') {
+                                        if($whatsapp->status == '0') {
                                             $color = 'warning';
-                                        } else if($tweet->status == '1') {
+                                        } else if($whatsapp->status == '1') {
                                             $color = 'success';
-                                        } else if($tweet->status == '2') {
+                                        } else if($whatsapp->status == '2') {
                                             $color = 'danger';
                                         } else {
                                             $color = 'danger';
@@ -286,16 +238,16 @@
                                     @endphp
                                     <div class="selectgroup selectgroup-{{ $color }} w-100" id="selectGroup">
                                         <label class="selectgroup-city success">
-                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input" <?php if($tweet->status == 1) { echo "checked";  } ?>>
+                                            <input onclick="changeSelectorColor('success');" type="radio" name="status" value="1" class="selectgroup-input" <?php if($whatsapp->status == 1) { echo "checked";  } ?>>
                                             <span class="selectgroup-button">Verified <i class="fa fa-check-circle"></i></span>
                                         </label>
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input" <?php if($tweet->status == 0) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('warning');" type="radio" name="status" value="0" class="selectgroup-input" <?php if($whatsapp->status == 0) { echo "checked"; } ?>>
                                             <span class="selectgroup-button">Unknown <i class="fa fa-exclamation-triangle"></i></span>
                                         </label>
 
                                         <label class="selectgroup-city">
-                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input" <?php if($tweet->status == 2) { echo "checked"; } ?>>
+                                            <input onclick="changeSelectorColor('danger');" type="radio" name="status" value="2" class="selectgroup-input" <?php if($whatsapp->status == 2) { echo "checked"; } ?>>
                                             <span class="selectgroup-button">Refuted <i class="fa fa-times-circle"></i></span>
                                         </label>
                                     </div>
@@ -314,7 +266,7 @@
                             <button class="btn btn-info btn-md" type="submit">
                                 Update
                             </button>
-                            <a href="{{ route('admin.twitter.update', $tweet->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md">Delete</a>
+                            <a href="{{ route('admin.whatsapp.update', $whatsapp->id) }}" onclick="return confirm('Are you sure you wish to delete this resource? This action cannot be undone');" class="btn btn-danger btn-md">Delete</a>
                             <!-- Button to Open the Modal -->
                         </div>
                     </form>
