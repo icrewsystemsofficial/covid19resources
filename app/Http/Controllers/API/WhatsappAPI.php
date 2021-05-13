@@ -63,7 +63,7 @@ class WhatsappAPI extends Controller
         $whatsapp->wa_phone = $request->wa_phone;
         $whatsapp->wa_name = $request->wa_name;
         $whatsapp->status = 0;
-        $whatsapp->save();
+        //$whatsapp->save();
 
         return response()->json($request->all());
     }
