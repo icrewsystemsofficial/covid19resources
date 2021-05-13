@@ -43,9 +43,22 @@ class WhatsappResourceController extends Controller
         ]);
     }
 
-    public function update() {
-        dd(request()->input());
+    
+    public function convert($id) {
+        $whatsapp = Whatsapp::find($id);
+        if(!$whatsapp) {
+            notify()->error('Whatsapp Message with given parameters were not found', 'Whoops');
+            return redirect(route('admin.whatsapp.index'));
+        }
+
+
+        return view('dashboard.admin.whatsapp.convert', [
+            'whatsapp' => $tweet,
+            'categories' => Category::where('status', 1)->get(),
+            'states' => States::all(),
+        ]);
     }
+
 
     public function convert_save($id) {
         $whatsapp = Whatsapp::find($id);
@@ -88,6 +101,11 @@ class WhatsappResourceController extends Controller
         activity()->log('Resource: '.$resource->name. ' resource had created');
         return redirect(route('admin.whatsapp.manage', $whatsapp->id));
     }
+
+    public function update() {
+        dd(request()->input());
+    }
+
 
     public function delete($id) {
         Whatsapp::find($id)->delete();
