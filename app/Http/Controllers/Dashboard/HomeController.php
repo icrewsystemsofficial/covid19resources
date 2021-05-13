@@ -36,6 +36,7 @@ class HomeController extends Controller
     }
 
     public function save_resource(Request $request) {
+        
         $create_account = request('create_account');
         if($create_account != null) {
             //Find existing user by that email.

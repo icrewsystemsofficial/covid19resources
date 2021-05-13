@@ -74,6 +74,10 @@
                 "php",
                 "search"
             ],
+            "support": {
+                "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/3.0.2"
+            },
             "time": "2021-05-04T09:15:35+00:00"
         },
         {
@@ -688,6 +692,10 @@
                 "streaming",
                 "twitter"
             ],
+            "support": {
+                "issues": "https://github.com/fennb/phirehose/issues",
+                "source": "https://github.com/fennb/phirehose/tree/v1.0.2"
+            },
             "time": "2018-03-15T14:09:46+00:00"
         },
         {
@@ -1221,6 +1229,10 @@
                 "laravel",
                 "log"
             ],
+            "support": {
+                "issues": "https://github.com/LaraBug/LaraBug/issues",
+                "source": "https://github.com/LaraBug/LaraBug/tree/2.4.2"
+            },
             "funding": [
                 {
                     "url": "https://github.com/cannonb4ll",
@@ -1391,6 +1403,10 @@
                 "framework",
                 "laravel"
             ],
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
             "time": "2021-05-11T14:00:02+00:00"
         },
         {
@@ -3723,6 +3739,9 @@
             "require-dev": {
                 "orchestra/testbench": "^3.5|^4.0",
                 "phpunit/phpunit": "^7.5|^8.0"
+            },
+            "suggest": {
+                "zendframework/zend-diactoros": "When using Laravel >=5.1 - <=6.9 this package can help get more accurate request info, not used on Laravel >=6.10 anymore (https://laravel.com/docs/5.8/requests#psr7-requests)"
             },
             "type": "library",
             "autoload": {
