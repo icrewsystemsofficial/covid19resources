@@ -16,7 +16,7 @@ class SearchFilterController extends Controller
         $response = array();
 
         // Algolia
-        $tweets = Twitter::search($query)->get();
+        $tweets = Twitter::search($query)->orderBy('created_at', 'DESC')->get();
 
         //DB Search
         $search_fields = ['tweet', 'fullname', 'username'];
