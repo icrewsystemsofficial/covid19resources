@@ -27,6 +27,7 @@ use App\Http\Controllers\Dashboard\Admin\TwitterController;
 use App\Http\Controllers\Dashboard\Admin\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\ResourceController;
 use App\Http\Controllers\Dashboard\Admin\GeographiesController;
+use App\Http\Controllers\Dashboard\Admin\WhatsappResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,6 +166,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/update/{uuid}', [MissionAdmin::class, 'update'])->name('admin.mission.update');
             });
 
+            Route::prefix('whatsapp')->group(function () {
+                Route::get('/', [WhatsappResourceController::class, 'index'])->name('admin.whatsapp.index');
+                Route::get('/{id}/manage', [WhatsappResourceController::class, 'manage'])->name('admin.whatsapp.manage');
+                Route::get('/{id}/update', [WhatsappResourceController::class, 'update'])->name('admin.whatsapp.update');
+                Route::post('/{id}/convert', [WhatsappResourceController::class, 'convert'])->name('admin.whatsapp.convert');
+                Route::get('/{id}/convert/save', [WhatsappResourceController::class, 'convert_save'])->name('admin.whatsapp.convert.save');
+                Route::get('/{id}/delete', [WhatsappResourceController::class, 'delete'])->name('admin.whatsapp.delete');
+            });
+
             Route::get('/categories', [CategoryController::class, 'admin_index'])->name('admin.categories.index');
             Route::get('/categories/create', [CategoryController::class, 'admin_create'])->name('admin.categories.create');
             Route::post('/categories/create/new', [CategoryController::class, 'admin_save'])->name('admin.categories.save');
@@ -234,6 +244,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tweet/{id}/convert', [TwitterController::class, 'convert'])->name('admin.twitter.convert');
         Route::post('/tweet/{id}/convert/save', [TwitterController::class, 'convert_save'])->name('admin.twitter.convert.save');
         Route::get('/tweets/{id}/delete', [TwitterController::class, 'delete'])->name('admin.twitter.delete');
+        
 
 
         Route::get('/activity',[HomeController::class,'activity'])->name('activity.log');
@@ -250,6 +261,7 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
+   
 
 });
 

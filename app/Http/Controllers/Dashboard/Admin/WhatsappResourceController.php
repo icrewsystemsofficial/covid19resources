@@ -14,7 +14,9 @@ class WhatsappResourceController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.admin.whatsapp.index',[
+            'whatsapp' => Whatsapp::all(),
+        ]);
     }
 
     /**
