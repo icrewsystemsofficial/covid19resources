@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DeveloperAccess::class);
         $this->call(RolesAndPermissions::class);
         $this->call(SettingSeeder::class);
+        $this->call(WhatsappSeeder::class);
+
     }
 }
