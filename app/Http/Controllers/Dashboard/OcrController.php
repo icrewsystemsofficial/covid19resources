@@ -45,7 +45,7 @@ class OcrController extends Controller
 
         foreach($response['ParsedResults'] as $pareValue) {
             $cookie = cookie('parsedText', $pareValue['ParsedText'],10);
-            notify()->success('Extracted text from the image, please check the description box', 'Yay!');
+            //notify()->success('Extracted text from the image, please check the description box', 'Yay!');
             return response()->json($pareValue['ParsedText']);
         }
     }
