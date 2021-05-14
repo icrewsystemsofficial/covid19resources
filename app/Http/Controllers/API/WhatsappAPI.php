@@ -66,9 +66,9 @@ class WhatsappAPI extends Controller
             $whatsapp->wa_name = $data->wa_name;
             $whatsapp->status = 0;
             $whatsapp->save();
-        }catch(Exception $e)[
+        }catch(Exception $e){
             return response()->json(["msg"=>"failed"]);
-        ]
+        }
 
         return response()->json(["msg"=>"success"]);
     }
