@@ -17,11 +17,11 @@
         "laravel/framework": "^8.12",
         "laravel/scout": "^8.6",
         "laravel/tinker": "^2.5",
-        "maatwebsite/excel": "^3.1",
         "markwalet/laravel-changelog": "^1.4",
         "mckenziearts/laravel-notify": "^2.1",
         "pusher/pusher-php-server": "^6.1",
         "qoraiche/laravel-mail-editor": "^3.2",
+        "sentry/sentry-laravel": "^2.4",
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-twitter-streaming-api": "^1.4"

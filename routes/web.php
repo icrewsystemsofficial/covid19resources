@@ -145,7 +145,10 @@ Route::middleware(['auth'])->group(function () {
 
 
             Route::get('/resources', [ResourceController::class, 'admin_index'])->name('admin.resources.index');
+            Route::post('/resources', [ResourceController::class, 'import'])->name('admin.resources.import');
+
             Route::get('/resources/create', [ResourceController::class, 'admin_create'])->name('admin.resources.create');
+            
             Route::post('/resources/create/new', [ResourceController::class, 'admin_save'])->name('admin.resources.save');
             Route::get('/resources/{id}/manage', [ResourceController::class, 'admin_manage'])->name('admin.resources.manage');
             Route::post('/resources/{id}/update', [ResourceController::class, 'admin_update'])->name('admin.resources.update');

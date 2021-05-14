@@ -83,6 +83,14 @@
 
             <a href="{{ route('admin.resources.export') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-download"></i> Export Resources Data</a>
             <br>
+            <form action="{{ route('admin.resources.import') }}" method="post" enctype="multipart/form-data" >
+                {{ csrf_field() }}
+                <input type="file" class="fas fa-upload" name="select_file" />
+
+                <input type="submit" name="upload" class="btn btn-primary btn-sm mb-2" value="Import Resource data">
+
+            </form>
+            <br>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($resources) }}</span></h4>
