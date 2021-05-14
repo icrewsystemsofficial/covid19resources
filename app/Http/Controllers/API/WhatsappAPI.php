@@ -67,7 +67,7 @@ class WhatsappAPI extends Controller
         // $whatsapp->wa_name = $data["wa_name"];
         // $whatsapp->status = 0;
         // $whatsapp->save();
-            dd($request->content);
+            dd($request);
         return view('dashboard.static.about');
     }
 
