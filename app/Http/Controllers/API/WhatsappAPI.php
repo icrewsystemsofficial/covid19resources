@@ -54,19 +54,21 @@ class WhatsappAPI extends Controller
         //     'wa_name' => 'required',
         //     'status' => 'required',
         // ]);
-        $data = $request->json()->all();
-        $whatsapp = new Whatsapp();
-        $whatsapp->title = $data["title"];
-        $whatsapp->body = $data["description"];
-        $whatsapp->location = $data["location"];
-        $whatsapp->state = $data["state"];
-        $whatsapp->city = $data["city"];
-        $whatsapp->wa_phone = $data["wa_phone"];
-        $whatsapp->wa_name = $data["wa_name"];
-        $whatsapp->status = 0;
-        $whatsapp->save();
-
-        return response()->json(["msg" => "success"]);
+        $rawdata = $request->json()->all();
+        $data = json_decode($rawdata);
+        // Log::info(json_encode($rawdata));
+        // $whatsapp = new Whatsapp();
+        // $whatsapp->title = $data["title"];
+        // $whatsapp->body = $data["description"];
+        // $whatsapp->location = $data["location"];
+        // $whatsapp->state = $data["state"];
+        // $whatsapp->city = $data["city"];
+        // $whatsapp->wa_phone = $data["wa_phone"];
+        // $whatsapp->wa_name = $data["wa_name"];
+        // $whatsapp->status = 0;
+        // $whatsapp->save();
+            dd($request);
+        return view('dashboard.static.about');
     }
 
  public function authenticate_old($phone) {
