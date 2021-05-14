@@ -54,17 +54,21 @@ class WhatsappAPI extends Controller
         //     'wa_name' => 'required',
         //     'status' => 'required',
         // ]);
-        $data = json_decode($request->getContent());
-        $whatsapp = new Whatsapp();
-        $whatsapp->title = $data->title;
-        $whatsapp->body = $data->description;
-        $whatsapp->location = $data->location;
-        $whatsapp->state = $data->state;
-        $whatsapp->city = $data->city;
-        $whatsapp->wa_phone = $data->wa_phone;
-        $whatsapp->wa_name = $data->wa_name;
-        $whatsapp->status = 0;
-        $whatsapp->save();
+        try{
+            $data = json_decode($request->getContent());
+            $whatsapp = new Whatsapp();
+            $whatsapp->title = $data->title;
+            $whatsapp->body = $data->description;
+            $whatsapp->location = $data->location;
+            $whatsapp->state = $data->state;
+            $whatsapp->city = $data->city;
+            $whatsapp->wa_phone = $data->wa_phone;
+            $whatsapp->wa_name = $data->wa_name;
+            $whatsapp->status = 0;
+            $whatsapp->save();
+        }catch(Exception $e)[
+            return response()->json(["msg"=>"failed"]);
+        ]
 
         return response()->json(["msg"=>"success"]);
     }
