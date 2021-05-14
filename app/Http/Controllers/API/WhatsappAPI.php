@@ -66,7 +66,7 @@ class WhatsappAPI extends Controller
         $whatsapp->status = 0;
         $whatsapp->save();
 
-        return response()->json(["msg"=>"success"]);
+        return response()->json($request->all());
     }
 
  public function authenticate_old($phone) {
