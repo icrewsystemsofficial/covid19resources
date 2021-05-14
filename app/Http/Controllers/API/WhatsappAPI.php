@@ -55,7 +55,7 @@ class WhatsappAPI extends Controller
         //     'status' => 'required',
         // ]);
         $rawdata = $request->json()->all();
-        $data = json_decode($rawdata);
+        // $data = json_decode($rawdata);
         // Log::info(json_encode($rawdata));
         // $whatsapp = new Whatsapp();
         // $whatsapp->title = $data["title"];
