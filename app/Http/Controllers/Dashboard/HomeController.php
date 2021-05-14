@@ -36,6 +36,7 @@ class HomeController extends Controller
     }
 
     public function save_resource(Request $request) {
+        
         $create_account = request('create_account');
         if($create_account != null) {
             //Find existing user by that email.
@@ -392,6 +393,11 @@ class HomeController extends Controller
     public function mass_export()
     {
         return Excel::download(new Covid19MassExport,'covid19data.xlsx');
+    }
+
+    public function status_view()
+    {
+        return view('dashboard.home.status');
     }
 
 }

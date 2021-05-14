@@ -226,11 +226,15 @@ border-color: #1DA851;
                         <i class="fab fa-github fa-lg"></i>
                     </a>    
                 </li>
+                        
+                <li class="nav-item ml-5">
+                    <a href="{{route('home.status.view')}}" class="nav-link" target="_blank">View Status</a>
+                </li>
             </ul>
         </nav>
 
         <div class="copyright ml-auto">
-       
+
             Developed & maintained with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.icrewsystems.com?ref={{ config('app.url') }}">icrewsystems</a>
         </div>
     </div>

@@ -28,6 +28,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+
+    Route::get('/', function() {
+        $response = array([
+            'message' => config('app.name').' API Version 1 Operational',
+        ]);
+        return response($response, 200);
+    });
+
     Route::get('/states', [States::class, 'getStates']);
     Route::get('/districts/{code?}', [States::class, 'getDistricts']);
     Route::get('/cities/{state?}', [States::class, 'getCities']);
@@ -60,8 +68,18 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [WhatsappAPI::class, 'index'])->name('api.whatsapp.index');
         Route::get('/stats', [WhatsappAPI::class, 'stats'])->name('api.whatsapp.stats');
 
-        Route::post('/create', [WhatsappAPI::class, 'create'])->name('api.whatsapp.create');
 
+        Route::post('/create', [WhatsappAPI::class, 'store'])->name('api.whatsapp.create');
+
+        Route::get('/whatsapp/change-status/{id}/{status}', [WhatsappAPI::class, 'change_status']);
+        Route::get('/whatsapp/{id}/delete', [WhatsappAPI::class, 'delete_whatsapp_resource']);
+
+
+
+
+        // Route::get('/authenticate/phone/{phone}', [WhatsappAPI::class, 'authenticate'])->name('api.whatsapp.authenticate');
+        Route::get('/authenticate/{email}/{phone}', [WhatsappAPI::class, 'authenticate'])->name('api.whatsapp.authenticate.email');
+        Route::get('/verify/{uuid}', [WhatsappAPI::class, 'verify'])->name('api.whatsapp.verify_uuid');
     });
 
 });

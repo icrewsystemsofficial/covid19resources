@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard\Admin;
-
+use App\Imports\BulkImport;
 use App\Exports\ResourceExport;
 use App\Models\City;
 use App\Models\States;
@@ -39,6 +39,8 @@ class ResourceController extends Controller
     }
 
     public function admin_save(Request $request) {
+
+        
 
 
         $request->validate([
@@ -88,7 +90,7 @@ class ResourceController extends Controller
                 $resource->hasAddress = 0;
             }
         }
-
+        
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
         activity()->log('Admin Resource: '.$resource->title. ' resource had created');
@@ -138,50 +140,17 @@ class ResourceController extends Controller
     {
         return Excel::download(new ResourceExport,'resources.xlsx');
     }
-    public function import(Request $request){
-        $this->validate($request, [
-            'select_file'  => 'required|mimes:xls,xlsx'
-           ]);
-      
-           $path = $request->file('select_file')->getRealPath();
-      
-           $data = Excel::load($path)->get();
-      
-           if($data->count() > 0)
-           {
-            foreach($data->toArray() as $key => $value)
-            {
-             foreach($value as $row)
-             {
-              $insert_data[] = array(
-               'id'  => $row['id'],
-               'category'   => $row['category'],
-               'title'   => $row['title'],
-               'body'    => $row['body'],
-               'phone'  => $row['phone'],
-               'url'   => $row['url'],
-               'author_id'    => $row['author_id'],
-               'verified'  => $row['verified'],
-               'verified_by'   => $row['verified_by'],
-               'tweet_id'  => $row['tweet_id'],
-               'hasAddress'   => $row['hasAddress'],
-               'city'    => $row['city'],
-               'district'  => $row['district'],
-               'state'   => $row['state'],
-               'landmark'   => $row['landmark'],
-               'coordinates'    => $row['coordinates'],
-               'created_at'  => $row['created_at'],
-               'updated_at'   => $row['updated_at'],
-              );
-             }
-            }
-      
-            if(!empty($insert_data))
-            {
-             DB::table('resources')->insert($insert_data);
-            }
-           }
-           return back()->with('success', 'Excel Data Imported successfully.');
-        
+    public function admin_resource_importsample()
+    {
+        return Excel::download(new ResourceExport,'resources.xlsx');
+    }
+    public function admin_import(){
+        return view('dashboard.admin.resources.import');
+
+    }
+    public function import(){
+        Excel::import(new BulkImport,request()->file('select_file'));
+return back()->with('success', 'All good!');
+
     }
 }
