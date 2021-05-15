@@ -54,7 +54,7 @@
         var whatsapp_id = "{{ $whatsapp->id }}";
         var status = document.getElementById('choose_status').value;
 
-            axios.get('whatsapp/' + whatsapp_id + '/' + status)
+            axios.get('whatsapp/change-status/' + whatsapp_id + '/' + status)
             .then(function(response){
                 console.log(response);
                 window.location.reload();
