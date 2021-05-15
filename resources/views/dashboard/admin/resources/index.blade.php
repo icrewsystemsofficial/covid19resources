@@ -82,7 +82,8 @@
             <br><br>
 
             <a href="{{ route('admin.resources.export') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-download"></i> Export Resources Data</a>
-            <br>
+            <a href="{{ route('admin.resources.import') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-upload"></i> Import Resources Data</a>
+
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Manage resources <span class="badge badge-primary">{{ count($resources) }}</span></h4>

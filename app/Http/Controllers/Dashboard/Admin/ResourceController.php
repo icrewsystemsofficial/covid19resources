@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard\Admin;
-
+use App\Imports\BulkImport;
 use App\Exports\ResourceExport;
 use App\Models\City;
 use App\Models\States;
@@ -139,5 +139,18 @@ class ResourceController extends Controller
     public function admin_resource_export()
     {
         return Excel::download(new ResourceExport,'resources.xlsx');
+    }
+    public function admin_resource_importsample()
+    {
+        return Excel::download(new ResourceExport,'resources.xlsx');
+    }
+    public function admin_import(){
+        return view('dashboard.admin.resources.import');
+
+    }
+    public function import(){
+        Excel::import(new BulkImport,request()->file('select_file'));
+return back()->with('success', 'All good!');
+
     }
 }

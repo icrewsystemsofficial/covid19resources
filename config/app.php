@@ -179,7 +179,8 @@ return [
         App\Providers\DBConfigProvier::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-    ],
+
+     ],
 
     /*
     |--------------------------------------------------------------------------
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
     ],
 
 ];
