@@ -1,7 +1,7 @@
 @extends('layouts.atlantis')
 @section('title', 'Manage Whatsapp Resource')
 @section('js')
-    <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+    <script src="https://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script>
 
@@ -54,7 +54,7 @@
         var whatsapp_id = "{{ $whatsapp->id }}";
         var status = document.getElementById('choose_status').value;
 
-            axios.get('whatsapp/' + whatsapp_id + '/' + status)
+            axios.get('whatsapp/change-status/' + whatsapp_id + '/' + status)
             .then(function(response){
                 console.log(response);
                 window.location.reload();
