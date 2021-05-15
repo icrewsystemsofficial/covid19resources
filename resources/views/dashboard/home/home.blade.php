@@ -953,7 +953,7 @@ var tourcompleted = getCookie("tourcompleted");
                                     </thead>
                                     <tbody>
                                         @foreach ($resources as $resource)
-                                            @if($resource->category_data->name == 'Medicines')
+                                            @if($resource->category_data->name == 'Home Setup Facilities')
 
                                             @php
                                                 if($resource->verified == 0) {
@@ -1034,7 +1034,7 @@ var tourcompleted = getCookie("tourcompleted");
                                     </thead>
                                     <tbody>
                                         @foreach ($resources as $resource)
-                                            @if($resource->category_data->name == 'Medicines')
+                                            @if($resource->category_data->name == 'Plasma')
 
                                             @php
                                                 if($resource->verified == 0) {
