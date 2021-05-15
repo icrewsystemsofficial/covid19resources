@@ -149,7 +149,7 @@ class WhatsappAPI extends Controller
 
                 $authenticate->save();
 
-                $response['code'] = 200;
+                $response['code'] = '200';
                 $response['message'] = 'Phone number matches '.$user->name.'\'s records. Click the link to authenticate phone number';
                 $response['token'] = $generated_uuid;
                 $response['verifiecation_url'] = route('api.whatsapp.verify_uuid', $generated_uuid);
