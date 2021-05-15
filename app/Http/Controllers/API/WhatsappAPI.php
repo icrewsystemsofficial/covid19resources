@@ -174,15 +174,19 @@ class WhatsappAPI extends Controller
             $response['message'] = 'Token identified, authenticating phone number';
 
             $user = User::find($authentication->user_id);
-            $user->isPhoneVerified = 1;
-            $user->save();
 
-            return response($response);
+            if($user->isPhoneVerified = 1){
+             
+                $user->save();
+                return view('dashboard.admin.whatsapp.auth-success');
+            }
+            
+
         } else {
             $response['code'] = '201';
             $response['message'] = 'Invalid token';
 
-            return response($response);
+            return view('dashboard.admin.whatsapp.auth-failed');
         }
 
     }
