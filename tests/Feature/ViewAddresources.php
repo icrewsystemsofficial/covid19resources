@@ -13,7 +13,7 @@ class ViewAddresources extends TestCase
      *
      * @return void
      */
-    public function test_AddResourcesPageLoadsCorrectly()
+    public function test_AddresourcesPageLoadsCorrectly()
     {
         $response = $this->get('/add-resource');
         $response->assertSee('Add a resource');
