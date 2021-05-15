@@ -19,7 +19,7 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_reset_password_link_can_be_requested()
+   /* public function test_reset_password_link_can_be_requested()
     {
         Notification::fake();
 
@@ -67,5 +67,5 @@ class PasswordResetTest extends TestCase
 
             return true;
         });
-    }
+    }*/
 }

@@ -19,7 +19,7 @@ class StatsAPI extends Controller
         //Resources.
         //Faqs.
 
-        $first_tweet = (Twitter::select('created_at')->oldest()->first())->created_at->format('d/m/Y');
+      $first_tweet = (Twitter::select('created_at')->oldest()->first())->created_at->format('d/m/Y');
         $last_tweet = (Twitter::select('created_at')->latest()->first())->created_at->format('d/m/Y');
 
         $startDate = Carbon::createFromFormat('d/m/Y', $first_tweet);
