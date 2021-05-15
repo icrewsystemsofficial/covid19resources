@@ -133,8 +133,6 @@ class WhatsappAPI extends Controller
             if(! preg_match("/{$user->phone_number}/i", $phone)) {
                 $response['code'] = '201';
                 $response['message'] = 'Phone number does not match the provided account';
-                $response['Phones'] = $user->phone_number." ".$phone;
-                $response["result"] = strpos($user->phone_number, $phone);
                 return response($response);
             } else {
                 $generated_uuid = Str::uuid();
