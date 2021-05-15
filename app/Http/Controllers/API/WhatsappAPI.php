@@ -130,7 +130,7 @@ class WhatsappAPI extends Controller
         $user = User::where('email', $email)->first();
         if($user) {
 
-            if(preg_match("/{$user->phone_number}/i", $phone)) {
+            if(! preg_match("/{$user->phone_number}/i", $phone)) {
                 $response['code'] = '201';
                 $response['message'] = 'Phone number does not match the provided account';
                 $response['Phones'] = $user->phone_number." ".$phone;
