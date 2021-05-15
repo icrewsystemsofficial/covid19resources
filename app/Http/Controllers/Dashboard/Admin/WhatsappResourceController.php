@@ -65,7 +65,7 @@ class WhatsappResourceController extends Controller
         $whatsapp = Whatsapp::find($id);
         if(!$whatsapp) {
             notify()->error('Tweet with given parameters were not found', 'Whoops');
-            return redirect(route('admin.twitter.index'));
+            return redirect(route('admin.whatsapp.index'));
         }
 
         // dd(request()->input());
