@@ -13,7 +13,7 @@ class ViewWebsite extends TestCase
      *
      * @return void
      */
-    public function test_Website_PageLoadsCorrectly()
+    public function test_Website_PageLoadCorrectly()
     {
         $response = $this->get('/websites');
         $response->assertSee('Websites');
