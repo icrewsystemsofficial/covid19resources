@@ -13,7 +13,7 @@ class ViewHowTo extends TestCase
      *
      * @return void
      */
-    public function test_HowtoPageLoadsCorrectly()
+    public function test_Howto_PageLoadsCorrectly()
     {
         $response = $this->get('/how-to');
         $response->assertSee('A comprehensive guide for the website');

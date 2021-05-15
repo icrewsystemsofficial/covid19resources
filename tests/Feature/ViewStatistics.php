@@ -13,7 +13,7 @@ class ViewStatistics extends TestCase
      *
      * @return void
      */
-    public function test_StatisticsPageLoadsCorrectly()
+    public function test_Statistics_PageLoadsCorrectly()
     {
         $response = $this->get('/statistics');
         $response->assertSee('Statistics');

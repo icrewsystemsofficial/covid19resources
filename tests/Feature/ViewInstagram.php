@@ -13,7 +13,7 @@ class ViewInstagram extends TestCase
      *
      * @return void
      */
-    public function test_InstgramLoadsCorrectly()
+    public function test_Instgram_LoadsCorrectly()
     {
         $response = $this->get('/instagram');
         $response->assertSee('Instagram Crowdsourced Resources');

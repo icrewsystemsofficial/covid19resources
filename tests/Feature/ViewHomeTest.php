@@ -13,7 +13,7 @@ class ViewHomeTest extends TestCase
      *
      * @return void
      */
-    public function test_HomeLoadsCorrectly()
+    public function test_Home_PageLoadsCorrectly()
     {
         $response = $this->get('/');
         $response->assertSee('State Wise COVID19 Resources. Awareness is the first step in this battle.');

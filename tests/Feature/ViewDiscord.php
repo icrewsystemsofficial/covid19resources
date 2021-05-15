@@ -13,7 +13,7 @@ class ViewDiscord extends TestCase
      *
      * @return void
      */
-    public function test_DiscordPageLoadsCorrectly()
+    public function test_Discord_PageLoadsCorrectly()
     {
         $response = $this->get('/discord');
         $response->assertSee('Discord Crowdsourced Resource Servers');

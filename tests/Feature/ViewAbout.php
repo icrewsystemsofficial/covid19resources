@@ -13,7 +13,7 @@ class ViewAbout extends TestCase
      *
      * @return void
      */
-    public function test_AboutUsPageLoadsCorrectly()
+    public function test_AboutUs_PageLoadsCorrectly()
     {
         $response = $this->get('/about');
         $response->assertSee('Who we are, what is our mission');

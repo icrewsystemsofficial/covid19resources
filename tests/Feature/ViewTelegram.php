@@ -13,7 +13,7 @@ class ViewTelegram extends TestCase
      *
      * @return void
      */
-    public function test_TelegramPageLoadsCorrectly()
+    public function test_Telegram_PageLoadsCorrectly()
     {
         $response = $this->get('/telegram');
         $response->assertSee('Telegram Crowdsourced Resource Channels');

@@ -13,7 +13,7 @@ class ViewCrowdsoourcedpage extends TestCase
      *
      * @return void
      */
-    public function test_CrowdSourcedPageLoadsCorrectly()
+    public function test_CrowdSourced_PageLoadsCorrectly()
     {
         $response = $this->get('/crowdsourced');
         $response->assertSee('Crowd-Sourced Resources');

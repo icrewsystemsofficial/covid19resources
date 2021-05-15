@@ -13,7 +13,7 @@ class ViewHelplines extends TestCase
      *
      * @return void
      */
-    public function test_HelplinePageLoadsCorrectly()
+    public function test_Helpline_PageLoadsCorrectly()
     {
         $response = $this->get('/helplines');
         $response->assertSee('State Helpline Numbers');
