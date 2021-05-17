@@ -71,7 +71,7 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/create', [WhatsappAPI::class, 'store'])->name('api.whatsapp.create');
 
-        Route::get('/whatsapp/change-status/{id}/{status}', [WhatsappAPI::class, 'change_status']);
+        Route::get('/change-status/{id}/{status}', [WhatsappAPI::class, 'change_status']);
         Route::get('/whatsapp/{id}/delete', [WhatsappAPI::class, 'delete_whatsapp_resource']);
 
 
