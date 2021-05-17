@@ -14,11 +14,19 @@
 // {
 //     use RefreshDatabase;
 
+
+  /*  public function test_email_verification_screen_can_be_rendered()
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => null,
+        ]);
+        
 //     public function test_email_verification_screen_can_be_rendered()
 //     {
 //         $user = User::factory()->create([
 //             'email_verified_at' => null,
 //         ]);
+
 
 //         $response = $this->actingAs($user)->get('/verify-email');
 
@@ -59,6 +67,11 @@
 //         );
 
 //         $this->actingAs($user)->get($verificationUrl);
+
+
+        $this->assertFalse($user->fresh()->hasVerifiedEmail());
+    }*/
+}
 
 //         $this->assertFalse($user->fresh()->hasVerifiedEmail());
 //     }

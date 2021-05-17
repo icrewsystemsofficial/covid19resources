@@ -10,6 +10,7 @@ use BeyondCode\Comments\Traits\HasComments;
 class Resource extends Model
 {
     use HasFactory, HasComments;
+    protected $table = 'resources';
 
     protected $fillable = [
         'category',
