@@ -416,21 +416,21 @@ var tourcompleted = getCookie("tourcompleted");
 
                         <li class="nav-item submenu">
                             <a class="nav-link" id="pills-ventilator-tab-icon" data-toggle="pill" href="#pills-ventilator-icon" role="tab" aria-controls="pills-ventilator-icon" aria-selected="false">
-                                <i class="fa fa-syringe"></i>
+                                <i class="fas fa-procedures"></i>
                                 Ventilator
                             </a>
                         </li>
 
                         <li class="nav-item submenu">
                             <a class="nav-link" id="pills-home-setup-tab-icon" data-toggle="pill" href="#pills-home-setup-icon" role="tab" aria-controls="pills-home-setup-icon" aria-selected="false">
-                                <i class="fa fa-syringe"></i>
+                                <i class="fas fa-hospital"></i>
                                 Home-Setup Facilities
                             </a>
                         </li>
 
                         <li class="nav-item submenu">
                             <a class="nav-link" id="pills-plasma-tab-icon" data-toggle="pill" href="#pills-plasma-icon" role="tab" aria-controls="pills-plasma-icon" aria-selected="false">
-                                <i class="fa fa-syringe"></i>
+                                <i class="fas fa-hospital-user"></i>
                                 Plasma
                             </a>
                         </li>
@@ -953,7 +953,7 @@ var tourcompleted = getCookie("tourcompleted");
                                     </thead>
                                     <tbody>
                                         @foreach ($resources as $resource)
-                                            @if($resource->category_data->name == 'Medicines')
+                                            @if($resource->category_data->name == 'Home Setup Facilities')
 
                                             @php
                                                 if($resource->verified == 0) {
@@ -1034,7 +1034,7 @@ var tourcompleted = getCookie("tourcompleted");
                                     </thead>
                                     <tbody>
                                         @foreach ($resources as $resource)
-                                            @if($resource->category_data->name == 'Medicines')
+                                            @if($resource->category_data->name == 'Plasma')
 
                                             @php
                                                 if($resource->verified == 0) {

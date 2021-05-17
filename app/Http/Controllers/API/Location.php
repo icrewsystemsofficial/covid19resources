@@ -35,7 +35,9 @@ class Location extends Controller
             $state = States::where('code', $location->code)->first();
             return $state;
         } else {
-            return false;
+            $state = States::where('code', 'TN')->first();
+            return $state;
+            // return false;
         }
     }
 
