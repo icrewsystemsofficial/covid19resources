@@ -130,7 +130,7 @@ class WhatsappAPI extends Controller
         $user = User::where('email', $email)->first();
         if($user) {
 
-            if($user->phone_number != $phone) {
+            if(! preg_match("/{$user->phone_number}/i", $phone)) {
                 $response['code'] = '201';
                 $response['message'] = 'Phone number does not match the provided account';
                 return response($response);
@@ -149,7 +149,7 @@ class WhatsappAPI extends Controller
 
                 $authenticate->save();
 
-                $response['code'] = 200;
+                $response['code'] = '200';
                 $response['message'] = 'Phone number matches '.$user->name.'\'s records. Click the link to authenticate phone number';
                 $response['token'] = $generated_uuid;
                 $response['verifiecation_url'] = route('api.whatsapp.verify_uuid', $generated_uuid);
