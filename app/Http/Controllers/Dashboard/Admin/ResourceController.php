@@ -149,8 +149,12 @@ class ResourceController extends Controller
 
     }
     public function import(){
+        request()->validate([
+            'select_file'  => 'required|mimes:xlsx|max:2048',
+          ]);
         Excel::import(new BulkImport,request()->file('select_file'));
-return back()->with('success', 'All good!');
+        notify()->success('Resource was imported', 'Yayy!');
+        return redirect(route('admin.resources.index'));
 
     }
 }

@@ -30,7 +30,7 @@
                     <br><strong>Import File</strong>
                     <hr><br><form action="{{ route('admin.resources.import.file') }}" method="post" enctype="multipart/form-data" >
                 {{ csrf_field() }}
-                <input type="file" class="fas fa-upload" name="select_file" />
+                <input type="file" class="fas fa-upload" name="select_file" accept="file/.xlsx" required />
 
                 <input type="submit" name="upload" class="btn btn-primary btn-sm mb-2" value="Import Resource data">
 
