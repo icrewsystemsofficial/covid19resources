@@ -31,7 +31,7 @@
                         <ol>
                             <li>
                                 <i class="fa fa-check-circle text-success"></i> Download the sample file or export
-                                the existing products and use it as a template.
+                                the existing resources and use it as a template.
                             </li>
 
                             <li>
@@ -39,15 +39,9 @@
                                 comes with. The first row <strong>has</strong> to be
                                 the name of the column. The application will count from the second row.
                             </li>
-
-                            <li>
-                                <i class="fa fa-check-circle text-success"></i> After importing products, you can
-                                add / remove images from the CDN module.
-                            </li>
-
                             <li>
                                 <i class="fa fa-times-circle text-danger"></i> Don't change the format, or add new
-                                categories & brands that don't exist on the database.
+                                categories that don't exist on the database.
                             </li>
                         </ol>
                         </p>
