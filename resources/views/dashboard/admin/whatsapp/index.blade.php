@@ -148,6 +148,9 @@
                                         <a href="{{ route('admin.whatsapp.manage', $whatsapp_record->id) }}" class="btn btn-sm btn-primary">
                                             Manage
                                         </a>
+                                        <a href="{{ route('admin.whatsapp.delete',$whatsapp_record->id) }}" class="btn btn-sm btn-danger">
+                                            Dissolve
+                                        </a>
                                     </td>
                                 </tr>
                                 @empty

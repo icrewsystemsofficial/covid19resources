@@ -1467,16 +1467,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.41.0",
+            "version": "v8.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "05417155d886df8710e55c84e12622b52d83c47c"
+                "reference": "55b886683e0a019bcad0d9d70bb781a3de1a6755"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/05417155d886df8710e55c84e12622b52d83c47c",
-                "reference": "05417155d886df8710e55c84e12622b52d83c47c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/55b886683e0a019bcad0d9d70bb781a3de1a6755",
+                "reference": "55b886683e0a019bcad0d9d70bb781a3de1a6755",
                 "shasum": ""
             },
             "require": {
@@ -1631,7 +1631,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-05-11T14:00:02+00:00"
+            "time": "2021-05-18T15:37:44+00:00"
         },
         {
             "name": "laravel/legacy-factories",
@@ -4735,14 +4735,8 @@
                 "sentry"
             ],
             "support": {
-<<<<<<< HEAD
-                "issues": "https://github.com/ramsey/uuid/issues",
-                "rss": "https://github.com/ramsey/uuid/releases.atom",
-                "source": "https://github.com/ramsey/uuid"
-=======
                 "issues": "https://github.com/getsentry/sentry-php/issues",
                 "source": "https://github.com/getsentry/sentry-php/tree/3.2.2"
->>>>>>> a92d49a7a1871fd06303d2b4b802b4a0c4e51977
             },
             "funding": [
                 {
@@ -4784,6 +4778,9 @@
                 "mockery/mockery": "1.3.*",
                 "orchestra/testbench": "3.1 - 3.8 | ^4.7 | ^5.1 | ^6.0",
                 "phpunit/phpunit": "^5.7 | ^6.5 | ^7.5 | ^8.4 | ^9.3"
+            },
+            "suggest": {
+                "zendframework/zend-diactoros": "When using Laravel >=5.1 - <=6.9 this package can help get more accurate request info, not used on Laravel >=6.10 anymore (https://laravel.com/docs/5.8/requests#psr7-requests)"
             },
             "type": "library",
             "extra": {
@@ -4829,13 +4826,8 @@
                 "sentry"
             ],
             "support": {
-<<<<<<< HEAD
-                "issues": "https://github.com/ReeceM/mocker/issues",
-                "source": "https://github.com/ReeceM/mocker/tree/v1.1.5"
-=======
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
                 "source": "https://github.com/getsentry/sentry-laravel/tree/2.5.3"
->>>>>>> a92d49a7a1871fd06303d2b4b802b4a0c4e51977
             },
             "funding": [
                 {
@@ -5719,8 +5711,6 @@
             "support": {
                 "source": "https://github.com/symfony/finder/tree/v5.2.8"
             },
-<<<<<<< HEAD
-=======
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5807,7 +5797,6 @@
             "support": {
                 "source": "https://github.com/symfony/http-client/tree/v5.2.8"
             },
->>>>>>> a92d49a7a1871fd06303d2b4b802b4a0c4e51977
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -8508,16 +8497,16 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v1.1.7",
+            "version": "v1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "28c674a79e1eb04ef02e9673ceb87b0d44479554"
+                "reference": "13026f7b3afd408d227b4f0c029b65f4ae4ba01e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/28c674a79e1eb04ef02e9673ceb87b0d44479554",
-                "reference": "28c674a79e1eb04ef02e9673ceb87b0d44479554",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/13026f7b3afd408d227b4f0c029b65f4ae4ba01e",
+                "reference": "13026f7b3afd408d227b4f0c029b65f4ae4ba01e",
                 "shasum": ""
             },
             "require": {
@@ -8561,20 +8550,20 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2021-05-11T20:34:17+00:00"
+            "time": "2021-05-18T15:15:45+00:00"
         },
         {
             "name": "laravel/sail",
-            "version": "v1.5.1",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "695f616c228c9df923a10282e4989feeae212c52"
+                "reference": "5d23474cd411b07f46980d05f9c38e7dc0d17460"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/695f616c228c9df923a10282e4989feeae212c52",
-                "reference": "695f616c228c9df923a10282e4989feeae212c52",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/5d23474cd411b07f46980d05f9c38e7dc0d17460",
+                "reference": "5d23474cd411b07f46980d05f9c38e7dc0d17460",
                 "shasum": ""
             },
             "require": {
@@ -8621,7 +8610,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-05-11T21:00:37+00:00"
+            "time": "2021-05-18T15:44:02+00:00"
         },
         {
             "name": "maximebf/debugbar",

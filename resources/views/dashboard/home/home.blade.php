@@ -436,6 +436,13 @@ var tourcompleted = getCookie("tourcompleted");
                         </li>
 
                         <li class="nav-item submenu">
+                            <a class="nav-link" id="pills-ecmo-tab-icon" data-toggle="pill" href="#pills-ecmo-icon" role="tab" aria-controls="pills-ecmo-icon" aria-selected="false">
+                                <i class="fas fa-lungs"></i>
+                                ECMO
+                            </a>
+                        </li>
+
+                        <li class="nav-item submenu">
                             <a class="nav-link" id="pills-add-resources-tab-icon" data-toggle="pill" href="#pills-add-resources-icon" role="tab" aria-controls="pills-add-resources-icon" aria-selected="false">
                                 <i class="fas fa-plus-circle"></i>
                                 Add Resources
@@ -1035,6 +1042,87 @@ var tourcompleted = getCookie("tourcompleted");
                                     <tbody>
                                         @foreach ($resources as $resource)
                                             @if($resource->category_data->name == 'Plasma')
+
+                                            @php
+                                                if($resource->verified == 0) {
+                                                    $color = 'table-bg-muted';
+                                                } else if($resource->verified == 1) {
+                                                    $color = 'table-bg-success';
+                                                } else if($resource->verified == 2) {
+                                                    $color = 'table-bg-danger';
+                                                }
+                                            @endphp
+
+                                            <tr class="{{ $color }} text-white" style="border-radius: 50px;">
+                                                <td class="text-center">
+                                                    {{ $resource->title }}
+                                                    <br>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if($resource->hasAddress == 1)
+                                                        <small>
+                                                            <a class="text-white" target="_blank" href="https://www.google.com/maps/place/{{ $resource->city.','.$resource->district }}">
+                                                                <i class="fa fa-map-pin"></i> {{ $resource->city.', '.$resource->district }}
+                                                            </a>
+                                                        </small>
+                                                        @else
+                                                        <span class="text-white">
+                                                            Landmark: {{ $resource->landmark }}
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $resource->author_data->name }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($resource->verified == 1)
+                                                        <span class="badge badge-success">
+                                                            Verified <i class="fas fa-check"></i>
+                                                        </span>
+                                                    @elseif($resource->verified == 2)
+                                                        <span class="badge badge-danger">
+                                                            Refuted <i class="fas fa-times"></i>
+                                                        </span>
+                                                    @else
+                                                        <span class="badge badge-warning">
+                                                            Pending <i class="fas fa-exclamation-triangle"></i>
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                {{-- <td class="text-center">
+                                                    {{ $resource->created_at->format('d/m/Y H:i A') }}
+                                                </td> --}}
+                                                <td class="text-center">
+                                                    {{ $resource->updated_at->diffForHumans() }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('home.view', $resource->id) }}" class="btn btn-sm btn-white">
+                                                        Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="pills-ecmo-icon" role="tabpanel" aria-labelledby="pills-ecmo-tab-icon">
+                            <div class="table-responsive">
+                                <table id="ecmo_table" class="table table-hover table-borderless">
+                                    <thead>
+                                        <th>Title</th>
+                                        <th>Location</th>
+                                        <th>Added by</th>
+                                        <th>Status</th>
+                                        {{-- <th>Created</th> --}}
+                                        <th>Last Updated</th>
+                                        <th>Options</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($resources as $resource)
+                                            @if($resource->category_data->name == 'ECMO')
 
                                             @php
                                                 if($resource->verified == 0) {
