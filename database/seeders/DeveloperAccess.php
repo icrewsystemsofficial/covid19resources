@@ -103,5 +103,17 @@ class DeveloperAccess extends Seeder
             $user->save();
             $this->command->info("User: Samay Bhattacharyya created.");
         }
+        $user = User::where('name', 'vibularoslin')->first();
+        if (!$user) {
+            //If you need to add an account for yourself, add it below this.
+            $user = new User;
+            $user->name = 'vibularoslin';
+            $user->email = 'test@gmail.com';
+            $user->email_verified_at = now();
+            $user->password =  bcrypt('test1234'); 
+            $user->accepted = '1';
+            $user->save();
+            $this->command->info("User: vibularoslin created.");
+        }
     }
 }
