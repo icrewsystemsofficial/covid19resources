@@ -3,6 +3,9 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+<!-- Google search console verification tag please don't remove this -->
+<meta name="google-site-verification" content="ICZqSqXlAXOM6AmBKb1o5wJ8ExANB0hDAnfKPZH11rg" />
+<!--Google search console verification tag please don't remove this -->
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
     <!-- Primary Meta Tags -->
