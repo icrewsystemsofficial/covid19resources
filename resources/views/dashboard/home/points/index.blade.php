@@ -67,7 +67,7 @@
                                                 {{ $user->points }}
                                         </td>
                                         <td>
-                                            {{ $user->comment }}
+                                            {!! $user->comment !!}
 
                                         </td>
                                     </tr>
