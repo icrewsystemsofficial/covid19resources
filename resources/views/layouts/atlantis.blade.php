@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('atlantis/assets/img/icon.ico') }}" type="image/x-icon"/>
     <!-- Primary Meta Tags -->
@@ -22,6 +22,10 @@
     <meta property="twitter:title" content="Dashboard | {{ config('app.name') }}">
     <meta property="twitter:description" content="{{ config('app.name') }} is an open source directory for verified resources, run by dedicated volunteers. Currently tracking 85,000+ tweets & 500+ verified resources.">
     <meta property="twitter:image" content="https://cdn.discordapp.com/attachments/530789778912837640/842209265602134036/Statewise_Dashboardfooter.png">
+
+    <!-- Laravel Feedback Element -->
+    <script src="{{ asset('vendor/kustomer/js/kustomer.js') }}" defer></script>
+
 
 	<!-- Fonts and icons -->
 	<script src="{{ asset('atlantis/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -46,6 +50,10 @@
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{ asset('atlantis/assets/css/demo.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    
+    <!-- Laravel Feedback Component CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/kustomer/css/kustomer.css') }}">
+
     @yield('css')
     @notifyCss
 
@@ -53,6 +61,11 @@
 
 
 <body id="body" data-background-color="{{ cache()->get('key') }}">
+
+    <!-- Laravel Feedback Component -->
+    @include('kustomer::kustomer')
+
+
 	<div  class="wrapper sidebar_minimize">
 		<div class="main-header">
 			<!-- Logo Header -->

@@ -60,6 +60,7 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" integrity="sha512-VTd65gL0pCLNPv5Bsf5LNfKbL8/odPq0bLQ4u226UNmT7SzE4xk+5ckLNMuksNTux/pDLMtxYuf0Copz8zMsSA==" crossorigin="anonymous"></script>
 <script src="https://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+<script src="{{ asset('vendor/kustomer/js/kustomer.js') }}" defer></script>
 <script>
 
 function setCookie(cname, cvalue, exdays) {
@@ -343,7 +344,6 @@ var tourcompleted = getCookie("tourcompleted");
                         </span>
                     </div>
                    </div>
-                   
                 <div class="card-body">
                     <ul class="nav nav-pills nav-success  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                         <li class="nav-item submenu">
