@@ -1,5 +1,5 @@
 @extends('layouts.atlantis')
-@section('title', 'Mission Dashboard')
+@section('title', 'Points Table')
 @section('js')
     <script src=" asset('atlantis/assets/js/moment.min.js') "></script>
     <script src=" asset('atlantis/assets/js/pusher.min.js') "></script>
@@ -80,28 +80,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <script>
-
-                        function deleteRow(row) {
-
-                            if(confirm('Are you sure you wish to delete this tweet? This action is not un-doable')) {
-                                var row_id = 'row_'+row;
-                                var row_element = document.getElementById(row_id);
-                                row_element.style.display = 'none';
-                                axios.get('/tweets/' + row + '/delete')
-                                .then(function(response) {
-                                    console.log('Removing row # ' + row);
-                                    row_element.remove();
-                                })
-                                .catch(function(error) {
-                                    console.log(error);
-                                });
-                            } else {
-
-                            }
-                        }
-                    </script>
                 </div>
             </div>
         </div>
