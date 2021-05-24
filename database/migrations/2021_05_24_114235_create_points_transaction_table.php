@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePointsTable extends Migration
+class CreatePointsTransactionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('points', function (Blueprint $table) {
+        Schema::create('points_transaction', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('point_value');
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('author');
+            $table->integer('points');
+            $table->integer('assigned_points');
+            $table->text('comment');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreatePointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('points');
+        Schema::dropIfExists('points_transaction');
     }
 }

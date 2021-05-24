@@ -46,7 +46,7 @@ class DeveloperAccess extends Seeder
         if (!$user) {
             $user = new User;
             $user->name = 'Dinesh Kumar';
-            $user->email = 'randaccforme2000@gmail.com';
+            $user->email = 'john.doe@test.com';
             $user->email_verified_at = now();
             $user->password = '$2y$10$RufvOqmxVVsmvWA0w9P2DuMhbfxLt8lQQrxZNCB1nu7NtpJDj1jvi'; //You can use bcrypt() method to encrypt your password. Eg: bcrypt('mypassword');
             $user->accepted = '1';
