@@ -150,7 +150,12 @@ class UserController extends Controller
         $points->author = Auth::user()->name;
         $points->points = $user->points;
         $points->assigned_points = $request->points;
-        $points->comment = 'yet to work';
+        if($request->input('description')){
+            $points->comment = $request->input('description');
+        }
+        else{
+            $points->comment = 'Contact your Senior';
+        }
         $points->save();
 
 
