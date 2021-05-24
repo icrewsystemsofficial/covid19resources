@@ -71,7 +71,7 @@
 
         $this->assertFalse($user->fresh()->hasVerifiedEmail());
     }*/
-}
+//}
 
 //         $this->assertFalse($user->fresh()->hasVerifiedEmail());
 //     }
