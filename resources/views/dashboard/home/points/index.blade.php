@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Points overview <span class="badge badge-primary"> count($missions) </span></h4>
+                    <h4 class="card-title">Points overview <span class="badge badge-primary"></span></h4>
                     <p>
                         Your Points status is automatically updated as you carry out the mission. Make sure no missions are delayed.
                     </p>
@@ -29,14 +29,17 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="mission_table" class="table table-hover">
-                            <thead>
-                                <th>Mission #</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>Assigned</th>
-                                <th>Last Updated</th>
-                                <th>Options</th>
-                            </thead>
+                            @if (count($users)>0)
+                                <thead>
+                                    <th>ID #</th>
+                                    <th>Assigned By</th>
+                                    <th class="text-center">Created At</th>
+                                    <th class="text-center">Assigned Points</th>
+                                    <th class="text-center">Current Points</th>
+                                    <th>Comments</th>
+                                </thead>                                
+                            @endif
+
                             <tbody>
                                 <script>
                                     // This is added here, because the js section is rendered below the page
@@ -44,49 +47,35 @@
                                     var inprogress = 0;
                                     var completed = 0;
                                 </script>
-                                {{-- @forelse ($missions as $mission) --}}
+                                @forelse ($users as $user)
                                     <tr>
                                         <td>
-                                            Mission  $mission->id 
+                                            #{{ $user->id }}
                                         </td>
                                         <td>
-                                            <span class="fw-bold text- $mission->missionType()->color ">
-                                                 $mission->missionType()->name  <i class=" $mission->missionType()->icon "></i>
+                                            <span class="fw-bold text- btn btn-sm btn-info text-white ">
+                                                {{ $user->author }}
                                             </span>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge- $mission->getStatus()->color ">
-                                                 $mission->getStatus()->name  <i class="fas fa- $mission->getStatus()->icon "></i>
-                                            </span>
-                                        </td>
-                                        <td>
-                                             $mission->created_at->diffForHumans() 
-                                            <br>
-                                            <small>
-                                                 $mission->created_at->format('d/m/Y H:i A') 
-                                            </small>
-                                        </td>
-                                        <td>
-                                             $mission->updated_at->diffForHumans() 
-                                            <br>
-                                            <small>
-                                                 $mission->updated_at->format('d/m/Y H:i A') 
-                                            </small>
                                         </td>
                                         <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href=" route('home.mission.view', $mission->uuid) " class="btn btn-primary">
-                                                    View
-                                                </a>
-                                            </div>
+                                                {{ $user->created_at->diffForHumans() }}
+                                        </td>
+                                        <td class="text-center">
+                                                {{ $user->assigned_points }}
+                                        </td>
+                                        <td class="text-center">
+                                                {{ $user->points }}
+                                        </td>
+                                        <td>
+                                            {{ $user->comment }}
 
                                         </td>
                                     </tr>
-                                {{-- @empty
+                                @empty
                                     <div class="alert">
                                         Whoops! No data found *
                                     </div>
-                                @endforelse --}}
+                                @endforelse
 
                             </tbody>
                         </table>

@@ -7,6 +7,9 @@ use App\Models\Twitter;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Points;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Volunteers extends Controller
 {
@@ -98,6 +101,7 @@ class Volunteers extends Controller
     }
 
     public function points(){
-        return view('dashboard.home.points.index');
+        $user = Points::where('user_id', Auth::user()->id)->get();
+        return view('dashboard.home.points.index')->with('users', $user);
     }
 }
