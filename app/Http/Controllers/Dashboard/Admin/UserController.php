@@ -145,18 +145,21 @@ class UserController extends Controller
         $user->save();
 
         //POINTS TABLE
-        $points = new Points;
-        $points->user_id = $user->id;
-        $points->author = Auth::user()->name;
-        $points->points = $user->points;
-        $points->assigned_points = $request->points;
-        if($request->input('description')){
-            $points->comment = $request->input('description');
+        if($request->points != 0){
+            $points = new Points;
+            $points->user_id = $user->id;
+            $points->author = Auth::user()->name;
+            $points->points = $user->points;
+            $points->assigned_points = $request->points;
+            if($request->input('description') && $request->input('description') != "<p>Please Enter your reason for the points assigned to User</p>"){
+                $points->comment = $request->input('description');
+            }
+            else{
+                $points->comment = 'Contact your Senior';
+            }
+            $points->save();           
         }
-        else{
-            $points->comment = 'Contact your Senior';
-        }
-        $points->save();
+
 
 
 

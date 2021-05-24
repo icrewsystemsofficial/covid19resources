@@ -101,7 +101,7 @@ class Volunteers extends Controller
     }
 
     public function points(){
-        $user = Points::where('user_id', Auth::user()->id)->get();
+        $user = Points::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
         return view('dashboard.home.points.index')->with('users', $user);
     }
 }

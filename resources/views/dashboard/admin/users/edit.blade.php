@@ -252,7 +252,7 @@
                     <div class="form-group hidden" id="desc">
                         <div class="row">
                             <div class="col-md-5">
-                                <textarea name="description" id="description">Please Enter your reason for the points assigned to {{ $user->name }} </textarea>
+                                <textarea name="description" id="description">Please Enter your reason for the points assigned to User</textarea>
                             </div>
                         </div>
                     </div>
