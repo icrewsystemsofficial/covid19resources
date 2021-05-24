@@ -16,17 +16,16 @@ class BulkImport implements ToModel
     */
     public function model(array $row)
     {
+
+
         return new Resource([
-            'id'  => $row[0],
-            'category'   => $row[1],
-            'title'   => $row[2],
-            'body'    => $row[3],
-            'phone'  => $row[4],
-            'url'   => $row[5],
-            'author_id'    => $row[6],
-            'verified'  => $row[7],
-            'verified_by'   => $row[8],
-            
+            'title'   => $row[0],
+            'phone'   => $row[1],
+            'category'    => $row[2],
+            'city'  => $row[3],
+            'district'   => $row[4],
+            'state'    => $row[5],
+            'body'  => $row[6],
         ]);
     }
 }
