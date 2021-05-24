@@ -96,4 +96,8 @@ class Volunteers extends Controller
 
 
     }
+
+    public function points(){
+        return view('dashboard.home.points.index');
+    }
 }
