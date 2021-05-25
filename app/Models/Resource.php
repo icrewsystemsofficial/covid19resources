@@ -7,9 +7,12 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use BeyondCode\Comments\Traits\HasComments;
+use Laravel\Scout\Searchable;
+
 class Resource extends Model
 {
     use HasFactory, HasComments;
+    use Searchable;
     protected $table = 'resources';
 
     protected $fillable = [
