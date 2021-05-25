@@ -162,6 +162,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-uuid" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/algolia/scout-extended" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/riimu/kit-phpencoder" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

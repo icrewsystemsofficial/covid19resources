@@ -34,17 +34,21 @@ class ResourceImport implements ToCollection
 //           $resource['created_at'] = $data[7];
 
 
-            $category = Category::where('name', $resource['category'])->first();
 
+            $category = Category::where('name', $resource['category'])->get();
+            foreach($category as $cat) {
+                $id = $cat->id;
+            }
             $resources = new Resource;
             $resources->title = $resource['title'];
             $resources->body = $resource['body'];
             $resources->phone = $resource['phone'];
-            $resources->category = $category->id;
+            $resources->category = $id;
 //            $resources->category = 1;
             $resources->state = $resource['state'];
             $resources->city = $resource['city'];
             $resources->district = $resource['district'];
+            $resources->verified = 1;
             $resources->author_id = Auth::user()->id;
             $resources->save();
 

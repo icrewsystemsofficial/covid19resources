@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "algolia/algoliasearch-client-php": "^3.0",
+        "algolia/scout-extended": "^1.18",
         "anhskohbo/no-captcha": "^3.3",
         "beyondcode/laravel-comments": "^1.2",
         "fideloper/proxy": "^4.4.1",
