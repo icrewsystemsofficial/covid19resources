@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Points;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -138,10 +140,27 @@ class UserController extends Controller
         $user->district = $request->district;
         $user->accepted = $request->accepted;
 
-        $user->increment('points',$request->points);
-        
+        $user->increment('points',$request->points);        
         
         $user->save();
+
+        //POINTS TABLE
+        if($request->points != 0){
+            $points = new Points;
+            $points->user_id = $user->id;
+            $points->author = Auth::user()->name;
+            $points->points = $user->points;
+            $points->assigned_points = $request->points;
+            if($request->input('description') && $request->input('description') != "<p>Please Enter your reason for the points assigned to User</p>"){
+                $points->comment = $request->input('description');
+            }
+            else{
+                $points->comment = 'Contact your Senior';
+            }
+            $points->save();           
+        }
+
+
 
 
         $name =$user->name;

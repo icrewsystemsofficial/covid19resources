@@ -122,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [Volunteers::class, 'index'])->name('home.volunteers.index');
             Route::get('/test', [Volunteers::class, 'test']);
             Route::get('/missions', [Volunteers::class, 'getAllMissions']);
+            Route::get('/points', [Volunteers::class, 'points'])->name('home.points.index');
         });
 
         Route::prefix('mission')->group(function () {

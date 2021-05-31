@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard\Admin;
+
 use App\Imports\BulkImport;
 use App\Exports\ResourceExport;
+use App\Imports\ResourceImport;
 use App\Models\City;
 use App\Models\States;
 use App\Models\Category;
 use App\Models\Resource;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
@@ -16,20 +19,23 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ResourceController extends Controller
 {
-    public function admin_index() {
+    public function admin_index()
+    {
         return view('dashboard.admin.resources.index', [
             'resources' => Resource::all(),
         ]);
     }
 
-    public function admin_create() {
+    public function admin_create()
+    {
         return view('dashboard.admin.resources.create', [
             'categories' => Category::where('status', 1)->get(),
             'states' => States::all(),
         ]);
     }
 
-    public function admin_manage($id) {
+    public function admin_manage($id)
+    {
         return view('dashboard.admin.resources.manage', [
             'resource' => Resource::find($id),
             'categories' => Category::where('status', 1)->get(),
@@ -38,14 +44,13 @@ class ResourceController extends Controller
         ]);
     }
 
-    public function admin_save(Request $request) {
-
-        
+    public function admin_save(Request $request)
+    {
 
 
         $request->validate([
             'g-recaptcha-response' => 'required|captcha'
-        ],[
+        ], [
             'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
             'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
         ]);
@@ -59,24 +64,24 @@ class ResourceController extends Controller
         $resource->author_id = request('author_id');
         $resource->verified = request('status');
 
-        if(request('status') == 1) {
+        if (request('status') == 1) {
             $resource->verified_by = request('author_id');
         }
 
-        if(request('city') == '* All Cities') {
-        	$resource->city = request('city');
-        	$resource->district = '* All Districts';
-		    $resource->state = request('State');
-		    $resource->hasAddress = 0;
-        } else if(request('city') == '* Unavailable') {
-        	$resource->city = request('city');
-        	$resource->district = '* Unavailable';
-		    $resource->state = request('State');
-		    $resource->hasAddress = 0;
+        if (request('city') == '* All Cities') {
+            $resource->city = request('city');
+            $resource->district = '* All Districts';
+            $resource->state = request('State');
+            $resource->hasAddress = 0;
+        } else if (request('city') == '* Unavailable') {
+            $resource->city = request('city');
+            $resource->district = '* Unavailable';
+            $resource->state = request('State');
+            $resource->hasAddress = 0;
         } else {
-        	$city = City::where('name', request('city'))->first();
+            $city = City::where('name', request('city'))->first();
 
-            if($city) {
+            if ($city) {
                 $resource->city = $city->name;
                 $resource->district = $city->district;
                 $resource->state = $city->state;
@@ -90,14 +95,15 @@ class ResourceController extends Controller
                 $resource->hasAddress = 0;
             }
         }
-        
+
         $resource->save();
         notify()->success('Resource was added', 'Yayy!');
-        activity()->log('Admin Resource: '.$resource->title. ' resource had created');
+        activity()->log('Admin Resource: ' . $resource->title . ' resource had created');
         return redirect(route('admin.resources.index'));
     }
 
-    public function admin_update($id) {
+    public function admin_update($id)
+    {
 
         // dd(request()->input());
         $resource = Resource::find($id);
@@ -109,7 +115,7 @@ class ResourceController extends Controller
         $resource->author_id = request('author_id');
         $resource->verified = request('status');
 
-        if(request('status') == 1) {
+        if (request('status') == 1) {
             $resource->verified_by = request('author_id');
         }
 
@@ -122,11 +128,12 @@ class ResourceController extends Controller
         $resource->update();
 
         notify()->success('Resource was updated', 'Yayy!');
-        activity()->log('Admin Resource: '.$resource->title. ' resource had updated');
+        activity()->log('Admin Resource: ' . $resource->title . ' resource had updated');
         return redirect(route('admin.resources.index'));
     }
 
-    public function admin_delete($id) {
+    public function admin_delete($id)
+    {
 
         Resource::find($id)->delete();
 
@@ -138,19 +145,29 @@ class ResourceController extends Controller
 
     public function admin_resource_export()
     {
-        return Excel::download(new ResourceExport,'resources.xlsx');
+        return Excel::download(new ResourceExport, 'resources.xlsx');
     }
+
     public function admin_resource_importsample()
     {
-        return Excel::download(new ResourceExport,'resources.xlsx');
+        return Excel::download(new ResourceExport, 'resources.xlsx');
     }
-    public function admin_import(){
+
+    public function admin_import()
+    {
         return view('dashboard.admin.resources.import');
 
     }
-    public function import(){
-        Excel::import(new BulkImport,request()->file('select_file'));
-return back()->with('success', 'All good!');
 
+    public function import(Request  $request)
+    {
+        $request->validate([
+            'select_file' => ['required']
+    ]);
+
+        Excel::import(new ResourceImport, request()->file('select_file'));
+        notify()->success('Resources imported and added to the database successfully','Yay!');
+        return redirect()->route('admin.resources.index');
+//      return response()->json(200);
     }
 }

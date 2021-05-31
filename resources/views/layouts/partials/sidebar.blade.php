@@ -100,6 +100,13 @@
                         <p>Missions</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('home.points.index') }}">
+                        <i class="fas fa-star"></i>
+                        <p>Points</p>
+                    </a>
+                </li>
                 @endrole
 
                 @hasanyrole('superadmin|moderator')
