@@ -12,7 +12,7 @@ class SearchAggregator extends Aggregator
      * @var string[]
      */
     protected $models = [
-//         \App\Models\Twitter::class,
+        // \App\Models\Twitter::class,
         \App\Models\Resource::class
     ];
 }

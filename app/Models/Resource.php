@@ -11,8 +11,7 @@ use Laravel\Scout\Searchable;
 
 class Resource extends Model
 {
-    use HasFactory, HasComments;
-    use Searchable;
+    use HasFactory, HasComments, Searchable;
     protected $table = 'resources';
 
     protected $fillable = [

@@ -93,7 +93,8 @@
                 <div class="mb-5"></div>
 				@yield('content')
                 <div style="position: relative; z-index: 99999;">
-                    @include('notify::messages')
+                    {{-- @include('notify::notifications') --}}
+                    <x:notify-messages />
                 </div>
 			</div>
             @include('layouts.partials.footer')
