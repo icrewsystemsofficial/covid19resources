@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'icon' => '/vendor/kustomer/assets/icon.svg',
+    'icon' => '/vendor/kustomer/assets/back.svg',
 
     /*
     |--------------------------------------------------------------------------
