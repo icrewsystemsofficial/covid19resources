@@ -3,18 +3,27 @@
 @section('js')
     <script src="http://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        $('.select2').select2();
+        CKEDITOR.replace('description');
+    </script>
     <script>
         $(document).ready(function() {
             $('.select2').select2();
         });
+        
 
         
         function increaseBtnOnclick() {
         document.getElementById("points").value = Number(document.getElementById("points").value) + 1;
+        document.getElementById('desc').classList.remove('hidden');
         }
 
         function decreaseBtnOnclick() {
         document.getElementById("points").value = Number(document.getElementById("points").value) - 1;
+        document.getElementById('desc').classList.remove('hidden');
         }
 
 
@@ -239,6 +248,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group hidden" id="desc">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <textarea name="description" id="description">Please Enter your reason for the points assigned to User</textarea>
+                            </div>
+                        </div>
+                    </div>
                     
                         <div class="form-group">
                             <div class="row">
@@ -250,7 +267,7 @@
                                         } else if($user->accepted == 0) {
                                             $color = 'warning';
                                         }
-                                    @endphp
+                                        @endphp
                                     <div class="selectgroup selectgroup-{{ $color }} w-100 " id="selectGroup">
                                         <label class="selectgroup-item">
                                             <input type="radio"  onclick="changeSelectorColor('success');" name="accepted" value="1" {{ ($user->accepted == "1")? "checked" : "" }} class="selectgroup-input">

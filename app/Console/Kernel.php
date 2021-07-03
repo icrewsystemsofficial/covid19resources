@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
 
         // $schedule->command('scout:flush "App\Models\Twitter"')->hourlyAt(1);
         // $schedule->command('scout:import "App\Models\Twitter"')->hourlyAt(3);
-        // $schedule->command('scout:send-updates')->hourlyAt(4);
+        $schedule->command('scout:send-updates')->dailyAt('21:00');
 
         // $schedule->command('send:tweetstats')->dailyAt('21:00');
     }

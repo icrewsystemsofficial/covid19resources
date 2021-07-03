@@ -13,7 +13,7 @@ class ResourceExport implements FromCollection ,WithMapping, WithTitle,WithHeadi
     
     public function collection()
     {
-        return Resource::select('title','category','phone','city','district','state','created_at')
+        return Resource::select('title','category','phone','city','district','state','body','created_at')
                         ->where('verified','=','1')->get();
     }
 
@@ -25,6 +25,7 @@ class ResourceExport implements FromCollection ,WithMapping, WithTitle,WithHeadi
             $resources->city,
             $resources->district,
             $resources->state,
+            $resources->body,
             $resources->created_at->format('d/m/Y'),
         ];
     }
@@ -38,6 +39,7 @@ class ResourceExport implements FromCollection ,WithMapping, WithTitle,WithHeadi
             'City',
             'District',
             'State',
+            'body',
             'Created At'
         ];
     }

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Twitter extends Model
 {
     use HasFactory;
-    use Searchable;
+    // use Searchable;
 
 
     protected $blacklisted_words = array(
