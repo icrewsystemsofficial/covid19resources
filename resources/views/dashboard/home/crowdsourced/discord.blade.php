@@ -23,7 +23,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <tr><td>Covid Fighters (India)</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://discord.gg/VUrm3jKT') }}">Join Server</a></td></tr>
+                            <tr><td>Covid Fighters (India) - Pan India Resource Server</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://discord.gg/VUrm3jKT') }}">Join Server</a></td></tr>
                             </tbody>
                         </table>
                     </div>

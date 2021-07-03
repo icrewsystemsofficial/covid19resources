@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label for="title"><strong>Name</strong></label>
                             <input type="text" name="name" class="form-control" required />
-                        </div>
+                        </div>  
 
                         <div class="form-group">
                             <label for="description"><strong>Body</strong></label>

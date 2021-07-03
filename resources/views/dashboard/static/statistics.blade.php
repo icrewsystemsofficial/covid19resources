@@ -8,12 +8,15 @@
     </script>
 @endsection
 @section('content')
+
+
 <div class="page-inner">
     <div class="page-header mt-2">
         <h4 class="page-title">Statistics</h4>
     </div>
-    <p>
+    <p> 
         This is a collection of how much data we have handled and processed.
+        
     </p>
     <div class="row mt-2">
         <div class="col-md-12">

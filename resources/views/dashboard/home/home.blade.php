@@ -60,6 +60,7 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" integrity="sha512-VTd65gL0pCLNPv5Bsf5LNfKbL8/odPq0bLQ4u226UNmT7SzE4xk+5ckLNMuksNTux/pDLMtxYuf0Copz8zMsSA==" crossorigin="anonymous"></script>
 <script src="https://demo.themekita.com/atlantis/livepreview/examples/assets/js/plugin/select2/select2.full.min.js"></script>
+<script src="{{ asset('vendor/kustomer/js/kustomer.js') }}" defer></script>
 <script>
 
 function setCookie(cname, cvalue, exdays) {
@@ -343,44 +344,6 @@ var tourcompleted = getCookie("tourcompleted");
                         </span>
                     </div>
                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-4">
-                            <div class="card card-dark bg-danger-gradient">
-                                <div class="card-body pb-0">
-                                    <div class="h1 fw-bold float-right text-white" id="stats_confirmed_cases"></div>
-                                    <p class="text-white">Confirmed Cases</p>
-                                    <div class="pull-in sparkline-fix">
-                                        <div id="lineChart_2"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-dark bg-success-gradient">
-                                <div class="card-body pb-0">
-                                    <div class="h1 fw-bold float-right text-white" id="stats_recovered_cases"></div>
-                                    <p class="text-white">Recovered Cases</p>
-                                    <div class="pull-in sparkline-fix">
-                                        <div id="lineChart_3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-black">
-                                <div class="card-body pb-0">
-                                    <div class="h1 fw-bold float-right text-white" id="stats_deceased_cases"></div>
-                                    <p class="text-white">Deceased Cases</p>
-                                    <div class="pull-in sparkline-fix">
-                                        <div id="lineChart_4"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body">
                     <ul class="nav nav-pills nav-success  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                         <li class="nav-item submenu">
@@ -451,7 +414,11 @@ var tourcompleted = getCookie("tourcompleted");
                     </ul>
 
                     <div class="mt-2 text-center">
-                        <a href="{{ route('home.search') }}" class="btn btn-sm btn-warning">Looking for something in particular? A.I. Search <i class="fa fa-search"></i></a>
+                        <a href="{{ route('home.search') }}" class="btn  btn-sm btn-warning">Looking for something in particular? Twitter Search <i class="fab fa-twitter"></i></a>
+                    </div>
+
+                    <div class="mt-2 text-center">
+                        <a href="https://api.whatsapp.com/send?phone=+918248712864&text=Hi&app_absent=0" target="_blank" class="btn btn-sm  btn-success">Find resources on our Whatsapp Chatbot <i class="fab fa-whatsapp"></i></a>
                     </div>
 
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
