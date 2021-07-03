@@ -23,7 +23,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <tr><td>ICLU Covid Response</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://t.me/ICLUcovidresponse') }}">Join Channel</a></td></tr>
+                            <tr><td>ICLU Covid Response - Telegram Bot</td><td> <a type="button" target="_blank" class="btn btn-primary" href="{{ url('https://t.me/ICLUcovidresponse') }}">Join Channel</a></td></tr>
                             </tbody>
                         </table>
                     </div>
